@@ -1,8 +1,8 @@
 const fs = require('fs');
 const path = require('path');
 
-// Load the reviews data
-const reviewsDataPath = path.join(process.cwd(), 'reviews-data.js');
+// Read the reviews data
+const reviewsDataPath = path.join(__dirname, 'reviews-data.js');
 const reviewsDataContent = fs.readFileSync(reviewsDataPath, 'utf8');
 
 // Extract the reviews array from the JavaScript file
@@ -11,23 +11,17 @@ if (!reviewsMatch) {
   throw new Error('Could not find snarkflixReviews array in reviews-data.js');
 }
 
-const reviews = JSON.parse(reviewsMatch[1]);
+// Use eval to parse the JavaScript array (not recommended for production, but works for this use case)
+const reviews = eval('(' + reviewsMatch[1] + ')');
 
-exports.handler = async (event, context) => {
-  const { id } = event.pathParameters;
-  const review = reviews.find(r => r.id === parseInt(id));
-  
-  if (!review) {
-    return {
-      statusCode: 404,
-      body: 'Review not found'
-    };
-  }
+// Create review directory if it doesn't exist
+const reviewDir = path.join(__dirname, 'review');
+if (!fs.existsSync(reviewDir)) {
+  fs.mkdirSync(reviewDir);
+}
 
-  const baseUrl = 'https://snarkflix.netlify.app';
-  const reviewUrl = `${baseUrl}/review/${id}`;
-  const imageUrl = review.imageUrl.startsWith('http') ? review.imageUrl : `${baseUrl}/${review.imageUrl}`;
-  
+// Generate HTML for each review
+reviews.forEach(review => {
   const html = `<!DOCTYPE html>
 <html lang="en">
 <head>
@@ -39,20 +33,20 @@ exports.handler = async (event, context) => {
     
     <!-- Open Graph / Facebook -->
     <meta property="og:type" content="article">
-    <meta property="og:url" content="${reviewUrl}">
+    <meta property="og:url" content="https://snarkflix.netlify.app/review/${review.id}">
     <meta property="og:title" content="${review.title} Review - SnarkAI Score: ${review.aiScore}/100 | Snarkflix">
     <meta property="og:description" content="${review.title} - ${review.aiSummary.substring(0, 200)}...">
-    <meta property="og:image" content="${imageUrl}">
+    <meta property="og:image" content="https://snarkflix.netlify.app/${review.imageUrl}">
     <meta property="og:image:width" content="1200">
     <meta property="og:image:height" content="630">
     <meta property="og:site_name" content="Snarkflix">
 
     <!-- Twitter -->
     <meta property="twitter:card" content="summary_large_image">
-    <meta property="twitter:url" content="${reviewUrl}">
+    <meta property="twitter:url" content="https://snarkflix.netlify.app/review/${review.id}">
     <meta property="twitter:title" content="${review.title} Review - SnarkAI Score: ${review.aiScore}/100 | Snarkflix">
     <meta property="twitter:description" content="${review.title} - ${review.aiSummary.substring(0, 200)}...">
-    <meta property="twitter:image" content="${imageUrl}">
+    <meta property="twitter:image" content="https://snarkflix.netlify.app/${review.imageUrl}">
     <meta property="twitter:image:alt" content="${review.title} Review">
     <meta property="twitter:site" content="@snarkflix">
 
@@ -60,7 +54,7 @@ exports.handler = async (event, context) => {
     
     <script>
         // Redirect to the main page with the review parameter
-        window.location.href = '${baseUrl}?review=${id}';
+        window.location.href = 'https://snarkflix.netlify.app/?review=${review.id}';
     </script>
 </head>
 <body>
@@ -68,11 +62,10 @@ exports.handler = async (event, context) => {
 </body>
 </html>`;
 
-  return {
-    statusCode: 200,
-    headers: {
-      'Content-Type': 'text/html',
-    },
-    body: html
-  };
-};
+  // Write the HTML file
+  const filePath = path.join(reviewDir, `${review.id}.html`);
+  fs.writeFileSync(filePath, html);
+  console.log(`Generated review page for: ${review.title} (ID: ${review.id})`);
+});
+
+console.log(`Generated ${reviews.length} review pages`);

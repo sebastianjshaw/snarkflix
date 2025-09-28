@@ -153,31 +153,36 @@ function setupHeaderNavigation() {
     });
 }
 
-function loadReviews(page = 1, category = null) {
+function loadReviews(page = 1, category = currentCategory, searchTerm = currentSearchTerm, sort = currentSort) {
+    // Update global variables to match parameters
+    currentCategory = category;
+    currentSearchTerm = searchTerm;
+    currentSort = sort;
+    
     let filteredReviews = snarkflixReviews;
     
     // Filter by category if specified
     if (category && category !== 'all') {
-        filteredReviews = snarkflixReviews.filter(review => 
+        filteredReviews = filteredReviews.filter(review => 
             review.category === category
         );
     }
     
     // Filter by search term if specified
-    if (currentSearchTerm) {
-        const searchTerm = currentSearchTerm.toLowerCase();
+    if (searchTerm) {
+        const searchTermLower = searchTerm.toLowerCase();
         filteredReviews = filteredReviews.filter(review => 
-            review.title.toLowerCase().includes(searchTerm) ||
-            review.content.toLowerCase().includes(searchTerm) ||
-            review.tagline.toLowerCase().includes(searchTerm) ||
-            review.aiSummary.toLowerCase().includes(searchTerm) ||
-            review.category.toLowerCase().includes(searchTerm)
+            review.title.toLowerCase().includes(searchTermLower) ||
+            review.content.toLowerCase().includes(searchTermLower) ||
+            review.tagline.toLowerCase().includes(searchTermLower) ||
+            review.aiSummary.toLowerCase().includes(searchTermLower) ||
+            review.category.toLowerCase().includes(searchTermLower)
         );
     }
     
     // Sort based on current sort option
     filteredReviews = filteredReviews.sort((a, b) => {
-        switch (currentSort) {
+        switch (sort) {
             case 'latest':
                 // Sort by date (newest first)
                 const dateA = new Date(a.publishDate);
@@ -762,7 +767,7 @@ function setupEventListeners() {
     // Load more button
     if (loadMoreBtn) {
         loadMoreBtn.addEventListener('click', () => {
-            loadReviews(currentPage + 1);
+            loadReviews(currentPage + 1, currentCategory, currentSearchTerm, currentSort);
         });
     }
     
@@ -856,7 +861,7 @@ function setupSortDropdown() {
         sortDropdown.addEventListener('change', (e) => {
             currentSort = e.target.value;
             currentPage = 1; // Reset to first page when changing sort
-            loadReviews(1, currentCategory);
+            loadReviews(1, currentCategory, currentSearchTerm, currentSort);
         });
     }
 }
@@ -870,7 +875,7 @@ function setupSearch() {
         const debouncedSearch = debounce((searchTerm) => {
             currentSearchTerm = searchTerm;
             currentPage = 1; // Reset to first page when searching
-            loadReviews(1, currentCategory);
+            loadReviews(1, currentCategory, currentSearchTerm, currentSort);
         }, 300);
         
         searchInput.addEventListener('input', (e) => {
@@ -892,7 +897,7 @@ function setupSearch() {
             currentSearchTerm = '';
             currentPage = 1;
             clearSearchBtn.style.display = 'none';
-            loadReviews(1, currentCategory);
+            loadReviews(1, currentCategory, currentSearchTerm, currentSort);
         });
     }
 }

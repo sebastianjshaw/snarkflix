@@ -543,10 +543,24 @@ const snarkflixReviews = [
         category: "comedy",
         imageUrl: "images/reviews/ghostbusters-afterlife-2021/header-ghostbusters-afterlife.png",
         youtubeTrailer: "https://www.youtube.com/watch?v=ahZFCF--uRY&ab_channel=SonyPicturesEntertainment"
+    },
+    {
+        id: 37,
+        title: "Black Widow (2021)",
+        releaseYear: 2021,
+        publishDate: "Jul 17, 2021",
+        readingDuration: "1 min read",
+        aiScore: 65,
+        aiSummary: "tldr: Based on the review, I would assign this movie a score of around 65. While it is described as a decent film with strong characterisation for the main character, it suffers from Marvel's lack of faith in the character and questionable casting choices. The misrepresentation of Taskmaster is also a downside. Overall, it seems like a watchable movie, but not necessarily one that will leave a lasting impression.",
+        tagline: "Mostly suffers from Marvel not believing in the character enough to make the film when it was actually relevant, it's actually a pretty decent film overall.",
+        content: "Mostly suffers from Marvel not believing in the character enough to make the film when it was actually relevant, it's actually a pretty decent film overall.\n\nTaskmaster is not Taskmaster at all, which is a shame and the stunt double is so obvious when used that it's almost two different characters in a similar uniform. Would have been better to set it earlier in the timeline and use Winter Soldier, which would be a lot more impactful as a reveal.\n\nSome strong characterisation for Widow, but it's unfortunately too late to care. Location choices are on point though and I now really want to see David Harbour in The Boys as Vlad, but we never will because the TV version isn't fun it's 'realistic'.",
+        category: "action",
+        imageUrl: "images/reviews/black-widow-2021/header-black-widow.png",
+        youtubeTrailer: "https://www.youtube.com/watch?v=ybji16u608U&ab_channel=MarvelEntertainment"
     }
     
-    // Add 14 more reviews here...
-    // This is where you would add the remaining 14 reviews from your collection
+    // Add 13 more reviews here...
+    // This is where you would add the remaining 13 reviews from your collection
 ];
 
 // Export for use in other files

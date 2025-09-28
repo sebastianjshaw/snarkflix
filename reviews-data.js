@@ -608,10 +608,24 @@ const snarkflixReviews = [
         category: "drama",
         imageUrl: "images/reviews/the-revenant-2015/header-the-revenant.avif",
         youtubeTrailer: "https://www.youtube.com/watch?v=LoebZZ8K5N0&ab_channel=20thCenturyStudios"
+    },
+    {
+        id: 41,
+        title: "Bloodshot (2020)",
+        releaseYear: 2020,
+        publishDate: "Jun 26, 2020",
+        readingDuration: "1 min read",
+        aiScore: 35,
+        aiSummary: "tldr: Dumb",
+        tagline: "Dumb",
+        content: "Dumb",
+        category: "action",
+        imageUrl: "images/reviews/bloodshot-2020/header-bloodshot.avif",
+        youtubeTrailer: "https://www.youtube.com/watch?v=vOUVVDWdXbo&ab_channel=SonyPicturesEntertainment"
     }
     
-    // Add 10 more reviews here...
-    // This is where you would add the remaining 10 reviews from your collection
+    // Add 9 more reviews here...
+    // This is where you would add the remaining 9 reviews from your collection
 ];
 
 // Export for use in other files

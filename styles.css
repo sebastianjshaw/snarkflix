@@ -766,8 +766,10 @@ body {
 
 .snarkflix-categories-grid {
     display: grid;
-    grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+    grid-template-columns: repeat(4, 1fr);
     gap: var(--snarkflix-spacing-lg);
+    max-width: 800px;
+    margin: 0 auto;
 }
 
 .snarkflix-category-card {
@@ -975,7 +977,8 @@ body {
     }
     
     .snarkflix-categories-grid {
-        grid-template-columns: repeat(auto-fit, minmax(150px, 1fr));
+        grid-template-columns: repeat(2, 1fr);
+        max-width: 400px;
     }
 }
 
@@ -986,7 +989,8 @@ body {
     }
     
     .snarkflix-categories-grid {
-        grid-template-columns: repeat(2, 1fr);
+        grid-template-columns: repeat(3, 1fr);
+        max-width: 600px;
     }
 }
 
@@ -999,6 +1003,11 @@ body {
     
     .snarkflix-reviews-grid {
         grid-template-columns: repeat(3, 1fr);
+    }
+    
+    .snarkflix-categories-grid {
+        grid-template-columns: repeat(4, 1fr);
+        max-width: 800px;
     }
 }
 

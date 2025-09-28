@@ -963,8 +963,14 @@ body {
     }
     
     .snarkflix-hero {
-        padding: var(--snarkflix-spacing-xl) 0;
+        min-height: 60vh;
+        padding: 2rem 0;
         background-attachment: scroll; /* Better performance on mobile */
+    }
+    
+    .snarkflix-hero-logo {
+        max-width: 200px;
+        height: auto;
     }
     
     .snarkflix-hero-title {

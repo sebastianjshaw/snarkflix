@@ -488,8 +488,9 @@ body {
 }
 
 .snarkflix-share-icon {
-    font-size: var(--snarkflix-font-size-sm);
-    line-height: 1;
+    width: 16px;
+    height: 16px;
+    fill: currentColor;
 }
 
 .snarkflix-share-twitter:hover {
@@ -600,7 +601,8 @@ body {
     }
     
     .snarkflix-share-icon {
-        font-size: 12px;
+        width: 14px;
+        height: 14px;
     }
 }
 

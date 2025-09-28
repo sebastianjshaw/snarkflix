@@ -215,5 +215,20 @@
 
     <script src="reviews-data.js"></script>
     <script src="script.js"></script>
+    
+    <!-- Service Worker Registration -->
+    <script>
+        if ('serviceWorker' in navigator) {
+            window.addEventListener('load', () => {
+                navigator.serviceWorker.register('/sw.js')
+                    .then(registration => {
+                        console.log('Snarkflix Service Worker: Registered successfully', registration.scope);
+                    })
+                    .catch(error => {
+                        console.error('Snarkflix Service Worker: Registration failed', error);
+                    });
+            });
+        }
+    </script>
 </body>
 </html>

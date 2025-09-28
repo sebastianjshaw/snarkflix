@@ -934,6 +934,18 @@ body {
     }
 }
 
+/* Tablet breakpoint */
+@media (min-width: 768px) and (max-width: 1024px) {
+    .snarkflix-hero-content {
+        grid-template-columns: 1fr 1fr;
+        gap: 2rem;
+    }
+    
+    .snarkflix-reviews-grid {
+        grid-template-columns: repeat(3, 1fr);
+    }
+}
+
 @media (max-width: 480px) {
     .snarkflix-container {
         padding: 0 var(--snarkflix-spacing-sm);

@@ -594,10 +594,24 @@ const snarkflixReviews = [
         imageUrl: "images/reviews/wonder-woman-1984-2020/header-wonder-woman-1984.avif",
         additionalImage: "images/reviews/wonder-woman-1984-2020/image-wonder-woman-1984.avif",
         youtubeTrailer: "https://www.youtube.com/watch?v=XW2E2Fnh52w&ab_channel=WarnerBros."
+    },
+    {
+        id: 40,
+        title: "The Revenant (2015)",
+        releaseYear: 2015,
+        publishDate: "Jul 5, 2020",
+        readingDuration: "1 min read",
+        aiScore: 40,
+        aiSummary: "tldr: The critic seems to have a very negative view of the film, describing it as boring and self-indulgent, with only a few redeeming qualities such as some nice camera work. The criticism of confusing length with quality and violence with depth suggests a lack of substance or meaningful storytelling. A score of 40 indicates that the movie is below average and not worth recommending.",
+        tagline: "Revenant has some nice camera work. Shame about everything else.",
+        content: "Revenant has some nice camera work. Shame about everything else.\n\nIt's taken a couple of years to try watching it again after getting 20mins in and turning it off in total boredom.\n\nThe Revenant confuses length with quality and violence with depth. I was unsurprised to learn it had the same director as the tedious Birdman, another god-awful self-indulgent mess of a film(though for different reasons).",
+        category: "drama",
+        imageUrl: "images/reviews/the-revenant-2015/header-the-revenant.avif",
+        youtubeTrailer: "https://www.youtube.com/watch?v=LoebZZ8K5N0&ab_channel=20thCenturyStudios"
     }
     
-    // Add 11 more reviews here...
-    // This is where you would add the remaining 11 reviews from your collection
+    // Add 10 more reviews here...
+    // This is where you would add the remaining 10 reviews from your collection
 ];
 
 // Export for use in other files

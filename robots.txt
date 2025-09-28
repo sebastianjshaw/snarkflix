@@ -1,0 +1,4 @@
+User-agent: *
+Allow: /
+Disallow: /review/
+Sitemap: https://snarkflix.netlify.app/sitemap.xml

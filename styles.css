@@ -329,6 +329,67 @@ body {
     background: var(--snarkflix-light);
 }
 
+/* Reviews Header with Inline Sort Dropdown */
+.snarkflix-reviews-header {
+    text-align: center;
+    margin-bottom: var(--snarkflix-spacing-2xl);
+}
+
+.snarkflix-reviews-header .snarkflix-section-title {
+    display: inline-flex;
+    align-items: center;
+    gap: var(--snarkflix-spacing-sm);
+    margin: 0;
+}
+
+.snarkflix-sort-select {
+    padding: var(--snarkflix-spacing-xs) var(--snarkflix-spacing-sm);
+    border: 2px solid var(--snarkflix-border);
+    border-radius: var(--snarkflix-border-radius-sm);
+    background: var(--snarkflix-bg-primary);
+    color: var(--snarkflix-dark);
+    font-size: var(--snarkflix-font-size-2xl);
+    font-weight: 700;
+    cursor: pointer;
+    transition: all var(--snarkflix-transition-fast);
+    min-width: 100px;
+    text-align: center;
+    margin-right: var(--snarkflix-spacing-sm);
+}
+
+.snarkflix-sort-select:hover {
+    border-color: var(--snarkflix-accent);
+    box-shadow: 0 0 0 3px rgba(255, 193, 7, 0.1);
+}
+
+.snarkflix-sort-select:focus {
+    outline: none;
+    border-color: var(--snarkflix-accent);
+    box-shadow: 0 0 0 3px rgba(255, 193, 7, 0.2);
+}
+
+.snarkflix-sort-select option {
+    background: var(--snarkflix-bg-primary);
+    color: var(--snarkflix-text-primary);
+    padding: var(--snarkflix-spacing-sm);
+    font-size: var(--snarkflix-font-size-md);
+}
+
+/* Mobile responsiveness for reviews header */
+@media (max-width: 768px) {
+    .snarkflix-reviews-header .snarkflix-section-title {
+        flex-direction: column;
+        gap: var(--snarkflix-spacing-xs);
+    }
+    
+    .snarkflix-sort-select {
+        font-size: var(--snarkflix-font-size-lg);
+        min-width: 80px;
+        margin-right: 0;
+        margin-bottom: var(--snarkflix-spacing-xs);
+    }
+}
+
 .snarkflix-reviews-grid {
     display: grid;
     grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));

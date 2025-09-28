@@ -72,7 +72,16 @@
     <!-- Featured Reviews Section -->
     <section id="reviews" class="snarkflix-featured-reviews" role="main">
         <div class="snarkflix-container">
-            <h2 class="snarkflix-section-title">Latest Reviews</h2>
+            <div class="snarkflix-reviews-header">
+                <h2 class="snarkflix-section-title">
+                    <select id="sort-dropdown" class="snarkflix-sort-select">
+                        <option value="latest">Latest</option>
+                        <option value="best">Best</option>
+                        <option value="longest">Longest</option>
+                    </select>
+                    Reviews
+                </h2>
+            </div>
             <div class="snarkflix-reviews-grid" id="reviews-grid">
                 <!-- Reviews will be dynamically loaded here -->
             </div>

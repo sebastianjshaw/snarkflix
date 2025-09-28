@@ -96,6 +96,8 @@ let reviewsGrid;
 let loadMoreBtn;
 let currentPage = 1;
 const reviewsPerPage = 6;
+let currentSort = 'latest';
+let currentCategory = 'all';
 
 // Initialize the application
 document.addEventListener('DOMContentLoaded', function() {
@@ -112,6 +114,7 @@ function initializeApp() {
     setupEventListeners();
     setupAccessibility();
     setupCategoryFiltering();
+    setupSortDropdown();
     updateCategoryCounts();
     setupHeaderNavigation();
 }
@@ -153,6 +156,27 @@ function loadReviews(page = 1, category = null) {
             review.category === category
         );
     }
+    
+    // Sort based on current sort option
+    filteredReviews = filteredReviews.sort((a, b) => {
+        switch (currentSort) {
+            case 'latest':
+                // Sort by date (newest first)
+                const dateA = new Date(a.publishDate);
+                const dateB = new Date(b.publishDate);
+                return dateB - dateA;
+            case 'best':
+                // Sort by AI score (highest first)
+                return b.aiScore - a.aiScore;
+            case 'longest':
+                // Sort by reading duration (longest first)
+                const durationA = parseInt(a.readingDuration);
+                const durationB = parseInt(b.readingDuration);
+                return durationB - durationA;
+            default:
+                return 0;
+        }
+    });
     
     // Calculate pagination
     const startIndex = (page - 1) * reviewsPerPage;
@@ -441,7 +465,14 @@ function createReviewContentHTML(review) {
 }
 
 function loadRelatedReviews(currentReview) {
-    const relatedReviews = snarkflixReviews.filter(r => r.id !== currentReview.id).slice(0, 3);
+    const relatedReviews = snarkflixReviews
+        .filter(r => r.id !== currentReview.id)
+        .sort((a, b) => {
+            const dateA = new Date(a.publishDate);
+            const dateB = new Date(b.publishDate);
+            return dateB - dateA; // Newest first
+        })
+        .slice(0, 3);
     const relatedGrid = document.getElementById('related-reviews-grid');
     
     if (!relatedGrid) return;
@@ -565,6 +596,7 @@ function setupCategoryFiltering() {
             card.classList.add('snarkflix-category-active');
             
             // Load reviews for this category
+            currentCategory = category;
             currentPage = 1; // Reset current page when filtering
             loadReviews(1, category);
             
@@ -575,6 +607,18 @@ function setupCategoryFiltering() {
             });
         });
     });
+}
+
+function setupSortDropdown() {
+    const sortDropdown = document.getElementById('sort-dropdown');
+    
+    if (sortDropdown) {
+        sortDropdown.addEventListener('change', (e) => {
+            currentSort = e.target.value;
+            currentPage = 1; // Reset to first page when changing sort
+            loadReviews(1, currentCategory);
+        });
+    }
 }
 
 // Utility functions

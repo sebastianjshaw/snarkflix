@@ -319,7 +319,7 @@ const snarkflixReviews = [
     },
     
     {
-        id: 20,
+        id: 21,
         title: "Black Panther: Wakanda Forever (2022)",
         releaseYear: 2022,
         publishDate: "Feb 5, 2023",
@@ -334,7 +334,7 @@ const snarkflixReviews = [
         youtubeTrailer: "https://www.youtube.com/watch?v=RlOB3UALvrQ&ab_channel=MarvelEntertainment"
     },
     {
-        id: 21,
+        id: 22,
         title: "Black Adam (2022)",
         releaseYear: 2022,
         publishDate: "Nov 23, 2022",
@@ -348,7 +348,7 @@ const snarkflixReviews = [
         youtubeTrailer: "https://www.youtube.com/watch?v=X0tOpBuYasI"
     },
     {
-        id: 22,
+        id: 23,
         title: "The Suicide Squad (2021)",
         releaseYear: 2021,
         publishDate: "Aug 7, 2022",
@@ -362,7 +362,7 @@ const snarkflixReviews = [
         youtubeTrailer: "https://www.youtube.com/watch?v=eg5ciqQzmK0&ab_channel=WarnerBros."
     },
     {
-        id: 23,
+        id: 24,
         title: "Pitch Perfect (2012)",
         releaseYear: 2012,
         publishDate: "May 18, 2022",
@@ -376,7 +376,7 @@ const snarkflixReviews = [
         youtubeTrailer: "https://www.youtube.com/watch?v=8dItOM6eYXY"
     },
     {
-        id: 24,
+        id: 25,
         title: "The Batman (2022)",
         releaseYear: 2022,
         publishDate: "Apr 17, 2022",
@@ -390,7 +390,7 @@ const snarkflixReviews = [
         youtubeTrailer: "https://www.youtube.com/watch?v=mqqft2x_Aa4&ab_channel=WarnerBros."
     },
     {
-        id: 25,
+        id: 26,
         title: "Moonfall (2022)",
         releaseYear: 2022,
         publishDate: "Apr 4, 2022",
@@ -404,7 +404,7 @@ const snarkflixReviews = [
         youtubeTrailer: "https://www.youtube.com/watch?v=vEIm_d1YuVI"
     },
     {
-        id: 26,
+        id: 27,
         title: "Finch (2021)",
         releaseYear: 2021,
         publishDate: "Jan 29, 2022",
@@ -418,7 +418,7 @@ const snarkflixReviews = [
         youtubeTrailer: "https://www.youtube.com/watch?v=-0bYWnP3jH4&ab_channel=AppleTV"
     },
     {
-        id: 27,
+        id: 28,
         title: "The Man Who Killed Hitler and Then the Bigfoot (2018)",
         releaseYear: 2018,
         publishDate: "Jan 25, 2022",
@@ -432,7 +432,7 @@ const snarkflixReviews = [
         youtubeTrailer: "https://www.youtube.com/watch?v=UkP4bZKCHE8&ab_channel=RLJEFilms"
     },
     {
-        id: 28,
+        id: 29,
         title: "Wolfwalkers (2020)",
         releaseYear: 2020,
         publishDate: "Jan 22, 2022",
@@ -446,7 +446,7 @@ const snarkflixReviews = [
         youtubeTrailer: "https://www.youtube.com/watch?v=G_4pQzHJUQA&ab_channel=Wolfwalkers"
     },
     {
-        id: 29,
+        id: 30,
         title: "No Time to Die (2021)",
         releaseYear: 2021,
         publishDate: "Jan 22, 2022",
@@ -460,7 +460,7 @@ const snarkflixReviews = [
         youtubeTrailer: "https://www.youtube.com/watch?v=BIhNsAtPbPI"
     },
     {
-        id: 30,
+        id: 31,
         title: "Fantastic Four: First Steps (2025)",
         releaseYear: 2025,
         publishDate: "Sep 28, 2025",
@@ -475,7 +475,7 @@ const snarkflixReviews = [
         youtubeTrailer: "https://www.youtube.com/watch?v=MIla9S7Ojyo&ab_channel=FandangoatHome"
     },
     {
-        id: 31,
+        id: 32,
         title: "Don't Look Up (2021)",
         releaseYear: 2021,
         publishDate: "Jan 22, 2022",

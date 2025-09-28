@@ -218,7 +218,7 @@
     
     <!-- Service Worker Registration -->
     <script>
-        if ('serviceWorker' in navigator) {
+        if ('serviceWorker' in navigator && (location.protocol === 'https:' || location.hostname === 'localhost' || location.hostname === '127.0.0.1')) {
             window.addEventListener('load', () => {
                 navigator.serviceWorker.register('/sw.js')
                     .then(registration => {
@@ -228,6 +228,10 @@
                         console.error('Snarkflix Service Worker: Registration failed', error);
                     });
             });
+        } else if (location.protocol === 'file:') {
+            console.log('Snarkflix Service Worker: Skipped - Service workers require HTTPS or localhost');
+        } else {
+            console.log('Snarkflix Service Worker: Not supported in this browser');
         }
     </script>
 </body>

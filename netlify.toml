@@ -1,9 +1,10 @@
 [build]
   publish = "."
+  functions = "netlify/functions"
 
 [[redirects]]
   from = "/review/:id"
-  to = "/index.html?review=:id"
+  to = "/.netlify/functions/review-meta/:id"
   status = 200
 
 [[redirects]]

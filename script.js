@@ -51,12 +51,13 @@ document.addEventListener('DOMContentLoaded', function() {
             updateMetaTag('og:title', `${review.title} Review - SnarkAI Score: ${review.aiScore}/100 | Snarkflix`);
             updateMetaTag('og:description', `${review.title} - ${review.aiSummary.substring(0, 200)}...`);
             updateMetaTag('og:image', getAbsoluteUrl(review.imageUrl));
-            updateMetaTag('og:url', `${window.location.origin}/review/${review.id}`);
+            const cleanOrigin = window.location.origin.replace(/\/$/, '');
+            updateMetaTag('og:url', `${cleanOrigin}/review/${review.id}`);
             
             updateMetaTag('twitter:title', `${review.title} Review - SnarkAI Score: ${review.aiScore}/100 | Snarkflix`);
             updateMetaTag('twitter:description', `${review.title} - ${review.aiSummary.substring(0, 200)}...`);
             updateMetaTag('twitter:image', getAbsoluteUrl(review.imageUrl));
-            updateMetaTag('twitter:url', `${window.location.origin}/review/${review.id}`);
+            updateMetaTag('twitter:url', `${cleanOrigin}/review/${review.id}`);
             
             // Update page title and description
             document.title = `${review.title} Review - SnarkAI Score: ${review.aiScore}/100 | Snarkflix`;
@@ -306,7 +307,8 @@ function shareReview(review, platform) {
     }
     
     // Use a cleaner URL format for better social media support
-    const reviewUrl = `${baseUrl.replace(/\/index\.html$/, '')}/review/${review.id}`;
+    const cleanBaseUrl = baseUrl.replace(/\/index\.html$/, '').replace(/\/$/, '');
+    const reviewUrl = `${cleanBaseUrl}/review/${review.id}`;
     const encodedUrl = encodeURIComponent(reviewUrl);
     const encodedTitle = encodeURIComponent(review.title);
     const encodedDescription = encodeURIComponent(review.tagline);
@@ -479,13 +481,14 @@ function createReviewPage(review) {
     updateMetaTag('og:title', `${review.title} Review - SnarkAI Score: ${review.aiScore}/100 | Snarkflix`);
     updateMetaTag('og:description', `${review.title} - ${review.aiSummary.substring(0, 200)}...`);
     updateMetaTag('og:image', getAbsoluteUrl(review.imageUrl));
-    updateMetaTag('og:url', `${window.location.origin}/review/${review.id}`);
+    const cleanOrigin = window.location.origin.replace(/\/$/, '');
+    updateMetaTag('og:url', `${cleanOrigin}/review/${review.id}`);
     
     // Update Twitter Card meta tags
     updateMetaTag('twitter:title', `${review.title} Review - SnarkAI Score: ${review.aiScore}/100 | Snarkflix`);
     updateMetaTag('twitter:description', `${review.title} - ${review.aiSummary.substring(0, 200)}...`);
     updateMetaTag('twitter:image', getAbsoluteUrl(review.imageUrl));
-    updateMetaTag('twitter:url', `${window.location.origin}/review/${review.id}`);
+    updateMetaTag('twitter:url', `${cleanOrigin}/review/${review.id}`);
     
     // Hide all existing sections except header and footer
     const sectionsToHide = document.querySelectorAll('section:not(.snarkflix-header):not(.snarkflix-footer)');

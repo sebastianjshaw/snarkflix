@@ -430,7 +430,7 @@ function insertImagesInContent(review) {
         if (imagePositions.includes(index) && imageIndex < allImages.length) {
             result += `
                 <div class="snarkflix-review-image-inline">
-                    <img src="${allImages[imageIndex]}" alt="${review.title} additional image" class="snarkflix-review-img-inline">
+                    <img src="${allImages[imageIndex]}" alt="${review.title} additional image" class="snarkflix-review-img-inline" loading="lazy">
                 </div>
             `;
             imageIndex++;
@@ -639,7 +639,7 @@ function createReviewContentHTML(review) {
                 
                 <div class="snarkflix-review-hero-image">
                     <div class="snarkflix-container">
-                        <img src="${review.imageUrl}" alt="${review.title} movie poster" class="snarkflix-review-hero-img">
+                        <img src="${review.imageUrl}" alt="${review.title} movie poster" class="snarkflix-review-hero-img" loading="lazy">
                     </div>
                 </div>
                 

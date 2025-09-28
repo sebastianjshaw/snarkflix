@@ -31,6 +31,9 @@ reviews.forEach(review => {
     <meta name="keywords" content="movie reviews, film criticism, snarky reviews, cinema, movies, entertainment, ${review.title}">
     <meta name="author" content="Snarkflix">
     
+    <!-- Canonical URL -->
+    <link rel="canonical" href="https://snarkflix.netlify.app/review/${review.id}">
+    
     <!-- Open Graph / Facebook -->
     <meta property="og:type" content="article">
     <meta property="og:url" content="https://snarkflix.netlify.app/review/${review.id}">

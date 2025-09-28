@@ -172,6 +172,51 @@ body {
     transition: var(--snarkflix-transition);
 }
 
+/* Breadcrumb Navigation */
+.snarkflix-breadcrumb {
+    background: var(--snarkflix-light);
+    padding: var(--snarkflix-spacing-sm) 0;
+    border-bottom: 1px solid #e9ecef;
+}
+
+.snarkflix-breadcrumb ol {
+    max-width: 1200px;
+    margin: 0 auto;
+    padding: 0 var(--snarkflix-spacing-md);
+    display: flex;
+    list-style: none;
+    gap: var(--snarkflix-spacing-sm);
+}
+
+.snarkflix-breadcrumb li {
+    display: flex;
+    align-items: center;
+    font-size: var(--snarkflix-font-size-sm);
+}
+
+.snarkflix-breadcrumb li:not(:last-child)::after {
+    content: "›";
+    margin-left: var(--snarkflix-spacing-sm);
+    color: var(--snarkflix-gray);
+    font-weight: bold;
+}
+
+.snarkflix-breadcrumb a {
+    color: var(--snarkflix-primary);
+    text-decoration: none;
+    transition: var(--snarkflix-transition);
+}
+
+.snarkflix-breadcrumb a:hover {
+    color: var(--snarkflix-secondary);
+    text-decoration: underline;
+}
+
+.snarkflix-breadcrumb li[aria-current="page"] {
+    color: var(--snarkflix-gray);
+    font-weight: 500;
+}
+
 /* Hero Section */
 .snarkflix-hero {
     background: linear-gradient(rgba(0, 0, 0, 0.4), rgba(0, 0, 0, 0.6)), url('images/site-assets/background.avif');

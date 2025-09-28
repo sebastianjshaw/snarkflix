@@ -390,6 +390,38 @@ function insertImagesInContent(review) {
     return result;
 }
 
+// Helper function to update meta tags
+function updateMetaTag(property, content) {
+    let metaTag = document.querySelector(`meta[property="${property}"]`) || 
+                  document.querySelector(`meta[name="${property}"]`);
+    
+    if (!metaTag) {
+        metaTag = document.createElement('meta');
+        if (property.startsWith('og:') || property.startsWith('twitter:')) {
+            metaTag.setAttribute('property', property);
+        } else {
+            metaTag.setAttribute('name', property);
+        }
+        document.head.appendChild(metaTag);
+    }
+    
+    metaTag.setAttribute('content', content);
+}
+
+// Helper function to get absolute URL for images
+function getAbsoluteUrl(imagePath) {
+    if (imagePath.startsWith('http')) {
+        return imagePath;
+    }
+    
+    // For local development or relative paths
+    if (window.location.protocol === 'file:') {
+        return `${window.location.origin}/${imagePath}`;
+    } else {
+        return `${window.location.origin}/${imagePath}`;
+    }
+}
+
 function createReviewPage(review) {
     // Update the page title
     document.title = `${review.title} Review - SnarkAI Score: ${review.aiScore}/100 | Snarkflix`;
@@ -399,6 +431,18 @@ function createReviewPage(review) {
     if (metaDescription) {
         metaDescription.setAttribute('content', `${review.title} - ${review.aiSummary.substring(0, 150)}...`);
     }
+    
+    // Update Open Graph meta tags
+    updateMetaTag('og:title', `${review.title} Review - SnarkAI Score: ${review.aiScore}/100 | Snarkflix`);
+    updateMetaTag('og:description', `${review.title} - ${review.aiSummary.substring(0, 200)}...`);
+    updateMetaTag('og:image', getAbsoluteUrl(review.imageUrl));
+    updateMetaTag('og:url', `${window.location.origin}${window.location.pathname}#review-${review.id}`);
+    
+    // Update Twitter Card meta tags
+    updateMetaTag('twitter:title', `${review.title} Review - SnarkAI Score: ${review.aiScore}/100 | Snarkflix`);
+    updateMetaTag('twitter:description', `${review.title} - ${review.aiSummary.substring(0, 200)}...`);
+    updateMetaTag('twitter:image', getAbsoluteUrl(review.imageUrl));
+    updateMetaTag('twitter:url', `${window.location.origin}${window.location.pathname}#review-${review.id}`);
     
     // Hide all existing sections except header and footer
     const sectionsToHide = document.querySelectorAll('section:not(.snarkflix-header):not(.snarkflix-footer)');
@@ -451,6 +495,18 @@ function returnToHomepage() {
     if (metaDescription) {
         metaDescription.setAttribute('content', 'Snarky movie reviews with a side of sass. Join our small but mighty team as we take a lighthearted and entertaining approach to critiquing films.');
     }
+    
+    // Reset Open Graph meta tags
+    updateMetaTag('og:title', 'Snarkflix - Snarky Movie Reviews');
+    updateMetaTag('og:description', 'Snarky movie reviews with a side of sass. Join our small but mighty team as we take a lighthearted and entertaining approach to critiquing films.');
+    updateMetaTag('og:image', getAbsoluteUrl('images/site-assets/logo.avif'));
+    updateMetaTag('og:url', `${window.location.origin}${window.location.pathname}`);
+    
+    // Reset Twitter Card meta tags
+    updateMetaTag('twitter:title', 'Snarkflix - Snarky Movie Reviews');
+    updateMetaTag('twitter:description', 'Snarky movie reviews with a side of sass. Join our small but mighty team as we take a lighthearted and entertaining approach to critiquing films.');
+    updateMetaTag('twitter:image', getAbsoluteUrl('images/site-assets/logo.avif'));
+    updateMetaTag('twitter:url', `${window.location.origin}${window.location.pathname}`);
     
     // Show all existing sections
     const sectionsToShow = document.querySelectorAll('section');

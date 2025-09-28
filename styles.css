@@ -505,11 +505,6 @@ body {
     color: white;
 }
 
-.snarkflix-share-linkedin:hover {
-    background: #0077b5;
-    border-color: #0077b5;
-    color: white;
-}
 
 .snarkflix-share-copy:hover {
     background: var(--snarkflix-accent);

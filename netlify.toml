@@ -2,11 +2,6 @@
   publish = "."
 
 [[redirects]]
-  from = "/review/:id"
-  to = "/review/:id.html"
-  status = 200
-
-[[redirects]]
   from = "/*"
   to = "/index.html"
   status = 200

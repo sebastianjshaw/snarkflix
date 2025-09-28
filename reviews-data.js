@@ -7,6 +7,7 @@
 // Required fields for each review:
 // - id: unique number (increment from last review)
 // - title: "Movie Title (Year)"
+// - releaseYear: number (actual release year of the movie)
 // - publishDate: "MMM DD, YYYY" format
 // - readingDuration: "X min read"
 // - aiScore: number 0-100
@@ -22,6 +23,7 @@ const snarkflixReviews = [
     {
         id: 1,
         title: "Superman (2025)",
+        releaseYear: 2025,
         publishDate: "Aug 1, 2025",
         readingDuration: "3 min read",
         aiScore: 79,
@@ -36,6 +38,7 @@ const snarkflixReviews = [
     {
         id: 2,
         title: "Wicked (2024)",
+        releaseYear: 2024,
         publishDate: "Jan 2, 2024",
         readingDuration: "5 min read",
         aiScore: 65,
@@ -54,6 +57,7 @@ const snarkflixReviews = [
     {
         id: 4,
         title: "The Boy and the Heron (2023)",
+        releaseYear: 2023,
         publishDate: "Nov 30, 2024",
         readingDuration: "6 min read",
         aiScore: 70,
@@ -71,6 +75,7 @@ const snarkflixReviews = [
     {
         id: 5,
         title: "The Man from Earth (2007)",
+        releaseYear: 2007,
         publishDate: "Nov 30, 2024",
         readingDuration: "2 min read",
         aiScore: 78,
@@ -85,6 +90,7 @@ const snarkflixReviews = [
     {
         id: 6,
         title: "Wonka (2023)",
+        releaseYear: 2023,
         publishDate: "Feb 9, 2024",
         readingDuration: "4 min read",
         aiScore: 35,
@@ -99,6 +105,7 @@ const snarkflixReviews = [
     {
         id: 7,
         title: "The Marvels (2023)",
+        releaseYear: 2023,
         publishDate: "Feb 3, 2024",
         readingDuration: "4 min read",
         aiScore: 68,
@@ -116,6 +123,7 @@ const snarkflixReviews = [
     {
         id: 8,
         title: "To Me, the One Who Loved You (2022)",
+        releaseYear: 2022,
         publishDate: "May 23, 2023",
         readingDuration: "3 min read",
         aiScore: 67,
@@ -129,6 +137,7 @@ const snarkflixReviews = [
     {
         id: 9,
         title: "To Every You I've Loved Before (2022)",
+        releaseYear: 2022,
         publishDate: "May 23, 2023",
         readingDuration: "3 min read",
         aiScore: 68,
@@ -142,6 +151,7 @@ const snarkflixReviews = [
     {
         id: 10,
         title: "The Super Mario Bros. Movie (2023)",
+        releaseYear: 2023,
         publishDate: "May 21, 2023",
         readingDuration: "3 min read",
         aiScore: 45,
@@ -156,6 +166,7 @@ const snarkflixReviews = [
     {
         id: 11,
         title: "Prey (2022)",
+        releaseYear: 2022,
         publishDate: "May 7, 2023",
         readingDuration: "5 min read",
         aiScore: 72,
@@ -170,6 +181,7 @@ const snarkflixReviews = [
     {
         id: 12,
         title: "The Royal Tenenbaums (2001)",
+        releaseYear: 2001,
         publishDate: "May 1, 2023",
         readingDuration: "3 min read",
         aiScore: 85,
@@ -184,6 +196,7 @@ const snarkflixReviews = [
     {
         id: 13,
         title: "Cocaine Bear (2023)",
+        releaseYear: 2023,
         publishDate: "Apr 26, 2023",
         readingDuration: "8 min read",
         aiScore: 60,
@@ -202,6 +215,7 @@ const snarkflixReviews = [
     {
         id: 14,
         title: "The Whale (2022)",
+        releaseYear: 2022,
         publishDate: "Apr 23, 2023",
         readingDuration: "8 min read",
         aiScore: 85,
@@ -216,6 +230,7 @@ const snarkflixReviews = [
     {
         id: 15,
         title: "Dungeons & Dragons: Honour Amongst Thieves (2023)",
+        releaseYear: 2023,
         publishDate: "Apr 16, 2023",
         readingDuration: "3 min read",
         aiScore: 90,
@@ -233,6 +248,7 @@ const snarkflixReviews = [
     {
         id: 16,
         title: "Winnie the Pooh: Blood and Honey (2023)",
+        releaseYear: 2023,
         publishDate: "Apr 15, 2023",
         readingDuration: "7 min read",
         aiScore: 18,
@@ -246,6 +262,7 @@ const snarkflixReviews = [
     {
         id: 17,
         title: "Pinocchio (2022)",
+        releaseYear: 2022,
         publishDate: "Apr 7, 2023",
         readingDuration: "4 min read",
         aiScore: 65,
@@ -260,6 +277,7 @@ const snarkflixReviews = [
     {
         id: 18,
         title: "Avatar: The Way of Water (2022)",
+        releaseYear: 2022,
         publishDate: "Apr 2, 2023",
         readingDuration: "10 min read",
         aiScore: 45,
@@ -274,6 +292,7 @@ const snarkflixReviews = [
     {
         id: 19,
         title: "M3GAN (2023)",
+        releaseYear: 2023,
         publishDate: "Mar 27, 2023",
         readingDuration: "5 min read",
         aiScore: 30,
@@ -287,6 +306,7 @@ const snarkflixReviews = [
     {
         id: 20,
         title: "Shazam! Fury of the Gods (2023)",
+        releaseYear: 2023,
         publishDate: "Mar 18, 2023",
         readingDuration: "2 min read",
         aiScore: 80,
@@ -298,8 +318,179 @@ const snarkflixReviews = [
         youtubeTrailer: "https://www.youtube.com/watch?v=AIc671o9yCI&ab_channel=WarnerBros."
     },
     
-    // Add 19 more reviews here...
-    // This is where you would add the remaining 19 reviews from your collection
+    {
+        id: 20,
+        title: "Black Panther: Wakanda Forever (2022)",
+        releaseYear: 2022,
+        publishDate: "Feb 5, 2023",
+        readingDuration: "4 min read",
+        aiScore: 65,
+        aiSummary: "While the movie is entertaining, it falls short of being a truly great film. The review points out several flaws, such as the green screening and the inconsistencies in characterizations. The criticisms of the plot also suggest that it doesn't hold up well to closer scrutiny. However, the review also highlights some positive aspects, such as the introduction of new characters and the inclusion of Mayan culture. Overall, it seems that the movie has some enjoyable moments, but it may not be as impressive as its predecessor.",
+        tagline: "It's entertaining, but not nearly the sensation the first one was.",
+        content: "I'm going to start with how hilarious it is that Shuri spent half the movie in a lab trying to synthesize a herb with magical healing properties, given that the actress is an anti-vaxxer. It's still odd for Wakanda to be a fight-club-based monarchy, particularly as they're no longer ruled by a superhuman. The Queen's decisions around Okoye reinforce the problems of unfettered power.\n\nThe green screening when they are in Wakanda isn't great; the light in the foreground and background just don't match.\n\nNamor is a travesty of his character. He would never yield, no matter the impact; he's too proud by far. The fact that he can't even pronounce his own name is a little embarrassing... It's SO strange that they've changed everything about this character but kept his silly ankle wings. The one thing you know wouldn't work in live action is what they kept. But it's nice to start seeing mutants in the MCU. I just can't see his and Sue's relationship working as it should. But his hatred of scientists and progress bodes well for the conflict with Mr Fantastic. The Atlanteans being racist, murdery assholes is about right though. The statement of 'breathe the air our ancestors breathed' is a weird way to describe your mum, Namor, given that you literally just finished saying she took a herb and transformed into a water breather.\n\nHaving just got back from visiting Mayan ruins, it is cool seeing some of them in BP2, and seeing the underwater Pok Ta' Pok being played. With a sub-aquatic Mayan culture, we now have two ultra-powered nations who just watched colonisation when they could have stopped it and chose not to. Maybe this should be called \"Black Panther 2: Killmonger's Still Right.\"\n\nM'Baku is great. Both his plans and his pointed mockery of the Council. Wakanda would probably have been better off just putting him in charge rather than T'Challa back in Movie 1.\n\nShuri wandering around in a Fresh Prince of Bel-Air style tracksuit is hilarious. Okoye just threw a jacket over her uniform and called it a day. I'm glad someone did something about Ross's ongoing treason. Kinda annoying he got broken out, as normally countries just abandon their spies if they get caught.\n\nRiri's intro is better than it has any right to be given the mediocre source material. The suit's not as good as the comics, but Ironheart's suit is a bit too much like Ironman's in the comics, so it's better it's more different. But it drags like nobody's business between her intro and her getting to do anything at all.\n\nIt's difficult to see Julia Louis-Dreyfus as anything other than VEEP when she's in this film, so it's hard to see her as capable.\n\nThere must be a very rich builder in Wakanda, given how often people ram their spearpoints into the floors.\n\nMichaela Coel was criminally underused, but still awesome to see her. Between Chewing Gum, Black Earth Rising, I May Destroy You, and now the MCU, she's really showcasing range.\n\nDumbest moment: Shuri and her mother talk about AI, and Shuri disregards the risk of rogue AI, saying, \"it's not like the movies, mother,\" when she lives in a world where a rogue AI literally almost ended the world a couple of years before.\n\nSecond dumbest: a water mask for Atlanteans that inexplicably also works as an oxygen mask for regular people. Why would that be a feature designed in? \"Join me in my war or I will wash you from the face of the earth\" is a really stupid way to try and get a trustworthy ally, especially after murdering the Queen. Like, at this point, assume they are your enemy. (Also, the Queen gets her face on the coffin, but T'Challa just gets the Black Panther mask? Odd choice).\n\nIt's also entirely unclear why Wakanda doesn't bring in allies of their own. Even without national treaties, they're owed some favours from some people who could quite rapidly solve the Namor issue. But that's a critique of every Marvel film that doesn't feature the Avengers. Fun, pretty film, but the plot doesn't really hold up to any thought.\n\nThe bit with the secret kid who will be Black Panther is stupid and borderline misogynistic to Shuri now she's taken the mantel. It's a bit of Marvel saying (again) we don't think our female leads can carry a franchise.",
+        category: "action",
+        imageUrl: "images/reviews/black-panther-wakanda-forever/header-black-panther-wakanda-forever.avif",
+        additionalImage: "images/reviews/black-panther-wakanda-forever/image-black-panther-wakanda-forever.avif",
+        youtubeTrailer: "https://www.youtube.com/watch?v=RlOB3UALvrQ&ab_channel=MarvelEntertainment"
+    },
+    {
+        id: 21,
+        title: "Black Adam (2022)",
+        releaseYear: 2022,
+        publishDate: "Nov 23, 2022",
+        readingDuration: "2 min read",
+        aiScore: 40,
+        aiSummary: "The review highlights several issues with the movie, including a clunky and dull storyline, poor character development, and an inconsistent tone. While the visuals and cast are good, they do not make up for the flaws in the film. A score of 40 indicates that the movie is below average and not worth watching unless you are a die-hard fan of the genre or actors.",
+        tagline: "Deeply mediocre and it really shouldn't be.",
+        content: "It's visually great.\n\nThe cast is good, Fate (Brosnan sounding tired with everything and everyone), Hawkman (discount Kevin Hart), Cyclone (if you ordered Zendaya from Wish.com), and Atom Smasher (spare Ezra Miller) all have clear, distinct powers, and really fun execution of them.\n\nKahndaq feels really 'real' with the ruins as landmarks and restorations, but the story is clunky and dull (and I assume it was the Rock who said he should be a slave and not the Prince of Egypt from the actual character background).\n\nThe story goes through this weird attempt to make the Rock the hero even though he's an unrepentant psycho from the moment he's on screen is disappointing. There's like one moment of him adjusting to the new world (Mirrors are a new thing to him, he has no issue with guns, helicopters, televisions or cars) otherwise he's as modern as anyone else. And the cringe-inducing JSA announcement that 'we're here for Global Stability' is just silly, they may as well be saying 'we're here for the military-industrial complex, keep being subjugated peasants'.\n\nAn hour in and the stakes have never been lower. Literally, there are no stakes at this point in the film other than some obnoxious kid who has a serious deathwish, Adam squishing regular people, (who are members of intergang but have no way to hurt him) more for something to do than any real motivation from the character. The JSA are ineffectively wandering around occasionally fighting him or talking to him but mostly just bantering with each other. Adam also gets into the bantering. This is tonally odd for an ex-slave from 5,000 years ago who became a rage-fueled god. And then 20 seconds later he totally fails to understand humour. It's jarring. You can feel The Rock's manager pushing for \"more quips! Marvel made a movie in a CAVE WITH QUIPS!\" to try and reach their success rather than Snyders's deeply mediocre achievements.\n\nThe government's specialists in dealing with Meta Humans, Task Force X, just leave supervillains lying around the loading bay available for anyone to wander over to and has no training or weaponry to defeat a regular person let alone a supervillain.\n\nUgh and \"this villain died clutching a mystical artifact specifically related to Death.\" \"ok, cool, let's shove him in a bodybag and ignore him and leave it with him.\" Bringing back Adam once he's contained because 'he's the only one who can defeat the bad guy' when Superman exists and is explicitly referenced and shows up later as a favor to Waller is insanely daft and poorly scripted.\n\nShazam is the better Shazam movie and it's not even close.",
+        category: "action",
+        imageUrl: "images/reviews/black-adam/header-black-adam.avif",
+        youtubeTrailer: "https://www.youtube.com/watch?v=X0tOpBuYasI"
+    },
+    {
+        id: 22,
+        title: "The Suicide Squad (2021)",
+        releaseYear: 2021,
+        publishDate: "Aug 7, 2022",
+        readingDuration: "2 min read",
+        aiScore: 80,
+        aiSummary: "While there are some flaws in the film, such as the poor visual effects for certain characters and the questionable portrayal of some of the villains, the reviewer still found it enjoyable and worth watching. The strong performance by Idris Elba and the execution of the main plot point highlighted, and the glimpses into Harley Quinn's character added to the entertainment value. Overall, it seems like a decent action flick with some enjoyable moments.",
+        tagline: "A thousand times better than its predecessor and a bit of a giggle, until it isn't.",
+        content: "King Shark looks worse than in the Flash TV show, same for Thinker, which is a shame. Polka-dot Man is fantastic. Shock to no one that Elba is much better than Smith as Bloodsport/Deadshot, but it's a shame Elba keeps taking dubious roles as a superhero.\n\nGlad they don't try and keep the subject of Project Starfish a surprise as it's a no-brainer, but a good execution of it.\n\nHarley has a very weird dislike of someone killing kids for a character who has killed thousands Margot Robbie does a good job with an ongoing badly written Harley, and the glimpses into her psychosis are fun. It's a similar issue to the Rock and Black Adam in that\n\nHarley Quinn and the Black Adam are villains, but the actors are famous A-listers who really want to be liked, so their character is skewed to be better at the expense of the thing that makes the character compelling in the first place.\n\nIt also served as a backdoor pilot to Peacemaker which was an exceptional show.\n\nWorth a watch.",
+        category: "action",
+        imageUrl: "images/reviews/the-suicide-squad/header-the-suicide-squad.png",
+        youtubeTrailer: "https://www.youtube.com/watch?v=eg5ciqQzmK0&ab_channel=WarnerBros."
+    },
+    {
+        id: 23,
+        title: "Pitch Perfect (2012)",
+        releaseYear: 2012,
+        publishDate: "May 18, 2022",
+        readingDuration: "3 min read",
+        aiScore: 70,
+        aiSummary: "While the review acknowledges that the movie has some strong aspects, such as its cast and the entertaining riff-off scenes, it also points out some flaws, such as the forced love story and the clinical nature of the competition songs. Additionally, the review notes that the movie has become somewhat dated, particularly in regards to Rebel Wilson's portrayal of Fat Amy. Overall, while the movie may be enjoyable as a comfort film, it may not be a standout in terms of quality or impact.",
+        tagline: "It is a Beca/Chloe love story that the network insisted on adding a cishet romance to and no one can tell me different.",
+        content: "More early Glee than High School Musical, the Pitch Perfect franchise was the somewhat surprising peak of the odd acapella craze that swept the world and then disappeared. A strong cast of Anna Kendrick, Rebel Wilson and a bunch of 'oh, i know them from that thing' actors.\n\nRebel Wilson, or Fat Amy (Fat Patricia) is the but of her own jokes for a lot of the movie, in her own words 'so skinny bitches like you' can't get their first. its one of the few raw and honest things we get from Fat Amy, she's making the jokes because it hurts less when people laugh at your words than someone else saying them. Its a comment that's never returned to in three movies, instead Amy's presented as almost obnoxiously and certainly comically confident in herself. It reads somewhat strangely now with Rebel's dramatic weight loss.\n\nPitch Perfect is one of my comfort movies, its something I've seen a half dozen times. Each watch I try and see if there is any evidence the guy was in the original shoot of the film or if he was cut in. Its hard to tell, he's in almost no scenes with the Bella's where he's interacting with Beca in a meaningful way. Briefly in the outdoor party, an argument at the competition.\n\nI've seen this film over and over again and I cannot tell you his name. His hobby is liking movies. That's not a hobby (and I say this writing a blog about movies!). His roommate is an awkward close-up magician who loves Star Wars. Bumper is a weird fat guy with surprising charisma.\n\nOtherwise its her and him in her room, or on the quad or at the radio station. The whole relationship feels like it was bolted onto the real story.\n\nBeca' and Chloe's first real interaction, naked in the shower staring into each others eyes harmonizing Titanium and Chloe being clear it's the song she uses when she's dancing by herself starts their connection and then with the Bella's around them they once again can't take their eyes from each other as they merge \"Her Eyes\" and \"Just the way you are\".\n\nChloe: \"Her eyes, her eyes, make it look like the stars look like their not shining.\"\nBeca: \"I was thinking 'bout her, thinking 'bout me. Thinking 'bout us, what we gon' be.\"\nThe hoops you have to jump through when seeing those to look at each other, singing those lyrics, and believe the day-old oatmeal in the shape of a man is Beca's passion is more than Chloe is more than our finest gymnasts could manage on their best day.\n\nThe competition songs are fun but a bit clinical. The riff-offs though, they're where this franchise shines, even if it is something the Bella's are absolutely terrible at.\n\nGo get a hot chocolate, a bucket of popcorn and watch Pitch Perfect on a dark winter night and see if you can remember the name of that human equivalent of Lorum Ipsum.",
+        category: "musical",
+        imageUrl: "images/reviews/pitch-perfect/header-pitch-perfect.avif",
+        youtubeTrailer: "https://www.youtube.com/watch?v=8dItOM6eYXY"
+    },
+    {
+        id: 24,
+        title: "The Batman (2022)",
+        releaseYear: 2022,
+        publishDate: "Apr 17, 2022",
+        readingDuration: "4 min read",
+        aiScore: 40,
+        aiSummary: "The reviewer criticizes many aspects of the film, including the director, the length, and the inconsistency in tone. The score indicates that this movie is below average and not very enjoyable to watch. While there are some positives, such as the aesthetics of the Batcave and Batsuit, they are not enough to outweigh the negatives.",
+        tagline: "C- It is not the worst thing that DC has put out, but it still does not achieve the CW's work, let alone BTAS, STAS, or Justice League Unlimited.",
+        content: "Let's start with DC once again insisting on a 3-hour-long film. Why do they do this? A tight 2 hours would help a lot. Also, Snyder is a hack and should never be allowed to direct a superhero film. (I know he didn't direct this one, but it bears repeating because he's so very incompetent.)\n\nPattinson's voice is terrible; it's uncertain and hesitant rather than driven and lacks any sense of authority. Ironically, Gordon's (Bernard) natural-speaking voice would have been an outstanding Batman.\n\nThe junior joker gang at the start is nice, very Beyond or Dark Knight Rises. I was hoping for a 'Shway' to be thrown in. It's not a good sign that our first real encounter is slapstick with a car accident (and we'll keep getting poorly placed slapstick throughout), and then we get Darth Vader-style entrance music, which is a little too on the nose. The VO doing lines like \"I am the shadows\" is way too 2009 Tumblr 3edgy5me, and the sadboi soundtrack is grating. Is he vengeance or is he a sad emo boy? Pick a tone. This is an ongoing problem. It's super dark (no, really, the cinematographer apparently graded the film using black paint), but with slapstick. He's got hyper-tech, but writes in a journal and chalk. He's a billionaire, but his suit doesn't fit (it's like he's wearing the clothes of a much larger man). He does a cool escape, then messes up, and we get a jackass-style result.\n\nThe aesthetics of the Batcave are great. The Batsuit looks great. The eye makeup is surprisingly fun as a reveal, though cowl off it does push Bruce more to emo again. Love the silly bat contacts, and we're at least getting some consistent Detective, which is, ya know, Batman's whole thing and the main reason I'm not a fan of Nolan's work is that you could do a find/replace on Batman with Ninja in Dark Knight, and it would be a stronger film.\n\nThe casting for the 'riddler' is just hot garbage and would have worked better as Professor Pyg as that's kinda what they're doing. Riddler's almost as bad as Leto's Joker (and worse than Ledger or Phoenix who wasn't exactly good). When you watch it and unironically think 'I miss Jim Carrey,' you know you dun goofed. Penguin's solid, though he's more Falcone than Cobblepot, but given we've had DeVito & Robin Taylor's Penguin, I can see why a director who knows he's fucked up casting so badly with Riddler would play it safe.\n\nYes to gliding with his cape! No to doing it as a wingsuit so he looks like a flying squirrel... It's a bit off-brand for Batman to sit around shirtless; part of his whole psychosis is seeing himself as Batman, and Bruce is a mask. He's always in the suit, maybe without the cowl, when he's working in the cave. But show me a superhero film that doesn't lean into a bit of beefcake, and this is less gratuitous than Batflek's Crossfit session or half of Marvel's moments.\n\nIt's madness to me that there's another 1h20m still to go at the 1h30 mark.\n\nBut so far, no pearls falling to the ground. This is a massive step up from seeing it three times when Snyder drew his Justice League screenplay in crayons.\n\nThe neck collar on a prisoner is so huge it would just fit back over his head.\n\nRandom dog being all IDGAF swimming about is top tier. (Note, The Batman would be improved by the addition of Dog-Welder as a sidekick instead of the bland Catwoman.) Oh yeah, Catwoman is in this. I'm struggling to think of any examples of agency she shows at any point that isn't reacting to Batman.\n\nToo many 'end of Fight Club' shots in this film.\n\nCurious to know who the mayoral candidate will turn out to be. No way she's good. She's alive and in Gotham politics.\n\nThere is an EW review that I read that described Justice League as \"Everything takes forever to go nowhere,\" and that is true here as well. It is an ongoing problem in DC's films, with rare exceptions (WW, Shazam, Aquaman). They are so desperate to seem deep, dark, edgy, and 'real' that they spend hours dragging you through stories that just do not matter.",
+        category: "action",
+        imageUrl: "images/reviews/the-batman/header-the-batman.avif",
+        youtubeTrailer: "https://www.youtube.com/watch?v=mqqft2x_Aa4&ab_channel=WarnerBros."
+    },
+    {
+        id: 25,
+        title: "Moonfall (2022)",
+        releaseYear: 2022,
+        publishDate: "Apr 4, 2022",
+        readingDuration: "1 min read",
+        aiScore: 10,
+        aiSummary: "Based on the review provided, it seems that the movie in question was very poorly received by the reviewer. Given the negative tone and language used in the review, I would assign this movie a score of 10 out of 100. This score indicates that the movie is very bad and not worth watching.",
+        tagline: "Holy Christ this is a dumb movie.",
+        content: "I'd like the Christian god to know I'll be using this experience as proof of time served in Hell so will be expecting a fast track into Heaven despite my many and varied sins.",
+        category: "sci-fi",
+        imageUrl: "images/reviews/moonfall/header-moonfall.avif",
+        youtubeTrailer: "https://www.youtube.com/watch?v=vEIm_d1YuVI"
+    },
+    {
+        id: 26,
+        title: "Finch (2021)",
+        releaseYear: 2021,
+        publishDate: "Jan 29, 2022",
+        readingDuration: "3 min read",
+        aiScore: 30,
+        aiSummary: "This review describes the film as slow and lacking in interesting ideas, with a weak script and direction. The characters' actions and decisions are criticized as illogical and sometimes even harmful. Although the reviewer finds Tom Hanks likable, they don't believe his performance is enough to save the movie. Overall, the review suggests a disappointing experience that falls far short of a 'good' movie, with a score of 30 reflecting this sentiment.",
+        tagline: "D- Short Circuit, Robocop, Chappie, and even the very mediocre Ex-Machina are better AI films.",
+        content: "Known as the nicest man in Hollywood (a bar that has lowered dramatically in the past decade), Tom Hanks decides he needs to build a robot to look after his dog and ignore all the suffering humans in this broken world (I can empathize, Goodyear's a cutie). Big sandstorms seem to be the main issue the world faces, so it's safe to assume Africa is totally fine given that it's currently a regular occurrence downwind of the Sahara.\n\nAt first glance, the apocalypse can only have happened a week or two before given the delicate wind farms still working despite the mentioned massive sandstorms (it was apparently 10 years ago though). In his private bunker, which he decides to leave due to a convenient storm that hasn't happened in the past ten years, Hanks has a robot destroying books to scan them, which is a super weird choice given that it has already happened pre-collapse and access to them disappeared due to, you know, the collapse. So maybe he should be preserving books as analogue information rather than reducing humanity's already dwindling information for his own personal server? We're 13 minutes in, and I'm already of the opinion that Hanks is doing more harm than good for the world.\n\nHe then makes some really terrifying decisions in the fourth directive he's created. Legit terrible ideas that will lead to a second apocalypse. But this isn't a film that explores interesting ideas. It's a family buddy movie that leans heavily on the fact Hanks is a lovely man playing a lonely one, a dog who is adorable, and a robot that is kinda fun even if it flails about like Lee Evans being tasered.\n\nA better script and a better director would have made this a much better film. Give it Fallout's tone of apocalyptic horror, humor, and desperation. Follow Hanks as he accidentally releases a paperclip optimizer AI on the world. Instead, we have Hanks just being weirdly short-tempered with his groundbreaking leap forward in artificial consciousness because it isn't understanding idioms on its first day of consciousness.\n\nReturning to Hank's terrible planning. Sandstorms are a big thing for some reason, to the point cities are a few feet deep in sand. But despite having full robot building facilities, he's not bothered weather-sealing his robot creations.\n\nThis film is slow, but not 'slow because it's doing a lot of world-building to a crescendo'. It is slow because it has nothing interesting to say.\n\nAlso, Hanks decides near the end to dress up like one of those ultra-racist southern 'gentlemen,' which is a weird choice. But maybe his character was a racist. Who knows, everyone is dead, so he didn't get to show us if he is or not.\n\nBut American Pie's a banger.",
+        category: "sci-fi",
+        imageUrl: "images/reviews/finch/header-finch.avif",
+        youtubeTrailer: "https://www.youtube.com/watch?v=-0bYWnP3jH4&ab_channel=AppleTV"
+    },
+    {
+        id: 27,
+        title: "The Man Who Killed Hitler and Then the Bigfoot (2018)",
+        releaseYear: 2018,
+        publishDate: "Jan 25, 2022",
+        readingDuration: "1 min read",
+        aiScore: 40,
+        aiSummary: "The review suggests that it is not a good film and not bad enough to be enjoyable. The plot seems nonsensical, and the attempted seriousness of the movie clashes with its absurd premise. The review also notes the American glorification of the hunter/hero archetype, which may detract from the film's overall quality.",
+        tagline: "It's not a good film and it's not bad enough to be fun.",
+        content: "First of what? Second of all, it has Sam Elliot and a bunch of 'oh, I know that guy actors in it. The plot is exactly what it sounds like. And makes just as much sense. There's a whole bit about a super plague that's not in the title but I guess \"The Man Who Killed Hitler and then the Bigfoot and Stopped a Plague\" is a bit wordy.\n\nOh, Sam's immune to the deadly plague for some reason. But they still figure he's best to send to fight the Bigfoot hand to hand rather than, you know, do some tests on to find a cure. The Bigfoot is very silly looking, being more like a mummy or a ghoul than an animal.\n\nThe attempted cremation scene is unintentionally hilarious. There's projectile vomiting too. This is one of those films that takes itself way too seriously for the incredibly daft concept and execution.\n\nIt suffers from the American adoration of the long hunter/hero and the nobility of hunting as an activity.",
+        category: "action",
+        imageUrl: "images/reviews/the-man-who-killed-hitler-and-then-the-bigfoot/header-the-man-who-killed-hitler-and-then-the-bigfoot.avif",
+        youtubeTrailer: "https://www.youtube.com/watch?v=UkP4bZKCHE8&ab_channel=RLJEFilms"
+    },
+    {
+        id: 28,
+        title: "Wolfwalkers (2020)",
+        releaseYear: 2020,
+        publishDate: "Jan 22, 2022",
+        readingDuration: "1 min read",
+        aiScore: 85,
+        aiSummary: "The cool animation style and beautiful scenery changes are positives that enhance the movie's enjoyment. The reviewer also notes that the accents are well-done, which suggests that attention was paid to small details that can make a difference in the overall experience. However, the reviewer notes that there are some unfinished edges to the animation that detract from the overall experience. Despite this, the reviewer concludes that the magic representation is lovely, and overall, the movie is well worth watching.",
+        tagline: "Cool animation style, very reminiscent of likes like Watership Downs or Animals of Farthingwood, but with an almost unfinished edge to it at times in the forest vs sharp lines of the town.",
+        content: "Certain scenes are like a tapestry. The scenery changes behind characters reflecting emotion is lovely. You can also tell it's not American-made because the accents are good. Love the super cheerful guy in the stocks 'Bye, you know where to find me, iffin you're looking for me!'\n\nThe magic representation is lovely. Well worth a watch.",
+        category: "animation",
+        imageUrl: "images/reviews/wolfwalkers/header-wolfwalkers.avif",
+        youtubeTrailer: "https://www.youtube.com/watch?v=G_4pQzHJUQA&ab_channel=Wolfwalkers"
+    },
+    {
+        id: 29,
+        title: "No Time to Die (2021)",
+        releaseYear: 2021,
+        publishDate: "Jan 22, 2022",
+        readingDuration: "2 min read",
+        aiScore: 30,
+        aiSummary: "The lack of coherence in the script and the silly opening scene would make it difficult for viewers to take the movie seriously. The age difference between Bond and his girlfriend is also a point of concern, and the fact that the protagonist shows no emotional attachment to his partner further detracts from the film's overall appeal. The attempted combination of gritty dialogue and lighting with over-the-top action sequences also undermines the movie's effectiveness. The brief appearance of Hugh Dennis is a positive aspect, but overall, this film fails to meet the criteria of a well-made and entertaining movie.",
+        tagline: "I'm worried this film was scripted by an AI after it read all the other Bond scripts.",
+        content: "Assuming the lack of blood everywhere is an attempt to keep a low rating, but combined with the Japanese opera masks does make the whole opening scene deeply silly. Turns out Bonds retired to an island or a village or whatever again, but oh no, he has to come out of retirement, but then he is back in retirement on a different island soon after. Saying that I'd watch a Bond film that was him retiring over and over again to progressively more remote locations and being found by increasingly more dishevelled agents trying to get him to come back.\n\nBond's girlfriend in this is 36, and he's 54. There's a whole legal adult of age between them. Gross.\n\nThe second things start going off the rails, James decides he's got absolutely no interest in his partner/girlfriend/lover and just shows her less emotion than you would a stranger. He should probably talk to a therapist about that speed of disassociation. it's not healthy.\n\nGone are the days of 'this is a realistic gritty James Bond' and we're back to smoke bombs and guns behind headlights. Despite this, the dialogue and lighting keep trying to say gritty. But it's hard to be seriously talking about nanobots with a guy dressed like Phantom of the Opera.\n\nNice to see Hugh Dennis getting some work though, though briefly.\n\nThis film should have ended with M on convicted of war crimes and executed. Creating a biological weapon that can target family lines, race or individuals that's also a Von Neumann machine is worse than anything any of the actual villains has ever done, and doing it off the books...",
+        category: "action",
+        imageUrl: "images/reviews/no-time-to-die/header-no-time-to-die.avif",
+        youtubeTrailer: "https://www.youtube.com/watch?v=BIhNsAtPbPI"
+    },
+    {
+        id: 30,
+        title: "Fantastic Four: First Steps (2025)",
+        releaseYear: 2025,
+        publishDate: "Sep 28, 2025",
+        readingDuration: "2 min read",
+        aiScore: 82,
+        aiSummary: "Retro-futurist flair, clever worldbuilding, and the best-looking Thing ever put on screen make this FF outing the first one that actually feels worthy of the name. Reed is written perfectly—brilliant, insufferable, and just creepy enough to remind us why body-horror stretching should be part of the package—though his actual powers are undercooked. Sue finally gets her due, from ultrasound scans to smart stealth tactics, even if the \"mama bear\" boost is cliché. Johnny's downgrade to \"ugly but smart\" is a head-scratcher, but his fire looks great and his Surfer crush tracks. Surfer herself (yes, herself) is well-done if not quite reflective enough to sell the cosmic mirror concept. The clip-show intro is genius, the FTL ship is stunning, and the satirical nods to humanity's selective skepticism hit harder than some of the punches. Galactus looks right but comes off a bit small—and yeah, the nose is distracting. Still, this is sharp, stylish, and finally makes Marvel's First Family feel like the legends they are.",
+        tagline: "I herald his beginning I herald your end. I herald a decent FF Film finally!",
+        content: "Herbie is great, lets start with that. The clip show talkshow intro is really smart and works really well both tonally and in a storytelling context. Giving us Moleman and Red Ghost as clips introducig them on stage is great worldbuilding. The 60s retro futurism is amazing, really impressivly done, the mix of styling and constraints is impecable. such as printing physical records for the audio transmissions, because they're still analoge evenw ith FTL. I want a darkwashed version of the asthetic for a live action BTAS immediatly.\n\nThe interesting thing of an empty seat for latvera in the FF/UN meeting is facinating given the stinger, it means Sue know's who's in the green cloak.\n\nWe get the best looking Thing by miles. Not even close. The actor and the CGI really conveys Ben's good heart and deep depression. I enjoy his beard, but they could have had fun with him using a chisel like a straight razor. I'm not sure why we get Natasha Lyonne as \"Rachel Rozman\" for a love interest when she looks just like Alicia Masters and we get a namecheck on Puppet Master. I can only assume its so we can get the synagogue scene, though they shy away from giving Ben an explicit need for his Rabbis spiritual guidence. WHich is deeply odd given he's perhaps the most famous Jewish superhero in comic media. (And no, before the casuals come in claiming Spider-Man is jewish, he is not. Peter B. Parker in Spiderverse is implied to at least be a convert with the wedding flashback, but 616 is cannonically an agnostic who was raised protestant by his irish-american family).\n\nJohnny plays a more crucial role than normal, which is great, but it's odd that they've gone down the ugly but smart Johnny route. Given his whole thing is being the handsome, charming playboy. His fire powers are great though, particularly when he's just a bit on fire. His statement as to why he likes the Silver Surfer is because \"I could see my face in her face\" is quite comics' Johnny though. His insistence on working through the translations and setting up the whole audio presentation is great.\n\nThey establish a really good balance between Reed and Sue. His constant prioritisation of science over social expectations and him struggling to see why it matters \"Anyone can build a crib, only I can build this\" and no understanding why she's upset he chose the machine over the crib even as she knew he would and accepts it. Reed's overreacting and trying to solve all crime in NY is great very Reed and the line he walks between hero and Maker. His powers are probably the weaknesst in terms of what we see. We see the genius, but not the body horror that is Reed at his best. He moves his kids to his face to sniff him, rather than moving his nose to the kid like Reed should. He barely stretches even with Galactus pulling him. He's disappointing for that. Especially as that's why Ms Marvel didn't have stretching powers on her show, because Reed was coming and they wanted to reduce confusion. (leading to her comic character getting new mutant powers to synergise, which is so bonkers it could be a comic plot.) Reed's attitude though, this is the reed who would or will labotomize his son to save planets. He'd do it knowing Sue won't forgive him, but he'll do it.\n\nThe invisible woman's use of her power as an ultrasound is *chefs kiss*. Her hiding the ship as they explore is great too. The films rarely make the most of her invisibility, too much of the force fields. I really enjoy her balance of frustration and acceptance of Reed. She knows who he is, but sometimes, you can see from her face she wishes he wasn't quite so Reed all the time. The 'Mama Bear' powerboost is predictable and always a bit trite. I also like her pushing Galactus back, but its clear she can do it because of leverage and weights. She's not stronger than him, she's stronger than Galactus like some incels shrieked, she's stronger than the tarmac.\n\nSurfer is good, though Norin Rads baldness translates better on screen to Shalla-Bal's hair. The mostionlessness of it makes it more like a helmet. I wish the Surfer was a bit more reflective, I think that would look amazing in space, to be reflecting the stars and nebula around her. Surfer surfing lava is a great visual. Dumb, but great.\n\nThe FTL ship. I love it. It is beautiful. The mix of retro and future! The weightlessness! Ben's space suit not actually covering all of him because he doesn't need it to is a great touch.\n\nFF: \"we are going to teleport the world to a new solar system billions of miles away\"\nHumanity: \"Sounds good. No concerns, we'll do everything we can!\"\n\nReal life: \"We need you to wear a mask due to the overwhelming data it saves lives\"\nHumanity: \"We don't believe you!! I'm going to cough in the face of the elderly to prove you are wrong\"\n\nPlease note: There was no teleportation bridge on the moon, so the teleport would have ruined the eartha ecosystem regardless.\n\nGalactus is very accurate but maybe a bit small (he's inconsistent in the comics tbf) And he has a weird nose (sorry if that is just the actors nose)\n\nNot using the person who's power is invisibility to hide the baby during the swap is a choice...\n\nAnd in the end Galactus was defeated with help from Silver Surfer which is very accurate.\n\nGalactus has now met Franklin so when Franklin makes galactus his herald he at least knows who he is.",
+        category: "action",
+        imageUrl: "images/reviews/fantastic-four-first-steps/header-fantastic-four-first-steps.png",
+        additionalImage: "images/reviews/fantastic-four-first-steps/image-fantastic-four-first-steps.png",
+        youtubeTrailer: "https://www.youtube.com/watch?v=MIla9S7Ojyo&ab_channel=FandangoatHome"
+    },
+    {
+        id: 31,
+        title: "Don't Look Up (2021)",
+        releaseYear: 2021,
+        publishDate: "Jan 22, 2022",
+        readingDuration: "2 min read",
+        aiScore: 80,
+        aiSummary: "While the reviewer mentions some criticisms, such as the similarity to another work and the overuse of close-cropped shots, they also highlight the strong performances by the cast and the compelling storytelling that captures the stress and frustration of facing an extinction-level event. Additionally, the reviewer notes that the film feels refreshingly realistic and relevant to the current political climate, adding to its overall impact.",
+        tagline: "It feels far too realistic for satire.",
+        content: "Depressingly good, though achingly familiar to Ben Elton's outstanding novel Stark in a lot of respects particularly the epilogue.\n\nSeth Rogan's well-cast as a smug self-important douche you immediately hate, just like his every character and real-life personality. Ariana Grande continues to impress with her self-aware sense of humor. There's also hilarity to the fact Leo's wife and his girlfriend in this film are more age-appropriate than the women Leo dates in real life. She's likely older than the mothers of many of Leo's girlfriends.\n\nThe sense of stress and frustration comes through, familiar to anyone who's tried to convince an unwilling audience of something you know to be true, to be self-evident almost, and yet to be facing the stubborn stares of people who just don't want to agree.\n\nIt's refreshing to see people actually reacting to an extinction-level event, rather than the normal stoic heroics. People panic and flail and make bad decisions, its very human in its storytelling.\n\nThe line \"He's a platinum Eagle level donor to the campaign. He has full clearance\" is painful in its credibility in a Trump-era America.\n\nMy only visual complaint is that it looks like the Art Director just discovered close-cropped shots and loves them.",
+        category: "comedy",
+        imageUrl: "images/reviews/dont-look-up/header-dont-look-up.avif",
+        youtubeTrailer: "https://www.youtube.com/watch?v=RbIxYm3mKzI&ab_channel=Netflix"
+    }
+    
+    // Add 18 more reviews here...
+    // This is where you would add the remaining 18 reviews from your collection
 ];
 
 // Export for use in other files

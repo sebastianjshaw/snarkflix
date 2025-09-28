@@ -37,7 +37,34 @@ let currentSearchTerm = '';
 // Initialize the application
 document.addEventListener('DOMContentLoaded', function() {
     initializeApp();
+    checkForSharedReview();
 });
+
+// Listen for hash changes (back/forward navigation)
+window.addEventListener('hashchange', function() {
+    checkForSharedReview();
+});
+
+// Check if there's a review ID in the URL hash and open it
+function checkForSharedReview() {
+    const hash = window.location.hash;
+    const reviewMatch = hash.match(/#review-(\d+)/);
+    
+    if (reviewMatch) {
+        const reviewId = parseInt(reviewMatch[1]);
+        const review = snarkflixReviews.find(r => r.id === reviewId);
+        
+        if (review) {
+            // Small delay to ensure the page is fully loaded
+            setTimeout(() => {
+                createReviewPage(review);
+            }, 100);
+        }
+    } else if (hash === '' || hash === '#') {
+        // If hash is empty, return to homepage
+        returnToHomepage();
+    }
+}
 
 function initializeApp() {
     // Get DOM elements
@@ -171,12 +198,39 @@ function createReviewElement(review) {
             </div>
             <p class="snarkflix-review-summary">${review.aiSummary}</p>
             <p class="snarkflix-review-tagline">"${review.tagline}"</p>
+            <div class="snarkflix-review-share">
+                <button class="snarkflix-share-btn snarkflix-share-twitter" data-review-id="${review.id}" title="Share on Twitter">
+                    <span class="snarkflix-share-icon">🐦</span>
+                </button>
+                <button class="snarkflix-share-btn snarkflix-share-facebook" data-review-id="${review.id}" title="Share on Facebook">
+                    <span class="snarkflix-share-icon">📘</span>
+                </button>
+                <button class="snarkflix-share-btn snarkflix-share-linkedin" data-review-id="${review.id}" title="Share on LinkedIn">
+                    <span class="snarkflix-share-icon">💼</span>
+                </button>
+                <button class="snarkflix-share-btn snarkflix-share-copy" data-review-id="${review.id}" title="Copy link">
+                    <span class="snarkflix-share-icon">🔗</span>
+                </button>
+            </div>
         </div>
     `;
     
-    // Add click handler for navigation
-    reviewCard.addEventListener('click', () => {
-        navigateToReview(review.id);
+    // Add click handler for navigation (but not for share buttons)
+    reviewCard.addEventListener('click', (e) => {
+        // Don't navigate if clicking on share buttons
+        if (!e.target.closest('.snarkflix-share-btn')) {
+            navigateToReview(review.id);
+        }
+    });
+    
+    // Add share button event listeners
+    const shareButtons = reviewCard.querySelectorAll('.snarkflix-share-btn');
+    shareButtons.forEach(button => {
+        button.addEventListener('click', (e) => {
+            e.stopPropagation(); // Prevent card click
+            const platform = button.classList[1].replace('snarkflix-share-', '');
+            shareReview(review, platform);
+        });
     });
     
     // Add keyboard navigation
@@ -196,6 +250,89 @@ function navigateToReview(reviewId) {
         // Create a new review page
         createReviewPage(review);
     }
+}
+
+function shareReview(review, platform) {
+    // Create a proper URL that works for both local and production
+    let baseUrl;
+    if (window.location.protocol === 'file:') {
+        // For local file:// URLs, use a relative path
+        baseUrl = window.location.href.replace(/\/[^\/]*$/, '/index.html');
+    } else {
+        // For http/https URLs, use the current origin and path
+        baseUrl = window.location.origin + window.location.pathname;
+    }
+    
+    const reviewUrl = `${baseUrl}#review-${review.id}`;
+    const encodedUrl = encodeURIComponent(reviewUrl);
+    const encodedTitle = encodeURIComponent(review.title);
+    const encodedDescription = encodeURIComponent(review.tagline);
+    const encodedHashtags = encodeURIComponent('#Snarkflix #MovieReview #FilmCritic');
+    
+    let shareUrl = '';
+    
+    switch (platform) {
+        case 'twitter':
+            shareUrl = `https://twitter.com/intent/tweet?text=${encodedTitle}%20-%20${encodedDescription}&url=${encodedUrl}&hashtags=${encodedHashtags}`;
+            break;
+        case 'facebook':
+            shareUrl = `https://www.facebook.com/sharer/sharer.php?u=${encodedUrl}&quote=${encodedTitle}%20-%20${encodedDescription}`;
+            break;
+        case 'linkedin':
+            shareUrl = `https://www.linkedin.com/sharing/share-offsite/?url=${encodedUrl}&title=${encodedTitle}&summary=${encodedDescription}`;
+            break;
+        case 'copy':
+            // Copy to clipboard
+            navigator.clipboard.writeText(reviewUrl).then(() => {
+                showShareNotification('Link copied to clipboard!');
+            }).catch(() => {
+                // Fallback for older browsers
+                const textArea = document.createElement('textarea');
+                textArea.value = reviewUrl;
+                document.body.appendChild(textArea);
+                textArea.select();
+                document.execCommand('copy');
+                document.body.removeChild(textArea);
+                showShareNotification('Link copied to clipboard!');
+            });
+            return;
+    }
+    
+    if (shareUrl) {
+        window.open(shareUrl, '_blank', 'width=600,height=400');
+    }
+}
+
+function showShareNotification(message) {
+    // Create a temporary notification
+    const notification = document.createElement('div');
+    notification.className = 'snarkflix-share-notification';
+    notification.textContent = message;
+    notification.style.cssText = `
+        position: fixed;
+        top: 20px;
+        right: 20px;
+        background: var(--snarkflix-accent);
+        color: var(--snarkflix-dark);
+        padding: 12px 20px;
+        border-radius: 8px;
+        font-weight: bold;
+        z-index: 1000;
+        box-shadow: 0 4px 12px rgba(0,0,0,0.2);
+        animation: slideIn 0.3s ease-out;
+    `;
+    
+    document.body.appendChild(notification);
+    
+    // Remove after 3 seconds
+    setTimeout(() => {
+        notification.style.animation = 'slideOut 0.3s ease-in';
+        setTimeout(() => {
+            if (notification.parentNode) {
+                notification.parentNode.removeChild(notification);
+            }
+        }, 300);
+    }, 3000);
 }
 
 function insertImagesInContent(review) {
@@ -286,6 +423,16 @@ function createReviewPage(review) {
         header.parentNode.insertBefore(reviewWrapper, header.nextSibling);
     }
     
+    // Add share button event listeners
+    const shareButtons = reviewWrapper.querySelectorAll('.snarkflix-share-btn');
+    shareButtons.forEach(button => {
+        button.addEventListener('click', (e) => {
+            e.preventDefault();
+            const platform = button.classList[1].replace('snarkflix-share-', '');
+            shareReview(review, platform);
+        });
+    });
+    
     // Load related reviews
     setTimeout(() => {
         loadRelatedReviews(review);
@@ -374,6 +521,28 @@ function createReviewContentHTML(review) {
                     <div class="snarkflix-container">
                         <div class="snarkflix-review-tagline">
                             <blockquote>"${review.tagline}"</blockquote>
+                        </div>
+                        
+                        <div class="snarkflix-review-share-section">
+                            <h3>Share this review</h3>
+                            <div class="snarkflix-review-share">
+                                <button class="snarkflix-share-btn snarkflix-share-twitter" data-review-id="${review.id}" title="Share on Twitter">
+                                    <span class="snarkflix-share-icon">🐦</span>
+                                    <span class="snarkflix-share-text">Twitter</span>
+                                </button>
+                                <button class="snarkflix-share-btn snarkflix-share-facebook" data-review-id="${review.id}" title="Share on Facebook">
+                                    <span class="snarkflix-share-icon">📘</span>
+                                    <span class="snarkflix-share-text">Facebook</span>
+                                </button>
+                                <button class="snarkflix-share-btn snarkflix-share-linkedin" data-review-id="${review.id}" title="Share on LinkedIn">
+                                    <span class="snarkflix-share-icon">💼</span>
+                                    <span class="snarkflix-share-text">LinkedIn</span>
+                                </button>
+                                <button class="snarkflix-share-btn snarkflix-share-copy" data-review-id="${review.id}" title="Copy link">
+                                    <span class="snarkflix-share-icon">🔗</span>
+                                    <span class="snarkflix-share-text">Copy Link</span>
+                                </button>
+                            </div>
                         </div>
                         
                         <div class="snarkflix-review-text">

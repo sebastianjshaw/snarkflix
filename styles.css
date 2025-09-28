@@ -457,6 +457,124 @@ body {
     }
 }
 
+/* Social Sharing Styles */
+.snarkflix-review-share {
+    display: flex;
+    gap: var(--snarkflix-spacing-xs);
+    margin-top: var(--snarkflix-spacing-sm);
+    padding-top: var(--snarkflix-spacing-sm);
+    border-top: 1px solid var(--snarkflix-border);
+}
+
+.snarkflix-share-btn {
+    background: var(--snarkflix-bg-primary);
+    border: 1px solid var(--snarkflix-border);
+    border-radius: var(--snarkflix-border-radius-sm);
+    padding: var(--snarkflix-spacing-xs);
+    cursor: pointer;
+    transition: all var(--snarkflix-transition-fast);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    min-width: 32px;
+    height: 32px;
+}
+
+.snarkflix-share-btn:hover {
+    background: var(--snarkflix-accent);
+    border-color: var(--snarkflix-accent);
+    transform: translateY(-1px);
+    box-shadow: var(--snarkflix-shadow-sm);
+}
+
+.snarkflix-share-icon {
+    font-size: var(--snarkflix-font-size-sm);
+    line-height: 1;
+}
+
+.snarkflix-share-twitter:hover {
+    background: #1da1f2;
+    border-color: #1da1f2;
+    color: white;
+}
+
+.snarkflix-share-facebook:hover {
+    background: #1877f2;
+    border-color: #1877f2;
+    color: white;
+}
+
+.snarkflix-share-linkedin:hover {
+    background: #0077b5;
+    border-color: #0077b5;
+    color: white;
+}
+
+.snarkflix-share-copy:hover {
+    background: var(--snarkflix-accent);
+    border-color: var(--snarkflix-accent);
+    color: var(--snarkflix-dark);
+}
+
+/* Share section on review pages */
+.snarkflix-review-share-section {
+    margin: var(--snarkflix-spacing-2xl) 0;
+    padding: var(--snarkflix-spacing-lg);
+    background: var(--snarkflix-light);
+    border-radius: var(--snarkflix-border-radius-lg);
+    text-align: center;
+}
+
+.snarkflix-review-share-section h3 {
+    margin: 0 0 var(--snarkflix-spacing-md) 0;
+    color: var(--snarkflix-text-primary);
+    font-size: var(--snarkflix-font-size-lg);
+}
+
+.snarkflix-review-share-section .snarkflix-review-share {
+    justify-content: center;
+    border-top: none;
+    padding-top: 0;
+    margin-top: 0;
+}
+
+.snarkflix-review-share-section .snarkflix-share-btn {
+    flex-direction: column;
+    gap: var(--snarkflix-spacing-xs);
+    min-width: 80px;
+    height: auto;
+    padding: var(--snarkflix-spacing-sm);
+}
+
+.snarkflix-share-text {
+    font-size: var(--snarkflix-font-size-xs);
+    font-weight: 600;
+    line-height: 1;
+}
+
+/* Share notification animations */
+@keyframes slideIn {
+    from {
+        transform: translateX(100%);
+        opacity: 0;
+    }
+    to {
+        transform: translateX(0);
+        opacity: 1;
+    }
+}
+
+@keyframes slideOut {
+    from {
+        transform: translateX(0);
+        opacity: 1;
+    }
+    to {
+        transform: translateX(100%);
+        opacity: 0;
+    }
+}
+
 /* Mobile responsiveness for reviews header */
 @media (max-width: 768px) {
     .snarkflix-reviews-header .snarkflix-section-title {
@@ -469,6 +587,20 @@ body {
         min-width: 80px;
         margin-right: 0;
         margin-bottom: var(--snarkflix-spacing-xs);
+    }
+    
+    .snarkflix-review-share {
+        gap: var(--snarkflix-spacing-xs);
+    }
+    
+    .snarkflix-share-btn {
+        min-width: 28px;
+        height: 28px;
+        padding: 4px;
+    }
+    
+    .snarkflix-share-icon {
+        font-size: 12px;
     }
 }
 

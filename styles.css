@@ -791,15 +791,15 @@ body {
 }
 
 .snarkflix-category-image {
-    width: 80px;
-    height: 80px;
+    width: 100px;
+    height: 100px;
     margin: 0 auto var(--snarkflix-spacing-md);
     border-radius: 50%;
     background: var(--snarkflix-light);
     display: flex;
     align-items: center;
     justify-content: center;
-    font-size: 32px;
+    font-size: 40px;
     position: relative;
     overflow: hidden;
 }

@@ -1,0 +1,10 @@
+# Netlify redirects for social media sharing
+# This file tells Netlify how to handle review URLs for social media crawlers
+
+# Handle review URLs with hash fragments
+# When a social media crawler hits a review URL, redirect to a special page
+# that will serve the appropriate meta tags
+
+# For now, we'll redirect all review URLs to the main page
+# The JavaScript will handle the routing client-side
+/*    /index.html   200

@@ -37,6 +37,36 @@ let currentSearchTerm = '';
 // Initialize the application
 document.addEventListener('DOMContentLoaded', function() {
     initializeApp();
+    
+    // Check for review parameter and update meta tags before checking for shared review
+    const urlParams = new URLSearchParams(window.location.search);
+    const reviewParam = urlParams.get('review');
+    
+    if (reviewParam) {
+        const reviewId = parseInt(reviewParam);
+        const review = snarkflixReviews.find(r => r.id === reviewId);
+        
+        if (review) {
+            // Update meta tags for social media sharing
+            updateMetaTag('og:title', `${review.title} Review - SnarkAI Score: ${review.aiScore}/100 | Snarkflix`);
+            updateMetaTag('og:description', `${review.title} - ${review.aiSummary.substring(0, 200)}...`);
+            updateMetaTag('og:image', getAbsoluteUrl(review.imageUrl));
+            updateMetaTag('og:url', `${window.location.origin}/review/${review.id}`);
+            
+            updateMetaTag('twitter:title', `${review.title} Review - SnarkAI Score: ${review.aiScore}/100 | Snarkflix`);
+            updateMetaTag('twitter:description', `${review.title} - ${review.aiSummary.substring(0, 200)}...`);
+            updateMetaTag('twitter:image', getAbsoluteUrl(review.imageUrl));
+            updateMetaTag('twitter:url', `${window.location.origin}/review/${review.id}`);
+            
+            // Update page title and description
+            document.title = `${review.title} Review - SnarkAI Score: ${review.aiScore}/100 | Snarkflix`;
+            const metaDescription = document.querySelector('meta[name="description"]');
+            if (metaDescription) {
+                metaDescription.setAttribute('content', `${review.title} - ${review.aiSummary.substring(0, 150)}...`);
+            }
+        }
+    }
+    
     checkForSharedReview();
 });
 
@@ -45,13 +75,25 @@ window.addEventListener('hashchange', function() {
     checkForSharedReview();
 });
 
-// Check if there's a review ID in the URL hash and open it
+// Check if there's a review ID in the URL hash or parameters and open it
 function checkForSharedReview() {
     const hash = window.location.hash;
-    const reviewMatch = hash.match(/#review-(\d+)/);
+    const urlParams = new URLSearchParams(window.location.search);
+    const reviewParam = urlParams.get('review');
     
+    let reviewId = null;
+    
+    // Check hash first (for backward compatibility)
+    const reviewMatch = hash.match(/#review-(\d+)/);
     if (reviewMatch) {
-        const reviewId = parseInt(reviewMatch[1]);
+        reviewId = parseInt(reviewMatch[1]);
+    }
+    // Check URL parameter
+    else if (reviewParam) {
+        reviewId = parseInt(reviewParam);
+    }
+    
+    if (reviewId) {
         const review = snarkflixReviews.find(r => r.id === reviewId);
         
         if (review) {
@@ -60,8 +102,8 @@ function checkForSharedReview() {
                 createReviewPage(review);
             }, 100);
         }
-    } else if (hash === '' || hash === '#') {
-        // If hash is empty, return to homepage
+    } else if ((hash === '' || hash === '#') && !reviewParam) {
+        // If hash is empty and no review param, return to homepage
         returnToHomepage();
     }
 }
@@ -263,7 +305,8 @@ function shareReview(review, platform) {
         baseUrl = window.location.origin + window.location.pathname;
     }
     
-    const reviewUrl = `${baseUrl}#review-${review.id}`;
+    // Use a cleaner URL format for better social media support
+    const reviewUrl = `${baseUrl.replace(/\/index\.html$/, '')}/review/${review.id}`;
     const encodedUrl = encodeURIComponent(reviewUrl);
     const encodedTitle = encodeURIComponent(review.title);
     const encodedDescription = encodeURIComponent(review.tagline);
@@ -436,13 +479,13 @@ function createReviewPage(review) {
     updateMetaTag('og:title', `${review.title} Review - SnarkAI Score: ${review.aiScore}/100 | Snarkflix`);
     updateMetaTag('og:description', `${review.title} - ${review.aiSummary.substring(0, 200)}...`);
     updateMetaTag('og:image', getAbsoluteUrl(review.imageUrl));
-    updateMetaTag('og:url', `${window.location.origin}${window.location.pathname}#review-${review.id}`);
+    updateMetaTag('og:url', `${window.location.origin}/review/${review.id}`);
     
     // Update Twitter Card meta tags
     updateMetaTag('twitter:title', `${review.title} Review - SnarkAI Score: ${review.aiScore}/100 | Snarkflix`);
     updateMetaTag('twitter:description', `${review.title} - ${review.aiSummary.substring(0, 200)}...`);
     updateMetaTag('twitter:image', getAbsoluteUrl(review.imageUrl));
-    updateMetaTag('twitter:url', `${window.location.origin}${window.location.pathname}#review-${review.id}`);
+    updateMetaTag('twitter:url', `${window.location.origin}/review/${review.id}`);
     
     // Hide all existing sections except header and footer
     const sectionsToHide = document.querySelectorAll('section:not(.snarkflix-header):not(.snarkflix-footer)');

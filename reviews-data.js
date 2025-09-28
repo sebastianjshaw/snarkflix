@@ -487,10 +487,24 @@ const snarkflixReviews = [
         category: "comedy",
         imageUrl: "images/reviews/dont-look-up/header-dont-look-up.avif",
         youtubeTrailer: "https://www.youtube.com/watch?v=RbIxYm3mKzI&ab_channel=Netflix"
+    },
+    {
+        id: 33,
+        title: "Encanto (2021)",
+        releaseYear: 2021,
+        publishDate: "Jan 22, 2022",
+        readingDuration: "1 min read",
+        aiScore: 60,
+        aiSummary: "tldr: Based on the review, it seems that the movie has some strong elements, particularly in the form of Luisa's song, but also suffers from a toxic and abusive family dynamic that leaves some characters with no sense of validation or self-worth. Taking all of this into account, I would assign a score of 60 to this movie.",
+        tagline: "So, we've all agreed the old woman is an abusive and toxic withholder right?",
+        content: "The poor unfortunate in the middle represents Abuela's empathy.\n\nThe poor unfortunate in the middle represents Abuela's empathy.\n\nSo, we've all agreed the old woman is an abusive and toxic withholder right?\n\nLike she's done so much emotional damage to her children and grandchildren, and they'd all be better off had they left the family home? My headcanon is Bruno does what he does because he'd rather see the end of his family's magic than spend one more second with his terrible mother and her prioritisation of perception over the person.\n\nMirabel's parents fail her over and over and over again and she's expected to just take it, and her abusive family dynamic has left her desperate for any shred of approval. The movie ends with the knowing setup that Mirabel is likely to end up as the new Abuela in time who continues the cycle of valuing people only if they don't 'embarrass' the family.\n\nLuisa's song is a banger though.",
+        category: "animation",
+        imageUrl: "images/reviews/encanto-2021/header-encanto.png",
+        youtubeTrailer: "https://www.youtube.com/watch?v=CaimKeDcudo&ab_channel=WaltDisneyAnimationStudios"
     }
     
-    // Add 18 more reviews here...
-    // This is where you would add the remaining 18 reviews from your collection
+    // Add 17 more reviews here...
+    // This is where you would add the remaining 17 reviews from your collection
 ];
 
 // Export for use in other files

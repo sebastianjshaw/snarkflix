@@ -529,10 +529,24 @@ const snarkflixReviews = [
         category: "sci-fi",
         imageUrl: "images/reviews/eternals-2021/header-eternals.png",
         youtubeTrailer: "https://www.youtube.com/watch?v=x_me3xsvDgk&ab_channel=MarvelEntertainment"
+    },
+    {
+        id: 36,
+        title: "Ghostbusters: Afterlife (2021)",
+        releaseYear: 2021,
+        publishDate: "Dec 1, 2021",
+        readingDuration: "2 min read",
+        aiScore: 50,
+        aiSummary: "tldr: Based on the review, it seems like the movie heavily relies on nostalgia to carry the film rather than focusing on the story or characters. While the review does not outright say the movie is terrible, it does not give a strong endorsement either. Therefore, I would give this movie a score of 50, which means it was exactly as interesting as doing nothing for the duration of the film and an entirely neutral experience.",
+        tagline: "This looks more like the Reboot to me...",
+        content: "This looks more like the Reboot to me...\n\nAKA what if Ant-Man, Girl Young Sheldon, Asian Kid who's stepped out of an unpublished Stephen King Novel and that Mike kid from Stranger Things busted ghosts in an 80's themed town despite it being 2022?\n\nBut in this film, unlike 2016 we're going to beat you over the head with Ghostbusters nostalgia. Do you want Ecto-1? We've got Ecto-1!\n\nSnarkAI's not quite sure what the ECHO-1 is.\n\nSnarkAI's not quite sure what the ECHO-1 is.\n\nYou want those original ghost-capturing devices, you see them in the first 2 minutes. Do you want Gozer? We got your Gozer references! You want the bucket seat in the Echo-1 that only existed in the toy? We got that too! We can't forget a marshmallow man! ' Its basically this scene from Family Guy, but a movie: @https://www.youtube.com/watch?v=havZJEwK1Ys&t=23s&ab_channel=TvReferences\n\n2016 has the stronger cast by a long way but suffered with a dubious plot and some pretty poor CGI and the ongoing feeling that it didn't really connect to the previous films or cartoons, but 2022 knows what Gen X wants, stuff from our childhood recycled enough not to seem recycled, but not too much to be 'changed'",
+        category: "comedy",
+        imageUrl: "images/reviews/ghostbusters-afterlife-2021/header-ghostbusters-afterlife.png",
+        youtubeTrailer: "https://www.youtube.com/watch?v=ahZFCF--uRY&ab_channel=SonyPicturesEntertainment"
     }
     
-    // Add 15 more reviews here...
-    // This is where you would add the remaining 15 reviews from your collection
+    // Add 14 more reviews here...
+    // This is where you would add the remaining 14 reviews from your collection
 ];
 
 // Export for use in other files

@@ -501,10 +501,38 @@ const snarkflixReviews = [
         category: "animation",
         imageUrl: "images/reviews/encanto-2021/header-encanto.png",
         youtubeTrailer: "https://www.youtube.com/watch?v=CaimKeDcudo&ab_channel=WaltDisneyAnimationStudios"
+    },
+    {
+        id: 34,
+        title: "Free Guy (2021)",
+        releaseYear: 2021,
+        publishDate: "Jan 20, 2022",
+        readingDuration: "2 min read",
+        aiScore: 50,
+        aiSummary: "tldr: it seems to be an average, unremarkable film with some notable flaws. The critic seems disappointed with the movie's lack of originality and poor execution of its premise. Additionally, the unrealistic and illogical aspects of the plot and poor ending make it less appealing. However, the critic does acknowledge that some scenes and elements of the movie are enjoyable and well done, which prevents it from being a complete failure.",
+        tagline: "Given that we've had Ready Player One, Matrix 4, and even the new Jumanji movies, Free Guy feels incredibly lazy.",
+        content: "Given that we've had Ready Player One, Matrix 4, and even the new Jumanji movies, Free Guy feels incredibly lazy.\n\nIt could have been a smart critique of the entitlement of gun ownership in the US through the lens of video games, with owners seeing themselves as players. Instead, it offers a very boomer understanding of video games. The lack of a clear genre of game, like Matrix and Jumanji offer, is a real weakness to Free Guy. Is it Fortnite, GTA, or something else? It seems to be some kind of MMO that old filmmakers have read about in newspapers. Being the good guy has never been considered, apparently, even though people have done weirder things than no-violence runs of Skyrim.\n\nThe director originally turned it down as he's not a gamer and believed that this film should be directed by a hardcore gamer. But when Reynolds came knocking, he, unfortunately, changed his mind. Because he was right. This should have been directed by someone who cared about the medium.\n\nThe entire setup of the tech in the game is nonsense, complete gibberish, but I can ignore that in a good film. I mean, Matrix's humans as batteries were always daft, but you roll with it because it's thematically great. (But one server room in one office building, the lag on that game must be monstrous!)\n\n\"Security, kick this punk out! But let him keep his laptop with all our code and admin rights to the servers. Because of reasons....\" Ugh. So dumb.\n\nThere's one scene that is just Ready Player One with its cheesy nostalgia.\n\nThe ending is cringy.",
+        category: "sci-fi",
+        imageUrl: "images/reviews/free-guy-2021/header-free-guy.png",
+        youtubeTrailer: "https://www.youtube.com/watch?v=X2m-08cOAbc"
+    },
+    {
+        id: 35,
+        title: "Eternals (2021)",
+        releaseYear: 2021,
+        publishDate: "Jan 19, 2022",
+        readingDuration: "2 min read",
+        aiScore: 70,
+        aiSummary: "tldr: Based on the review, I would assign this movie a score of 70. While the film has some visually great examples of how to do superpowers in new and interesting ways and is worth a watch if you want a superhero flick that is a bit different but still familiar, it falls flat as part of the MCU because of how little impact it has. The reviewer also points out that it suffers from some very cliche notes and raises genre problems with the alternate group heroes in a shared world. Additionally, the reviewer makes comparisons to DC and questions the decision to include certain characters with problematic histories.",
+        tagline: "This is Marvel's diss track to Justice League.",
+        content: "This is Marvel's diss track to Justice League.\n\nIn the first five minutes, we get a better Superman, Flash and Wonder Woman than DC gave us in multiple films. It is also a clear slam in that DC failed in both cuts of Justice League to make a tolerable ensemble film with some of the most beloved and well-known characters. Marvel turns to the audience and says \"Hold my beer. Here's some complete rando's you've never heard of and we'll make you care more than Snyder ever managed.\"\n\nIkarus is definitely not Superman. We promise.\n\nIkarus is definitely not Superman. We promise.\n\nEternals is Marvel's second attempt to avoid paying Fox for the rights to use the X-Men after the utter flop that was trying to make people care about the Inhumans. Like the Inhumans and X-Men they're a super-powered group cut off from humanity for various reasons. In this case, because they were created by Celestials rather than the Kree (Inhumans) or rising radiation levels and the Kree (X-Men) / Or if you think the MCU is an Ultimates spiritual successor the US Government.\n\nIts visually great, with some really strong examples of how to do Super Powers in new and interesting ways. It suffers like most alternate group heroes in a shared world with questions like \"Where were you when Thanos attacked, or when Loki attacked or when Ultron attacked…\" but that's a genre problem rather than a criticism of this film.\n\nThe film has some very cliche notes with the 'I've given up on humanity.' jump-cut to them living a perfect suburban life and loving a human. Some interesting easter eggs, though one is very surprising both in the actor and the decision to include them given the character's history and superpower being roofies. I'm just going to assume Harry Styles will refuse to play a rapist and Starfox will be essentially a different character.\n\nThe 'surprise' reveal is not a surprise. It's pretty well-telegraphed.\n\nUltimately the film falls flat as part of the MCU because of how little impact it has, and it would have been better left as a totally separate thing. I'd make the same argument that the X-Men just don't work in the universe the MCU's created, where despite some lip service in Civil War, superheroes really don't get persecuted.\n\nWorth a watch if you want a superhero flick that is a bit different but still familiar.",
+        category: "sci-fi",
+        imageUrl: "images/reviews/eternals-2021/header-eternals.png",
+        youtubeTrailer: "https://www.youtube.com/watch?v=x_me3xsvDgk&ab_channel=MarvelEntertainment"
     }
     
-    // Add 17 more reviews here...
-    // This is where you would add the remaining 17 reviews from your collection
+    // Add 15 more reviews here...
+    // This is where you would add the remaining 15 reviews from your collection
 ];
 
 // Export for use in other files

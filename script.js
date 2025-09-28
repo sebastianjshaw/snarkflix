@@ -3,73 +3,7 @@
 // Import review data from external file
 // Note: In a real application, this would be loaded via script tag or module import
 // For now, we'll use the data directly from reviews-data.js
-const snarkflixReviews = snarkflixReviewsData || [
-    {
-        id: 1,
-        title: "Superman (2025)",
-        publishDate: "Aug 1, 2025",
-        readingDuration: "3 min read",
-        aiScore: 79,
-        aiSummary: "tldr: James Gunn breathes fresh, colourful life into Superman, delivering the hopeful hero Snyder never could, complete with perfectly snarky Lois, a petty genius Lex, and a hilariously awkward accidental allegory on immigration and geopolitical invasions. It's exactly the fun reboot DC desperately needed.",
-        tagline: "I'm glad Snyder is still alive to see this film and see how fully, fundamentally and totally he failed as a screenwriter, director, and person.",
-        content: "All in all, this was the hopeful superman we all wanted and haven't seen on the big screen in a couple of decades. The colour pallet was cheerful in the right places, and whilst it perhaps lacked some of Snyders visual beauty, it more than overcame that with just getting the tone right...",
-        category: "action",
-        imageUrl: "https://via.placeholder.com/400x200/ff6b35/ffffff?text=Superman+2025",
-        youtubeTrailer: "https://www.youtube.com/watch?v=example1"
-    },
-    {
-        id: 2,
-        title: "Barbie (2023)",
-        publishDate: "Jul 21, 2023",
-        readingDuration: "4 min read",
-        aiScore: 92,
-        aiSummary: "tldr: Greta Gerwig delivers a surprisingly profound and hilarious take on the iconic doll, with Margot Robbie and Ryan Gosling giving career-best performances in a film that's both a celebration and critique of femininity.",
-        tagline: "Finally, a movie that understands that being a woman is both a privilege and a burden, and somehow makes that realization absolutely hilarious.",
-        content: "Barbie is the kind of movie that sneaks up on you. You think you're going to see a fun, colorful romp about a plastic doll, and instead you get a meditation on what it means to be a woman in the modern world...",
-        category: "comedy",
-        imageUrl: "https://via.placeholder.com/400x200/ff69b4/ffffff?text=Barbie+2023",
-        youtubeTrailer: "https://www.youtube.com/watch?v=example2"
-    },
-    {
-        id: 3,
-        title: "Oppenheimer (2023)",
-        publishDate: "Jul 21, 2023",
-        readingDuration: "5 min read",
-        aiScore: 88,
-        aiSummary: "tldr: Christopher Nolan's biopic is a masterclass in tension and moral complexity, with Cillian Murphy delivering a career-defining performance as the father of the atomic bomb.",
-        tagline: "A three-hour movie about a guy who built a bomb, and somehow it's the most thrilling thing you'll see all year.",
-        content: "Oppenheimer is exactly the kind of movie that makes you question everything you thought you knew about history, morality, and the price of scientific progress...",
-        category: "drama",
-        imageUrl: "https://via.placeholder.com/400x200/2c3e50/ffffff?text=Oppenheimer+2023",
-        youtubeTrailer: "https://www.youtube.com/watch?v=example3"
-    },
-    {
-        id: 4,
-        title: "Spider-Man: Across the Spider-Verse (2023)",
-        publishDate: "Jun 2, 2023",
-        readingDuration: "4 min read",
-        aiScore: 95,
-        aiSummary: "tldr: A visual masterpiece that pushes the boundaries of animation while telling a deeply personal story about growing up, responsibility, and the multiverse of possibilities.",
-        tagline: "The best Spider-Man movie ever made, and it's not even close.",
-        content: "Spider-Verse 2 is the kind of movie that makes you remember why you fell in love with cinema in the first place. Every frame is a work of art...",
-        category: "animation",
-        imageUrl: "https://via.placeholder.com/400x200/e74c3c/ffffff?text=Spider-Verse+2023",
-        youtubeTrailer: "https://www.youtube.com/watch?v=example4"
-    },
-    {
-        id: 5,
-        title: "Dune: Part Two (2024)",
-        publishDate: "Mar 1, 2024",
-        readingDuration: "6 min read",
-        aiScore: 91,
-        aiSummary: "tldr: Denis Villeneuve's epic sequel delivers on every promise of the first film, with stunning visuals, complex characters, and a story that finally does justice to Frank Herbert's masterpiece.",
-        tagline: "The spice must flow, and so must your tears of joy at finally seeing a proper Dune adaptation.",
-        content: "Dune: Part Two is everything a sequel should be - bigger, bolder, and more ambitious than its predecessor, while never losing sight of the human story at its core...",
-        category: "scifi",
-        imageUrl: "https://via.placeholder.com/400x200/8b4513/ffffff?text=Dune+Part+Two",
-        youtubeTrailer: "https://www.youtube.com/watch?v=example5"
-    }
-];
+// The reviews are now loaded from reviews-data.js via script tag
 
 // Category data
 const snarkflixCategories = [
@@ -98,6 +32,7 @@ let currentPage = 1;
 const reviewsPerPage = 6;
 let currentSort = 'latest';
 let currentCategory = 'all';
+let currentSearchTerm = '';
 
 // Initialize the application
 document.addEventListener('DOMContentLoaded', function() {
@@ -115,6 +50,7 @@ function initializeApp() {
     setupAccessibility();
     setupCategoryFiltering();
     setupSortDropdown();
+    setupSearch();
     updateCategoryCounts();
     setupHeaderNavigation();
 }
@@ -154,6 +90,18 @@ function loadReviews(page = 1, category = null) {
     if (category && category !== 'all') {
         filteredReviews = snarkflixReviews.filter(review => 
             review.category === category
+        );
+    }
+    
+    // Filter by search term if specified
+    if (currentSearchTerm) {
+        const searchTerm = currentSearchTerm.toLowerCase();
+        filteredReviews = filteredReviews.filter(review => 
+            review.title.toLowerCase().includes(searchTerm) ||
+            review.content.toLowerCase().includes(searchTerm) ||
+            review.tagline.toLowerCase().includes(searchTerm) ||
+            review.aiSummary.toLowerCase().includes(searchTerm) ||
+            review.category.toLowerCase().includes(searchTerm)
         );
     }
     
@@ -621,6 +569,42 @@ function setupSortDropdown() {
     }
 }
 
+function setupSearch() {
+    const searchInput = document.getElementById('search-input');
+    const clearSearchBtn = document.getElementById('clear-search-btn');
+    
+    if (searchInput) {
+        // Debounced search to avoid too many API calls
+        const debouncedSearch = debounce((searchTerm) => {
+            currentSearchTerm = searchTerm;
+            currentPage = 1; // Reset to first page when searching
+            loadReviews(1, currentCategory);
+        }, 300);
+        
+        searchInput.addEventListener('input', (e) => {
+            const searchTerm = e.target.value.trim();
+            debouncedSearch(searchTerm);
+            
+            // Show/hide clear button
+            if (searchTerm) {
+                clearSearchBtn.style.display = 'block';
+            } else {
+                clearSearchBtn.style.display = 'none';
+            }
+        });
+    }
+    
+    if (clearSearchBtn) {
+        clearSearchBtn.addEventListener('click', () => {
+            searchInput.value = '';
+            currentSearchTerm = '';
+            currentPage = 1;
+            clearSearchBtn.style.display = 'none';
+            loadReviews(1, currentCategory);
+        });
+    }
+}
+
 // Utility functions
 function debounce(func, wait) {
     let timeout;
@@ -634,43 +618,6 @@ function debounce(func, wait) {
     };
 }
 
-// Search functionality (for future implementation)
-function setupSearch() {
-    const searchInput = document.createElement('input');
-    searchInput.type = 'text';
-    searchInput.placeholder = 'Search reviews...';
-    searchInput.className = 'snarkflix-search-input';
-    searchInput.setAttribute('aria-label', 'Search movie reviews');
-    
-    const searchContainer = document.createElement('div');
-    searchContainer.className = 'snarkflix-search-container';
-    searchContainer.appendChild(searchInput);
-    
-    // Add search container to the reviews section
-    const reviewsSection = document.getElementById('reviews');
-    const container = reviewsSection.querySelector('.snarkflix-container');
-    container.insertBefore(searchContainer, reviewsGrid);
-    
-    // Add search functionality
-    const debouncedSearch = debounce((query) => {
-        const filteredReviews = snarkflixReviews.filter(review =>
-            review.title.toLowerCase().includes(query.toLowerCase()) ||
-            review.aiSummary.toLowerCase().includes(query.toLowerCase()) ||
-            review.tagline.toLowerCase().includes(query.toLowerCase())
-        );
-        
-        // Clear and reload with filtered results
-        reviewsGrid.innerHTML = '';
-        filteredReviews.forEach(review => {
-            const reviewElement = createReviewElement(review);
-            reviewsGrid.appendChild(reviewElement);
-        });
-    }, 300);
-    
-    searchInput.addEventListener('input', (e) => {
-        debouncedSearch(e.target.value);
-    });
-}
 
 // Update category counts based on actual review data
 function updateCategoryCounts() {

@@ -375,6 +375,88 @@ body {
     font-size: var(--snarkflix-font-size-md);
 }
 
+/* Search Container */
+.snarkflix-search-container {
+    position: relative;
+    max-width: 600px;
+    margin: 0 auto var(--snarkflix-spacing-2xl);
+    display: flex;
+    align-items: center;
+}
+
+.snarkflix-search-input {
+    width: 100%;
+    padding: var(--snarkflix-spacing-md) var(--snarkflix-spacing-lg);
+    padding-right: 50px;
+    border: 2px solid var(--snarkflix-border);
+    border-radius: var(--snarkflix-border-radius-lg);
+    background: var(--snarkflix-bg-primary);
+    color: var(--snarkflix-text-primary);
+    font-size: var(--snarkflix-font-size-md);
+    font-family: var(--snarkflix-font-family);
+    transition: all var(--snarkflix-transition-fast);
+    box-shadow: var(--snarkflix-shadow-sm);
+}
+
+.snarkflix-search-input:focus {
+    outline: none;
+    border-color: var(--snarkflix-accent);
+    box-shadow: 0 0 0 3px rgba(255, 193, 7, 0.2), var(--snarkflix-shadow-md);
+}
+
+.snarkflix-search-input::placeholder {
+    color: var(--snarkflix-text-secondary);
+    font-style: italic;
+}
+
+.snarkflix-clear-search-btn {
+    position: absolute;
+    right: var(--snarkflix-spacing-md);
+    top: 50%;
+    transform: translateY(-50%);
+    background: var(--snarkflix-text-secondary);
+    color: var(--snarkflix-bg-primary);
+    border: none;
+    border-radius: 50%;
+    width: 24px;
+    height: 24px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    cursor: pointer;
+    font-size: var(--snarkflix-font-size-lg);
+    font-weight: bold;
+    transition: all var(--snarkflix-transition-fast);
+    line-height: 1;
+}
+
+.snarkflix-clear-search-btn:hover {
+    background: var(--snarkflix-accent);
+    color: var(--snarkflix-dark);
+    transform: translateY(-50%) scale(1.1);
+}
+
+/* Mobile responsiveness for search */
+@media (max-width: 768px) {
+    .snarkflix-search-container {
+        margin: 0 auto var(--snarkflix-spacing-xl);
+        padding: 0 var(--snarkflix-spacing-sm);
+    }
+    
+    .snarkflix-search-input {
+        padding: var(--snarkflix-spacing-sm) var(--snarkflix-spacing-md);
+        padding-right: 45px;
+        font-size: var(--snarkflix-font-size-sm);
+    }
+    
+    .snarkflix-clear-search-btn {
+        right: var(--snarkflix-spacing-sm);
+        width: 20px;
+        height: 20px;
+        font-size: var(--snarkflix-font-size-md);
+    }
+}
+
 /* Mobile responsiveness for reviews header */
 @media (max-width: 768px) {
     .snarkflix-reviews-header .snarkflix-section-title {
@@ -1077,26 +1159,6 @@ body {
     background: var(--snarkflix-light) !important;
 }
 
-/* Search Styles */
-.snarkflix-search-container {
-    margin-bottom: var(--snarkflix-spacing-xl);
-    text-align: center;
-}
-
-.snarkflix-search-input {
-    width: 100%;
-    max-width: 400px;
-    padding: var(--snarkflix-spacing-md);
-    border: 2px solid #e0e0e0;
-    border-radius: var(--snarkflix-radius-md);
-    font-size: var(--snarkflix-font-size-base);
-    transition: var(--snarkflix-transition);
-}
-
-.snarkflix-search-input:focus {
-    border-color: var(--snarkflix-primary);
-    outline: none;
-}
 
 /* Dark Mode Support */
 @media (prefers-color-scheme: dark) {

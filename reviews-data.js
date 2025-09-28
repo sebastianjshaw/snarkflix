@@ -591,8 +591,8 @@ const snarkflixReviews = [
         tagline: "It is a really fun film and really hits the 80's vibe well, particularly the opening scene in the mall.",
         content: "It is a really fun film and really hits the 80's vibe well, particularly the opening scene in the mall. The casting's strong. It does have a couple of really clunky edits that will no doubt be smoothed out in a director's cut one day, in particular, there is a jarring cut to WW in the gold armour flying when she got her powers back and discovered she could fly unaided, it was clearly supposed to be later, during the fight with Cheetah that she regains her powers and releases Steve, but they wanted a touching farewell and that doesn't work if he's not here.\n\nCheetah's obsession with Diana before getting powers is played really well.\n\nNot as good as the first WW film, but way better than BvS or Justice League. It also serves as more proof, (if it was needed) the worst thing to happen to DC films was Snyder and his total inability to understand, care about or appreciate the characters.\n\nIt's a different take on the character, but it works well. Especially for the '80s. The Amazonians have definitely gone to the Hogwarts School of Nonsensical Physical Challenges for Special Children though.\n\nI still don't follow when the sudden costume change that happened in Act 3. I even googled to see if i'd missed something. but no, they appear to have cut that explanation. I remember the backstory, but it seemed like it just appeared between one scene and the next... And would have made more sense to change earlier.\n\nThey skip past the fact that WW and Trevor are making the owner of Trevor's body an unwilling participant in their lovemaking. It's particularly bad given whilst we see Trevor, WW sees the stranger, there is not one moment when she is with him she can pretend she doesn't know what she's done to this poor victim.\n\nPascal is, as always superb.",
         category: "action",
-        imageUrl: "images/reviews/wonder-woman-1984-2020/header-wonder-woman-1984.avif",
-        additionalImage: "images/reviews/wonder-woman-1984-2020/image-wonder-woman-1984.avif",
+        imageUrl: "images/reviews/wonder-woman-1984/header-wonder-woman-1984.avif",
+        additionalImage: "images/reviews/wonder-woman-1984/image-wonder-woman-1984-1.avif",
         youtubeTrailer: "https://www.youtube.com/watch?v=XW2E2Fnh52w&ab_channel=WarnerBros."
     },
     {
@@ -606,7 +606,7 @@ const snarkflixReviews = [
         tagline: "Revenant has some nice camera work. Shame about everything else.",
         content: "Revenant has some nice camera work. Shame about everything else.\n\nIt's taken a couple of years to try watching it again after getting 20mins in and turning it off in total boredom.\n\nThe Revenant confuses length with quality and violence with depth. I was unsurprised to learn it had the same director as the tedious Birdman, another god-awful self-indulgent mess of a film(though for different reasons).",
         category: "drama",
-        imageUrl: "images/reviews/the-revenant-2015/header-the-revenant.avif",
+        imageUrl: "images/reviews/the-revenant/header-the-revenant.avif",
         youtubeTrailer: "https://www.youtube.com/watch?v=LoebZZ8K5N0&ab_channel=20thCenturyStudios"
     },
     {
@@ -620,7 +620,7 @@ const snarkflixReviews = [
         tagline: "Dumb",
         content: "Dumb",
         category: "action",
-        imageUrl: "images/reviews/bloodshot-2020/header-bloodshot.avif",
+        imageUrl: "images/reviews/bloodshot/header-bloodshot.avif",
         youtubeTrailer: "https://www.youtube.com/watch?v=vOUVVDWdXbo&ab_channel=SonyPicturesEntertainment"
     }
     

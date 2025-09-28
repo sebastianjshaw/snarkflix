@@ -1,7 +1,7 @@
 # Snarkflix Tone of Voice Guide
 
 ## Brand Personality
-Snarkflix is a movie review blog with a sharp, witty, and unapologetically critical voice. We're the friend who tells you exactly what they think about a film, even when it's not what you want to hear. We're knowledgeable, observant, and have zero tolerance for mediocrity, but we're also fair and recognize genuine quality when we see it.
+Snarkflix is a movie review blog with a sharp, witty, and unapologetically critical voice. We're the friend who tells you exactly what they think about a film, even when it's not what you want to hear. We're knowledgeable, observant, and have zero tolerance for mediocrity, but we're also fair and recognize genuine quality when we see it. Our voice is characterized by brutal honesty, pop culture savviness, and a unique ability to find humor in even the most disappointing cinematic experiences.
 
 ## Core Voice Characteristics
 
@@ -59,6 +59,38 @@ Snarkflix is a movie review blog with a sharp, witty, and unapologetically criti
 - "I think the issue is, without his Factory, without the environment of magic, wonder and danger he has created, everything Wonka says and does in the grimy London that surrounds him comes across as deranged rather than enchanting."
 - "She's a little bit of a bitch, tbh."
 
+### 6. **Brutally Honest and Direct**
+- We don't mince words when something is terrible
+- We can be devastatingly concise in our criticism
+- We call out problems without sugarcoating
+- We're willing to be the only voice saying what everyone's thinking
+
+**Examples:**
+- "Dumb" (entire Bloodshot review)
+- "A prequel no one asked for and even fewer will remember."
+- "It's taken a couple of years to try watching it again after getting 20mins in and turning it off in total boredom."
+
+### 7. **Culturally Aware and Socially Conscious**
+- We notice and call out problematic content
+- We're aware of social and political implications
+- We don't shy away from controversial topics
+- We point out when something is offensive or tone-deaf
+
+**Examples:**
+- "Wonka rescues a young black girl from a life of slavery. It's played for laughs. An American rescuing a black British girl from slavery in faux-London is dancing on the line of deeply offensive or hilariously ill-informed given the respective histories of those two nations to slavery."
+- "So, we've all agreed the old woman is an abusive and toxic withholder right?"
+
+### 8. **Technically Knowledgeable**
+- We understand filmmaking techniques and terminology
+- We notice technical details others miss
+- We can distinguish between different types of problems
+- We appreciate good craftsmanship when we see it
+
+**Examples:**
+- "The cinematography is fine; it's a pretty simple setup, ordinarily lit but personal, as suits the premise."
+- "The artwork is, of course, impeccable, but the approach and style are showing their age compared to newer anime like Demon Slayer."
+- "The bubble is fantastic, beautifully done, slightly wobbly and when it pops there's a very subtle rainbow in the air."
+
 ## Writing Style Guidelines
 
 ### **Tone Markers**
@@ -73,6 +105,10 @@ Snarkflix is a movie review blog with a sharp, witty, and unapologetically criti
 - Use ellipses for dramatic pause
 - Employ dashes for emphasis or asides
 - Use quotes around questionable terms or phrases
+- Use parenthetical asides for additional commentary
+- Employ British English spelling and terminology
+- Use casual abbreviations ("tbh", "probs", "gotta")
+- Mix formal critique with conversational language
 
 ### **Sentence Structure**
 - Mix short, punchy sentences with longer, more complex ones
@@ -109,6 +145,15 @@ Snarkflix is a movie review blog with a sharp, witty, and unapologetically criti
 - Use specific examples to support points
 - Include personal reactions and observations
 - End with a definitive conclusion
+
+### **Common Review Patterns**
+- **Opening with personal experience**: "I, like many people, have been holding space for..."
+- **Direct comparisons**: "Not as good as the first WW film, but way better than BvS or Justice League"
+- **Technical observations**: "The cinematography is fine; it's a pretty simple setup..."
+- **Pop culture references**: "These look exactly like the Adipose from Doctor Who"
+- **Brutal honesty**: "Dumb" or "A prequel no one asked for"
+- **Social commentary**: Pointing out problematic content or messaging
+- **Personal asides**: "tbh", "I think", "My headcanon is"
 
 ## Voice Examples
 

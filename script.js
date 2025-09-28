@@ -467,6 +467,25 @@ function getAbsoluteUrl(imagePath) {
     }
 }
 
+// Helper function to convert YouTube watch URL to embed URL
+function convertToEmbedUrl(youtubeUrl) {
+    if (!youtubeUrl) return '';
+    
+    // Extract video ID from various YouTube URL formats
+    const videoIdMatch = youtubeUrl.match(/(?:youtube\.com\/watch\?v=|youtu\.be\/|youtube\.com\/embed\/)([^&\n?#]+)/);
+    if (videoIdMatch) {
+        return `https://www.youtube.com/embed/${videoIdMatch[1]}`;
+    }
+    
+    // Fallback: try to extract from any YouTube URL
+    const fallbackMatch = youtubeUrl.match(/[?&]v=([^&\n?#]+)/);
+    if (fallbackMatch) {
+        return `https://www.youtube.com/embed/${fallbackMatch[1]}`;
+    }
+    
+    return youtubeUrl; // Return original if we can't parse it
+}
+
 function createReviewPage(review) {
     // Update the page title
     document.title = `${review.title} Review - SnarkAI Score: ${review.aiScore}/100 | Snarkflix`;
@@ -657,7 +676,7 @@ function createReviewContentHTML(review) {
                             <div class="snarkflix-youtube-container">
                                 <iframe 
                                     class="snarkflix-youtube-iframe"
-                                    src="${review.youtubeTrailer.replace('watch?v=', 'embed/')}"
+                                    src="${convertToEmbedUrl(review.youtubeTrailer)}"
                                     title="${review.title} Trailer"
                                     frameborder="0"
                                     allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"

@@ -1123,7 +1123,11 @@ function setupKeyboardNavigation() {
     const categoryCards = document.querySelectorAll('.snarkflix-category-card');
     categoryCards.forEach((card, index) => {
         card.setAttribute('tabindex', '0');
-        card.setAttribute('aria-label', `Filter by ${card.querySelector('.snarkflix-category-name').textContent} category (${index + 1})`);
+        
+        // Safely get category name with null check
+        const categoryNameElement = card.querySelector('.snarkflix-category-name');
+        const categoryName = categoryNameElement ? categoryNameElement.textContent : `Category ${index + 1}`;
+        card.setAttribute('aria-label', `Filter by ${categoryName} category (${index + 1})`);
         
         card.addEventListener('keydown', (e) => {
             if (e.key === 'Enter' || e.key === ' ') {
@@ -1183,7 +1187,15 @@ function setupKeyboardNavigation() {
 // Initialize error handling and keyboard navigation when DOM is ready
 document.addEventListener('DOMContentLoaded', () => {
     setupImageErrorHandling();
-    setupKeyboardNavigation();
+    // Delay keyboard navigation setup to ensure all elements are loaded
+    setTimeout(() => {
+        try {
+            setupKeyboardNavigation();
+        } catch (error) {
+            console.error('Error setting up keyboard navigation:', error);
+            // Don't let keyboard navigation errors break the app
+        }
+    }, 100);
 });
 
 // Export functions for testing (if needed)

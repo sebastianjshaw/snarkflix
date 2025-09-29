@@ -90,6 +90,52 @@ php -S localhost:8000
 - **Minimal JavaScript**: Vanilla JS for fast execution
 - **CSS Optimization**: Custom properties and efficient selectors
 
+## 💻 Code Style
+
+This project follows consistent coding standards and best practices:
+
+### HTML Standards
+- **Semantic HTML**: Use proper HTML5 semantic elements (`<header>`, `<nav>`, `<main>`, `<section>`, `<article>`, `<footer>`)
+- **Accessibility First**: Include ARIA labels, alt text, and proper heading hierarchy
+- **Clean Structure**: Logical document outline with proper nesting
+- **Meta Tags**: Complete meta tag implementation for SEO and social sharing
+
+### CSS Methodology
+- **BEM (Block Element Modifier)**: Consistent naming convention
+  - Block: `.snarkflix-component`
+  - Element: `.snarkflix-component__element`
+  - Modifier: `.snarkflix-component--modifier`
+- **CSS Custom Properties**: Use CSS variables for maintainable theming
+- **Mobile First**: Responsive design starting from mobile breakpoints
+- **Logical Properties**: Use modern CSS properties when appropriate
+
+### JavaScript Standards
+- **ES6+ Features**: Modern JavaScript syntax and features
+- **Vanilla JS**: No external frameworks for optimal performance
+- **Event Delegation**: Efficient event handling patterns
+- **Error Handling**: Proper try-catch blocks and fallbacks
+- **Code Organization**: Modular functions with clear responsibilities
+
+### Accessibility Guidelines
+- **WCAG 2.1 AA Compliance**: Meet accessibility standards
+- **Keyboard Navigation**: Full keyboard accessibility support
+- **Screen Reader Support**: Proper ARIA labels and semantic markup
+- **Color Contrast**: Ensure sufficient contrast ratios
+- **Focus Management**: Visible focus indicators and logical tab order
+
+### Performance Optimization
+- **Critical CSS**: Inline critical styles for above-the-fold content
+- **Lazy Loading**: Images and non-critical resources loaded on demand
+- **Minimal Dependencies**: Reduce external dependencies
+- **Efficient Selectors**: Use performant CSS selectors
+- **Resource Hints**: Preload critical resources
+
+### Code Organization
+- **Single Responsibility**: Each function has one clear purpose
+- **Consistent Naming**: Use descriptive, consistent naming conventions
+- **Comments**: Document complex logic and business rules
+- **File Structure**: Logical organization of assets and code
+
 ## 🎨 Design System
 
 ### Colors

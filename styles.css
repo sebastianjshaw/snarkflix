@@ -1399,4 +1399,24 @@ body {
         border-color: #6b4c00;
         color: #ffd700;
     }
+    
+    /* Share button dark mode fixes */
+    .snarkflix-share-btn {
+        background: var(--snarkflix-white);
+        border-color: var(--snarkflix-gray);
+        color: var(--snarkflix-dark);
+    }
+    
+    .snarkflix-share-icon {
+        fill: var(--snarkflix-dark);
+    }
+    
+    .snarkflix-share-text {
+        color: var(--snarkflix-dark);
+    }
+    
+    .snarkflix-review-share-section {
+        background: var(--snarkflix-white);
+        border-color: var(--snarkflix-gray);
+    }
 }

@@ -43,15 +43,23 @@ reviews.forEach(review => {
     <!-- Canonical URL -->
     <link rel="canonical" href="https://snarkflix.netlify.app/review/${review.id}">
     
-    <!-- Open Graph / Facebook -->
+    <!-- Open Graph / Facebook / WhatsApp -->
     <meta property="og:type" content="article">
     <meta property="og:url" content="https://snarkflix.netlify.app/review/${review.id}">
     <meta property="og:title" content="${review.title} Review - SnarkAI Score: ${review.aiScore}/100 | Snarkflix">
     <meta property="og:description" content="${review.title} - ${review.aiSummary.substring(0, 200)}...">
     <meta property="og:image" content="https://snarkflix.netlify.app/${review.imageUrl}">
+    <meta property="og:image:secure_url" content="https://snarkflix.netlify.app/${review.imageUrl}">
+    <meta property="og:image:type" content="image/png">
     <meta property="og:image:width" content="1200">
     <meta property="og:image:height" content="630">
+    <meta property="og:image:alt" content="${review.title} Review">
     <meta property="og:site_name" content="Snarkflix">
+    <meta property="og:locale" content="en_US">
+    
+    <!-- WhatsApp specific meta tags -->
+    <meta property="og:image:url" content="https://snarkflix.netlify.app/${review.imageUrl}">
+    <meta name="twitter:image:src" content="https://snarkflix.netlify.app/${review.imageUrl}">
 
     <!-- Twitter -->
     <meta property="twitter:card" content="summary_large_image">

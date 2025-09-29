@@ -537,8 +537,17 @@ function createReviewPage(review) {
     updateMetaTag('og:title', `${review.title} Review - SnarkAI Score: ${review.aiScore}/100 | Snarkflix`);
     updateMetaTag('og:description', `${review.title} - ${review.aiSummary.substring(0, 200)}...`);
     updateMetaTag('og:image', getAbsoluteUrl(review.imageUrl));
+    updateMetaTag('og:image:secure_url', getAbsoluteUrl(review.imageUrl));
+    updateMetaTag('og:image:type', 'image/png');
+    updateMetaTag('og:image:alt', `${review.title} Review`);
+    updateMetaTag('og:site_name', 'Snarkflix');
+    updateMetaTag('og:locale', 'en_US');
     const cleanOrigin = window.location.origin.replace(/\/$/, '');
     updateMetaTag('og:url', `${cleanOrigin}/review/${review.id}`);
+    
+    // WhatsApp specific meta tags
+    updateMetaTag('og:image:url', getAbsoluteUrl(review.imageUrl));
+    updateMetaTag('twitter:image:src', getAbsoluteUrl(review.imageUrl));
     
     // Update Twitter Card meta tags
     updateMetaTag('twitter:title', `${review.title} Review - SnarkAI Score: ${review.aiScore}/100 | Snarkflix`);
@@ -605,7 +614,16 @@ function returnToHomepage() {
     updateMetaTag('og:title', 'Snarkflix - Snarky Movie Reviews');
     updateMetaTag('og:description', 'Snarky movie reviews with a side of sass. Join our small but mighty team as we take a lighthearted and entertaining approach to critiquing films.');
     updateMetaTag('og:image', getAbsoluteUrl('images/site-assets/logo.avif'));
+    updateMetaTag('og:image:secure_url', getAbsoluteUrl('images/site-assets/logo.avif'));
+    updateMetaTag('og:image:type', 'image/avif');
+    updateMetaTag('og:image:alt', 'Snarkflix - Snarky Movie Reviews');
+    updateMetaTag('og:site_name', 'Snarkflix');
+    updateMetaTag('og:locale', 'en_US');
     updateMetaTag('og:url', `${window.location.origin}${window.location.pathname}`);
+    
+    // WhatsApp specific meta tags
+    updateMetaTag('og:image:url', getAbsoluteUrl('images/site-assets/logo.avif'));
+    updateMetaTag('twitter:image:src', getAbsoluteUrl('images/site-assets/logo.avif'));
     
     // Reset Twitter Card meta tags
     updateMetaTag('twitter:title', 'Snarkflix - Snarky Movie Reviews');

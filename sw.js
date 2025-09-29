@@ -7,7 +7,24 @@ const urlsToCache = [
     '/reviews-data.js',
     '/images/site-assets/logo.avif',
     '/images/site-assets/background.avif',
-    '/images/site-assets/merlin.png'
+    '/images/site-assets/merlin.png',
+    // Add category icons to cache
+    '/images/category-icons/Action.png',
+    '/images/category-icons/Adventure.png',
+    '/images/category-icons/Animation.png',
+    '/images/category-icons/Comedy.png',
+    '/images/category-icons/Drama.png',
+    '/images/category-icons/Horror.png',
+    '/images/category-icons/SciFi.png',
+    '/images/category-icons/Musical.png',
+    // Add favicon files to cache
+    '/images/site-assets/favicon/favicon.ico',
+    '/images/site-assets/favicon/favicon-16x16.png',
+    '/images/site-assets/favicon/favicon-32x32.png',
+    '/images/site-assets/favicon/apple-touch-icon.png',
+    '/images/site-assets/favicon/android-chrome-192x192.png',
+    '/images/site-assets/favicon/android-chrome-512x512.png',
+    '/images/site-assets/favicon/site.webmanifest'
 ];
 
 // Install event - cache static assets

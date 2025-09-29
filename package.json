@@ -1,0 +1,33 @@
+{
+  "name": "snarkflix",
+  "version": "1.0.0",
+  "description": "A snarky movie review blog with sharp wit and adorable Bernedoodle companion",
+  "main": "index.html",
+  "scripts": {
+    "test": "jest",
+    "test:watch": "jest --watch",
+    "test:coverage": "jest --coverage",
+    "test:ci": "jest --ci --coverage --watchAll=false",
+    "serve": "python3 -m http.server 8000",
+    "build": "node generate-review-pages.js",
+    "optimize-images": "node optimize-images.js",
+    "compress-images": "bash compress-images-advanced.sh"
+  },
+  "keywords": [
+    "movie-reviews",
+    "blog",
+    "cinema",
+    "entertainment",
+    "snarky",
+    "reviews"
+  ],
+  "author": "Snarkflix",
+  "license": "MIT",
+  "devDependencies": {
+    "jest": "^29.7.0",
+    "jest-environment-jsdom": "^29.7.0",
+    "@testing-library/jest-dom": "^6.1.4",
+    "@testing-library/dom": "^9.3.3",
+    "jsdom": "^23.0.1"
+  }
+}

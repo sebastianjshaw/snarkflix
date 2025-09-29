@@ -648,16 +648,14 @@ function createReviewContentHTML(review) {
                 </header>
                 
                 <div class="snarkflix-review-hero-image">
-                    <div class="snarkflix-container">
-                        <img src="${review.imageUrl}" alt="${review.title} movie poster" class="snarkflix-review-hero-img" loading="lazy">
+                    <img src="${review.imageUrl}" alt="${review.title} movie poster" class="snarkflix-review-hero-img" loading="lazy">
+                    <div class="snarkflix-review-tagline">
+                        <blockquote>"${review.tagline}"</blockquote>
                     </div>
                 </div>
                 
                 <div class="snarkflix-review-content">
                     <div class="snarkflix-container">
-                        <div class="snarkflix-review-tagline">
-                            <blockquote>"${review.tagline}"</blockquote>
-                        </div>
                         
                         <div class="snarkflix-review-share-section">
                             <h3>Share this review</h3>

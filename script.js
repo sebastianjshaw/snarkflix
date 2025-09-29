@@ -302,6 +302,25 @@ function createReviewElement(review) {
         }
     });
     
+    // Add image loading state
+    const img = reviewCard.querySelector('img');
+    if (img) {
+        // Show loading state when image starts loading
+        img.addEventListener('loadstart', () => {
+            showImageLoadingState(img);
+        });
+        
+        // Hide loading state when image loads
+        img.addEventListener('load', () => {
+            handleImageLoad(img);
+        });
+        
+        // Handle image errors
+        img.addEventListener('error', () => {
+            handleImageError(img);
+        });
+    }
+    
     return reviewCard;
 }
 
@@ -887,9 +906,17 @@ function setupSearch() {
     if (searchInput) {
         // Debounced search to avoid too many API calls
         const debouncedSearch = debounce((searchTerm) => {
+            if (searchTerm) {
+                showSearchLoading();
+            }
             currentSearchTerm = searchTerm;
             currentPage = 1; // Reset to first page when searching
             loadReviews(1, currentCategory, currentSearchTerm, currentSort);
+            
+            // Hide search loading after a short delay
+            setTimeout(() => {
+                hideSearchLoading();
+            }, 500);
         }, 300);
         
         searchInput.addEventListener('input', (e) => {
@@ -940,6 +967,12 @@ function handleImageError(img, fallbackSrc = 'images/site-assets/logo.avif') {
 function handleImageLoad(img) {
     img.classList.remove('snarkflix-image-error');
     img.classList.add('snarkflix-image-loaded');
+    
+    // Hide any loading overlay for this image
+    const loadingOverlay = img.parentNode?.querySelector('.snarkflix-image-loading');
+    if (loadingOverlay) {
+        hideImageLoadingState(loadingOverlay);
+    }
 }
 
 function setupImageErrorHandling() {
@@ -1201,6 +1234,84 @@ document.addEventListener('DOMContentLoaded', () => {
         }
     }, 100);
 });
+
+// Loading States and Indicators
+function showLoadingSpinner(container, message = 'Loading...') {
+    const spinner = document.createElement('div');
+    spinner.className = 'snarkflix-loading-spinner';
+    spinner.innerHTML = `
+        <div class="snarkflix-spinner"></div>
+        <span class="snarkflix-loading-text">${message}</span>
+    `;
+    
+    if (container) {
+        container.appendChild(spinner);
+    }
+    
+    return spinner;
+}
+
+function hideLoadingSpinner(spinner) {
+    if (spinner && spinner.parentNode) {
+        spinner.parentNode.removeChild(spinner);
+    }
+}
+
+function showImageLoadingState(img) {
+    const loadingOverlay = document.createElement('div');
+    loadingOverlay.className = 'snarkflix-image-loading';
+    loadingOverlay.innerHTML = '<div class="snarkflix-spinner"></div>';
+    
+    // Position the loading overlay over the image
+    const imgContainer = img.parentNode;
+    if (imgContainer) {
+        imgContainer.style.position = 'relative';
+        imgContainer.appendChild(loadingOverlay);
+    }
+    
+    return loadingOverlay;
+}
+
+function hideImageLoadingState(loadingOverlay) {
+    if (loadingOverlay && loadingOverlay.parentNode) {
+        loadingOverlay.parentNode.removeChild(loadingOverlay);
+    }
+}
+
+function showSearchLoading() {
+    const searchContainer = document.querySelector('.snarkflix-search-container');
+    if (searchContainer) {
+        const existingSpinner = searchContainer.querySelector('.snarkflix-loading-spinner');
+        if (!existingSpinner) {
+            const spinner = showLoadingSpinner(searchContainer, 'Searching...');
+            spinner.className += ' snarkflix-search-loading';
+        }
+    }
+}
+
+function hideSearchLoading() {
+    const searchSpinner = document.querySelector('.snarkflix-search-loading');
+    if (searchSpinner) {
+        hideLoadingSpinner(searchSpinner);
+    }
+}
+
+function showReviewsLoading() {
+    const reviewsGrid = document.getElementById('reviews-grid');
+    if (reviewsGrid) {
+        // Clear existing content
+        reviewsGrid.innerHTML = '';
+        const spinner = showLoadingSpinner(reviewsGrid, 'Loading reviews...');
+        spinner.className += ' snarkflix-reviews-loading';
+    }
+}
+
+function hideReviewsLoading() {
+    const reviewsSpinner = document.querySelector('.snarkflix-reviews-loading');
+    if (reviewsSpinner) {
+        hideLoadingSpinner(reviewsSpinner);
+    }
+}
 
 // Export functions for testing (if needed)
 if (typeof module !== 'undefined' && module.exports) {

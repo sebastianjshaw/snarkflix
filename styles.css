@@ -1455,6 +1455,68 @@ body {
     }
 }
 
+/* Loading States */
+.snarkflix-loading-spinner {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    padding: var(--snarkflix-spacing-xl);
+    text-align: center;
+}
+
+.snarkflix-spinner {
+    width: 40px;
+    height: 40px;
+    border: 4px solid var(--snarkflix-light);
+    border-top: 4px solid var(--snarkflix-primary);
+    border-radius: 50%;
+    animation: spin 1s linear infinite;
+    margin-bottom: var(--snarkflix-spacing-md);
+}
+
+.snarkflix-loading-text {
+    color: var(--snarkflix-gray);
+    font-size: var(--snarkflix-font-size-sm);
+    font-weight: 500;
+}
+
+.snarkflix-image-loading {
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    background: rgba(255, 255, 255, 0.9);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    z-index: 10;
+}
+
+.snarkflix-search-loading {
+    position: absolute;
+    top: 100%;
+    left: 0;
+    right: 0;
+    background: var(--snarkflix-white);
+    border: 1px solid var(--snarkflix-light);
+    border-radius: var(--snarkflix-radius-md);
+    box-shadow: var(--snarkflix-shadow-lg);
+    z-index: 100;
+}
+
+.snarkflix-reviews-loading {
+    grid-column: 1 / -1;
+    justify-self: center;
+    margin: var(--snarkflix-spacing-3xl) 0;
+}
+
+@keyframes spin {
+    0% { transform: rotate(0deg); }
+    100% { transform: rotate(360deg); }
+}
+
 /* Error Handling Styles */
 .snarkflix-error-message {
     position: fixed;

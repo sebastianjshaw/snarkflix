@@ -475,6 +475,9 @@ const snarkflixReviews = [
         category: "action",
         imageUrl: "images/reviews/fantastic-four-first-steps/header-fantastic-four-first-steps.png",
         additionalImage: "images/reviews/fantastic-four-first-steps/image-fantastic-four-first-steps.png",
+        additionalImages: [
+            "images/reviews/fantastic-four-first-steps/image-fantastic-four-first-steps-2.png"
+        ],
         youtubeTrailer: "https://www.youtube.com/watch?v=MIla9S7Ojyo&ab_channel=FandangoatHome"
     },
     {

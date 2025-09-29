@@ -154,12 +154,18 @@ function setupHeaderNavigation() {
 }
 
 function loadReviews(page = 1, category = currentCategory, searchTerm = currentSearchTerm, sort = currentSort) {
-    // Update global variables to match parameters
-    currentCategory = category;
-    currentSearchTerm = searchTerm;
-    currentSort = sort;
-    
-    let filteredReviews = snarkflixReviews;
+    try {
+        // Update global variables to match parameters
+        currentCategory = category;
+        currentSearchTerm = searchTerm;
+        currentSort = sort;
+        
+        // Check if reviews data is available
+        if (!snarkflixReviews || !Array.isArray(snarkflixReviews)) {
+            throw new Error('Reviews data not available');
+        }
+        
+        let filteredReviews = snarkflixReviews;
     
     // Filter by category if specified
     if (category && category !== 'all') {
@@ -217,12 +223,16 @@ function loadReviews(page = 1, category = currentCategory, searchTerm = currentS
         reviewsGrid.appendChild(reviewElement);
     });
     
-    // Update load more button
-    const currentDisplayedCount = reviewsGrid.children.length;
-    updateLoadMoreButton(filteredReviews.length, currentDisplayedCount);
-    
-    // Update current page
-    currentPage = page;
+        // Update load more button
+        const currentDisplayedCount = reviewsGrid.children.length;
+        updateLoadMoreButton(filteredReviews.length, currentDisplayedCount);
+        
+        // Update current page
+        currentPage = page;
+    } catch (error) {
+        console.error('Error loading reviews:', error);
+        handleReviewLoadError(error);
+    }
 }
 
 function createReviewElement(review) {
@@ -915,6 +925,125 @@ function debounce(func, wait) {
     };
 }
 
+// Error handling functions
+function handleImageError(img, fallbackSrc = 'images/site-assets/logo.avif') {
+    console.warn('Image failed to load:', img.src);
+    img.src = fallbackSrc;
+    img.alt = 'Image not available';
+    img.classList.add('snarkflix-image-error');
+}
+
+function handleImageLoad(img) {
+    img.classList.remove('snarkflix-image-error');
+    img.classList.add('snarkflix-image-loaded');
+}
+
+function setupImageErrorHandling() {
+    // Handle existing images
+    const images = document.querySelectorAll('img');
+    images.forEach(img => {
+        img.addEventListener('error', () => handleImageError(img));
+        img.addEventListener('load', () => handleImageLoad(img));
+    });
+    
+    // Handle dynamically loaded images
+    const observer = new MutationObserver((mutations) => {
+        mutations.forEach((mutation) => {
+            mutation.addedNodes.forEach((node) => {
+                if (node.nodeType === Node.ELEMENT_NODE) {
+                    // Handle single image elements
+                    if (node.tagName === 'IMG') {
+                        node.addEventListener('error', () => handleImageError(node));
+                        node.addEventListener('load', () => handleImageLoad(node));
+                    }
+                    // Handle images within added nodes
+                    const images = node.querySelectorAll ? node.querySelectorAll('img') : [];
+                    images.forEach(img => {
+                        img.addEventListener('error', () => handleImageError(img));
+                        img.addEventListener('load', () => handleImageLoad(img));
+                    });
+                }
+            });
+        });
+    });
+    
+    observer.observe(document.body, {
+        childList: true,
+        subtree: true
+    });
+}
+
+function handleFetchError(error, context = 'Unknown operation') {
+    console.error(`Error in ${context}:`, error);
+    
+    // Show user-friendly error message
+    const errorMessage = document.createElement('div');
+    errorMessage.className = 'snarkflix-error-message';
+    errorMessage.innerHTML = `
+        <div class="snarkflix-error-content">
+            <h3>Oops! Something went wrong</h3>
+            <p>We encountered an error while ${context.toLowerCase()}. Please try again.</p>
+            <button onclick="this.parentElement.parentElement.remove()" class="snarkflix-btn snarkflix-btn-primary">
+                Dismiss
+            </button>
+        </div>
+    `;
+    
+    // Add error message to page
+    document.body.appendChild(errorMessage);
+    
+    // Auto-remove after 5 seconds
+    setTimeout(() => {
+        if (errorMessage.parentNode) {
+            errorMessage.remove();
+        }
+    }, 5000);
+}
+
+function handleReviewLoadError(error) {
+    console.error('Error loading reviews:', error);
+    
+    const reviewsGrid = document.querySelector('.snarkflix-reviews-grid');
+    if (reviewsGrid) {
+        reviewsGrid.innerHTML = `
+            <div class="snarkflix-error-state">
+                <h3>Unable to load reviews</h3>
+                <p>We're having trouble loading the reviews. Please refresh the page or try again later.</p>
+                <button onclick="location.reload()" class="snarkflix-btn snarkflix-btn-primary">
+                    Refresh Page
+                </button>
+            </div>
+        `;
+    }
+}
+
+function handleSearchError(error) {
+    console.error('Error during search:', error);
+    
+    const searchInput = document.querySelector('.snarkflix-search-input');
+    if (searchInput) {
+        searchInput.placeholder = 'Search temporarily unavailable';
+        searchInput.disabled = true;
+        
+        setTimeout(() => {
+            searchInput.placeholder = 'Search for movies...';
+            searchInput.disabled = false;
+        }, 3000);
+    }
+}
+
+// Global error handler
+window.addEventListener('error', (event) => {
+    console.error('Global error:', event.error);
+    handleFetchError(event.error, 'page operation');
+});
+
+// Unhandled promise rejection handler
+window.addEventListener('unhandledrejection', (event) => {
+    console.error('Unhandled promise rejection:', event.reason);
+    handleFetchError(event.reason, 'async operation');
+});
+
 
 // Update category counts based on actual review data
 function updateCategoryCounts() {
@@ -1051,8 +1180,9 @@ function setupKeyboardNavigation() {
     };
 }
 
-// Initialize keyboard navigation when DOM is ready
+// Initialize error handling and keyboard navigation when DOM is ready
 document.addEventListener('DOMContentLoaded', () => {
+    setupImageErrorHandling();
     setupKeyboardNavigation();
 });
 

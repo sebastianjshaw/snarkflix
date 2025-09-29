@@ -1420,3 +1420,105 @@ body {
         border-color: var(--snarkflix-gray);
     }
 }
+
+/* Error Handling Styles */
+.snarkflix-error-message {
+    position: fixed;
+    top: 20px;
+    right: 20px;
+    background: var(--snarkflix-white);
+    border: 2px solid #e74c3c;
+    border-radius: var(--snarkflix-radius-lg);
+    box-shadow: var(--snarkflix-shadow-xl);
+    z-index: 1000;
+    max-width: 400px;
+    animation: slideInRight 0.3s ease-out;
+}
+
+.snarkflix-error-content {
+    padding: var(--snarkflix-spacing-lg);
+}
+
+.snarkflix-error-content h3 {
+    color: #e74c3c;
+    margin-bottom: var(--snarkflix-spacing-sm);
+    font-size: var(--snarkflix-font-size-lg);
+}
+
+.snarkflix-error-content p {
+    color: var(--snarkflix-dark);
+    margin-bottom: var(--snarkflix-spacing-md);
+    line-height: 1.5;
+}
+
+.snarkflix-error-state {
+    text-align: center;
+    padding: var(--snarkflix-spacing-3xl);
+    background: var(--snarkflix-light);
+    border-radius: var(--snarkflix-radius-lg);
+    border: 2px dashed var(--snarkflix-gray);
+}
+
+.snarkflix-error-state h3 {
+    color: #e74c3c;
+    margin-bottom: var(--snarkflix-spacing-md);
+    font-size: var(--snarkflix-font-size-xl);
+}
+
+.snarkflix-error-state p {
+    color: var(--snarkflix-gray);
+    margin-bottom: var(--snarkflix-spacing-lg);
+    font-size: var(--snarkflix-font-size-lg);
+}
+
+.snarkflix-image-error {
+    opacity: 0.5;
+    filter: grayscale(100%);
+    background: var(--snarkflix-light);
+    border: 2px dashed var(--snarkflix-gray);
+}
+
+.snarkflix-image-loaded {
+    opacity: 1;
+    transition: opacity 0.3s ease-in-out;
+}
+
+@keyframes slideInRight {
+    from {
+        transform: translateX(100%);
+        opacity: 0;
+    }
+    to {
+        transform: translateX(0);
+        opacity: 1;
+    }
+}
+
+/* Dark mode error styles */
+@media (prefers-color-scheme: dark) {
+    .snarkflix-error-message {
+        background: var(--snarkflix-white);
+        border-color: #e74c3c;
+    }
+    
+    .snarkflix-error-content h3 {
+        color: #e74c3c;
+    }
+    
+    .snarkflix-error-content p {
+        color: var(--snarkflix-dark);
+    }
+    
+    .snarkflix-error-state {
+        background: var(--snarkflix-white);
+        border-color: var(--snarkflix-gray);
+    }
+    
+    .snarkflix-error-state h3 {
+        color: #e74c3c;
+    }
+    
+    .snarkflix-error-state p {
+        color: var(--snarkflix-gray);
+    }
+}

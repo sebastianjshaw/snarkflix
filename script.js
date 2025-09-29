@@ -502,6 +502,9 @@ function convertToEmbedUrl(youtubeUrl) {
 }
 
 function createReviewPage(review) {
+    // Add class to body to indicate we're on a review page
+    document.body.classList.add('snarkflix-review-page');
+    
     // Update the page title
     document.title = `${review.title} Review - SnarkAI Score: ${review.aiScore}/100 | Snarkflix`;
     
@@ -567,6 +570,9 @@ function createReviewPage(review) {
 }
 
 function returnToHomepage() {
+    // Remove review page class from body
+    document.body.classList.remove('snarkflix-review-page');
+    
     // Update the page title back to homepage
     document.title = 'Snarkflix - Snarky Movie Reviews';
     

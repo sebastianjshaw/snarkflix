@@ -944,6 +944,118 @@ document.addEventListener('DOMContentLoaded', () => {
     // setupSearch();
 });
 
+// Keyboard navigation support
+function setupKeyboardNavigation() {
+    document.addEventListener('keydown', (e) => {
+        // Close mobile menu with Escape key
+        if (e.key === 'Escape') {
+            const mobileMenuToggle = document.querySelector('.snarkflix-mobile-menu-toggle');
+            if (mobileMenuToggle && mobileMenuToggle.getAttribute('aria-expanded') === 'true') {
+                closeMobileMenu();
+            }
+            
+            // Clear search if search input is focused
+            const searchInput = document.querySelector('.snarkflix-search-input');
+            if (searchInput === document.activeElement) {
+                clearSearch();
+            }
+        }
+        
+        // Category navigation with number keys (1-9)
+        if (e.key >= '1' && e.key <= '9') {
+            const categoryIndex = parseInt(e.key) - 1;
+            const categoryCards = document.querySelectorAll('.snarkflix-category-card');
+            if (categoryCards[categoryIndex]) {
+                e.preventDefault();
+                categoryCards[categoryIndex].click();
+            }
+        }
+        
+        // Quick search with '/' key
+        if (e.key === '/' && !e.ctrlKey && !e.metaKey) {
+            const searchInput = document.querySelector('.snarkflix-search-input');
+            if (searchInput && document.activeElement !== searchInput) {
+                e.preventDefault();
+                searchInput.focus();
+            }
+        }
+        
+        // Sort dropdown navigation
+        if (e.key === 's' && e.ctrlKey) {
+            e.preventDefault();
+            const sortSelect = document.querySelector('.snarkflix-sort-select');
+            if (sortSelect) {
+                sortSelect.focus();
+            }
+        }
+    });
+    
+    // Add keyboard support for category cards
+    const categoryCards = document.querySelectorAll('.snarkflix-category-card');
+    categoryCards.forEach((card, index) => {
+        card.setAttribute('tabindex', '0');
+        card.setAttribute('aria-label', `Filter by ${card.querySelector('.snarkflix-category-name').textContent} category (${index + 1})`);
+        
+        card.addEventListener('keydown', (e) => {
+            if (e.key === 'Enter' || e.key === ' ') {
+                e.preventDefault();
+                card.click();
+            }
+        });
+    });
+    
+    // Add keyboard support for review cards
+    function addKeyboardSupportToReviewCards() {
+        const reviewCards = document.querySelectorAll('.snarkflix-review-card');
+        reviewCards.forEach(card => {
+            card.setAttribute('tabindex', '0');
+            
+            card.addEventListener('keydown', (e) => {
+                if (e.key === 'Enter' || e.key === ' ') {
+                    e.preventDefault();
+                    card.click();
+                }
+            });
+        });
+    }
+    
+    // Add keyboard support to share buttons
+    function addKeyboardSupportToShareButtons() {
+        const shareButtons = document.querySelectorAll('.snarkflix-share-btn');
+        shareButtons.forEach(button => {
+            button.setAttribute('tabindex', '0');
+            
+            button.addEventListener('keydown', (e) => {
+                if (e.key === 'Enter' || e.key === ' ') {
+                    e.preventDefault();
+                    button.click();
+                }
+            });
+        });
+    }
+    
+    // Add keyboard support to existing elements
+    addKeyboardSupportToReviewCards();
+    addKeyboardSupportToShareButtons();
+    
+    // Add keyboard support to new elements when they're created
+    const originalLoadReviews = loadReviews;
+    loadReviews = function(...args) {
+        const result = originalLoadReviews.apply(this, args);
+        // Add keyboard support to newly loaded cards
+        setTimeout(() => {
+            addKeyboardSupportToReviewCards();
+            addKeyboardSupportToShareButtons();
+        }, 100);
+        return result;
+    };
+}
+
+// Initialize keyboard navigation when DOM is ready
+document.addEventListener('DOMContentLoaded', () => {
+    setupKeyboardNavigation();
+});
+
 // Export functions for testing (if needed)
 if (typeof module !== 'undefined' && module.exports) {
     module.exports = {

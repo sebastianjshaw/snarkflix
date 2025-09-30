@@ -59,8 +59,9 @@ describe('Snarkflix Core Functions', () => {
         review.aiSummary.toLowerCase().includes(searchTerm.toLowerCase())
       );
       
-      expect(filteredReviews).toHaveLength(1);
+      expect(filteredReviews).toHaveLength(2);
       expect(filteredReviews[0].title).toBe('Test Movie 1 (2023)');
+      expect(filteredReviews[1].title).toBe('Test Movie 10 (2023)');
     });
 
     test('should return all reviews when no filters applied', () => {
@@ -278,11 +279,17 @@ describe('Snarkflix Core Functions', () => {
     test('should handle image load errors gracefully', () => {
       const img = createMockElement('img', { src: 'invalid-image.jpg' });
       
+      // Add image to document
+      document.body.appendChild(img);
+      
       // Simulate image error
       simulateUserInteraction(img, 'error');
       
       // In real implementation, this would show a fallback or error state
       expect(img).toBeInTheDocument();
+      
+      // Clean up
+      document.body.removeChild(img);
     });
 
     test('should handle fetch errors', async () => {

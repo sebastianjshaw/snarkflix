@@ -11,11 +11,11 @@ function createMockReview(overrides = {}) {
     publishDate: "Jan 1, 2023",
     readingDuration: "5 min read",
     aiScore: 75,
-    aiSummary: "A test movie with great visuals and decent story.",
-    tagline: "Test tagline for testing purposes",
-    content: "This is a test review content.\n\nIt has multiple paragraphs for testing.",
+    aiSummary: "A test movie with great visuals and decent story that provides an entertaining experience.",
+    tagline: "A thrilling test movie that delivers excitement and entertainment!",
+    content: "This is a test review content that provides detailed analysis of the film.\n\nIt has multiple paragraphs for testing purposes and includes comprehensive coverage of the movie's plot, characters, and themes.\n\nThis additional content ensures the review meets the minimum length requirements for testing.",
     category: "action",
-    imageUrl: "images/reviews/test-movie/header-test-movie.png",
+    imageUrl: "images/reviews/test-movie-2023/header-test-movie-2023.png",
     additionalImage: "images/reviews/test-movie/image-test-movie.png",
     additionalImages: [
       "images/reviews/test-movie/image-test-movie-1.png",
@@ -45,14 +45,27 @@ function createMockReviews(count = 5) {
  */
 function setupDOM() {
   document.body.innerHTML = `
+    <style>
+      .sr-only {
+        position: absolute;
+        width: 1px;
+        height: 1px;
+        padding: 0;
+        margin: -1px;
+        overflow: hidden;
+        clip: rect(0, 0, 0, 0);
+        white-space: nowrap;
+        border: 0;
+      }
+    </style>
     <div id="app">
-      <header class="snarkflix-header">
+      <header class="snarkflix-header" role="banner">
         <div class="snarkflix-logo">
           <img src="images/site-assets/logo.avif" alt="Snarkflix Logo" class="snarkflix-logo-image">
           <span class="snarkflix-logo-text">Snarkflix</span>
         </div>
-        <nav class="snarkflix-nav">
-          <button class="snarkflix-mobile-menu-btn" aria-label="Toggle mobile menu">
+        <nav class="snarkflix-nav" role="navigation" aria-label="Main navigation">
+          <button class="snarkflix-mobile-menu-btn" aria-label="Toggle mobile menu" aria-expanded="false">
             <span></span>
             <span></span>
             <span></span>
@@ -65,7 +78,7 @@ function setupDOM() {
         </nav>
       </header>
       
-      <main>
+      <main role="main">
         <section class="snarkflix-hero">
           <div class="snarkflix-hero-content">
             <div class="snarkflix-hero-text">
@@ -81,7 +94,7 @@ function setupDOM() {
         <section class="snarkflix-categories">
           <h2>Categories</h2>
           <div class="snarkflix-categories-grid">
-            <a href="#action" data-category="action" class="snarkflix-category-card">
+            <a href="#action" data-category="action" class="snarkflix-category-card" aria-label="Browse Action category reviews">
               <div class="snarkflix-category-image">
                 <img src="images/category-icons/Action.png" alt="Action" class="snarkflix-category-icon">
               </div>
@@ -94,7 +107,8 @@ function setupDOM() {
         <section class="snarkflix-reviews">
           <div class="snarkflix-reviews-header">
             <h2 class="snarkflix-section-title">Reviews</h2>
-            <select class="snarkflix-sort-select" id="sort-select">
+            <label for="sort-select" class="sr-only">Sort reviews by</label>
+            <select class="snarkflix-sort-select" id="sort-select" aria-label="Sort reviews by">
               <option value="latest">Latest</option>
               <option value="best">Best</option>
               <option value="longest">Longest</option>
@@ -102,7 +116,7 @@ function setupDOM() {
           </div>
           
           <div class="snarkflix-search-container">
-            <input type="text" id="search-input" placeholder="Search reviews..." class="snarkflix-search-input">
+            <input type="text" id="search-input" placeholder="Search reviews..." class="snarkflix-search-input" aria-label="Search reviews">
             <button id="clear-search-btn" class="snarkflix-clear-search-btn" style="display: none;">Clear</button>
           </div>
           
@@ -115,7 +129,7 @@ function setupDOM() {
         </div>
       </main>
       
-      <footer class="snarkflix-footer">
+      <footer class="snarkflix-footer" role="contentinfo">
         <p>&copy; 2025 Snarkflix. All rights reserved.</p>
       </footer>
     </div>

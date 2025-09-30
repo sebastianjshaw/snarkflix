@@ -104,7 +104,7 @@
                     <a href="#categories" class="snarkflix-nav-link">Categories</a>
                     <a href="#about" class="snarkflix-nav-link">About</a>
                 </div>
-                <button class="snarkflix-mobile-menu-toggle" aria-label="Toggle mobile menu" aria-expanded="false">
+                <button class="snarkflix-mobile-menu-toggle snarkflix-mobile-menu-btn" aria-label="Toggle mobile menu" aria-expanded="false">
                     <span></span>
                     <span></span>
                     <span></span>
@@ -147,7 +147,8 @@
         <div class="snarkflix-container">
             <div class="snarkflix-reviews-header">
                 <h2 class="snarkflix-section-title">
-                    <select id="sort-dropdown" class="snarkflix-sort-select">
+                    <label for="sort-dropdown" class="sr-only">Sort reviews by</label>
+                    <select id="sort-dropdown" class="snarkflix-sort-select" aria-label="Sort reviews by">
                         <option value="latest">Latest</option>
                         <option value="best">Best</option>
                         <option value="longest">Longest</option>
@@ -173,56 +174,56 @@
         <div class="snarkflix-container">
             <h2 class="snarkflix-section-title">Browse by Category</h2>
             <div class="snarkflix-categories-grid">
-                <a href="#action" class="snarkflix-category-card" data-category="action">
+                <a href="#action" class="snarkflix-category-card" data-category="action" aria-label="Browse Action category reviews">
                     <div class="snarkflix-category-image action-category">
                         <img src="images/category-icons/Action.png" alt="Action" class="snarkflix-category-icon" loading="lazy">
                     </div>
                     <h3>Action</h3>
                     <span class="snarkflix-category-count">13 posts</span>
                 </a>
-                <a href="#adventure" class="snarkflix-category-card" data-category="adventure">
+                <a href="#adventure" class="snarkflix-category-card" data-category="adventure" aria-label="Browse Adventure category reviews">
                     <div class="snarkflix-category-image adventure-category">
                         <img src="images/category-icons/Adventure.png" alt="Adventure" class="snarkflix-category-icon" loading="lazy">
                     </div>
                     <h3>Adventure</h3>
                     <span class="snarkflix-category-count">1 post</span>
                 </a>
-                <a href="#animation" class="snarkflix-category-card" data-category="animation">
+                <a href="#animation" class="snarkflix-category-card" data-category="animation" aria-label="Browse Animation category reviews">
                     <div class="snarkflix-category-image animation-category">
                         <img src="images/category-icons/Animation.png" alt="Animation" class="snarkflix-category-icon" loading="lazy">
                     </div>
                     <h3>Animation</h3>
                     <span class="snarkflix-category-count">6 posts</span>
                 </a>
-                <a href="#comedy" class="snarkflix-category-card" data-category="comedy">
+                <a href="#comedy" class="snarkflix-category-card" data-category="comedy" aria-label="Browse Comedy category reviews">
                     <div class="snarkflix-category-image comedy-category">
                         <img src="images/category-icons/Comedy.png" alt="Comedy" class="snarkflix-category-icon" loading="lazy">
                     </div>
                     <h3>Comedy</h3>
                     <span class="snarkflix-category-count">3 posts</span>
                 </a>
-                <a href="#drama" class="snarkflix-category-card" data-category="drama">
+                <a href="#drama" class="snarkflix-category-card" data-category="drama" aria-label="Browse Drama category reviews">
                     <div class="snarkflix-category-image drama-category">
                         <img src="images/category-icons/Drama.png" alt="Drama" class="snarkflix-category-icon" loading="lazy">
                     </div>
                     <h3>Drama</h3>
                     <span class="snarkflix-category-count">4 posts</span>
                 </a>
-                <a href="#horror" class="snarkflix-category-card" data-category="horror">
+                <a href="#horror" class="snarkflix-category-card" data-category="horror" aria-label="Browse Horror category reviews">
                     <div class="snarkflix-category-image horror-category">
                         <img src="images/category-icons/Horror.png" alt="Horror" class="snarkflix-category-icon" loading="lazy">
                     </div>
                     <h3>Horror</h3>
                     <span class="snarkflix-category-count">2 posts</span>
                 </a>
-                <a href="#sci-fi" class="snarkflix-category-card" data-category="sci-fi">
+                <a href="#sci-fi" class="snarkflix-category-card" data-category="sci-fi" aria-label="Browse Sci-Fi category reviews">
                     <div class="snarkflix-category-image scifi-category">
                         <img src="images/category-icons/SciFi.png" alt="Sci-Fi" class="snarkflix-category-icon" loading="lazy">
                     </div>
                     <h3>Sci-Fi</h3>
                     <span class="snarkflix-category-count">4 posts</span>
                 </a>
-                <a href="#musical" class="snarkflix-category-card" data-category="musical">
+                <a href="#musical" class="snarkflix-category-card" data-category="musical" aria-label="Browse Musical category reviews">
                     <div class="snarkflix-category-image musical-category">
                         <img src="images/category-icons/Musical.png" alt="Musical" class="snarkflix-category-icon" loading="lazy">
                     </div>

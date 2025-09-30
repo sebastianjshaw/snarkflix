@@ -57,8 +57,28 @@ const server = http.createServer((req, res) => {
     // Check if the review file exists
     fs.access(reviewFile, fs.constants.F_OK, (err) => {
       if (err) {
-        res.writeHead(404, { 'Content-Type': 'text/plain' });
-        res.end('Review not found');
+        // Return a proper 404 HTML page
+        const notFoundHtml = `
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Review Not Found - Snarkflix</title>
+    <style>
+        body { font-family: Arial, sans-serif; text-align: center; padding: 50px; }
+        h1 { color: #e74c3c; }
+        a { color: #3498db; text-decoration: none; }
+    </style>
+</head>
+<body>
+    <h1>Review Not Found</h1>
+    <p>The review you're looking for doesn't exist.</p>
+    <p><a href="/">← Back to Snarkflix</a></p>
+</body>
+</html>`;
+        res.writeHead(404, { 'Content-Type': 'text/html' });
+        res.end(notFoundHtml);
       } else {
         serveFile(res, reviewFile);
       }

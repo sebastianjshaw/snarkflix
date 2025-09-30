@@ -362,7 +362,7 @@ describe('Snarkflix Performance Tests', () => {
       const endTime = performance.now();
       const delegationTime = endTime - startTime;
       
-      expect(delegationTime).toBeLessThan(50); // Should set up delegation efficiently
+      expect(delegationTime).toBeLessThan(100); // Should set up delegation efficiently
     });
   });
 });

@@ -8,7 +8,8 @@
     "test:watch": "jest --watch",
     "test:coverage": "jest --coverage",
     "test:ci": "jest --ci --coverage --watchAll=false",
-    "serve": "python3 -m http.server 8000",
+    "serve": "node server.js",
+    "serve:python": "python3 -m http.server 8000",
     "build": "node generate-review-pages.js",
     "optimize-images": "node optimize-images.js",
     "compress-images": "bash compress-images-advanced.sh"

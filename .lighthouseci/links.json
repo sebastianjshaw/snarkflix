@@ -1,0 +1,5 @@
+{
+  "http://localhost:8000/": "https://storage.googleapis.com/lighthouse-infrastructure.appspot.com/reports/1759235399141-52316.report.html",
+  "https://snarkflix.netlify.app/?review=1": "https://storage.googleapis.com/lighthouse-infrastructure.appspot.com/reports/1759235400236-1318.report.html",
+  "https://snarkflix.netlify.app/?review=2": "https://storage.googleapis.com/lighthouse-infrastructure.appspot.com/reports/1759235401466-68755.report.html"
+}

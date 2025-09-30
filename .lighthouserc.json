@@ -4,8 +4,7 @@
       "url": [
         "http://localhost:8000/",
         "http://localhost:8000/review/1",
-        "http://localhost:8000/review/2",
-        "http://localhost:8000/review/3"
+        "http://localhost:8000/review/2"
       ],
       "numberOfRuns": 3,
       "settings": {

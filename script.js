@@ -415,23 +415,39 @@ function showShareNotification(message) {
 }
 
 function insertImagesInContent(review) {
-    const paragraphs = review.content.split('\n\n');
+    let content = review.content;
+    
+    // First, process inline image markers [IMAGE:path]
+    content = content.replace(/\[IMAGE:([^\]]+)\]/g, (match, imagePath) => {
+        return `
+            <div class="snarkflix-review-image-inline">
+                <img src="${imagePath}" alt="${review.title} additional image" class="snarkflix-review-img-inline" loading="lazy">
+            </div>
+        `;
+    });
+    
+    // Split into paragraphs after processing inline images
+    const paragraphs = content.split('\n\n');
     const allImages = [];
     
-    // Collect all available images
+    // Collect remaining available images (not already used inline)
     if (review.additionalImage) {
         allImages.push(review.additionalImage);
     }
     if (review.additionalImages) {
-        allImages.push(...review.additionalImages);
+        // Filter out images that were already used inline
+        const inlineImages = (review.content.match(/\[IMAGE:([^\]]+)\]/g) || [])
+            .map(match => match.replace(/\[IMAGE:([^\]]+)\]/, '$1'));
+        const remainingImages = review.additionalImages.filter(img => !inlineImages.includes(img));
+        allImages.push(...remainingImages);
     }
     
-    // If no images, just return formatted paragraphs
+    // If no remaining images, just return formatted paragraphs
     if (allImages.length === 0) {
         return paragraphs.map(paragraph => `<p>${paragraph}</p>`).join('');
     }
     
-    // Calculate where to insert images (spread them throughout the content)
+    // Calculate where to insert remaining images (spread them throughout the content)
     const totalParagraphs = paragraphs.length;
     const imagePositions = [];
     

@@ -83,12 +83,25 @@ reviews.forEach(review => {
     </script>
     
     <script>
-        // Redirect to the main page with the review parameter
-        window.location.href = 'https://snarkflix.netlify.app/?review=${review.id}';
+        // Delay redirect to allow social media crawlers to read meta tags
+        // But redirect immediately if this is a real user (not a crawler)
+        if (navigator.userAgent && !navigator.userAgent.includes('bot') && !navigator.userAgent.includes('crawler')) {
+            // Immediate redirect for real users
+            window.location.href = 'https://snarkflix.netlify.app/?review=${review.id}';
+        } else {
+            // Delayed redirect for crawlers
+            setTimeout(function() {
+                window.location.href = 'https://snarkflix.netlify.app/?review=${review.id}';
+            }, 3000);
+        }
     </script>
 </head>
 <body>
-    <p>Redirecting to review...</p>
+    <div style="font-family: Arial, sans-serif; text-align: center; padding: 50px; background: #1a1a1a; color: white; min-height: 100vh;">
+        <h1>${review.title} Review</h1>
+        <p>Loading review...</p>
+        <p><a href="https://snarkflix.netlify.app/?review=${review.id}" style="color: #007bff;">Click here if you're not redirected automatically</a></p>
+    </div>
 </body>
 </html>`;
 

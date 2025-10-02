@@ -1,4 +1,23 @@
+# Allow Facebook crawler to access review pages for social sharing
+User-agent: facebookexternalhit
+Allow: /
+
+# Allow WhatsApp crawler to access review pages for social sharing  
+User-agent: WhatsApp
+Allow: /
+
+# Allow Twitter crawler to access review pages for social sharing
+User-agent: Twitterbot
+Allow: /
+
+# Allow other social media crawlers
+User-agent: LinkedInBot
+Allow: /
+
+# General crawlers - allow everything except review pages
+# (Review pages are meant for social sharing, not search indexing)
 User-agent: *
 Allow: /
 Disallow: /review/
+
 Sitemap: https://snarkflix.netlify.app/sitemap.xml

@@ -1,5 +1,5 @@
 // Snarkflix Service Worker - Image Caching and Performance
-const CACHE_NAME = 'snarkflix-v1';
+const CACHE_NAME = 'snarkflix-v2-2025-10-06';
 const urlsToCache = [
     '/',
     '/styles.css',
@@ -101,6 +101,28 @@ self.addEventListener('fetch', event => {
                     // Return a fallback image or let the browser handle the error
                     return fetch(request);
                 });
+            })
+        );
+        return;
+    }
+    
+    // Handle JavaScript files with network-first strategy (always fetch fresh data)
+    if (url.pathname.endsWith('.js') || url.pathname === '/reviews-data.js' || url.pathname === '/script.js') {
+        event.respondWith(
+            fetch(request).then(fetchResponse => {
+                // Cache the new version
+                if (fetchResponse.status === 200) {
+                    const responseToCache = fetchResponse.clone();
+                    caches.open(CACHE_NAME).then(cache => {
+                        cache.put(request, responseToCache);
+                        console.log('Snarkflix Service Worker: Updated JS cache', url.pathname);
+                    });
+                }
+                return fetchResponse;
+            }).catch(() => {
+                // If network fails, fall back to cache
+                console.log('Snarkflix Service Worker: Network failed, serving JS from cache', url.pathname);
+                return caches.match(request);
             })
         );
         return;

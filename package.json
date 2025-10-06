@@ -12,7 +12,9 @@
     "serve:python": "python3 -m http.server 8000",
     "build": "node generate-review-pages.js",
     "optimize-images": "node optimize-images.js",
-    "compress-images": "bash compress-images-advanced.sh"
+    "compress-images": "bash compress-images-advanced.sh",
+    "update-version": "node update-version.js",
+    "deploy": "npm run update-version && npm run build && git add -A && echo 'Files staged. Ready to commit and push!'"
   },
   "keywords": [
     "movie-reviews",

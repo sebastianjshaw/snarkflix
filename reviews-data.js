@@ -673,7 +673,7 @@ const snarkflixReviews = [
         additionalImages: [
             "images/reviews/goncharov-1973/image-goncharov-1973.png"
         ],
-        youtubeTrailer: "https://www.youtube.com/watch?v=dQw4w9WgXcQ"
+        youtubeTrailer: "https://www.youtube.com/watch?v=Z4Dl1bMG_MA&ab_channel=CasperBlanco"
     }
     
     // Add 7 more reviews here...

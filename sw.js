@@ -1,5 +1,5 @@
 // Snarkflix Service Worker - Image Caching and Performance
-const CACHE_NAME = 'snarkflix-v2-2025-10-06-2149';
+const CACHE_NAME = 'snarkflix-v2-2025-10-06-2155';
 const urlsToCache = [
     '/',
     '/styles.css',

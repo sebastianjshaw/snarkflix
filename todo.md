@@ -14,9 +14,9 @@
 - **Issue**: Ends with "Location choices are on point though and I now really want to see David Harbour in The Boys as Vlad, but we never will because the TV version isn't fun it's 'realistic'." - Tangent that doesn't conclude the review
 - **Action**: Bring the conclusion back to Black Widow itself - summarize whether it's worth watching and what it achieves/fails to achieve
 
-### 4. The Revenant (2015)
-- **Issue**: "The Revenant confuses length with quality and violence with depth. I was unsurprised to learn it had the same director as the tedious Birdman, another god-awful self-indulgent mess of a film(though for different reasons)." - Just a dismissal, no analysis
-- **Action**: Expand on WHY it confuses length with quality, give specific examples, explain what's missing that would make it good
+### 4. ✅ The Revenant (2015) - DELETED
+- Review was too brief and dismissive
+- Deleted entirely rather than expanding
 
 ## Technical
 

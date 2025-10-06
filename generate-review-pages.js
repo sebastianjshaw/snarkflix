@@ -41,15 +41,15 @@ reviews.forEach(review => {
     <meta name="theme-color" content="#1a1a1a">
     
     <!-- Canonical URL -->
-    <link rel="canonical" href="https://snarkflix.netlify.app/review/${review.id}">
+    <link rel="canonical" href="https://snarkflix.com/review/${review.id}">
     
     <!-- Open Graph / Facebook / WhatsApp -->
     <meta property="og:type" content="article">
-    <meta property="og:url" content="https://snarkflix.netlify.app/review/${review.id}">
+    <meta property="og:url" content="https://snarkflix.com/review/${review.id}">
     <meta property="og:title" content="${review.title} Review - SnarkAI Score: ${review.aiScore}/100 | Snarkflix">
     <meta property="og:description" content="${review.title} - ${review.aiSummary.substring(0, 200)}...">
-    <meta property="og:image" content="https://snarkflix.netlify.app/${review.imageUrl}">
-    <meta property="og:image:secure_url" content="https://snarkflix.netlify.app/${review.imageUrl}">
+    <meta property="og:image" content="https://snarkflix.com/${review.imageUrl}">
+    <meta property="og:image:secure_url" content="https://snarkflix.com/${review.imageUrl}">
     <meta property="og:image:type" content="image/png">
     <meta property="og:image:width" content="1200">
     <meta property="og:image:height" content="630">
@@ -58,15 +58,15 @@ reviews.forEach(review => {
     <meta property="og:locale" content="en_US">
     
     <!-- WhatsApp specific meta tags -->
-    <meta property="og:image:url" content="https://snarkflix.netlify.app/${review.imageUrl}">
-    <meta name="twitter:image:src" content="https://snarkflix.netlify.app/${review.imageUrl}">
+    <meta property="og:image:url" content="https://snarkflix.com/${review.imageUrl}">
+    <meta name="twitter:image:src" content="https://snarkflix.com/${review.imageUrl}">
 
     <!-- Twitter -->
     <meta property="twitter:card" content="summary_large_image">
-    <meta property="twitter:url" content="https://snarkflix.netlify.app/review/${review.id}">
+    <meta property="twitter:url" content="https://snarkflix.com/review/${review.id}">
     <meta property="twitter:title" content="${review.title} Review - SnarkAI Score: ${review.aiScore}/100 | Snarkflix">
     <meta property="twitter:description" content="${review.title} - ${review.aiSummary.substring(0, 200)}...">
-    <meta property="twitter:image" content="https://snarkflix.netlify.app/${review.imageUrl}">
+    <meta property="twitter:image" content="https://snarkflix.com/${review.imageUrl}">
     <meta property="twitter:image:alt" content="${review.title} Review">
     <meta property="twitter:site" content="@snarkflix">
 
@@ -87,11 +87,11 @@ reviews.forEach(review => {
         // But redirect immediately if this is a real user (not a crawler)
         if (navigator.userAgent && !navigator.userAgent.includes('bot') && !navigator.userAgent.includes('crawler')) {
             // Immediate redirect for real users
-            window.location.href = 'https://snarkflix.netlify.app/?review=${review.id}';
+            window.location.href = 'https://snarkflix.com/?review=${review.id}';
         } else {
             // Delayed redirect for crawlers
             setTimeout(function() {
-                window.location.href = 'https://snarkflix.netlify.app/?review=${review.id}';
+                window.location.href = 'https://snarkflix.com/?review=${review.id}';
             }, 3000);
         }
     </script>
@@ -100,7 +100,7 @@ reviews.forEach(review => {
     <div style="font-family: Arial, sans-serif; text-align: center; padding: 50px; background: #1a1a1a; color: white; min-height: 100vh;">
         <h1>${review.title} Review</h1>
         <p>Loading review...</p>
-        <p><a href="https://snarkflix.netlify.app/?review=${review.id}" style="color: #007bff;">Click here if you're not redirected automatically</a></p>
+        <p><a href="https://snarkflix.com/?review=${review.id}" style="color: #007bff;">Click here if you're not redirected automatically</a></p>
     </div>
 </body>
 </html>`;

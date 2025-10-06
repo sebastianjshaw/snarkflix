@@ -116,7 +116,8 @@ const snarkflixReviews = [
         imageUrl: "images/reviews/the-marvels/header-the-marvels.png",
         additionalImages: [
             "images/reviews/the-marvels/image-the-marvels-1.png",
-            "images/reviews/the-marvels/image-the-marvels-2.png"
+            "images/reviews/the-marvels/image-the-marvels-2.png",
+            "images/reviews/the-marvels/image-the-marvels-3.png"
         ],
         youtubeTrailer: "https://www.youtube.com/watch?v=wS_qbDztgVY&ab_channel=MarvelEntertainment"
     },
@@ -656,10 +657,27 @@ const snarkflixReviews = [
         category: "animation",
         imageUrl: "images/reviews/iron-giant-1999/header-iron-giant.png",
         youtubeTrailer: "https://www.youtube.com/watch?v=D4dT2eBWI2M&ab_channel=WarnerBros."
+    },
+    {
+        id: 44,
+        title: "Goncharov (1973)",
+        releaseYear: 1973,
+        publishDate: "Aug 15, 2024",
+        readingDuration: "5 min read",
+        aiScore: 93,
+        aiSummary: "tldr: Scorsese's coldest, most controlled work. A study in loyalty, desire, and the slow death of idealism disguised as a mafia film. Every clock ticks toward ruin, and every look carries a secret.",
+        tagline: "Will you be here when I return?",
+        content: "Naples, 1973. The empire has fallen, the streets are cracked with heat and guilt, and the only thing more dangerous than the guns is the silence. Goncharov is Scorsese at his most fatalistic. The film starts as a crime story and ends as a requiem for everyone who thought they could outlive their own past.\n\nRobert De Niro plays Lo Straniero formerlly the Russian hitman Goncharov. Straniero has the soul of a ghost and the manners of a priest. He moves through the city like time itself, inevitable, unhurried, and merciless. Every shot, every line is measured. You can see echos of Goncharov in how Reeves played John Wick. This is De Niro before the bravado of Raging Bull, all quiet control and bottled fury. Goncharov's relationship with Harvey Keitel's Andrey \"The Banker\" Daddano is the film's dark heartbeat. Their scenes are tense, oddly tender, and doomed from the first glance. When they finally confront each other on the bridge, it isn't about money or power. It's about them as men.\n\nCybill Shepherd's Katya watches it all crumble from the inside. She's luminous and brittle, a woman trying to rewrite her life before the ink dries, though her accent stutters at times taking you out. Her affair with Sophia Loren's Sofia is one of Scorsese's most daring subplots, particularly for the time. It's sensual, yes, but more than that, it's honest. Two women trapped in a world built by men, finding something like sanctuary in the wreckage. Their final scene, lit by the glow of a broken clock tower, is devastating.\n\nGene Hackman's Valery adds a bitter edge to the mix. He's the bureaucrat of the underworld, the man who sees everything as numbers and ends up paying for it in blood. John Cazale's Ice Pick Joe, meanwhile, is unforgettable. His jittering menace and quiet despair turn every scene into a confession. When he talks about the sound of an ice pick breaking bone, it's not just horror, it's poetry.\n\nThe film's visual language is pure Scorsese. Long takes, shadows that move like ghosts, and an obsession with time. Clocks appear in nearly every frame. They aren't a motif; they're a countdown. The editing is ruthless, the pacing deliberate. By the time the credits roll, every second feels stolen.\n\nDomenico Procacci's production design turns Naples into a purgatory of faded grandeur. The colors are drained, the music (Morricone at his sharpest) wails like a dying siren. The final scene, Goncharov standing at the harbor, the tide rising, a clock silently striking twelve, is one of cinema's purest endings. No redemption, no glory, only inevitability.\n\nGoncharov isn't just a mafia film. It's a tragedy about men who can't stop killing what they love and women who know the cost of loving them anyway.\n\nA masterpiece of precision and despair. Scorsese's greatest film and his most merciless.",
+        category: "thriller",
+        imageUrl: "images/reviews/goncharov-1973/header-goncharov-1973.png",
+        additionalImages: [
+            "images/reviews/goncharov-1973/image-goncharov-1973.png"
+        ],
+        youtubeTrailer: "https://www.youtube.com/watch?v=dQw4w9WgXcQ"
     }
     
-    // Add 8 more reviews here...
-    // This is where you would add the remaining 8 reviews from your collection
+    // Add 7 more reviews here...
+    // This is where you would add the remaining 7 reviews from your collection
 ];
 
 // Export for use in other files

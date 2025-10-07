@@ -5,11 +5,6 @@
 ### HIGH PRIORITY - Weak Reviews (Below 60 Score)
 Reviews that need significant expansion and proper conclusions:
 
-1. **Wonka (2023)** - Score: 25
-   - Currently: 4 min read with decent analysis but meandering
-   - Needs: Stronger conclusion, less scattered critique
-   - Issues: Jumps between observations without tying them together
-
 2. **The Batman (2022)** - Score: 35
    - Currently: 4 min read, stream-of-consciousness style
    - Needs: Proper structure, clear conclusion
@@ -55,6 +50,27 @@ Reviews that work but could be tightened:
    - Currently: 3 min read
    - Needs: Minor polish, ending is okay but could be stronger
    - Issues: Good review overall, just needs final touch
+
+
+
+20. **Zootopia (2016)** - Score: 
+
+It is vital to state at the start we are not going to touch on the furry fetishism sub-communities this film has created. Never search google for this film with safesearch off.
+
+It's a movie about prejudice and tries to teach kids that prejudice is bad, but does it work?
+
+For a start, its' heavily Copananda. How did Fixes go from the Chaotic Good Robin Hood saving those in need to someone helping the police to keep themselves out of jail at the expense of others?
+
+100 ticket, (monthly ticketing quotas illegal in the US) and she wants to do double, 200 tickets, by noon double quota and these will disproportionally impact low income and marginalised communities. The film portrays this as her being dilligant and going the extra mile, but it's hard not to see it as her activly makign the lives of her community around her worse.
+
+Biological essentialism the movie. You can't escape your nature. Sloths are slow, foxes are sneaky.
+
+The villan is someone using their minority status to manipulate and control. Trust the police citizens, they'll keep those uppity 'victims' in check.
+
+Her reward, a militierized armoured vehicle, the sort that no non-specialized response police department in the world should have.
+
+
+and a thought to take away, in this post-savagry society, what exactly are the Predator anials eating if not the prey?
 
 ## Technical
 

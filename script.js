@@ -9,7 +9,20 @@ function createResponsiveImage(imageUrl, alt, loading = 'lazy') {
     const nameWithoutExt = filename.replace(/\.(webp|avif|png)$/, '');
     const ext = filename.match(/\.(webp|avif|png)$/)?.[1] || 'webp';
     
-    // Create responsive image HTML
+    // Check if responsive versions exist by looking for common patterns
+    // Only use responsive images for images that we know have responsive versions
+    const hasResponsiveVersions = imageUrl.includes('fantastic-four') || 
+                                 imageUrl.includes('palm-springs') || 
+                                 imageUrl.includes('superman') || 
+                                 imageUrl.includes('iron-giant') ||
+                                 imageUrl.includes('logo');
+    
+    if (!hasResponsiveVersions) {
+        // Fall back to simple img tag for images without responsive versions
+        return `<img src="${imageUrl}" alt="${alt}" loading="${loading}">`;
+    }
+    
+    // Create responsive image HTML for images with responsive versions
     return `
         <picture>
             <source srcset="${basePath}/${nameWithoutExt}-400w.${ext} 400w, ${basePath}/${nameWithoutExt}-800w.${ext} 800w, ${basePath}/${nameWithoutExt}-1200w.${ext} 1200w" 

@@ -1,5 +1,25 @@
 // Snarkflix JavaScript - Movie Review Blog
 
+// Helper function to create responsive image HTML
+function createResponsiveImage(imageUrl, alt, loading = 'lazy') {
+    // Extract base path and extension
+    const pathParts = imageUrl.split('/');
+    const filename = pathParts[pathParts.length - 1];
+    const basePath = pathParts.slice(0, -1).join('/');
+    const nameWithoutExt = filename.replace(/\.(webp|avif|png)$/, '');
+    const ext = filename.match(/\.(webp|avif|png)$/)?.[1] || 'webp';
+    
+    // Create responsive image HTML
+    return `
+        <picture>
+            <source srcset="${basePath}/${nameWithoutExt}-400w.${ext} 400w, ${basePath}/${nameWithoutExt}-800w.${ext} 800w, ${basePath}/${nameWithoutExt}-1200w.${ext} 1200w" 
+                    sizes="(max-width: 768px) 400px, (max-width: 1200px) 800px, 1200px" 
+                    type="image/${ext}">
+            <img src="${imageUrl}" alt="${alt}" loading="${loading}">
+        </picture>
+    `;
+}
+
 // Import review data from external file
 // Note: In a real application, this would be loaded via script tag or module import
 // For now, we'll use the data directly from reviews-data.js
@@ -244,7 +264,7 @@ function createReviewElement(review) {
     
     reviewCard.innerHTML = `
         <div class="snarkflix-review-image">
-            <img src="${review.imageUrl}" alt="${review.title} movie poster" loading="lazy">
+            ${createResponsiveImage(review.imageUrl, `${review.title} movie poster`, 'lazy')}
         </div>
         <div class="snarkflix-review-content">
             <h3 class="snarkflix-review-title">${review.title}</h3>
@@ -704,7 +724,7 @@ function createReviewContentHTML(review) {
                 </header>
                 
                 <div class="snarkflix-review-hero-image">
-                    <img src="${review.imageUrl}" alt="${review.title} movie poster" class="snarkflix-review-hero-img" loading="lazy">
+                    ${createResponsiveImage(review.imageUrl, `${review.title} movie poster`, 'lazy').replace('<picture>', '<picture class="snarkflix-review-hero-img">')}
                     <div class="snarkflix-review-tagline">
                         <blockquote>"${review.tagline}"</blockquote>
                     </div>
@@ -796,7 +816,7 @@ function loadRelatedReviews(currentReview) {
         
         reviewCard.innerHTML = `
             <div class="snarkflix-review-image">
-                <img src="${relatedReview.imageUrl}" alt="${relatedReview.title} movie poster" loading="lazy">
+                ${createResponsiveImage(relatedReview.imageUrl, `${relatedReview.title} movie poster`, 'lazy')}
             </div>
             <div class="snarkflix-review-content">
                 <h3 class="snarkflix-review-title">${relatedReview.title}</h3>

@@ -26,7 +26,7 @@ function createResponsiveImage(imageUrl, alt, loading = 'lazy') {
     return `
         <picture>
             <source srcset="${basePath}/${nameWithoutExt}-400w.${ext} 400w, ${basePath}/${nameWithoutExt}-800w.${ext} 800w, ${basePath}/${nameWithoutExt}-1200w.${ext} 1200w" 
-                    sizes="(max-width: 768px) 400px, (max-width: 1200px) 800px, 1200px" 
+                    sizes="(max-width: 400px) 400px, (max-width: 800px) 400px, 400px" 
                     type="image/${ext}">
             <img src="${imageUrl}" alt="${alt}" loading="${loading}">
         </picture>

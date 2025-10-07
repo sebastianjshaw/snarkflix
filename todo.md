@@ -1,12 +1,75 @@
 # Snarkflix Code Review - TODO List
 
-## Reviews Needing Better Endings
+## Content Quality Issues
+
+### HIGH PRIORITY - Weak Reviews (Below 60 Score)
+Reviews that need significant expansion and proper conclusions:
+
+1. **Wonka (2023)** - Score: 25
+   - Currently: 4 min read with decent analysis but meandering
+   - Needs: Stronger conclusion, less scattered critique
+   - Issues: Jumps between observations without tying them together
+
+2. **The Batman (2022)** - Score: 35
+   - Currently: 4 min read, stream-of-consciousness style
+   - Needs: Proper structure, clear conclusion
+   - Issues: Feels like live-reaction notes, no wrap-up
+
+3. **Black Adam (2022)** - Score: 35
+   - Currently: 2 min read with good observations
+   - Needs: Expansion to 3-4 min with more specific examples
+   - Issues: Too rushed, tonal critique needs more support, ending works but could be stronger
+
+### MEDIUM PRIORITY - Short/Incomplete Reviews
+Reviews under 3 minutes that feel rushed:
+
+4. **Ghostbusters: Afterlife (2021)** - Score: 50
+   - Currently: 1 min read with duplicate "SnarkAI's not quite sure what the ECHO-1 is" text
+   - Needs: Clean up duplicates, expand analysis, add proper ending
+   - Issues: Abrupt, unfinished
+
+5. **The Suicide Squad (2021)** - Score: 80
+   - Currently: 2 min read
+   - Needs: Expand to 3-4 min with more plot/character analysis
+   - Issues: Good observations but too brief for the score
+
+6. **Wonder Woman 1984 (2020)** - Score: 80
+   - Currently: 2 min read
+   - Needs: Expand to 3-4 min, better ending
+   - Issues: Good points but feels incomplete
+
+7. **Finch (2021)** - Score: 25
+   - Currently: Listed as 3 min but actually 2 min (463 words)
+   - Needs: Fix reading time, complete rewrite of ending
+   - Issues: **CRITICAL** - Ends with "But American Pie's a banger" which is bizarre and unexplained. Good critique until it just stops.
+
+### LOWER PRIORITY - Good Reviews Needing Polish
+Reviews that work but could be tightened:
+
+8. **Wicked (2024)** - Score: 60
+   - Currently: 5 min read, very long
+   - Needs: Consider tightening, remove some bullet points
+   - Issues: Meandering in places, could be more focused
+
+9. **Pitch Perfect (2012)** - Score: 70
+   - Currently: 3 min read
+   - Needs: Minor polish, ending is okay but could be stronger
+   - Issues: Good review overall, just needs final touch
 
 ## Technical
 
+### 6. Performance Optimization (HIGH PRIORITY)
+- **File**: `index.html` ✅ COMPLETED
+- **Action**: Added preconnect hints and defer scripts
+- **Impact**: 900ms render blocking savings
 
+### 7. Image Optimization (CRITICAL - 11.4MB savings)
+- **Files**: All header images
+- **Action**: Convert PNG to WebP/AVIF, resize to display dimensions
+- **Priority**: Palm Springs (3.2MB), Superman (3.1MB), Fantastic Four (2.5MB)
+- **Current**: Images 3-4x larger than needed (1536px → 396px display)
 
-### 6. Add Performance Monitoring (Low Priority)
+### 8. Add Performance Monitoring (Low Priority)
 - **File**: `script.js`
 - **Action**: Add performance tracking
 ```javascript
@@ -16,3 +79,14 @@ window.addEventListener('load', () => {
     console.log('Page load time:', perfData.loadEventEnd - perfData.loadEventStart);
 });
 ```
+
+## Completed ✅
+- ✅ Wolfwalkers (2020) - Expanded to 3 min, proper structure
+- ✅ The Man Who Killed Hitler and Then the Bigfoot (2018) - Expanded to 4 min
+- ✅ Black Widow (2021) - Expanded to 4 min, proper conclusion
+- ✅ Removed: Bloodshot, Moonfall, The Revenant (too dismissive)
+- ✅ Fixed: Seth Rogan line in Don't Look Up
+- ✅ Fixed: "Features the most X ever" formula across multiple reviews
+- ✅ Cache busting implementation
+- ✅ Share URL fix (snarkflix.com)
+- ✅ Toned down Snyder criticism in The Batman review

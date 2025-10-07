@@ -5,11 +5,6 @@
 ### HIGH PRIORITY - Weak Reviews (Below 60 Score)
 Reviews that need significant expansion and proper conclusions:
 
-2. **The Batman (2022)** - Score: 35
-   - Currently: 4 min read, stream-of-consciousness style
-   - Needs: Proper structure, clear conclusion
-   - Issues: Feels like live-reaction notes, no wrap-up
-
 3. **Black Adam (2022)** - Score: 35
    - Currently: 2 min read with good observations
    - Needs: Expansion to 3-4 min with more specific examples

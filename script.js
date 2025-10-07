@@ -9,7 +9,12 @@ function createResponsiveImage(imageUrl, alt, loading = 'lazy') {
     const nameWithoutExt = filename.replace(/\.(webp|avif|png)$/, '');
     const ext = filename.match(/\.(webp|avif|png)$/)?.[1] || 'webp';
     
-    // Create responsive image HTML
+    // Check if this is a logo (doesn't have responsive versions)
+    if (imageUrl.includes('logo')) {
+        return `<img src="${imageUrl}" alt="${alt}" loading="${loading}">`;
+    }
+    
+    // Create responsive image HTML for review images
     return `
         <picture>
             <source srcset="${basePath}/${nameWithoutExt}-400w.${ext} 400w, ${basePath}/${nameWithoutExt}-800w.${ext} 800w, ${basePath}/${nameWithoutExt}-1200w.${ext} 1200w" 

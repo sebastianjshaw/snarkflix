@@ -20,7 +20,7 @@ function createResponsiveImage(imageUrl, alt, loading = 'lazy') {
     
     if (!hasResponsiveVersions) {
         // Fall back to simple img tag for images without responsive versions
-        return `<img src="${imageUrl}" alt="${alt}" loading="${loading}">`;
+        return `<img src="${imageUrl}" alt="${alt}" loading="${loading}" width="412" height="400">`;
     }
     
     // Create responsive image HTML for images with responsive versions
@@ -30,7 +30,7 @@ function createResponsiveImage(imageUrl, alt, loading = 'lazy') {
             <source srcset="${basePath}/${nameWithoutExt}-sm.webp 320w, ${basePath}/${nameWithoutExt}-md.webp 640w, ${basePath}/${nameWithoutExt}-lg.webp 1024w, ${basePath}/${nameWithoutExt}-xl.webp 1920w" 
                     sizes="(max-width: 320px) 320px, (max-width: 640px) 640px, (max-width: 1024px) 1024px, 1920px" 
                     type="image/webp">
-            <img src="${imageUrl}" alt="${alt}" loading="${loading}">
+            <img src="${imageUrl}" alt="${alt}" loading="${loading}" width="412" height="400">
         </picture>
     `;
 }
@@ -454,7 +454,7 @@ function insertImagesInContent(review) {
     content = content.replace(/\[IMAGE:([^\]]+)\]/g, (match, imagePath) => {
         return `
             <div class="snarkflix-review-image-inline">
-                <img src="${imagePath}" alt="${review.title} additional image" class="snarkflix-review-img-inline" loading="lazy">
+                <img src="${imagePath}" alt="${review.title} additional image" class="snarkflix-review-img-inline" loading="lazy" width="400" height="300">
             </div>
         `;
     });
@@ -508,7 +508,7 @@ function insertImagesInContent(review) {
         if (imagePositions.includes(index) && imageIndex < allImages.length) {
             result += `
                 <div class="snarkflix-review-image-inline">
-                    <img src="${allImages[imageIndex]}" alt="${review.title} additional image" class="snarkflix-review-img-inline" loading="lazy">
+                    <img src="${allImages[imageIndex]}" alt="${review.title} additional image" class="snarkflix-review-img-inline" loading="lazy" width="400" height="300">
                 </div>
             `;
             imageIndex++;

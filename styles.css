@@ -1251,6 +1251,13 @@ body {
     position: relative;
 }
 
+/* Image optimization and layout shift prevention */
+img {
+    max-width: 100%;
+    height: auto;
+    display: block;
+}
+
 .snarkflix-review-hero-img {
     width: 100%;
     height: auto;
@@ -1258,6 +1265,22 @@ body {
     object-fit: contain;
     border-radius: 0;
     display: block;
+    /* Fallback for browsers that don't support aspect-ratio */
+    height: 400px;
+    /* Modern browsers will use aspect-ratio */
+    aspect-ratio: 412 / 400; /* Prevent layout shift */
+}
+
+.snarkflix-review-img-inline {
+    width: 100%;
+    max-width: 400px;
+    height: auto;
+    margin: var(--snarkflix-spacing-lg) auto;
+    border-radius: var(--snarkflix-radius-md);
+    /* Fallback for browsers that don't support aspect-ratio */
+    height: 300px;
+    /* Modern browsers will use aspect-ratio */
+    aspect-ratio: 400 / 300; /* Prevent layout shift */
 }
 
 .snarkflix-review-hero-image .snarkflix-review-tagline {

@@ -15,6 +15,7 @@ function createResponsiveImage(imageUrl, alt, loading = 'lazy') {
                                  imageUrl.includes('palm-springs') || 
                                  imageUrl.includes('superman') || 
                                  imageUrl.includes('iron-giant') ||
+                                 imageUrl.includes('kpop-demonhunters') ||
                                  imageUrl.includes('logo');
     
     if (!hasResponsiveVersions) {
@@ -23,11 +24,12 @@ function createResponsiveImage(imageUrl, alt, loading = 'lazy') {
     }
     
     // Create responsive image HTML for images with responsive versions
+    // Use WebP format with responsive sizes and PNG fallback
     return `
         <picture>
-            <source srcset="${basePath}/${nameWithoutExt}-400w.${ext} 400w, ${basePath}/${nameWithoutExt}-800w.${ext} 800w, ${basePath}/${nameWithoutExt}-1200w.${ext} 1200w" 
-                    sizes="(max-width: 400px) 400px, (max-width: 800px) 400px, 400px" 
-                    type="image/${ext}">
+            <source srcset="${basePath}/${nameWithoutExt}-sm.webp 320w, ${basePath}/${nameWithoutExt}-md.webp 640w, ${basePath}/${nameWithoutExt}-lg.webp 1024w, ${basePath}/${nameWithoutExt}-xl.webp 1920w" 
+                    sizes="(max-width: 320px) 320px, (max-width: 640px) 640px, (max-width: 1024px) 1024px, 1920px" 
+                    type="image/webp">
             <img src="${imageUrl}" alt="${alt}" loading="${loading}">
         </picture>
     `;

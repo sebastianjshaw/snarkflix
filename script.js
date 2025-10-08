@@ -613,7 +613,19 @@ function createReviewPage(review) {
     updateMetaTag('twitter:image', getAbsoluteUrl(review.imageUrl));
     updateMetaTag('twitter:url', `https://snarkflix.com/review/${review.id}`);
     
-    // Hide all existing sections except header and footer
+    // Update existing breadcrumb
+    const existingBreadcrumb = document.querySelector('.snarkflix-breadcrumb');
+    if (existingBreadcrumb) {
+        existingBreadcrumb.style.display = 'block';
+        const breadcrumbList = existingBreadcrumb.querySelector('ol');
+        if (breadcrumbList) {
+            breadcrumbList.innerHTML = `
+                <li><a href="index.html">Home</a></li>
+                <li><a href="index.html#reviews">Reviews</a></li>
+                <li aria-current="page">${review.title}</li>
+            `;
+        }
+    }
     const sectionsToHide = document.querySelectorAll('section:not(.snarkflix-header):not(.snarkflix-footer)');
     sectionsToHide.forEach(section => {
         section.style.display = 'none';
@@ -658,6 +670,12 @@ function createReviewPage(review) {
 function returnToHomepage() {
     // Remove review page class from body
     document.body.classList.remove('snarkflix-review-page');
+    
+    // Hide breadcrumb
+    const existingBreadcrumb = document.querySelector('.snarkflix-breadcrumb');
+    if (existingBreadcrumb) {
+        existingBreadcrumb.style.display = 'none';
+    }
     
     // Update the page title back to homepage
     document.title = 'Snarkflix - Snarky Movie Reviews';
@@ -707,17 +725,6 @@ function returnToHomepage() {
 
 function createReviewContentHTML(review) {
     return `
-        <!-- Breadcrumb -->
-        <nav class="snarkflix-breadcrumb" aria-label="Breadcrumb">
-            <div class="snarkflix-container">
-                <ol class="snarkflix-breadcrumb-list">
-                    <li><a href="index.html">Home</a></li>
-                    <li><a href="index.html#reviews">Reviews</a></li>
-                    <li aria-current="page">${review.title}</li>
-                </ol>
-            </div>
-        </nav>
-
         <!-- Main Review Content -->
         <main class="snarkflix-review-page">
             <article class="snarkflix-review-article">

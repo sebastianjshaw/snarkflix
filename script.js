@@ -1032,10 +1032,18 @@ function handleImageError(img, fallbackSrc = 'images/site-assets/logo.avif') {
     
     if (retryCount >= maxRetries) {
         console.error('Max retries reached for image:', img.src);
+        
+        // Remove error event listener to prevent further calls
+        img.removeEventListener('error', handleImageError);
+        
+        // Set SVG placeholder
         img.src = 'data:image/svg+xml;base64,PHN2ZyB3aWR0aD0iMjAwIiBoZWlnaHQ9IjIwMCIgeG1sbnM9Imh0dHA6Ly93d3cudzMub3JnLzIwMDAvc3ZnIj48cmVjdCB3aWR0aD0iMTAwJSIgaGVpZ2h0PSIxMDAlIiBmaWxsPSIjZjVmNWY1Ii8+PHRleHQgeD0iNTAlIiB5PSI1MCUiIGZvbnQtZmFtaWx5PSJBcmlhbCIgZm9udC1zaXplPSIxNCIgZmlsbD0iIzk5OSIgdGV4dC1hbmNob3I9Im1pZGRsZSIgZHk9Ii4zZW0iPkltYWdlIG5vdCBhdmFpbGFibGU8L3RleHQ+PC9zdmc+';
         img.alt = 'Image not available';
         img.classList.add('snarkflix-image-error');
         img.classList.add('snarkflix-image-failed');
+        
+        // Mark as handled to prevent further processing
+        img.dataset.errorHandled = 'true';
         return;
     }
     
@@ -1063,7 +1071,11 @@ function setupImageErrorHandling() {
     // Handle existing images
     const images = document.querySelectorAll('img');
     images.forEach(img => {
-        img.addEventListener('error', () => handleImageError(img));
+        img.addEventListener('error', () => {
+            // Skip if already handled
+            if (img.dataset.errorHandled === 'true') return;
+            handleImageError(img);
+        });
         img.addEventListener('load', () => handleImageLoad(img));
     });
     
@@ -1074,13 +1086,21 @@ function setupImageErrorHandling() {
                 if (node.nodeType === Node.ELEMENT_NODE) {
                     // Handle single image elements
                     if (node.tagName === 'IMG') {
-                        node.addEventListener('error', () => handleImageError(node));
+                        node.addEventListener('error', () => {
+                            // Skip if already handled
+                            if (node.dataset.errorHandled === 'true') return;
+                            handleImageError(node);
+                        });
                         node.addEventListener('load', () => handleImageLoad(node));
                     }
                     // Handle images within added nodes
                     const images = node.querySelectorAll ? node.querySelectorAll('img') : [];
                     images.forEach(img => {
-                        img.addEventListener('error', () => handleImageError(img));
+                        img.addEventListener('error', () => {
+                            // Skip if already handled
+                            if (img.dataset.errorHandled === 'true') return;
+                            handleImageError(img);
+                        });
                         img.addEventListener('load', () => handleImageLoad(img));
                     });
                 }

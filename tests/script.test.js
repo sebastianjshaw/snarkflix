@@ -309,10 +309,17 @@ describe('Snarkflix Core Functions', () => {
         
         if (retryCount >= maxRetries) {
           console.error('Max retries reached for image:', img.src);
+          
+          // Remove error event listener to prevent further calls
+          img.removeEventListener('error', window.handleImageError);
+          
           img.src = 'data:image/svg+xml;base64,PHN2ZyB3aWR0aD0iMjAwIiBoZWlnaHQ9IjIwMCIgeG1sbnM9Imh0dHA6Ly93d3cudzMub3JnLzIwMDAvc3ZnIj48cmVjdCB3aWR0aD0iMTAwJSIgaGVpZ2h0PSIxMDAlIiBmaWxsPSIjZjVmNWY1Ii8+PHRleHQgeD0iNTAlIiB5PSI1MCUiIGZvbnQtZmFtaWx5PSJBcmlhbCIgZm9udC1zaXplPSIxNCIgZmlsbD0iIzk5OSIgdGV4dC1hbmNob3I9Im1pZGRsZSIgZHk9Ii4zZW0iPkltYWdlIG5vdCBhdmFpbGFibGU8L3RleHQ+PC9zdmc+';
           img.alt = 'Image not available';
           img.classList.add('snarkflix-image-error');
           img.classList.add('snarkflix-image-failed');
+          
+          // Mark as handled to prevent further processing
+          img.dataset.errorHandled = 'true';
           return;
         }
         
@@ -342,6 +349,9 @@ describe('Snarkflix Core Functions', () => {
       
       // Should have SVG placeholder as final src
       expect(img.src).toContain('data:image/svg+xml');
+      
+      // Should be marked as handled
+      expect(img.dataset.errorHandled).toBe('true');
       
       // Restore original function
       window.handleImageError = originalHandleImageError;

@@ -1587,6 +1587,17 @@ body {
     border: 2px dashed var(--snarkflix-gray);
 }
 
+.snarkflix-image-failed {
+    opacity: 0.3;
+    filter: grayscale(100%);
+    background: var(--snarkflix-light);
+    border: 2px dashed var(--snarkflix-gray);
+    min-height: 200px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
 .snarkflix-image-loaded {
     opacity: 1;
     transition: opacity 0.3s ease-in-out;

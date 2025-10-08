@@ -243,7 +243,7 @@ This project is open source and available under the [MIT License](LICENSE).
 
 ## 📞 Contact
 
-- Website: [snarkflix.netlify.app](https://snarkflix.netlify.app)
+- Website: [snarkflix.com](https://snarkflix.com)
 - GitHub: [sebastianjshaw/snarkflix](https://github.com/sebastianjshaw/snarkflix)
 
 ---

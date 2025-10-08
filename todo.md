@@ -2,17 +2,6 @@
 
 ## Content Quality Issues
 
-### HIGH PRIORITY - Weak Reviews (Below 60 Score)
-Reviews that need significant expansion and proper conclusions:
-
-3. **Black Adam (2022)** - Score: 35
-   - Currently: 2 min read with good observations
-   - Needs: Expansion to 3-4 min with more specific examples
-   - Issues: Too rushed, tonal critique needs more support, ending works but could be stronger
-
-### MEDIUM PRIORITY - Short/Incomplete Reviews
-Reviews under 3 minutes that feel rushed:
-
 4. **Ghostbusters: Afterlife (2021)** - Score: 50
    - Currently: 1 min read with duplicate "SnarkAI's not quite sure what the ECHO-1 is" text
    - Needs: Clean up duplicates, expand analysis, add proper ending

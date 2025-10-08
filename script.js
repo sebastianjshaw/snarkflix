@@ -1025,6 +1025,24 @@ function debounce(func, wait) {
 // Error handling functions
 function handleImageError(img, fallbackSrc = 'images/site-assets/logo.avif') {
     console.warn('Image failed to load:', img.src);
+    
+    // Prevent infinite retry loops
+    const retryCount = img.dataset.retryCount || 0;
+    const maxRetries = 2;
+    
+    if (retryCount >= maxRetries) {
+        console.error('Max retries reached for image:', img.src);
+        img.src = 'data:image/svg+xml;base64,PHN2ZyB3aWR0aD0iMjAwIiBoZWlnaHQ9IjIwMCIgeG1sbnM9Imh0dHA6Ly93d3cudzMub3JnLzIwMDAvc3ZnIj48cmVjdCB3aWR0aD0iMTAwJSIgaGVpZ2h0PSIxMDAlIiBmaWxsPSIjZjVmNWY1Ii8+PHRleHQgeD0iNTAlIiB5PSI1MCUiIGZvbnQtZmFtaWx5PSJBcmlhbCIgZm9udC1zaXplPSIxNCIgZmlsbD0iIzk5OSIgdGV4dC1hbmNob3I9Im1pZGRsZSIgZHk9Ii4zZW0iPkltYWdlIG5vdCBhdmFpbGFibGU8L3RleHQ+PC9zdmc+';
+        img.alt = 'Image not available';
+        img.classList.add('snarkflix-image-error');
+        img.classList.add('snarkflix-image-failed');
+        return;
+    }
+    
+    // Increment retry count
+    img.dataset.retryCount = parseInt(retryCount) + 1;
+    
+    // Try fallback
     img.src = fallbackSrc;
     img.alt = 'Image not available';
     img.classList.add('snarkflix-image-error');

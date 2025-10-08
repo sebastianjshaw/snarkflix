@@ -208,7 +208,7 @@ describe('Snarkflix Core Functions', () => {
   describe('Social Sharing', () => {
     test('should generate correct sharing URLs', () => {
       const review = createMockReview({ id: 1 });
-      const baseUrl = 'https://snarkflix.netlify.app';
+      const baseUrl = 'https://snarkflix.com';
       
       const twitterUrl = `https://twitter.com/intent/tweet?text=${encodeURIComponent(review.title)}&url=${encodeURIComponent(`${baseUrl}/review/${review.id}`)}`;
       const facebookUrl = `https://www.facebook.com/sharer/sharer.php?u=${encodeURIComponent(`${baseUrl}/review/${review.id}`)}`;
@@ -220,7 +220,7 @@ describe('Snarkflix Core Functions', () => {
 
     test('should handle copy to clipboard', async () => {
       const review = createMockReview({ id: 1 });
-      const shareUrl = `https://snarkflix.netlify.app/review/${review.id}`;
+      const shareUrl = `https://snarkflix.com/review/${review.id}`;
       
       // Mock clipboard API
       const mockWriteText = jest.fn().mockResolvedValue();

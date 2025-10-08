@@ -98,8 +98,9 @@ self.addEventListener('fetch', event => {
                     return fetchResponse;
                 }).catch(error => {
                     console.error('Snarkflix Service Worker: Image fetch failed', url.pathname, error);
-                    // Return a fallback image or let the browser handle the error
-                    return fetch(request);
+                    // Don't retry - let the browser handle the error naturally
+                    // This prevents infinite retry loops
+                    throw error;
                 });
             })
         );

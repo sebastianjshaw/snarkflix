@@ -27,8 +27,8 @@ function createResponsiveImage(imageUrl, alt, loading = 'lazy') {
     // Use WebP format with responsive sizes and PNG fallback
     return `
         <picture>
-            <source srcset="${basePath}/${nameWithoutExt}-sm.webp 320w, ${basePath}/${nameWithoutExt}-md.webp 640w, ${basePath}/${nameWithoutExt}-lg.webp 1024w, ${basePath}/${nameWithoutExt}-xl.webp 1920w" 
-                    sizes="(max-width: 320px) 320px, (max-width: 640px) 640px, (max-width: 1024px) 1024px, 1920px" 
+            <source srcset="${basePath}/${nameWithoutExt}-400w.webp 400w, ${basePath}/${nameWithoutExt}-800w.webp 800w, ${basePath}/${nameWithoutExt}-1200w.webp 1200w" 
+                    sizes="(max-width: 400px) 400px, (max-width: 800px) 800px, 1200px" 
                     type="image/webp">
             <img src="${imageUrl}" alt="${alt}" loading="${loading}" width="412" height="400">
         </picture>
@@ -1071,6 +1071,11 @@ function setupImageErrorHandling() {
     // Handle existing images
     const images = document.querySelectorAll('img');
     images.forEach(img => {
+        // Skip if image is already in error state or handled
+        if (img.dataset.errorHandled === 'true' || img.classList.contains('snarkflix-image-error')) {
+            return;
+        }
+        
         img.addEventListener('error', () => {
             // Skip if already handled
             if (img.dataset.errorHandled === 'true') return;

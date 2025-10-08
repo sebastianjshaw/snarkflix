@@ -296,65 +296,42 @@ describe('Snarkflix Core Functions', () => {
       const img = createMockElement('img', { src: 'invalid-image.jpg' });
       document.body.appendChild(img);
       
-      // Mock the handleImageError function to track calls
-      let errorCallCount = 0;
-      const originalHandleImageError = window.handleImageError;
-      
-      window.handleImageError = function(img, fallbackSrc) {
-        errorCallCount++;
+      // Simulate the handleImageError function behavior
+      function handleImageError(img) {
         console.warn('Image failed to load:', img.src);
         
-        const retryCount = img.dataset.retryCount || 0;
-        const maxRetries = 2;
-        
-        if (retryCount >= maxRetries) {
-          console.error('Max retries reached for image:', img.src);
-          
-          // Remove error event listener to prevent further calls
-          img.removeEventListener('error', window.handleImageError);
-          
-          img.src = 'data:image/svg+xml;base64,PHN2ZyB3aWR0aD0iMjAwIiBoZWlnaHQ9IjIwMCIgeG1sbnM9Imh0dHA6Ly93d3cudzMub3JnLzIwMDAvc3ZnIj48cmVjdCB3aWR0aD0iMTAwJSIgaGVpZ2h0PSIxMDAlIiBmaWxsPSIjZjVmNWY1Ii8+PHRleHQgeD0iNTAlIiB5PSI1MCUiIGZvbnQtZmFtaWx5PSJBcmlhbCIgZm9udC1zaXplPSIxNCIgZmlsbD0iIzk5OSIgdGV4dC1hbmNob3I9Im1pZGRsZSIgZHk9Ii4zZW0iPkltYWdlIG5vdCBhdmFpbGFibGU8L3RleHQ+PC9zdmc+';
-          img.alt = 'Image not available';
-          img.classList.add('snarkflix-image-error');
-          img.classList.add('snarkflix-image-failed');
-          
-          // Mark as handled to prevent further processing
-          img.dataset.errorHandled = 'true';
+        // Prevent infinite retry loops - only try once
+        if (img.dataset.errorHandled === 'true') {
           return;
         }
         
-        img.dataset.retryCount = parseInt(retryCount) + 1;
-        img.src = fallbackSrc;
-        img.alt = 'Image not available';
+        // Mark as handled immediately to prevent further calls
+        img.dataset.errorHandled = 'true';
+        
+        // Remove error event listener to prevent further calls
+        img.removeEventListener('error', handleImageError);
+        
+        // Set logo as fallback
+        img.src = 'images/site-assets/logo.avif';
+        img.alt = 'Image not available - showing logo';
         img.classList.add('snarkflix-image-error');
-      };
+        img.classList.add('snarkflix-image-failed');
+      }
       
-      // Add event listener to call our mocked function
-      img.addEventListener('error', () => window.handleImageError(img, 'images/site-assets/logo.avif'));
-      
-      // Simulate multiple image errors by directly calling the error handler
-      window.handleImageError(img, 'images/site-assets/logo.avif'); // First error
-      window.handleImageError(img, 'images/site-assets/logo.avif'); // Second error (fallback fails)
-      window.handleImageError(img, 'images/site-assets/logo.avif'); // Third error (should stop)
-      
-      // Should only call handleImageError 3 times max (not infinite)
-      expect(errorCallCount).toBeLessThanOrEqual(3);
-      
-      // Should have retry count set
-      expect(img.dataset.retryCount).toBe('2');
+      // Call the function multiple times
+      handleImageError(img); // First error
+      handleImageError(img); // Second error (should be ignored due to errorHandled flag)
+      handleImageError(img); // Third error (should be ignored due to errorHandled flag)
       
       // Should have error classes
       expect(img.classList.contains('snarkflix-image-error')).toBe(true);
       expect(img.classList.contains('snarkflix-image-failed')).toBe(true);
       
-      // Should have SVG placeholder as final src
-      expect(img.src).toContain('data:image/svg+xml');
+      // Should have logo as fallback
+      expect(img.src).toContain('images/site-assets/logo.avif');
       
       // Should be marked as handled
       expect(img.dataset.errorHandled).toBe('true');
-      
-      // Restore original function
-      window.handleImageError = originalHandleImageError;
       
       // Clean up
       document.body.removeChild(img);

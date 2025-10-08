@@ -25,9 +25,19 @@ function createResponsiveImage(imageUrl, alt, loading = 'lazy') {
     
     // Create responsive image HTML for images with responsive versions
     // Use WebP format with responsive sizes and PNG fallback
+    // Handle different naming patterns
+    let srcset;
+    if (imageUrl.includes('kpop-demonhunters')) {
+        // Kpop Demon Hunters uses old naming pattern
+        srcset = `${basePath}/${nameWithoutExt}-sm.webp 320w, ${basePath}/${nameWithoutExt}-md.webp 640w, ${basePath}/${nameWithoutExt}-lg.webp 1024w, ${basePath}/${nameWithoutExt}-xl.webp 1920w`;
+    } else {
+        // Other images use new naming pattern
+        srcset = `${basePath}/${nameWithoutExt}-400w.webp 400w, ${basePath}/${nameWithoutExt}-800w.webp 800w, ${basePath}/${nameWithoutExt}-1200w.webp 1200w`;
+    }
+    
     return `
         <picture>
-            <source srcset="${basePath}/${nameWithoutExt}-400w.webp 400w, ${basePath}/${nameWithoutExt}-800w.webp 800w, ${basePath}/${nameWithoutExt}-1200w.webp 1200w" 
+            <source srcset="${srcset}" 
                     sizes="(max-width: 400px) 400px, (max-width: 800px) 800px, 1200px" 
                     type="image/webp">
             <img src="${imageUrl}" alt="${alt}" loading="${loading}" width="412" height="400">
@@ -1023,37 +1033,25 @@ function debounce(func, wait) {
 }
 
 // Error handling functions
-function handleImageError(img, fallbackSrc = 'images/site-assets/logo.avif') {
+function handleImageError(img) {
     console.warn('Image failed to load:', img.src);
     
-    // Prevent infinite retry loops
-    const retryCount = img.dataset.retryCount || 0;
-    const maxRetries = 2;
-    
-    if (retryCount >= maxRetries) {
-        console.error('Max retries reached for image:', img.src);
-        
-        // Remove error event listener to prevent further calls
-        img.removeEventListener('error', handleImageError);
-        
-        // Set SVG placeholder
-        img.src = 'data:image/svg+xml;base64,PHN2ZyB3aWR0aD0iMjAwIiBoZWlnaHQ9IjIwMCIgeG1sbnM9Imh0dHA6Ly93d3cudzMub3JnLzIwMDAvc3ZnIj48cmVjdCB3aWR0aD0iMTAwJSIgaGVpZ2h0PSIxMDAlIiBmaWxsPSIjZjVmNWY1Ii8+PHRleHQgeD0iNTAlIiB5PSI1MCUiIGZvbnQtZmFtaWx5PSJBcmlhbCIgZm9udC1zaXplPSIxNCIgZmlsbD0iIzk5OSIgdGV4dC1hbmNob3I9Im1pZGRsZSIgZHk9Ii4zZW0iPkltYWdlIG5vdCBhdmFpbGFibGU8L3RleHQ+PC9zdmc+';
-        img.alt = 'Image not available';
-        img.classList.add('snarkflix-image-error');
-        img.classList.add('snarkflix-image-failed');
-        
-        // Mark as handled to prevent further processing
-        img.dataset.errorHandled = 'true';
+    // Prevent infinite retry loops - only try once
+    if (img.dataset.errorHandled === 'true') {
         return;
     }
     
-    // Increment retry count
-    img.dataset.retryCount = parseInt(retryCount) + 1;
+    // Mark as handled immediately to prevent further calls
+    img.dataset.errorHandled = 'true';
     
-    // Try fallback
-    img.src = fallbackSrc;
-    img.alt = 'Image not available';
+    // Remove error event listener to prevent further calls
+    img.removeEventListener('error', handleImageError);
+    
+    // Set logo as fallback
+    img.src = 'images/site-assets/logo.avif';
+    img.alt = 'Image not available - showing logo';
     img.classList.add('snarkflix-image-error');
+    img.classList.add('snarkflix-image-failed');
 }
 
 function handleImageLoad(img) {
@@ -1432,3 +1430,7 @@ if (typeof module !== 'undefined' && module.exports) {
         updateCategoryCounts
     };
 }
+
+// Make functions available globally for testing
+window.handleImageError = handleImageError;
+window.handleImageLoad = handleImageLoad;

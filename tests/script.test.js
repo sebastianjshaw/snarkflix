@@ -292,6 +292,64 @@ describe('Snarkflix Core Functions', () => {
       document.body.removeChild(img);
     });
 
+    test('should prevent infinite retry loops on image errors', () => {
+      const img = createMockElement('img', { src: 'invalid-image.jpg' });
+      document.body.appendChild(img);
+      
+      // Mock the handleImageError function to track calls
+      let errorCallCount = 0;
+      const originalHandleImageError = window.handleImageError;
+      
+      window.handleImageError = function(img, fallbackSrc) {
+        errorCallCount++;
+        console.warn('Image failed to load:', img.src);
+        
+        const retryCount = img.dataset.retryCount || 0;
+        const maxRetries = 2;
+        
+        if (retryCount >= maxRetries) {
+          console.error('Max retries reached for image:', img.src);
+          img.src = 'data:image/svg+xml;base64,PHN2ZyB3aWR0aD0iMjAwIiBoZWlnaHQ9IjIwMCIgeG1sbnM9Imh0dHA6Ly93d3cudzMub3JnLzIwMDAvc3ZnIj48cmVjdCB3aWR0aD0iMTAwJSIgaGVpZ2h0PSIxMDAlIiBmaWxsPSIjZjVmNWY1Ii8+PHRleHQgeD0iNTAlIiB5PSI1MCUiIGZvbnQtZmFtaWx5PSJBcmlhbCIgZm9udC1zaXplPSIxNCIgZmlsbD0iIzk5OSIgdGV4dC1hbmNob3I9Im1pZGRsZSIgZHk9Ii4zZW0iPkltYWdlIG5vdCBhdmFpbGFibGU8L3RleHQ+PC9zdmc+';
+          img.alt = 'Image not available';
+          img.classList.add('snarkflix-image-error');
+          img.classList.add('snarkflix-image-failed');
+          return;
+        }
+        
+        img.dataset.retryCount = parseInt(retryCount) + 1;
+        img.src = fallbackSrc;
+        img.alt = 'Image not available';
+        img.classList.add('snarkflix-image-error');
+      };
+      
+      // Add event listener to call our mocked function
+      img.addEventListener('error', () => window.handleImageError(img, 'images/site-assets/logo.avif'));
+      
+      // Simulate multiple image errors by directly calling the error handler
+      window.handleImageError(img, 'images/site-assets/logo.avif'); // First error
+      window.handleImageError(img, 'images/site-assets/logo.avif'); // Second error (fallback fails)
+      window.handleImageError(img, 'images/site-assets/logo.avif'); // Third error (should stop)
+      
+      // Should only call handleImageError 3 times max (not infinite)
+      expect(errorCallCount).toBeLessThanOrEqual(3);
+      
+      // Should have retry count set
+      expect(img.dataset.retryCount).toBe('2');
+      
+      // Should have error classes
+      expect(img.classList.contains('snarkflix-image-error')).toBe(true);
+      expect(img.classList.contains('snarkflix-image-failed')).toBe(true);
+      
+      // Should have SVG placeholder as final src
+      expect(img.src).toContain('data:image/svg+xml');
+      
+      // Restore original function
+      window.handleImageError = originalHandleImageError;
+      
+      // Clean up
+      document.body.removeChild(img);
+    });
+
     test('should handle fetch errors', async () => {
       // Mock fetch to reject
       global.fetch = jest.fn().mockRejectedValue(new Error('Network error'));

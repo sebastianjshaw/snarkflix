@@ -646,6 +646,20 @@ const snarkflixReviews = [
         category: "animation",
         imageUrl: "images/reviews/kpop-demonhunters-2025/header-kpop-demonhunters-2025.webp",
         youtubeTrailer: "https://www.youtube.com/watch?v=AzCAwdp1uIQ"
+    },
+    {
+        id: 46,
+        title: "Zootopia (2016)",
+        releaseYear: 2016,
+        publishDate: "Oct 9, 2025",
+        readingDuration: "1 min read",
+        aiScore: 64,
+        aiSummary: "tldr: A sharp, snarky takedown of Zootopia's mixed messaging—cute anti-bias veneer, copaganda core, essentialist gags, a marginalized villain scapegoat, and a militarized happy ending—wrapped in jokes and unanswered worldbuilding.",
+        tagline: "Cute fur, prickly politics.",
+        content: "It is vital to state at the start we are not going to touch on the furry fetishism sub-communities this film has created. Never search google for this film with safesearch off.\n\nIt's a movie about prejudice and tries to teach kids that prejudice is bad, but does it work?\n\nFor a start, its' heavily Copananda. How did Fixes go from the Chaotic Good Robin Hood saving those in need to someone helping the police to keep themselves out of jail at the expense of others?\n\n100 ticket, (monthly ticketing quotas illegal in the US) and she wants to do double, 200 tickets, by noon double quota and these will disproportionally impact low income and marginalised communities. The film portrays this as her being dilligant and going the extra mile, but it's hard not to see it as her activly makign the lives of her community around her worse.\n\nBiological essentialism the movie. You can't escape your nature. Sloths are slow, foxes are sneaky.\n\nThe villan is someone using their minority status to manipulate and control. Trust the police citizens, they'll keep those uppity 'victims' in check.\n\nHer reward, a militierized armoured vehicle, the sort that no non-specialized response police department in the world should have.\n\n\nand a thought to take away, in this post-savagry society, what exactly are the Predator anials eating if not the prey?",
+        category: "animation",
+        imageUrl: "images/reviews/zootopia-2016/header-zootopia-2016.webp",
+        youtubeTrailer: "https://www.youtube.com/watch?v=jWM0ct-OLsM"
     }
 ];
 

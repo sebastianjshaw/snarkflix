@@ -16,31 +16,37 @@ function createResponsiveImage(imageUrl, alt, loading = 'lazy') {
                                  imageUrl.includes('superman') || 
                                  imageUrl.includes('iron-giant') ||
                                  imageUrl.includes('kpop-demonhunters') ||
+                                 imageUrl.includes('zootopia') ||
                                  imageUrl.includes('logo');
     
     if (!hasResponsiveVersions) {
         // Fall back to simple img tag for images without responsive versions
-        return `<img src="${imageUrl}" alt="${alt}" loading="${loading}" width="412" height="400">`;
+        return `<img src="${imageUrl}" alt="${alt}" loading="${loading}">`;
     }
     
     // Create responsive image HTML for images with responsive versions
     // Use WebP format with responsive sizes and PNG fallback
     // Handle different naming patterns
     let srcset;
-    if (imageUrl.includes('kpop-demonhunters')) {
-        // Kpop Demon Hunters uses old naming pattern
+    if (imageUrl.includes('kpop-demonhunters') || imageUrl.includes('zootopia')) {
+        // Kpop Demon Hunters and Zootopia use old naming pattern
         srcset = `${basePath}/${nameWithoutExt}-sm.webp 320w, ${basePath}/${nameWithoutExt}-md.webp 640w, ${basePath}/${nameWithoutExt}-lg.webp 1024w, ${basePath}/${nameWithoutExt}-xl.webp 1920w`;
     } else {
         // Other images use new naming pattern
         srcset = `${basePath}/${nameWithoutExt}-400w.webp 400w, ${basePath}/${nameWithoutExt}-800w.webp 800w, ${basePath}/${nameWithoutExt}-1200w.webp 1200w`;
     }
     
+    // Use appropriate sizes based on naming pattern
+    const sizes = (imageUrl.includes('kpop-demonhunters') || imageUrl.includes('zootopia')) 
+        ? "(max-width: 320px) 320px, (max-width: 640px) 640px, (max-width: 1024px) 1024px, 1920px"
+        : "(max-width: 400px) 400px, (max-width: 800px) 800px, 1200px";
+    
     return `
         <picture>
             <source srcset="${srcset}" 
-                    sizes="(max-width: 400px) 400px, (max-width: 800px) 800px, 1200px" 
+                    sizes="${sizes}" 
                     type="image/webp">
-            <img src="${imageUrl}" alt="${alt}" loading="${loading}" width="412" height="400">
+            <img src="${imageUrl}" alt="${alt}" loading="${loading}">
         </picture>
     `;
 }
@@ -756,7 +762,7 @@ function createReviewContentHTML(review) {
                 </header>
                 
                 <div class="snarkflix-review-hero-image">
-                    ${createResponsiveImage(review.imageUrl, `${review.title} movie poster`, 'lazy').replace('<picture>', '<picture class="snarkflix-review-hero-img">')}
+                    ${createResponsiveImage(review.imageUrl, `${review.title} movie poster`, 'lazy').replace('<img', '<img class="snarkflix-review-hero-img"')}
                     <div class="snarkflix-review-tagline">
                         <blockquote>"${review.tagline}"</blockquote>
                     </div>

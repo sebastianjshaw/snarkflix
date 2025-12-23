@@ -1,6 +1,6 @@
 {
   "name": "snarkflix",
-  "version": "1.0.0",
+  "version": "1.0.1",
   "description": "A snarky movie review blog with sharp wit and adorable Bernedoodle companion",
   "main": "index.html",
   "scripts": {

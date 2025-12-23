@@ -314,7 +314,17 @@ function loadReviews(page = 1, category = currentCategory, searchTerm = currentS
 function createReviewElement(review) {
     const reviewCard = document.createElement('article');
     reviewCard.className = 'snarkflix-review-card';
+    
+    // Add score-based class for color coding
+    const scoreClass = getScoreClass(review.aiScore);
+    
+    // Add featured class for high-scoring reviews (90+)
+    if (review.aiScore >= 90) {
+        reviewCard.classList.add('snarkflix-review-featured');
+    }
+    
     reviewCard.setAttribute('data-category', review.category);
+    reviewCard.setAttribute('data-score', review.aiScore);
     reviewCard.setAttribute('tabindex', '0');
     reviewCard.setAttribute('role', 'article');
     reviewCard.setAttribute('aria-label', `Review of ${review.title}`);
@@ -328,7 +338,7 @@ function createReviewElement(review) {
             <div class="snarkflix-review-meta">
                 <span class="snarkflix-review-date">${review.publishDate}</span>
                 <span class="snarkflix-review-duration">${review.readingDuration}</span>
-                <span class="snarkflix-review-score">SnarkAI: ${review.aiScore}/100</span>
+                <span class="snarkflix-review-score ${scoreClass}">SnarkAI: ${review.aiScore}/100</span>
             </div>
             <p class="snarkflix-review-summary">${review.aiSummary}</p>
             <p class="snarkflix-review-tagline">"${review.tagline}"</p>
@@ -398,6 +408,19 @@ function createReviewElement(review) {
     }
     
     return reviewCard;
+}
+
+// Get score class for color coding
+function getScoreClass(score) {
+    if (score >= 80) {
+        return 'snarkflix-score-excellent';
+    } else if (score >= 60) {
+        return 'snarkflix-score-good';
+    } else if (score >= 40) {
+        return 'snarkflix-score-fair';
+    } else {
+        return 'snarkflix-score-poor';
+    }
 }
 
 function navigateToReview(reviewId) {

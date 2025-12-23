@@ -728,18 +728,62 @@ body.snarkflix-keyboard-user .snarkflix-skip-link:focus {
     border-radius: var(--snarkflix-radius-md);
     overflow: hidden;
     box-shadow: var(--snarkflix-shadow-sm);
-    transition: var(--snarkflix-transition);
+    transition: transform 0.3s ease, box-shadow 0.3s ease, scale 0.3s ease;
     text-decoration: none;
     color: inherit;
     display: flex;
     flex-direction: column;
     height: 100%;
+    position: relative;
     /* Fade-in animation will be applied via .snarkflix-review-card class */
 }
 
 .snarkflix-reviews-grid .snarkflix-review-card:hover {
-    transform: translateY(-2px);
+    transform: translateY(-4px) scale(1.02);
+    box-shadow: var(--snarkflix-shadow-lg);
+}
+
+.snarkflix-reviews-grid .snarkflix-review-card:active {
+    transform: translateY(-2px) scale(1.01);
+}
+
+/* Featured review variant */
+.snarkflix-reviews-grid .snarkflix-review-card.snarkflix-review-featured {
+    border: 2px solid var(--snarkflix-primary);
     box-shadow: var(--snarkflix-shadow-md);
+}
+
+.snarkflix-reviews-grid .snarkflix-review-card.snarkflix-review-featured:hover {
+    transform: translateY(-6px) scale(1.03);
+    box-shadow: var(--snarkflix-shadow-xl);
+    border-color: var(--snarkflix-secondary);
+}
+
+.snarkflix-reviews-grid .snarkflix-review-card.snarkflix-review-featured::before {
+    content: '⭐ Featured';
+    position: absolute;
+    top: var(--snarkflix-spacing-sm);
+    right: var(--snarkflix-spacing-sm);
+    background: linear-gradient(135deg, var(--snarkflix-primary), var(--snarkflix-secondary));
+    color: var(--snarkflix-white);
+    padding: 6px var(--snarkflix-spacing-sm);
+    border-radius: var(--snarkflix-radius-sm);
+    font-size: var(--snarkflix-font-size-sm);
+    font-weight: 700;
+    z-index: 10;
+    box-shadow: var(--snarkflix-shadow-md);
+    text-transform: uppercase;
+    letter-spacing: 0.5px;
+    animation: pulse-glow 2s ease-in-out infinite;
+}
+
+@keyframes pulse-glow {
+    0%, 100% {
+        box-shadow: var(--snarkflix-shadow-md);
+    }
+    50% {
+        box-shadow: 0 0 15px rgba(255, 107, 53, 0.5), var(--snarkflix-shadow-md);
+    }
 }
 
 .snarkflix-reviews-grid .snarkflix-review-image {
@@ -750,6 +794,11 @@ body.snarkflix-keyboard-user .snarkflix-skip-link:focus {
     position: relative;
     overflow: hidden;
     margin: 0;
+    transition: transform 0.3s ease;
+}
+
+.snarkflix-reviews-grid .snarkflix-review-card:hover .snarkflix-review-image {
+    transform: scale(1.05);
 }
 
 .snarkflix-reviews-grid .snarkflix-review-image img {
@@ -759,6 +808,28 @@ body.snarkflix-keyboard-user .snarkflix-skip-link:focus {
     width: 100%;
     height: 100%;
     object-fit: cover;
+    transition: transform 0.3s ease, opacity 0.3s ease;
+}
+
+.snarkflix-reviews-grid .snarkflix-review-card:hover .snarkflix-review-image img {
+    transform: scale(1.1);
+}
+
+.snarkflix-reviews-grid .snarkflix-review-image::after {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    background: linear-gradient(to bottom, transparent 0%, rgba(0, 0, 0, 0.1) 100%);
+    opacity: 0;
+    transition: opacity 0.3s ease;
+    pointer-events: none;
+}
+
+.snarkflix-reviews-grid .snarkflix-review-card:hover .snarkflix-review-image::after {
+    opacity: 1;
 }
 
 .snarkflix-reviews-grid .snarkflix-review-content {
@@ -788,14 +859,56 @@ body.snarkflix-keyboard-user .snarkflix-skip-link:focus {
     gap: var(--snarkflix-spacing-xs);
 }
 
-.snarkflix-reviews-grid .snarkflix-review-score {
-    background: var(--snarkflix-primary);
-    color: var(--snarkflix-white);
-    padding: 2px var(--snarkflix-spacing-xs);
-    border-radius: var(--snarkflix-radius-sm);
+.snarkflix-reviews-grid .snarkflix-review-duration {
+    display: inline-flex;
+    align-items: center;
+    gap: 4px;
     font-weight: 600;
+    color: var(--snarkflix-secondary);
+    background: rgba(0, 78, 137, 0.1);
+    padding: 4px var(--snarkflix-spacing-sm);
+    border-radius: var(--snarkflix-radius-sm);
+    font-size: var(--snarkflix-font-size-sm);
+}
+
+.snarkflix-reviews-grid .snarkflix-review-duration::before {
+    content: '⏱';
+    font-size: 1em;
+}
+
+.snarkflix-reviews-grid .snarkflix-review-score {
+    color: var(--snarkflix-white);
+    padding: 4px var(--snarkflix-spacing-sm);
+    border-radius: var(--snarkflix-radius-sm);
+    font-weight: 700;
     font-size: var(--snarkflix-font-size-sm);
     white-space: nowrap;
+    display: inline-flex;
+    align-items: center;
+    gap: 4px;
+    box-shadow: var(--snarkflix-shadow-sm);
+}
+
+/* Score-based color coding */
+.snarkflix-reviews-grid .snarkflix-review-score.snarkflix-score-excellent {
+    background: linear-gradient(135deg, #10b981, #059669);
+}
+
+.snarkflix-reviews-grid .snarkflix-review-score.snarkflix-score-good {
+    background: linear-gradient(135deg, #3b82f6, #2563eb);
+}
+
+.snarkflix-reviews-grid .snarkflix-review-score.snarkflix-score-fair {
+    background: linear-gradient(135deg, #f59e0b, #d97706);
+}
+
+.snarkflix-reviews-grid .snarkflix-review-score.snarkflix-score-poor {
+    background: linear-gradient(135deg, #ef4444, #dc2626);
+}
+
+/* Default (if no class applied) */
+.snarkflix-reviews-grid .snarkflix-review-score:not([class*="snarkflix-score-"]) {
+    background: var(--snarkflix-primary);
 }
 
 .snarkflix-reviews-grid .snarkflix-review-summary {
@@ -1005,6 +1118,24 @@ body.snarkflix-keyboard-user .snarkflix-skip-link:focus {
     
     .snarkflix-mobile-menu-toggle {
         display: flex;
+    }
+    
+    /* Reduce hover effects on mobile for better performance */
+    .snarkflix-reviews-grid .snarkflix-review-card:hover {
+        transform: translateY(-2px);
+        box-shadow: var(--snarkflix-shadow-md);
+    }
+    
+    .snarkflix-reviews-grid .snarkflix-review-card:hover .snarkflix-review-image {
+        transform: scale(1.02);
+    }
+    
+    .snarkflix-reviews-grid .snarkflix-review-card:hover .snarkflix-review-image img {
+        transform: scale(1.05);
+    }
+    
+    .snarkflix-reviews-grid .snarkflix-review-card.snarkflix-review-featured:hover {
+        transform: translateY(-3px) scale(1.01);
     }
     
     .snarkflix-hero-content {

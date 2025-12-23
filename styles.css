@@ -551,8 +551,19 @@ body.snarkflix-keyboard-user .snarkflix-skip-link:focus {
     font-size: var(--snarkflix-font-size-2xl);
     font-weight: 700;
     text-align: center;
-    margin-bottom: var(--snarkflix-spacing-3xl);
+    margin-bottom: var(--snarkflix-spacing-md);
     color: var(--snarkflix-dark);
+}
+
+.snarkflix-section-description {
+    font-size: var(--snarkflix-font-size-lg);
+    color: var(--snarkflix-text-secondary);
+    text-align: center;
+    margin-bottom: var(--snarkflix-spacing-xl);
+    max-width: 600px;
+    margin-left: auto;
+    margin-right: auto;
+    line-height: 1.6;
 }
 
 /* Featured Reviews Section */
@@ -1875,6 +1886,96 @@ img {
 .snarkflix-review-text {
     margin-bottom: var(--snarkflix-spacing-3xl);
     font-family: var(--snarkflix-font-family-serif);
+}
+
+/* Review Meta Info Section */
+.snarkflix-review-meta-info {
+    background: var(--snarkflix-light);
+    padding: var(--snarkflix-spacing-lg);
+    border-radius: var(--snarkflix-radius-md);
+    margin: var(--snarkflix-spacing-xl) 0;
+    border-left: 4px solid var(--snarkflix-primary);
+}
+
+.snarkflix-review-meta-info h2 {
+    font-size: var(--snarkflix-font-size-xl);
+    font-weight: 600;
+    margin-bottom: var(--snarkflix-spacing-md);
+    color: var(--snarkflix-dark);
+}
+
+.snarkflix-review-details {
+    list-style: none;
+    padding: 0;
+    margin: 0;
+}
+
+.snarkflix-review-details li {
+    padding: var(--snarkflix-spacing-sm) 0;
+    border-bottom: 1px solid var(--snarkflix-border);
+    font-size: var(--snarkflix-font-size-base);
+    line-height: 1.6;
+}
+
+.snarkflix-review-details li:last-child {
+    border-bottom: none;
+}
+
+.snarkflix-review-details strong {
+    color: var(--snarkflix-dark);
+    font-weight: 600;
+    margin-right: var(--snarkflix-spacing-xs);
+}
+
+.snarkflix-category-link {
+    color: var(--snarkflix-primary);
+    text-decoration: none;
+    font-weight: 500;
+    transition: var(--snarkflix-transition-fast);
+}
+
+.snarkflix-category-link:hover {
+    color: var(--snarkflix-secondary);
+    text-decoration: underline;
+}
+
+.snarkflix-review-tldr {
+    background: var(--snarkflix-light);
+    padding: var(--snarkflix-spacing-md);
+    border-radius: var(--snarkflix-radius-sm);
+    border-left: 3px solid var(--snarkflix-accent);
+    margin: var(--snarkflix-spacing-md) 0;
+    font-size: var(--snarkflix-font-size-base);
+    line-height: 1.7;
+}
+
+.snarkflix-review-tldr strong {
+    color: var(--snarkflix-primary);
+    font-weight: 600;
+}
+
+/* Category Links Section */
+.snarkflix-category-links {
+    margin-top: var(--snarkflix-spacing-2xl);
+    padding-top: var(--snarkflix-spacing-xl);
+    border-top: 2px solid var(--snarkflix-border);
+}
+
+.snarkflix-category-links-content {
+    text-align: center;
+}
+
+.snarkflix-category-links-content h3 {
+    font-size: var(--snarkflix-font-size-xl);
+    font-weight: 600;
+    margin-bottom: var(--snarkflix-spacing-sm);
+    color: var(--snarkflix-dark);
+}
+
+.snarkflix-category-links-content p {
+    color: var(--snarkflix-text-secondary);
+    margin-bottom: var(--snarkflix-spacing-lg);
+    font-size: var(--snarkflix-font-size-base);
 }
 
 .snarkflix-review-text p {

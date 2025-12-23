@@ -943,8 +943,17 @@ function createReviewContentHTML(review) {
                         </div>
                         
                         <div class="snarkflix-review-summary">
-                            <h2>AI Review Summary</h2>
-                            <p>${review.aiSummary}</p>
+                            <h2>Key Takeaways</h2>
+                            <p class="snarkflix-review-tldr"><strong>TL;DR:</strong> ${review.aiSummary}</p>
+                        </div>
+                        
+                        <div class="snarkflix-review-meta-info">
+                            <h2>Movie Details</h2>
+                            <ul class="snarkflix-review-details">
+                                <li><strong>Release Year:</strong> ${review.releaseYear}</li>
+                                <li><strong>Category:</strong> <a href="#categories" class="snarkflix-category-link" data-category="${review.category}">${review.category.charAt(0).toUpperCase() + review.category.slice(1)}</a></li>
+                                <li><strong>SnarkAI Score:</strong> ${review.aiScore}/100</li>
+                            </ul>
                         </div>
                         
                         <div class="snarkflix-review-disclaimer">
@@ -964,7 +973,7 @@ function createReviewContentHTML(review) {
                     <div class="snarkflix-container">
                         
                         <div class="snarkflix-review-share-section">
-                            <h3>Share this review</h3>
+                            <h2>Share this review</h2>
                             <div class="snarkflix-review-share">
                                 <button class="snarkflix-share-btn snarkflix-share-twitter" data-review-id="${review.id}" title="Share on Twitter">
                                     <svg class="snarkflix-share-icon" viewBox="0 0 24 24" fill="currentColor">
@@ -993,7 +1002,7 @@ function createReviewContentHTML(review) {
                         
                         ${review.youtubeTrailer ? `
                         <div class="snarkflix-review-trailer">
-                            <h3>Watch the Trailer</h3>
+                            <h2>Watch the Trailer</h2>
                             <div class="snarkflix-youtube-container">
                                 <iframe 
                                     class="snarkflix-youtube-iframe"
@@ -1018,23 +1027,41 @@ function createReviewContentHTML(review) {
                 <div class="snarkflix-reviews-grid" id="related-reviews-grid">
                     <!-- Related reviews will be loaded here -->
                 </div>
+                <div class="snarkflix-category-links" id="category-links-section">
+                    <!-- Category links will be added here -->
+                </div>
             </div>
         </section>
     `;
 }
 
 function loadRelatedReviews(currentReview) {
-    const relatedReviews = snarkflixReviews
-        .filter(r => r.id !== currentReview.id)
+    const relatedGrid = document.getElementById('related-reviews-grid');
+    const categoryLinksSection = document.getElementById('category-links-section');
+    
+    if (!relatedGrid) return;
+    
+    // Get reviews from same category first, then others
+    const sameCategoryReviews = snarkflixReviews
+        .filter(r => r.id !== currentReview.id && r.category === currentReview.category)
         .sort((a, b) => {
             const dateA = new Date(a.publishDate);
             const dateB = new Date(b.publishDate);
-            return dateB - dateA; // Newest first
+            return dateB - dateA;
         })
-        .slice(0, 3);
-    const relatedGrid = document.getElementById('related-reviews-grid');
+        .slice(0, 2);
     
-    if (!relatedGrid) return;
+    // Get other recent reviews to fill up to 3
+    const otherReviews = snarkflixReviews
+        .filter(r => r.id !== currentReview.id && r.category !== currentReview.category)
+        .sort((a, b) => {
+            const dateA = new Date(a.publishDate);
+            const dateB = new Date(b.publishDate);
+            return dateB - dateA;
+        })
+        .slice(0, 3 - sameCategoryReviews.length);
+    
+    const relatedReviews = [...sameCategoryReviews, ...otherReviews];
     
     relatedReviews.forEach(relatedReview => {
         const reviewCard = document.createElement('article');
@@ -1066,6 +1093,38 @@ function loadRelatedReviews(currentReview) {
         
         relatedGrid.appendChild(reviewCard);
     });
+    
+    // Add category links section
+    if (categoryLinksSection) {
+        const categoryCount = snarkflixReviews.filter(r => r.category === currentReview.category).length;
+        const categoryName = currentReview.category.charAt(0).toUpperCase() + currentReview.category.slice(1);
+        
+        categoryLinksSection.innerHTML = `
+            <div class="snarkflix-category-links-content">
+                <h3>More ${categoryName} Reviews</h3>
+                <p>Explore more ${categoryName.toLowerCase()} movie reviews on Snarkflix.</p>
+                <a href="#categories" class="snarkflix-btn snarkflix-btn-outline" data-category="${currentReview.category}" aria-label="Browse all ${categoryName.toLowerCase()} reviews">
+                    Browse All ${categoryName} Reviews (${categoryCount} total)
+                </a>
+            </div>
+        `;
+        
+        // Add click handler for category link
+        const categoryLink = categoryLinksSection.querySelector('.snarkflix-btn');
+        if (categoryLink) {
+            categoryLink.addEventListener('click', (e) => {
+                e.preventDefault();
+                returnToHomepage();
+                setTimeout(() => {
+                    // Trigger category filter
+                    const categoryCard = document.querySelector(`.snarkflix-category-card[data-category="${currentReview.category}"]`);
+                    if (categoryCard) {
+                        categoryCard.click();
+                    }
+                }, 300);
+            });
+        }
+    }
 }
 
 function updateLoadMoreButton(totalReviews, currentCount) {
@@ -2411,14 +2470,53 @@ function removeStructuredData() {
     if (breadcrumbScript) breadcrumbScript.remove();
 }
 
-function updateMetaTagsForReview(review) {
-    // Update page title
-    document.title = `${review.title} Review - SnarkAI Score: ${review.aiScore}/100 | Snarkflix`;
+// Generate optimized meta description (under 160 chars with keywords)
+function generateMetaDescription(review) {
+    const title = review.title.replace(/\s*\(\d{4}\)\s*/, ''); // Remove year from title for description
+    const year = review.releaseYear;
+    const category = review.category.charAt(0).toUpperCase() + review.category.slice(1);
+    const score = review.aiScore;
     
-    // Update meta description
+    // Create keyword-rich description
+    let description = '';
+    
+    // For high-scoring reviews, emphasize quality
+    if (score >= 80) {
+        description = `${title} (${year}) ${category} Review: ${review.aiSummary.substring(0, 100)}`;
+    } else if (score >= 60) {
+        description = `Review of ${title} (${year}): ${review.aiSummary.substring(0, 100)}`;
+    } else {
+        description = `${title} (${year}) Movie Review: ${review.aiSummary.substring(0, 100)}`;
+    }
+    
+    // Ensure it's under 160 characters
+    if (description.length > 160) {
+        description = description.substring(0, 157) + '...';
+    }
+    
+    return description;
+}
+
+function updateMetaTagsForReview(review) {
+    // Update page title - consider year at beginning for recent movies
+    const currentYear = new Date().getFullYear();
+    const isRecent = review.releaseYear >= currentYear - 1;
+    
+    let title;
+    if (isRecent) {
+        // For recent movies, put year first: "2025 Movie Review..."
+        title = `${review.releaseYear} ${review.title.replace(/\s*\(\d{4}\)\s*/, '')} Review - SnarkAI Score: ${review.aiScore}/100 | Snarkflix`;
+    } else {
+        // For older movies, keep current format
+        title = `${review.title} Review - SnarkAI Score: ${review.aiScore}/100 | Snarkflix`;
+    }
+    
+    document.title = title;
+    
+    // Update meta description with optimized version
     const metaDescription = document.querySelector('meta[name="description"]');
     if (metaDescription) {
-        metaDescription.setAttribute('content', `${review.title} - ${review.aiSummary.substring(0, 150)}...`);
+        metaDescription.setAttribute('content', generateMetaDescription(review));
     }
     
     // Update canonical URL
@@ -2431,8 +2529,14 @@ function updateMetaTagsForReview(review) {
     canonicalLink.setAttribute('href', `https://snarkflix.com/review/${review.id}`);
     
     // Update Open Graph meta tags
-    updateMetaTag('og:title', `${review.title} Review - SnarkAI Score: ${review.aiScore}/100 | Snarkflix`);
-    updateMetaTag('og:description', `${review.title} - ${review.aiSummary.substring(0, 200)}...`);
+    const currentYear = new Date().getFullYear();
+    const isRecent = review.releaseYear >= currentYear - 1;
+    const ogTitle = isRecent 
+        ? `${review.releaseYear} ${review.title.replace(/\s*\(\d{4}\)\s*/, '')} Review - SnarkAI Score: ${review.aiScore}/100 | Snarkflix`
+        : `${review.title} Review - SnarkAI Score: ${review.aiScore}/100 | Snarkflix`;
+    
+    updateMetaTag('og:title', ogTitle);
+    updateMetaTag('og:description', generateMetaDescription(review));
     updateMetaTag('og:image', getAbsoluteUrl(review.imageUrl));
     updateMetaTag('og:image:secure_url', getAbsoluteUrl(review.imageUrl));
     updateMetaTag('og:image:type', 'image/png');
@@ -2447,8 +2551,14 @@ function updateMetaTagsForReview(review) {
     updateMetaTag('twitter:image:src', getAbsoluteUrl(review.imageUrl));
     
     // Update Twitter Card meta tags
-    updateMetaTag('twitter:title', `${review.title} Review - SnarkAI Score: ${review.aiScore}/100 | Snarkflix`);
-    updateMetaTag('twitter:description', `${review.title} - ${review.aiSummary.substring(0, 200)}...`);
+    const currentYear = new Date().getFullYear();
+    const isRecent = review.releaseYear >= currentYear - 1;
+    const twitterTitle = isRecent 
+        ? `${review.releaseYear} ${review.title.replace(/\s*\(\d{4}\)\s*/, '')} Review - SnarkAI Score: ${review.aiScore}/100 | Snarkflix`
+        : `${review.title} Review - SnarkAI Score: ${review.aiScore}/100 | Snarkflix`;
+    
+    updateMetaTag('twitter:title', twitterTitle);
+    updateMetaTag('twitter:description', generateMetaDescription(review));
     updateMetaTag('twitter:image', getAbsoluteUrl(review.imageUrl));
     updateMetaTag('twitter:url', `https://snarkflix.com/review/${review.id}`);
     updateMetaTag('twitter:card', 'summary_large_image');

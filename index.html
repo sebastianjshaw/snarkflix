@@ -165,18 +165,26 @@
                 <h2 class="snarkflix-section-title">
                     <label for="sort-dropdown" class="sr-only">Sort reviews by</label>
                     <select id="sort-dropdown" class="snarkflix-sort-select" aria-label="Sort reviews by">
-                        <option value="latest">Latest</option>
-                        <option value="best">Best</option>
-                        <option value="longest">Longest</option>
+                        <option value="latest" data-icon="🕐">Latest</option>
+                        <option value="best" data-icon="⭐">Best</option>
+                        <option value="longest" data-icon="📖">Longest</option>
                     </select>
                     Reviews
                 </h2>
             </div>
             <div class="snarkflix-search-container">
                 <div class="snarkflix-search-wrapper">
+                    <svg class="snarkflix-search-icon" aria-hidden="true" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                        <circle cx="11" cy="11" r="8"></circle>
+                        <path d="m21 21-4.35-4.35"></path>
+                    </svg>
                     <input type="text" id="search-input" class="snarkflix-search-input" placeholder="Search for movies, actors, or keywords... (Press '/' to focus)" aria-label="Search reviews">
-                    <button id="clear-search-btn" class="snarkflix-clear-search-btn" aria-label="Clear search" style="display: none;">×</button>
-                    <div id="search-suggestions" class="snarkflix-search-suggestions" style="display: none;" role="listbox" aria-label="Search suggestions"></div>
+                    <button id="clear-search-btn" class="snarkflix-clear-search-btn" aria-label="Clear search" style="display: none;">
+                        <span class="snarkflix-clear-icon">×</span>
+                    </button>
+                    <div id="search-suggestions" class="snarkflix-search-suggestions" style="display: none;" role="listbox" aria-label="Search suggestions">
+                        <div id="recent-searches" class="snarkflix-recent-searches" style="display: none;"></div>
+                    </div>
                 </div>
                 <div class="snarkflix-search-filters">
                     <select id="filter-score" class="snarkflix-filter-select" aria-label="Filter by score">
@@ -198,7 +206,12 @@
             </div>
             <div class="snarkflix-load-more">
                 <div id="reviews-progress" class="snarkflix-reviews-progress"></div>
-                <button class="snarkflix-btn snarkflix-btn-outline" id="load-more-btn">Load More Reviews</button>
+                <button class="snarkflix-btn snarkflix-btn-outline" id="load-more-btn">
+                    <span class="snarkflix-btn-text">Load More Reviews</span>
+                    <span class="snarkflix-btn-loader" style="display: none;">
+                        <span class="snarkflix-spinner"></span>
+                    </span>
+                </button>
             </div>
             <button id="back-to-top-btn" class="snarkflix-back-to-top" aria-label="Back to top" style="display: none;">↑</button>
         </div>

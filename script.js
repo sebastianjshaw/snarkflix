@@ -273,12 +273,14 @@ function setupHeaderNavigation() {
 }
 
 function loadReviews(page = 1, category = currentCategory, searchTerm = currentSearchTerm, sort = currentSort, scoreFilter = currentScoreFilter, yearFilter = currentYearFilter) {
-    try {
-        // Check if reviewsGrid exists
-        if (!reviewsGrid) {
-            console.warn('Reviews grid not found, waiting for DOM...');
-            return;
-        }
+    return new Promise((resolve, reject) => {
+        try {
+            // Check if reviewsGrid exists
+            if (!reviewsGrid) {
+                console.warn('Reviews grid not found, waiting for DOM...');
+                reject(new Error('Reviews grid not found'));
+                return;
+            }
         
         // Update global variables to match parameters
         currentCategory = category;
@@ -384,12 +386,17 @@ function loadReviews(page = 1, category = currentCategory, searchTerm = currentS
         // Announce to screen readers
         announceToScreenReader(`Loaded ${reviewsToShow.length} review${reviewsToShow.length !== 1 ? 's' : ''}. ${filteredReviews.length} total review${filteredReviews.length !== 1 ? 's' : ''} available.`);
         
-        // Update current page
-        currentPage = page;
-    } catch (error) {
-        console.error('Error loading reviews:', error);
-        handleReviewLoadError(error);
-    }
+            // Update current page
+            currentPage = page;
+            
+            // Resolve after a small delay to allow DOM updates
+            setTimeout(() => resolve(), 100);
+        } catch (error) {
+            console.error('Error loading reviews:', error);
+            handleReviewLoadError(error);
+            reject(error);
+        }
+    });
 }
 
 function createReviewElement(review) {
@@ -1044,19 +1051,141 @@ function loadRelatedReviews(currentReview) {
 }
 
 function updateLoadMoreButton(totalReviews, currentCount) {
+    if (!loadMoreBtn) return;
+    
+    const btnText = loadMoreBtn.querySelector('.snarkflix-btn-text');
+    const btnLoader = loadMoreBtn.querySelector('.snarkflix-btn-loader');
+    
     if (currentCount >= totalReviews) {
         loadMoreBtn.style.display = 'none';
     } else {
         loadMoreBtn.style.display = 'block';
-        loadMoreBtn.textContent = `Load More Reviews (${totalReviews - currentCount} remaining)`;
+        if (btnText) {
+            btnText.textContent = `Load More Reviews (${totalReviews - currentCount} remaining)`;
+        } else {
+            loadMoreBtn.textContent = `Load More Reviews (${totalReviews - currentCount} remaining)`;
+        }
+        // Hide loader if visible
+        if (btnLoader) btnLoader.style.display = 'none';
+        loadMoreBtn.disabled = false;
     }
+}
+
+function setLoadMoreButtonLoading(isLoading) {
+    if (!loadMoreBtn) return;
+    
+    const btnText = loadMoreBtn.querySelector('.snarkflix-btn-text');
+    const btnLoader = loadMoreBtn.querySelector('.snarkflix-btn-loader');
+    
+    if (isLoading) {
+        loadMoreBtn.disabled = true;
+        if (btnText) btnText.style.display = 'none';
+        if (btnLoader) btnLoader.style.display = 'inline-flex';
+    } else {
+        loadMoreBtn.disabled = false;
+        if (btnText) btnText.style.display = 'inline';
+        if (btnLoader) btnLoader.style.display = 'none';
+    }
+}
+
+// Ripple effect for buttons
+function addRippleEffect(button, event) {
+    const ripple = document.createElement('span');
+    const rect = button.getBoundingClientRect();
+    const size = Math.max(rect.width, rect.height);
+    const x = event.clientX - rect.left - size / 2;
+    const y = event.clientY - rect.top - size / 2;
+    
+    ripple.style.width = ripple.style.height = size + 'px';
+    ripple.style.left = x + 'px';
+    ripple.style.top = y + 'px';
+    ripple.classList.add('snarkflix-ripple');
+    
+    button.style.position = 'relative';
+    button.style.overflow = 'hidden';
+    button.appendChild(ripple);
+    
+    setTimeout(() => {
+        ripple.remove();
+    }, 600);
+}
+
+// Recent searches functionality
+function saveRecentSearch(term) {
+    if (!term || term.trim().length < 2) return;
+    
+    try {
+        let recentSearches = JSON.parse(localStorage.getItem('snarkflix-recent-searches') || '[]');
+        // Remove if already exists
+        recentSearches = recentSearches.filter(s => s.toLowerCase() !== term.toLowerCase());
+        // Add to beginning
+        recentSearches.unshift(term);
+        // Keep only last 5
+        recentSearches = recentSearches.slice(0, 5);
+        localStorage.setItem('snarkflix-recent-searches', JSON.stringify(recentSearches));
+    } catch (e) {
+        console.warn('Failed to save recent search:', e);
+    }
+}
+
+function getRecentSearches() {
+    try {
+        return JSON.parse(localStorage.getItem('snarkflix-recent-searches') || '[]');
+    } catch (e) {
+        return [];
+    }
+}
+
+function showRecentSearches(container) {
+    const recentSearches = getRecentSearches();
+    const recentContainer = document.getElementById('recent-searches');
+    
+    if (!recentContainer || recentSearches.length === 0) {
+        if (recentContainer) recentContainer.style.display = 'none';
+        return;
+    }
+    
+    recentContainer.innerHTML = `
+        <div class="snarkflix-recent-searches-header">Recent Searches</div>
+        ${recentSearches.map(term => `
+            <div class="snarkflix-recent-search-item" data-term="${term}">
+                <span class="snarkflix-recent-search-icon">🕐</span>
+                <span class="snarkflix-recent-search-term">${term}</span>
+            </div>
+        `).join('')}
+    `;
+    
+    recentContainer.style.display = 'block';
+    
+    // Add click handlers
+    recentContainer.querySelectorAll('.snarkflix-recent-search-item').forEach(item => {
+        item.addEventListener('click', () => {
+            const term = item.getAttribute('data-term');
+            const searchInput = document.getElementById('search-input');
+            if (searchInput) {
+                searchInput.value = term;
+                searchInput.dispatchEvent(new Event('input', { bubbles: true }));
+            }
+        });
+    });
 }
 
 function setupEventListeners() {
     // Load more button
     if (loadMoreBtn) {
-        loadMoreBtn.addEventListener('click', () => {
-            loadReviews(currentPage + 1, currentCategory, currentSearchTerm, currentSort, currentScoreFilter, currentYearFilter);
+        loadMoreBtn.addEventListener('click', (e) => {
+            // Add ripple effect
+            addRippleEffect(e.target, e);
+            
+            // Set loading state
+            setLoadMoreButtonLoading(true);
+            
+            // Load reviews
+            loadReviews(currentPage + 1, currentCategory, currentSearchTerm, currentSort, currentScoreFilter, currentYearFilter).then(() => {
+                setLoadMoreButtonLoading(false);
+            }).catch(() => {
+                setLoadMoreButtonLoading(false);
+            });
         });
     }
     
@@ -1149,9 +1278,16 @@ function setupCategoryFiltering() {
     const categoryCards = document.querySelectorAll('.snarkflix-category-card');
     
     categoryCards.forEach(card => {
+        // Add category color class
+        const category = card.getAttribute('data-category');
+        card.classList.add(`snarkflix-category-${category}`);
+        
         card.addEventListener('click', (e) => {
             e.preventDefault();
             const category = card.getAttribute('data-category');
+            
+            // Add ripple effect
+            addRippleEffect(card, e);
             
             // Update active state
             categoryCards.forEach(c => c.classList.remove('snarkflix-category-active'));
@@ -1199,12 +1335,29 @@ function setupSortDropdown() {
     const sortDropdown = document.getElementById('sort-dropdown');
     
     if (sortDropdown) {
+        // Set initial active option
+        updateSortDropdownDisplay();
+        
         sortDropdown.addEventListener('change', (e) => {
             currentSort = e.target.value;
             currentPage = 1; // Reset to first page when changing sort
-            loadReviews(1, currentCategory, currentSearchTerm, currentSort);
+            updateSortDropdownDisplay();
+            loadReviews(1, currentCategory, currentSearchTerm, currentSort, currentScoreFilter, currentYearFilter).catch(() => {});
         });
     }
+}
+
+function updateSortDropdownDisplay() {
+    const sortDropdown = document.getElementById('sort-dropdown');
+    if (!sortDropdown) return;
+    
+    // Update selected option text to show icon
+    const selectedOption = sortDropdown.options[sortDropdown.selectedIndex];
+    const icon = selectedOption.getAttribute('data-icon') || '';
+    const text = selectedOption.text;
+    
+    // Create custom display (if needed for styling)
+    sortDropdown.setAttribute('data-selected', currentSort);
 }
 
 function setupSearch() {
@@ -1217,6 +1370,8 @@ function setupSearch() {
         const debouncedSearch = debounce((searchTerm) => {
             if (searchTerm) {
                 showSearchLoading();
+                // Save to recent searches
+                saveRecentSearch(searchTerm);
             }
             currentSearchTerm = searchTerm;
             currentPage = 1; // Reset to first page when searching
@@ -1249,6 +1404,9 @@ function setupSearch() {
                 }));
             
             if (matches.length > 0 && suggestionsContainer) {
+                const recentContainer = document.getElementById('recent-searches');
+                if (recentContainer) recentContainer.style.display = 'none';
+                
                 suggestionsContainer.innerHTML = matches.map(match => 
                     `<div class="snarkflix-suggestion-item" data-id="${match.id}" role="option" tabindex="0">
                         <strong>${highlightMatch(match.title, term)}</strong>
@@ -1303,12 +1461,26 @@ function setupSearch() {
             showSuggestions(searchTerm);
             debouncedSearch(searchTerm);
             
-            // Show/hide clear button
+            // Show/hide clear button with animation
             if (searchTerm) {
-                clearSearchBtn.style.display = 'block';
+                clearSearchBtn.style.display = 'flex';
+                clearSearchBtn.classList.add('snarkflix-clear-visible');
             } else {
-                clearSearchBtn.style.display = 'none';
+                clearSearchBtn.classList.remove('snarkflix-clear-visible');
+                setTimeout(() => {
+                    if (!searchInput.value.trim()) {
+                        clearSearchBtn.style.display = 'none';
+                    }
+                }, 200);
                 if (suggestionsContainer) suggestionsContainer.style.display = 'none';
+            }
+        });
+        
+        // Show recent searches when focused and empty
+        searchInput.addEventListener('focus', () => {
+            if (!searchInput.value.trim()) {
+                showRecentSearches(suggestionsContainer);
+                if (suggestionsContainer) suggestionsContainer.style.display = 'block';
             }
         });
         
@@ -1318,6 +1490,7 @@ function setupSearch() {
                 suggestionsContainer.style.display = 'none';
             }
         });
+        
         
         // Keyboard shortcut: '/' to focus search
         document.addEventListener('keydown', (e) => {

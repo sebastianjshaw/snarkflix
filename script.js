@@ -129,27 +129,35 @@ function waitForReviewsData(callback, maxAttempts = 50) {
 }
 
 // Optimize initial load by deferring non-critical work
-document.addEventListener('DOMContentLoaded', function() {
+// Use a more aggressive deferral strategy
+if (document.readyState === 'loading') {
+    document.addEventListener('DOMContentLoaded', initializeWhenReady);
+} else {
+    // DOM already loaded
+    initializeWhenReady();
+}
+
+function initializeWhenReady() {
     // Add page loaded class for initial fade-in
     document.body.classList.add('snarkflix-page-loaded');
     
     // Wait for reviews data to be available before initializing
     waitForReviewsData(function() {
-        // Use requestIdleCallback for initialization if available
+        // Use requestIdleCallback with longer timeout for better performance
         if ('requestIdleCallback' in window) {
             requestIdleCallback(() => {
                 initializeApp();
                 handleInitialReviewCheck();
-            }, { timeout: 500 });
+            }, { timeout: 1000 });
         } else {
-            // Fallback: small delay for browsers without requestIdleCallback
+            // Fallback: longer delay for browsers without requestIdleCallback
             setTimeout(() => {
                 initializeApp();
                 handleInitialReviewCheck();
-            }, 50);
+            }, 100);
         }
     });
-});
+}
 
 function handleInitialReviewCheck() {
     // Check for review parameter and update meta tags before checking for shared review
@@ -251,13 +259,15 @@ function initializeApp() {
     loadMoreBtn = document.getElementById('load-more-btn');
     
     // Initialize critical components first (for above-the-fold content)
-    // Use requestAnimationFrame to ensure DOM is ready
+    // Use double requestAnimationFrame for better performance (wait for next paint)
     requestAnimationFrame(() => {
-        loadReviews();
-        setupHeaderNavigation();
+        requestAnimationFrame(() => {
+            loadReviews();
+            setupHeaderNavigation();
+        });
     });
     
-    // Defer non-critical initialization using requestIdleCallback
+    // Defer non-critical initialization using requestIdleCallback with longer timeout
     if ('requestIdleCallback' in window) {
         requestIdleCallback(() => {
             setupEventListeners();
@@ -267,9 +277,9 @@ function initializeApp() {
             setupSearch();
             setupBackToTop();
             setupKeyboardNavigation();
-        }, { timeout: 2000 });
+        }, { timeout: 3000 });
     } else {
-        // Fallback: use setTimeout for browsers without requestIdleCallback
+        // Fallback: use longer setTimeout for browsers without requestIdleCallback
         setTimeout(() => {
             setupEventListeners();
             setupAccessibility();
@@ -278,7 +288,7 @@ function initializeApp() {
             setupSearch();
             setupBackToTop();
             setupKeyboardNavigation();
-        }, 200);
+        }, 500);
     }
 }
 
@@ -438,15 +448,25 @@ function loadReviews(page = 1, category = currentCategory, searchTerm = currentS
         // Announce to screen readers
         announceToScreenReader(`Loaded ${reviewsToShow.length} review${reviewsToShow.length !== 1 ? 's' : ''}. ${filteredReviews.length} total review${filteredReviews.length !== 1 ? 's' : ''} available.`);
         
-            // Update current page
-            currentPage = page;
-            
-            // Resolve after a small delay to allow DOM updates
-            setTimeout(() => resolve(), 100);
+        // Update current page
+        currentPage = page;
+        
+        // Resolve immediately - DOM updates are already done via DocumentFragment
+        resolve();
         } catch (error) {
             console.error('Error loading reviews:', error);
             handleReviewLoadError(error);
             reject(error);
+        }
+    });
+}
+        
+        // Defer filtering work if possible
+        if ('requestIdleCallback' in window && page === 1) {
+            requestIdleCallback(performLoad, { timeout: 500 });
+        } else {
+            // For subsequent pages or browsers without requestIdleCallback, run immediately
+            performLoad();
         }
     });
 }

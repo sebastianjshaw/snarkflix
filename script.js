@@ -107,27 +107,43 @@ let currentCategory = 'all';
 let currentSearchTerm = '';
 
 // Initialize the application
+// Wait for both DOM and reviews data to be ready
+function waitForReviewsData(callback, maxAttempts = 50) {
+    if (typeof snarkflixReviews !== 'undefined' && Array.isArray(snarkflixReviews)) {
+        callback();
+    } else if (maxAttempts > 0) {
+        setTimeout(() => waitForReviewsData(callback, maxAttempts - 1), 100);
+    } else {
+        console.error('Reviews data failed to load after maximum attempts');
+        // Try to initialize anyway - might work if data loads later
+        callback();
+    }
+}
+
 document.addEventListener('DOMContentLoaded', function() {
     // Add page loaded class for initial fade-in
     document.body.classList.add('snarkflix-page-loaded');
     
-    initializeApp();
-    
-    // Check for review parameter and update meta tags before checking for shared review
-    const urlParams = new URLSearchParams(window.location.search);
-    const reviewParam = urlParams.get('review');
-    
-    if (reviewParam) {
-        const reviewId = parseInt(reviewParam);
-        const review = snarkflixReviews.find(r => r.id === reviewId);
+    // Wait for reviews data to be available before initializing
+    waitForReviewsData(function() {
+        initializeApp();
         
-        if (review) {
-            // Update meta tags for social media sharing (using extracted function)
-            updateMetaTagsForReview(review);
+        // Check for review parameter and update meta tags before checking for shared review
+        const urlParams = new URLSearchParams(window.location.search);
+        const reviewParam = urlParams.get('review');
+        
+        if (reviewParam) {
+            const reviewId = parseInt(reviewParam);
+            const review = snarkflixReviews.find(r => r.id === reviewId);
+            
+            if (review) {
+                // Update meta tags for social media sharing (using extracted function)
+                updateMetaTagsForReview(review);
+            }
         }
-    }
-    
-    checkForSharedReview();
+        
+        checkForSharedReview();
+    });
 });
 
 // Listen for hash changes (back/forward navigation) - legacy support

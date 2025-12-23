@@ -237,6 +237,12 @@ body.snarkflix-keyboard-user .snarkflix-skip-link:focus {
     border: none;
     cursor: pointer;
     padding: var(--snarkflix-spacing-sm);
+    min-width: 44px;
+    min-height: 44px;
+    justify-content: center;
+    align-items: center;
+    position: relative;
+    z-index: 1001;
 }
 
 .snarkflix-mobile-menu-toggle span {
@@ -245,6 +251,20 @@ body.snarkflix-keyboard-user .snarkflix-skip-link:focus {
     background: var(--snarkflix-dark);
     margin: 3px 0;
     transition: var(--snarkflix-transition);
+    display: block;
+}
+
+/* Hamburger to X animation */
+.snarkflix-mobile-menu-toggle[aria-expanded="true"] span:nth-child(1) {
+    transform: rotate(45deg) translate(6px, 6px);
+}
+
+.snarkflix-mobile-menu-toggle[aria-expanded="true"] span:nth-child(2) {
+    opacity: 0;
+}
+
+.snarkflix-mobile-menu-toggle[aria-expanded="true"] span:nth-child(3) {
+    transform: rotate(-45deg) translate(6px, -6px);
 }
 
 /* Breadcrumb Navigation */
@@ -302,7 +322,6 @@ body.snarkflix-keyboard-user .snarkflix-skip-link:focus {
     padding: var(--snarkflix-spacing-3xl) 0;
     margin-bottom: var(--snarkflix-spacing-3xl);
     color: var(--snarkflix-white);
-    padding: var(--snarkflix-spacing-3xl) 0;
     min-height: 80vh;
     display: flex;
     align-items: center;
@@ -703,8 +722,8 @@ body.snarkflix-keyboard-user .snarkflix-skip-link:focus {
     display: flex;
     align-items: center;
     justify-content: center;
-    min-width: 32px;
-    height: 32px;
+    min-width: 44px;
+    min-height: 44px;
 }
 
 .snarkflix-share-btn:hover {
@@ -1273,11 +1292,49 @@ body.snarkflix-keyboard-user .snarkflix-skip-link:focus {
 /* Responsive Design */
 @media (max-width: 768px) {
     .snarkflix-nav-links {
-        display: none;
+        display: flex;
+        transform: translateX(-100%);
     }
     
     .snarkflix-mobile-menu-toggle {
         display: flex;
+    }
+    
+    /* Touch targets - ensure all interactive elements are at least 44x44px */
+    .snarkflix-btn,
+    .snarkflix-share-btn,
+    .snarkflix-clear-search-btn,
+    .snarkflix-category-card,
+    .snarkflix-review-card {
+        min-width: 44px;
+        min-height: 44px;
+    }
+    
+    .snarkflix-share-btn {
+        min-width: 44px;
+        min-height: 44px;
+        padding: var(--snarkflix-spacing-sm);
+    }
+    
+    /* Increase spacing between clickable elements on mobile */
+    .snarkflix-reviews-grid {
+        grid-template-columns: 1fr;
+        gap: var(--snarkflix-spacing-xl);
+    }
+    
+    .snarkflix-review-share {
+        gap: var(--snarkflix-spacing-sm);
+        margin-top: var(--snarkflix-spacing-md);
+    }
+    
+    .snarkflix-categories-grid {
+        grid-template-columns: repeat(2, 1fr);
+        max-width: 400px;
+        gap: var(--snarkflix-spacing-lg);
+    }
+    
+    .snarkflix-category-card {
+        padding: var(--snarkflix-spacing-lg);
     }
     
     /* Reduce hover effects on mobile for better performance */
@@ -1298,9 +1355,32 @@ body.snarkflix-keyboard-user .snarkflix-skip-link:focus {
         transform: translateY(-3px) scale(1.01);
     }
     
+    /* Optimize review card layout for mobile */
+    .snarkflix-reviews-grid .snarkflix-review-card {
+        display: flex;
+        flex-direction: column;
+    }
+    
+    .snarkflix-reviews-grid .snarkflix-review-image {
+        padding-bottom: 75%; /* Taller aspect ratio for mobile */
+    }
+    
+    .snarkflix-reviews-grid .snarkflix-review-content {
+        padding: var(--snarkflix-spacing-lg);
+    }
+    
+    /* Hero section mobile optimizations */
+    .snarkflix-hero {
+        min-height: 60vh;
+        background-attachment: scroll; /* Better performance on mobile */
+        background-size: cover;
+        background-position: center top;
+    }
+    
     .snarkflix-hero-content {
         grid-template-columns: 1fr;
         text-align: center;
+        gap: var(--snarkflix-spacing-xl);
     }
     
     .snarkflix-hero-title {
@@ -1330,15 +1410,6 @@ body.snarkflix-keyboard-user .snarkflix-skip-link:focus {
     
     .snarkflix-footer-social {
         text-align: center;
-    }
-    
-    .snarkflix-reviews-grid {
-        grid-template-columns: 1fr;
-    }
-    
-    .snarkflix-categories-grid {
-        grid-template-columns: repeat(2, 1fr);
-        max-width: 400px;
     }
 }
 
@@ -1381,33 +1452,45 @@ body.snarkflix-keyboard-user .snarkflix-skip-link:focus {
         padding: 0 var(--snarkflix-spacing-sm);
     }
     
+    /* Hero section - smaller height on very small screens */
     .snarkflix-hero {
-        min-height: 60vh;
-        padding: 2rem 0;
-        background-attachment: scroll; /* Better performance on mobile */
+        min-height: 50vh;
+        padding: var(--snarkflix-spacing-xl) 0;
+        background-attachment: scroll;
+        background-size: cover;
+        background-position: center top;
+    }
+    
+    .snarkflix-hero-content {
+        gap: var(--snarkflix-spacing-lg);
     }
     
     .snarkflix-hero-logo {
-        max-width: 200px;
+        max-width: 150px;
         height: auto;
     }
     
     .snarkflix-hero-title {
         font-size: var(--snarkflix-font-size-xl);
+        margin-bottom: var(--snarkflix-spacing-md);
     }
     
     .snarkflix-hero-description {
         font-size: var(--snarkflix-font-size-base);
+        margin-bottom: var(--snarkflix-spacing-lg);
     }
     
     .snarkflix-hero-cta {
         flex-direction: column;
-        align-items: center;
+        align-items: stretch;
+        gap: var(--snarkflix-spacing-md);
     }
     
     .snarkflix-btn {
         width: 100%;
-        max-width: 300px;
+        max-width: none;
+        min-height: 44px;
+        padding: var(--snarkflix-spacing-md) var(--snarkflix-spacing-lg);
     }
     
     .snarkflix-about-logo {
@@ -1417,7 +1500,33 @@ body.snarkflix-keyboard-user .snarkflix-skip-link:focus {
     
     /* Mobile adjustments for review hero images */
     .snarkflix-review-hero-image {
-        height: 60vh; /* Larger height on mobile */
+        height: 50vh;
+        max-height: 400px;
+    }
+    
+    /* Review cards - stacked layout on very small screens */
+    .snarkflix-reviews-grid {
+        gap: var(--snarkflix-spacing-lg);
+    }
+    
+    .snarkflix-reviews-grid .snarkflix-review-image {
+        padding-bottom: 100%; /* Square-ish for mobile */
+    }
+    
+    /* Category cards - single column on very small screens */
+    .snarkflix-categories-grid {
+        grid-template-columns: 1fr;
+        max-width: 100%;
+    }
+    
+    /* Increase spacing for touch targets */
+    .snarkflix-search-filters {
+        gap: var(--snarkflix-spacing-md);
+    }
+    
+    .snarkflix-filter-select {
+        min-height: 44px;
+        padding: var(--snarkflix-spacing-sm) var(--snarkflix-spacing-md);
     }
 }
 
@@ -1798,17 +1907,89 @@ img {
 }
 
 /* Mobile Menu Styles */
-.snarkflix-nav-links.snarkflix-mobile-menu-open {
-    display: flex;
-    position: absolute;
-    top: 100%;
+.snarkflix-mobile-menu-backdrop {
+    display: none;
+    position: fixed;
+    top: 0;
     left: 0;
     right: 0;
+    bottom: 0;
+    background: rgba(0, 0, 0, 0.5);
+    backdrop-filter: blur(4px);
+    z-index: 999;
+    opacity: 0;
+    transition: opacity var(--snarkflix-transition);
+}
+
+.snarkflix-mobile-menu-backdrop.active {
+    display: block;
+    opacity: 1;
+}
+
+.snarkflix-nav-links {
+    transition: transform 0.3s ease-out;
+}
+
+.snarkflix-nav-links.snarkflix-mobile-menu-open {
+    display: flex;
+    position: fixed;
+    top: 0;
+    left: 0;
+    right: auto;
+    width: 280px;
+    height: 100vh;
     background: var(--snarkflix-white);
     flex-direction: column;
-    padding: var(--snarkflix-spacing-lg);
-    box-shadow: var(--snarkflix-shadow-lg);
-    border-top: 1px solid #e0e0e0;
+    padding: var(--snarkflix-spacing-2xl) var(--snarkflix-spacing-lg);
+    box-shadow: var(--snarkflix-shadow-xl);
+    border-top: none;
+    border-right: 1px solid var(--snarkflix-border);
+    z-index: 1000;
+    transform: translateX(0);
+    overflow-y: auto;
+}
+
+/* Close button for mobile menu */
+.snarkflix-mobile-menu-close {
+    display: none;
+    position: absolute;
+    top: var(--snarkflix-spacing-md);
+    right: var(--snarkflix-spacing-md);
+    background: var(--snarkflix-primary);
+    color: var(--snarkflix-white);
+    border: none;
+    border-radius: 50%;
+    width: 44px;
+    height: 44px;
+    min-width: 44px;
+    min-height: 44px;
+    font-size: var(--snarkflix-font-size-xl);
+    font-weight: bold;
+    cursor: pointer;
+    align-items: center;
+    justify-content: center;
+    box-shadow: var(--snarkflix-shadow-md);
+    transition: var(--snarkflix-transition-fast);
+    z-index: 1001;
+}
+
+.snarkflix-nav-links.snarkflix-mobile-menu-open .snarkflix-mobile-menu-close {
+    display: flex;
+}
+
+.snarkflix-mobile-menu-close:hover {
+    background: var(--snarkflix-secondary);
+    transform: scale(1.1);
+}
+
+.snarkflix-nav-links.snarkflix-mobile-menu-open .snarkflix-nav-link {
+    padding: var(--snarkflix-spacing-md);
+    min-height: 44px;
+    display: flex;
+    align-items: center;
+    font-size: var(--snarkflix-font-size-lg);
+    border-bottom: 1px solid var(--snarkflix-border);
+    margin-bottom: var(--snarkflix-spacing-xs);
 }
 
 /* Category Active State */

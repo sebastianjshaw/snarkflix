@@ -1192,12 +1192,48 @@ function setupEventListeners() {
     // Mobile menu toggle
     const mobileMenuToggle = document.querySelector('.snarkflix-mobile-menu-toggle');
     const navLinks = document.querySelector('.snarkflix-nav-links');
+    const mobileMenuClose = document.querySelector('.snarkflix-mobile-menu-close');
+    const mobileMenuBackdrop = document.querySelector('.snarkflix-mobile-menu-backdrop');
+    
+    const openMobileMenu = () => {
+        if (navLinks) navLinks.classList.add('snarkflix-mobile-menu-open');
+        if (mobileMenuToggle) mobileMenuToggle.setAttribute('aria-expanded', 'true');
+        if (mobileMenuBackdrop) mobileMenuBackdrop.classList.add('active');
+        document.body.style.overflow = 'hidden'; // Prevent background scrolling
+    };
+    
+    const closeMobileMenu = () => {
+        if (navLinks) navLinks.classList.remove('snarkflix-mobile-menu-open');
+        if (mobileMenuToggle) mobileMenuToggle.setAttribute('aria-expanded', 'false');
+        if (mobileMenuBackdrop) mobileMenuBackdrop.classList.remove('active');
+        document.body.style.overflow = ''; // Restore scrolling
+    };
     
     if (mobileMenuToggle && navLinks) {
         mobileMenuToggle.addEventListener('click', () => {
             const isExpanded = mobileMenuToggle.getAttribute('aria-expanded') === 'true';
-            mobileMenuToggle.setAttribute('aria-expanded', !isExpanded);
-            navLinks.classList.toggle('snarkflix-mobile-menu-open');
+            if (isExpanded) {
+                closeMobileMenu();
+            } else {
+                openMobileMenu();
+            }
+        });
+    }
+    
+    if (mobileMenuClose) {
+        mobileMenuClose.addEventListener('click', closeMobileMenu);
+    }
+    
+    if (mobileMenuBackdrop) {
+        mobileMenuBackdrop.addEventListener('click', closeMobileMenu);
+    }
+    
+    // Close menu when clicking nav links
+    if (navLinks) {
+        navLinks.querySelectorAll('.snarkflix-nav-link').forEach(link => {
+            link.addEventListener('click', () => {
+                setTimeout(closeMobileMenu, 100); // Small delay for smooth transition
+            });
         });
     }
     

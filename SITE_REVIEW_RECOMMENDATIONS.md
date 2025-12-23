@@ -26,49 +26,12 @@ This document provides comprehensive recommendations for improving Snarkflix acr
 
 **Recommendations:**
 
-1. **Buttons & CTAs**
-   - Add loading states for "Load More" button
-   - Improve button hover/active states
-   - Add ripple effect or micro-interactions
 
-2. **Search Bar**
-   - Add search icon
-   - Improve focus state
-   - Add clear button animation
-   - Show recent searches (localStorage)
-
-3. **Sort Dropdown**
-   - Style to match site aesthetic better
-   - Add icons for sort options
-   - Show active sort option
-
-4. **Category Cards**
-   - Add hover animations
-   - Show category color in border/background
-   - Improve count display
 
 ### 2.3 Mobile Experience
 
 **Recommendations:**
 
-1. **Touch Targets**
-   - Ensure all interactive elements are at least 44x44px
-   - Increase spacing between clickable elements on mobile
-
-2. **Mobile Menu**
-   - Add smooth slide-in animation
-   - Improve close button visibility
-   - Add backdrop blur when menu is open
-
-3. **Review Cards on Mobile**
-   - Optimize card layout for small screens
-   - Consider stacked layout vs grid
-   - Improve image sizing on mobile
-
-4. **Hero Section**
-   - Adjust hero height for mobile (currently 80vh might be too tall)
-   - Stack hero content vertically on mobile
-   - Optimize background image for mobile
 
 ### 2.4 Visual Polish
 

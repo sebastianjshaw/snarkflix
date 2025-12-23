@@ -87,6 +87,9 @@ let currentSearchTerm = '';
 
 // Initialize the application
 document.addEventListener('DOMContentLoaded', function() {
+    // Add page loaded class for initial fade-in
+    document.body.classList.add('snarkflix-page-loaded');
+    
     initializeApp();
     
     // Check for review parameter and update meta tags before checking for shared review
@@ -268,8 +271,10 @@ function loadReviews(page = 1, category = currentCategory, searchTerm = currentS
     }
     
     // Render only the new reviews for this page
-    reviewsToShow.forEach(review => {
+    reviewsToShow.forEach((review, index) => {
         const reviewElement = createReviewElement(review);
+        // Add animation delay based on index for staggered effect
+        reviewElement.style.animationDelay = `${index * 0.05}s`;
         reviewsGrid.appendChild(reviewElement);
     });
     
@@ -586,6 +591,9 @@ function convertToEmbedUrl(youtubeUrl) {
 }
 
 function createReviewPage(review) {
+    // Add page transition class
+    document.body.classList.add('snarkflix-page-transitioning');
+    
     // Add class to body to indicate we're on a review page
     document.body.classList.add('snarkflix-review-page');
     
@@ -669,11 +677,23 @@ function createReviewPage(review) {
         loadRelatedReviews(review);
     }, 100);
     
-    // Scroll to top of the new page
-    window.scrollTo(0, 0);
+    // Scroll to top of the new page with smooth behavior
+    window.scrollTo({
+        top: 0,
+        behavior: 'smooth'
+    });
+    
+    // Remove transition class after animation completes
+    setTimeout(() => {
+        document.body.classList.remove('snarkflix-page-transitioning');
+        document.body.classList.add('snarkflix-page-loaded');
+    }, 300);
 }
 
 function returnToHomepage() {
+    // Add page transition class
+    document.body.classList.add('snarkflix-page-transitioning');
+    
     // Remove review page class from body
     document.body.classList.remove('snarkflix-review-page');
     
@@ -725,8 +745,17 @@ function returnToHomepage() {
         existingReviewContent.remove();
     }
     
-    // Scroll to top
-    window.scrollTo(0, 0);
+    // Scroll to top with smooth behavior
+    window.scrollTo({
+        top: 0,
+        behavior: 'smooth'
+    });
+    
+    // Remove transition class after animation completes
+    setTimeout(() => {
+        document.body.classList.remove('snarkflix-page-transitioning');
+        document.body.classList.add('snarkflix-page-loaded');
+    }, 300);
 }
 
 function createReviewContentHTML(review) {

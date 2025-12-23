@@ -62,6 +62,13 @@
     
     /* Transitions */
     --snarkflix-transition: all 0.3s ease;
+    --snarkflix-transition-fast: all 0.2s ease;
+    --snarkflix-transition-slow: all 0.5s ease;
+}
+
+/* Smooth Scroll Behavior */
+html {
+    scroll-behavior: smooth;
 }
 
 /* Base Typography */
@@ -73,6 +80,18 @@ body {
     background-color: var(--snarkflix-white);
     -webkit-font-smoothing: antialiased;
     -moz-osx-font-smoothing: grayscale;
+    /* Page transition animation */
+    opacity: 1;
+    transition: opacity 0.3s ease-in-out;
+}
+
+/* Page transition states */
+body.snarkflix-page-transitioning {
+    opacity: 0.7;
+}
+
+body.snarkflix-page-loaded {
+    opacity: 1;
 }
 
 /* Focus Styles for Accessibility */
@@ -679,6 +698,7 @@ body {
     display: flex;
     flex-direction: column;
     height: 100%;
+    /* Fade-in animation will be applied via .snarkflix-review-card class */
 }
 
 .snarkflix-reviews-grid .snarkflix-review-card:hover {
@@ -1642,6 +1662,86 @@ img {
         transform: translateX(0);
         opacity: 1;
     }
+}
+
+/* Fade-in animation for review cards */
+@keyframes fadeInUp {
+    from {
+        opacity: 0;
+        transform: translateY(20px);
+    }
+    to {
+        opacity: 1;
+        transform: translateY(0);
+    }
+}
+
+/* Review card fade-in animation */
+.snarkflix-review-card {
+    opacity: 0;
+    animation: fadeInUp 0.6s ease-out forwards;
+}
+
+/* Stagger animation for multiple cards - override with inline style if needed */
+.snarkflix-reviews-grid .snarkflix-review-card:nth-child(1) {
+    animation-delay: 0.05s;
+}
+
+.snarkflix-reviews-grid .snarkflix-review-card:nth-child(2) {
+    animation-delay: 0.1s;
+}
+
+.snarkflix-reviews-grid .snarkflix-review-card:nth-child(3) {
+    animation-delay: 0.15s;
+}
+
+.snarkflix-reviews-grid .snarkflix-review-card:nth-child(4) {
+    animation-delay: 0.2s;
+}
+
+.snarkflix-reviews-grid .snarkflix-review-card:nth-child(5) {
+    animation-delay: 0.25s;
+}
+
+.snarkflix-reviews-grid .snarkflix-review-card:nth-child(6) {
+    animation-delay: 0.3s;
+}
+
+.snarkflix-reviews-grid .snarkflix-review-card:nth-child(n+7) {
+    animation-delay: 0.35s;
+}
+
+/* Page transition animations */
+@keyframes fadeIn {
+    from {
+        opacity: 0;
+    }
+    to {
+        opacity: 1;
+    }
+}
+
+@keyframes slideInFromBottom {
+    from {
+        opacity: 0;
+        transform: translateY(30px);
+    }
+    to {
+        opacity: 1;
+        transform: translateY(0);
+    }
+}
+
+/* Apply page transition to main content */
+.snarkflix-featured-reviews,
+.snarkflix-categories,
+.snarkflix-about {
+    animation: fadeIn 0.5s ease-out;
+}
+
+/* Review page content animation */
+.snarkflix-review-page .snarkflix-review-article {
+    animation: slideInFromBottom 0.6s ease-out;
 }
 
 /* Dark mode error styles */

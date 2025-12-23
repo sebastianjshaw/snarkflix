@@ -134,6 +134,7 @@ document.addEventListener('DOMContentLoaded', function() {
     
     // Wait for reviews data to be available before initializing
     waitForReviewsData(function() {
+        // Initialize critical functionality first
         initializeApp();
         
         // Check for review parameter and update meta tags before checking for shared review
@@ -150,7 +151,10 @@ document.addEventListener('DOMContentLoaded', function() {
             }
         }
         
-        checkForSharedReview();
+        // Check for shared review after a short delay
+        setTimeout(() => {
+            checkForSharedReview();
+        }, 100);
     });
 });
 
@@ -232,16 +236,33 @@ function initializeApp() {
     reviewsGrid = document.getElementById('reviews-grid');
     loadMoreBtn = document.getElementById('load-more-btn');
     
-    // Initialize components
+    // Initialize critical components first (for above-the-fold content)
     loadReviews();
-    setupEventListeners();
-    setupAccessibility();
-    setupCategoryFiltering();
-    setupSortDropdown();
-    setupSearch();
-    setupBackToTop();
-    setupKeyboardNavigation();
     setupHeaderNavigation();
+    
+    // Defer non-critical initialization using requestIdleCallback
+    if ('requestIdleCallback' in window) {
+        requestIdleCallback(() => {
+            setupEventListeners();
+            setupAccessibility();
+            setupCategoryFiltering();
+            setupSortDropdown();
+            setupSearch();
+            setupBackToTop();
+            setupKeyboardNavigation();
+        }, { timeout: 1000 });
+    } else {
+        // Fallback: use setTimeout for browsers without requestIdleCallback
+        setTimeout(() => {
+            setupEventListeners();
+            setupAccessibility();
+            setupCategoryFiltering();
+            setupSortDropdown();
+            setupSearch();
+            setupBackToTop();
+            setupKeyboardNavigation();
+        }, 100);
+    }
 }
 
 function setupHeaderNavigation() {

@@ -674,6 +674,20 @@ const snarkflixReviews = [
         category: "action",
         imageUrl: "images/reviews/thunderbolts-2025/header-thunderbolts-2025.webp",
         youtubeTrailer: "https://www.youtube.com/watch?v=-sAOWhvheK8"
+    },
+    {
+        id: 48,
+        title: "Care (2018)",
+        releaseYear: 2018,
+        publishDate: "Nov 5, 2025",
+        readingDuration: "7 min read",
+        aiScore: 86,
+        aiSummary: "tldr: A grimly precise, emotionally unsparing NHS horror story where the monster is bureaucracy, exhaustion, and not enough money. Quietly devastating. Uncomfortable in exactly the right ways.",
+        tagline: "The cost of care when care itself has been hollowed out",
+        content: "This is social realism done properly. Not the polished, sanitised kind, but the cluttered, messy-shit kitchens and knackered cars version. The sort of realism most US-produced shows either flinch from or actively scrub out. You feel the weight of every domestic detail before the plot even starts doing its damage.\n\nThe opening run with Gran and the two kids is textbook scene-setting. Efficient, warm, and then immediately undercut by the phone call and that sudden silence. It lands because the actress sells it without theatrics. No swelling score. No melodrama. Just absence.\n\nThe stroke sequence is the film's sharpest formal move. The mother's nonsense speech slowly translated for us on screen, revealing clarity the daughters will never access. It is cruel, elegant, and devastating. The rotating MRI shot is almost too on-the-nose, but it earns its place. This is a story about systems grinding people down, and the camera keeps reminding us of the machinery.\n\nCharacter work is quietly vicious. The ex-husband as a scruffy oik feels painfully accurate. Not evil, just useless in the specific ways that matter. The sister is marginally more put together, which in this world reads as a moral failing. The old leather suitcase is a perfect detail. Not symbolic in a writerly way, just real. People pack with what they have.\n\nThe Jamaican nurse deserves particular praise. The practised \"dealing with families\" smile, plastered on and removed as needed, tells you everything about frontline survival. It is not warmth. It is armour.\n\nRemoving the mother from hospital is the turning point, and the film refuses to let you feel clever for predicting it is a bad idea. You understand exactly why the daughter does it. You also know it will go wrong. Care is very good at that double-bind, where compassion and failure occupy the same space.\n\nThe care home scenes are bleak without tipping into pornographic misery. People existing in near-stasis, not suffering loudly enough to demand intervention, just quietly decaying. The wandering mother sequence is handled with restraint. The sister ignoring calls and the ex having a new baby is not subtle, but it is depressingly plausible. Life does not pause for your crisis.\n\nThe disjointed car scene editing is excellent. Fragmented, exhausted, mentally threadbare. It mirrors the daughter's cognitive overload without spelling it out. There are definite Kafka vibes to the healthcare process, endless forms, shifting rules, responsibility without authority, a system that knows its broken but can't do anything but slowly spiral.\n\nThe fraud ending is the weak point. It is a bit convenient and slightly undercooked with how clear it is the form was completed dubiously, but the point lands anyway. This is not about individual bad actors. It is about a system with no slack left. Everyone is cutting corners because there is no money in the NHS, and pretending otherwise is the real fantasy.\n\nCare does not offer solutions. It does not comfort. It does not flatter the audience. It simply shows you the cost of care when care itself has been hollowed out. Watch it. But do not expect to feel better afterwards.",
+        category: "drama",
+        imageUrl: "images/reviews/care-2018/header-care-2018.webp",
+        youtubeTrailer: ""
     }
 ];
 

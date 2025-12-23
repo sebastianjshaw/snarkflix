@@ -1031,6 +1031,19 @@ body.snarkflix-keyboard-user .snarkflix-skip-link:focus {
 .snarkflix-category-count {
     font-size: var(--snarkflix-font-size-sm);
     color: var(--snarkflix-gray);
+    /* Ensure sufficient contrast - gray (#6c757d) on white meets WCAG AA */
+}
+
+/* Ensure category card text has sufficient contrast */
+.snarkflix-category-card h3 {
+    color: var(--snarkflix-dark);
+    /* Dark (#1a1a1a) on white meets WCAG AAA for large text */
+}
+
+.snarkflix-category-active .snarkflix-category-count {
+    color: var(--snarkflix-primary);
+    font-weight: 600;
+    /* Orange (#ff6b35) on light background - ensure sufficient contrast */
 }
 
 /* About Section */
@@ -2190,6 +2203,94 @@ img {
 .snarkflix-review-card:focus {
     outline: 3px solid var(--snarkflix-accent);
     outline-offset: 2px;
+    outline-style: solid;
+}
+
+.snarkflix-review-card:focus-visible {
+    outline: 3px solid var(--snarkflix-accent);
+    outline-offset: 2px;
+}
+
+/* Keyboard shortcuts documentation */
+.snarkflix-keyboard-shortcuts {
+    margin-top: var(--snarkflix-spacing-md);
+    font-size: var(--snarkflix-font-size-sm);
+}
+
+.snarkflix-keyboard-shortcuts summary {
+    cursor: pointer;
+    color: var(--snarkflix-white);
+    padding: var(--snarkflix-spacing-sm);
+    border-radius: var(--snarkflix-radius-sm);
+    transition: var(--snarkflix-transition-fast);
+}
+
+.snarkflix-keyboard-shortcuts summary:hover {
+    background: rgba(255, 255, 255, 0.1);
+}
+
+.snarkflix-keyboard-shortcuts summary:focus {
+    outline: 2px solid var(--snarkflix-accent);
+    outline-offset: 2px;
+}
+
+.snarkflix-keyboard-shortcuts ul {
+    list-style: none;
+    padding: var(--snarkflix-spacing-md) 0;
+    margin: 0;
+}
+
+.snarkflix-keyboard-shortcuts li {
+    padding: var(--snarkflix-spacing-xs) 0;
+    color: var(--snarkflix-white);
+    display: flex;
+    align-items: center;
+    gap: var(--snarkflix-spacing-sm);
+}
+
+.snarkflix-keyboard-shortcuts kbd {
+    background: var(--snarkflix-dark);
+    color: var(--snarkflix-white);
+    padding: 2px 6px;
+    border-radius: 3px;
+    font-family: monospace;
+    font-size: 0.9em;
+    border: 1px solid rgba(255, 255, 255, 0.2);
+    box-shadow: 0 1px 2px rgba(0, 0, 0, 0.3);
+}
+
+/* Ensure all interactive elements are keyboard accessible */
+button:focus,
+a:focus,
+select:focus,
+input:focus {
+    outline: 2px solid var(--snarkflix-accent);
+    outline-offset: 2px;
+}
+
+button:focus-visible,
+a:focus-visible,
+select:focus-visible,
+input:focus-visible {
+    outline: 2px solid var(--snarkflix-accent);
+    outline-offset: 2px;
+}
+
+/* Improve focus visibility for category cards */
+.snarkflix-category-card:focus {
+    outline: 3px solid var(--snarkflix-accent);
+    outline-offset: 2px;
+    border-color: var(--snarkflix-primary);
+}
+
+/* Live region styling - hidden but accessible */
+#a11y-live-region,
+#a11y-status-region {
+    position: absolute;
+    left: -10000px;
+    width: 1px;
+    height: 1px;
+    overflow: hidden;
 }
 
 /* Responsive adjustments for new features */

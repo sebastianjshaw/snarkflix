@@ -21,22 +21,6 @@ This document provides comprehensive recommendations for improving Snarkflix acr
 
 
 
-3. **Enhanced Search Functionality**
-   - Add search suggestions/autocomplete
-   - Show search result count
-   - Add filters (by score, year, category) alongside search
-   - Add keyboard shortcuts (e.g., `/` to focus search)
-
-4. **Pagination/Infinite Scroll**
-   - Current "Load More" is good, but add:
-     - Keyboard navigation (arrow keys to navigate cards)
-     - "Back to top" button after scrolling
-     - Progress indicator showing "X of Y reviews loaded"
-
-5. **Category Filtering**
-   - Make category cards clickable to filter reviews
-   - Add active state indicators
-   - Show filtered count
 ### 1.2 Accessibility Enhancements
 
 **Current Strengths:**

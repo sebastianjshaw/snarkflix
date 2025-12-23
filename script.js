@@ -376,6 +376,9 @@ function loadReviews(page = 1, category = currentCategory, searchTerm = currentS
         // Update search results count
         updateSearchResultsCount(filteredReviews.length, searchTerm || category !== 'all' || scoreFilter || yearFilter);
         
+        // Announce to screen readers
+        announceToScreenReader(`Loaded ${reviewsToShow.length} review${reviewsToShow.length !== 1 ? 's' : ''}. ${filteredReviews.length} total review${filteredReviews.length !== 1 ? 's' : ''} available.`);
+        
         // Update current page
         currentPage = page;
     } catch (error) {
@@ -404,7 +407,7 @@ function createReviewElement(review) {
     
     reviewCard.innerHTML = `
         <div class="snarkflix-review-image">
-            ${createResponsiveImage(review.imageUrl, `${review.title} movie poster`, 'lazy')}
+            ${createResponsiveImage(review.imageUrl, `Movie poster for ${review.title} (${review.releaseYear})`, 'lazy')}
         </div>
         <div class="snarkflix-review-content">
             <h3 class="snarkflix-review-title">${review.title}</h3>
@@ -605,7 +608,7 @@ function insertImagesInContent(review) {
     content = content.replace(/\[IMAGE:([^\]]+)\]/g, (match, imagePath) => {
         return `
             <div class="snarkflix-review-image-inline">
-                <img src="${imagePath}" alt="${review.title} additional image" class="snarkflix-review-img-inline" loading="lazy" width="400" height="300">
+                <img src="${imagePath}" alt="Scene from ${review.title} (${review.releaseYear})" class="snarkflix-review-img-inline" loading="lazy" width="400" height="300">
             </div>
         `;
     });
@@ -659,7 +662,7 @@ function insertImagesInContent(review) {
         if (imagePositions.includes(index) && imageIndex < allImages.length) {
             result += `
                 <div class="snarkflix-review-image-inline">
-                    <img src="${allImages[imageIndex]}" alt="${review.title} additional image" class="snarkflix-review-img-inline" loading="lazy" width="400" height="300">
+                    <img src="${allImages[imageIndex]}" alt="Scene from ${review.title} (${review.releaseYear})" class="snarkflix-review-img-inline" loading="lazy" width="400" height="300">
                 </div>
             `;
             imageIndex++;
@@ -1248,16 +1251,42 @@ function setupSearch() {
                 ).join('');
                 suggestionsContainer.style.display = 'block';
                 
-                // Add click handlers to suggestions
-                suggestionsContainer.querySelectorAll('.snarkflix-suggestion-item').forEach(item => {
-                    item.addEventListener('click', () => {
-                        const reviewId = parseInt(item.getAttribute('data-id'));
-                        const review = snarkflixReviews.find(r => r.id === reviewId);
-                        if (review) {
+                // Add click and keyboard handlers to suggestions
+                suggestionsContainer.querySelectorAll('.snarkflix-suggestion-item').forEach((item, index) => {
+                    const reviewId = parseInt(item.getAttribute('data-id'));
+                    const review = snarkflixReviews.find(r => r.id === reviewId);
+                    
+                    if (review) {
+                        // Click handler
+                        item.addEventListener('click', () => {
                             navigateToReview(reviewId);
-                        }
-                    });
+                        });
+                        
+                        // Keyboard handler
+                        item.addEventListener('keydown', (e) => {
+                            if (e.key === 'Enter' || e.key === ' ') {
+                                e.preventDefault();
+                                navigateToReview(reviewId);
+                            } else if (e.key === 'ArrowDown') {
+                                e.preventDefault();
+                                const next = suggestionsContainer.querySelectorAll('.snarkflix-suggestion-item')[index + 1];
+                                if (next) next.focus();
+                            } else if (e.key === 'ArrowUp') {
+                                e.preventDefault();
+                                const prev = suggestionsContainer.querySelectorAll('.snarkflix-suggestion-item')[index - 1];
+                                if (prev) prev.focus();
+                                else document.getElementById('search-input')?.focus();
+                            }
+                        });
+                    }
                 });
+                
+                // Focus first suggestion for keyboard navigation
+                const firstSuggestion = suggestionsContainer.querySelector('.snarkflix-suggestion-item');
+                if (firstSuggestion) {
+                    // Don't auto-focus, but make it focusable
+                    firstSuggestion.setAttribute('tabindex', '0');
+                }
             } else {
                 if (suggestionsContainer) suggestionsContainer.style.display = 'none';
             }
@@ -1351,10 +1380,24 @@ function updateSearchResultsCount(total, hasFilters) {
     if (!resultsCount) return;
     
     if (hasFilters && total > 0) {
-        resultsCount.textContent = `Found ${total} review${total !== 1 ? 's' : ''}`;
+        const message = `Found ${total} review${total !== 1 ? 's' : ''}`;
+        resultsCount.textContent = message;
         resultsCount.style.display = 'block';
+        // Announce to screen readers
+        announceToScreenReader(message);
     } else {
         resultsCount.style.display = 'none';
+    }
+}
+
+function announceToScreenReader(message) {
+    const liveRegion = document.getElementById('a11y-live-region');
+    if (liveRegion) {
+        liveRegion.textContent = message;
+        // Clear after announcement to allow re-announcement of same message
+        setTimeout(() => {
+            liveRegion.textContent = '';
+        }, 1000);
     }
 }
 
@@ -1398,10 +1441,32 @@ function setupKeyboardNavigation() {
     const cards = () => Array.from(document.querySelectorAll('.snarkflix-review-card:not([style*="display: none"])'));
     
     document.addEventListener('keydown', (e) => {
-        // Only handle arrow keys when not in input/textarea
+        const activeElement = document.activeElement;
+        
+        // Handle Enter key on review cards
+        if (e.key === 'Enter' && activeElement.classList.contains('snarkflix-review-card')) {
+            e.preventDefault();
+            activeElement.click();
+            return;
+        }
+        
+        // Handle Escape key to close search suggestions
+        if (e.key === 'Escape') {
+            const suggestionsContainer = document.getElementById('search-suggestions');
+            if (suggestionsContainer && suggestionsContainer.style.display !== 'none') {
+                suggestionsContainer.style.display = 'none';
+                const searchInput = document.getElementById('search-input');
+                if (searchInput) searchInput.focus();
+                return;
+            }
+        }
+        
+        // Only handle arrow keys when not in input/textarea/select
         if (['ArrowUp', 'ArrowDown', 'ArrowLeft', 'ArrowRight'].includes(e.key)) {
-            const activeElement = document.activeElement;
-            if (activeElement.tagName === 'INPUT' || activeElement.tagName === 'TEXTAREA') {
+            if (activeElement.tagName === 'INPUT' || 
+                activeElement.tagName === 'TEXTAREA' || 
+                activeElement.tagName === 'SELECT' ||
+                activeElement.closest('.snarkflix-search-suggestions')) {
                 return;
             }
             

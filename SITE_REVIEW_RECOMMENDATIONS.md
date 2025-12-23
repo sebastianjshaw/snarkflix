@@ -20,6 +20,7 @@ This document provides comprehensive recommendations for improving Snarkflix acr
 
 
 
+
 3. **Enhanced Search Functionality**
    - Add search suggestions/autocomplete
    - Show search result count
@@ -36,7 +37,6 @@ This document provides comprehensive recommendations for improving Snarkflix acr
    - Make category cards clickable to filter reviews
    - Add active state indicators
    - Show filtered count
-
 ### 1.2 Accessibility Enhancements
 
 **Current Strengths:**
@@ -199,10 +199,6 @@ This document provides comprehensive recommendations for improving Snarkflix acr
 
 **Critical Issues:**
 
-1. **Review Pages Not Indexed**
-   - `robots.txt` disallows `/review/` directory
-   - This prevents individual reviews from being indexed
-   - **Recommendation:** Allow indexing of review pages OR implement proper canonicalization
 
 2. **Missing Review Structured Data**
    - Only Blog schema exists, no individual Review schema

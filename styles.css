@@ -2033,3 +2033,184 @@ img {
         color: var(--snarkflix-gray);
     }
 }
+
+/* Enhanced Search Features */
+.snarkflix-search-wrapper {
+    position: relative;
+    width: 100%;
+}
+
+.snarkflix-search-suggestions {
+    position: absolute;
+    top: 100%;
+    left: 0;
+    right: 0;
+    background: var(--snarkflix-white);
+    border: 2px solid var(--snarkflix-border);
+    border-top: none;
+    border-radius: 0 0 var(--snarkflix-radius-lg) var(--snarkflix-radius-lg);
+    box-shadow: var(--snarkflix-shadow-lg);
+    z-index: 1000;
+    max-height: 300px;
+    overflow-y: auto;
+    margin-top: -2px;
+}
+
+.snarkflix-suggestion-item {
+    padding: var(--snarkflix-spacing-md);
+    cursor: pointer;
+    border-bottom: 1px solid var(--snarkflix-border);
+    transition: var(--snarkflix-transition-fast);
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+
+.snarkflix-suggestion-item:last-child {
+    border-bottom: none;
+}
+
+.snarkflix-suggestion-item:hover,
+.snarkflix-suggestion-item:focus {
+    background: var(--snarkflix-light);
+    outline: none;
+}
+
+.snarkflix-suggestion-item strong {
+    color: var(--snarkflix-dark);
+    display: block;
+}
+
+.snarkflix-suggestion-item mark {
+    background: var(--snarkflix-accent);
+    color: var(--snarkflix-dark);
+    padding: 0 2px;
+    font-weight: 600;
+}
+
+.snarkflix-suggestion-category {
+    font-size: var(--snarkflix-font-size-sm);
+    color: var(--snarkflix-gray);
+    text-transform: capitalize;
+    padding: 2px 8px;
+    background: var(--snarkflix-light);
+    border-radius: var(--snarkflix-radius-sm);
+}
+
+.snarkflix-search-filters {
+    display: flex;
+    gap: var(--snarkflix-spacing-md);
+    margin-top: var(--snarkflix-spacing-md);
+    flex-wrap: wrap;
+}
+
+.snarkflix-filter-select {
+    padding: var(--snarkflix-spacing-sm) var(--snarkflix-spacing-md);
+    border: 2px solid var(--snarkflix-border);
+    border-radius: var(--snarkflix-radius-md);
+    background: var(--snarkflix-white);
+    color: var(--snarkflix-text-primary);
+    font-size: var(--snarkflix-font-size-sm);
+    font-family: var(--snarkflix-font-family);
+    cursor: pointer;
+    transition: var(--snarkflix-transition-fast);
+    min-width: 150px;
+}
+
+.snarkflix-filter-select:hover {
+    border-color: var(--snarkflix-primary);
+}
+
+.snarkflix-filter-select:focus {
+    outline: none;
+    border-color: var(--snarkflix-accent);
+    box-shadow: 0 0 0 3px rgba(255, 193, 7, 0.2);
+}
+
+.snarkflix-search-results-count {
+    text-align: center;
+    margin: var(--snarkflix-spacing-md) 0;
+    color: var(--snarkflix-gray);
+    font-size: var(--snarkflix-font-size-sm);
+    font-weight: 500;
+}
+
+.snarkflix-reviews-progress {
+    text-align: center;
+    margin-bottom: var(--snarkflix-spacing-md);
+    color: var(--snarkflix-gray);
+    font-size: var(--snarkflix-font-size-sm);
+    font-weight: 500;
+}
+
+.snarkflix-back-to-top {
+    position: fixed;
+    bottom: 30px;
+    right: 30px;
+    width: 50px;
+    height: 50px;
+    border-radius: 50%;
+    background: var(--snarkflix-primary);
+    color: var(--snarkflix-white);
+    border: none;
+    font-size: var(--snarkflix-font-size-xl);
+    cursor: pointer;
+    box-shadow: var(--snarkflix-shadow-lg);
+    transition: var(--snarkflix-transition);
+    z-index: 1000;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    line-height: 1;
+}
+
+.snarkflix-back-to-top:hover {
+    background: var(--snarkflix-secondary);
+    transform: translateY(-3px);
+    box-shadow: var(--snarkflix-shadow-xl);
+}
+
+.snarkflix-back-to-top:focus {
+    outline: none;
+    box-shadow: 0 0 0 3px rgba(255, 107, 53, 0.3);
+}
+
+.snarkflix-category-active {
+    border-color: var(--snarkflix-primary) !important;
+    background: var(--snarkflix-light) !important;
+    box-shadow: 0 0 0 3px rgba(255, 107, 53, 0.2) !important;
+}
+
+.snarkflix-category-active .snarkflix-category-count {
+    color: var(--snarkflix-primary);
+    font-weight: 600;
+}
+
+/* Keyboard navigation for review cards */
+.snarkflix-review-card:focus {
+    outline: 3px solid var(--snarkflix-accent);
+    outline-offset: 2px;
+}
+
+/* Responsive adjustments for new features */
+@media (max-width: 768px) {
+    .snarkflix-search-filters {
+        flex-direction: column;
+    }
+    
+    .snarkflix-filter-select {
+        width: 100%;
+    }
+    
+    .snarkflix-back-to-top {
+        bottom: 20px;
+        right: 20px;
+        width: 45px;
+        height: 45px;
+        font-size: var(--snarkflix-font-size-lg);
+    }
+    
+    .snarkflix-search-suggestions {
+        max-height: 200px;
+    }
+}

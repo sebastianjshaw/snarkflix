@@ -14,9 +14,11 @@ Allow: /
 User-agent: LinkedInBot
 Allow: /
 
-# General crawlers - allow everything including review pages
-# Review pages are now indexed for SEO (client-side routing handles navigation)
+# General crawlers - explicitly allow review pages for SEO indexing
+# Review pages are at /review/:id and should be indexed
 User-agent: *
 Allow: /
+Allow: /review/
+Allow: /review/*
 
 Sitemap: https://snarkflix.com/sitemap.xml

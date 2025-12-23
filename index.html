@@ -166,15 +166,34 @@
                 </h2>
             </div>
             <div class="snarkflix-search-container">
-                <input type="text" id="search-input" class="snarkflix-search-input" placeholder="Search for movies, actors, or keywords..." aria-label="Search reviews">
-                <button id="clear-search-btn" class="snarkflix-clear-search-btn" aria-label="Clear search" style="display: none;">×</button>
+                <div class="snarkflix-search-wrapper">
+                    <input type="text" id="search-input" class="snarkflix-search-input" placeholder="Search for movies, actors, or keywords... (Press '/' to focus)" aria-label="Search reviews">
+                    <button id="clear-search-btn" class="snarkflix-clear-search-btn" aria-label="Clear search" style="display: none;">×</button>
+                    <div id="search-suggestions" class="snarkflix-search-suggestions" style="display: none;" role="listbox" aria-label="Search suggestions"></div>
+                </div>
+                <div class="snarkflix-search-filters">
+                    <select id="filter-score" class="snarkflix-filter-select" aria-label="Filter by score">
+                        <option value="">All Scores</option>
+                        <option value="90-100">90-100 (Excellent)</option>
+                        <option value="80-89">80-89 (Great)</option>
+                        <option value="70-79">70-79 (Good)</option>
+                        <option value="60-69">60-69 (Fair)</option>
+                        <option value="0-59">0-59 (Poor)</option>
+                    </select>
+                    <select id="filter-year" class="snarkflix-filter-select" aria-label="Filter by year">
+                        <option value="">All Years</option>
+                    </select>
+                </div>
             </div>
+            <div id="search-results-count" class="snarkflix-search-results-count" style="display: none;"></div>
             <div class="snarkflix-reviews-grid" id="reviews-grid">
                 <!-- Reviews will be dynamically loaded here -->
             </div>
             <div class="snarkflix-load-more">
+                <div id="reviews-progress" class="snarkflix-reviews-progress"></div>
                 <button class="snarkflix-btn snarkflix-btn-outline" id="load-more-btn">Load More Reviews</button>
             </div>
+            <button id="back-to-top-btn" class="snarkflix-back-to-top" aria-label="Back to top" style="display: none;">↑</button>
         </div>
     </section>
 

@@ -105,6 +105,9 @@ const reviewsPerPage = 6;
 let currentSort = 'latest';
 let currentCategory = 'all';
 let currentSearchTerm = '';
+let currentScoreFilter = '';
+let currentYearFilter = '';
+let allFilteredReviews = []; // Store all filtered reviews for progress indicator
 
 // Initialize the application
 // Wait for both DOM and reviews data to be ready
@@ -231,7 +234,8 @@ function initializeApp() {
     setupCategoryFiltering();
     setupSortDropdown();
     setupSearch();
-    updateCategoryCounts();
+    setupBackToTop();
+    setupKeyboardNavigation();
     setupHeaderNavigation();
 }
 
@@ -263,7 +267,7 @@ function setupHeaderNavigation() {
     });
 }
 
-function loadReviews(page = 1, category = currentCategory, searchTerm = currentSearchTerm, sort = currentSort) {
+function loadReviews(page = 1, category = currentCategory, searchTerm = currentSearchTerm, sort = currentSort, scoreFilter = currentScoreFilter, yearFilter = currentYearFilter) {
     try {
         // Check if reviewsGrid exists
         if (!reviewsGrid) {
@@ -275,6 +279,8 @@ function loadReviews(page = 1, category = currentCategory, searchTerm = currentS
         currentCategory = category;
         currentSearchTerm = searchTerm;
         currentSort = sort;
+        currentScoreFilter = scoreFilter;
+        currentYearFilter = yearFilter;
         
         // Check if reviews data is available
         if (!snarkflixReviews || !Array.isArray(snarkflixReviews)) {
@@ -299,6 +305,22 @@ function loadReviews(page = 1, category = currentCategory, searchTerm = currentS
             review.tagline.toLowerCase().includes(searchTermLower) ||
             review.aiSummary.toLowerCase().includes(searchTermLower) ||
             review.category.toLowerCase().includes(searchTermLower)
+        );
+    }
+    
+    // Filter by score if specified
+    if (scoreFilter) {
+        const [min, max] = scoreFilter.split('-').map(Number);
+        filteredReviews = filteredReviews.filter(review => 
+            review.aiScore >= min && review.aiScore <= max
+        );
+    }
+    
+    // Filter by year if specified
+    if (yearFilter) {
+        const year = parseInt(yearFilter);
+        filteredReviews = filteredReviews.filter(review => 
+            review.releaseYear === year
         );
     }
     
@@ -341,9 +363,18 @@ function loadReviews(page = 1, category = currentCategory, searchTerm = currentS
         reviewsGrid.appendChild(reviewElement);
     });
     
+        // Store all filtered reviews for progress indicator
+        allFilteredReviews = filteredReviews;
+        
         // Update load more button
         const currentDisplayedCount = reviewsGrid.children.length;
         updateLoadMoreButton(filteredReviews.length, currentDisplayedCount);
+        
+        // Update progress indicator
+        updateProgressIndicator(currentDisplayedCount, filteredReviews.length);
+        
+        // Update search results count
+        updateSearchResultsCount(filteredReviews.length, searchTerm || category !== 'all' || scoreFilter || yearFilter);
         
         // Update current page
         currentPage = page;
@@ -1016,7 +1047,7 @@ function setupEventListeners() {
     // Load more button
     if (loadMoreBtn) {
         loadMoreBtn.addEventListener('click', () => {
-            loadReviews(currentPage + 1, currentCategory, currentSearchTerm, currentSort);
+            loadReviews(currentPage + 1, currentCategory, currentSearchTerm, currentSort, currentScoreFilter, currentYearFilter);
         });
     }
     
@@ -1120,7 +1151,10 @@ function setupCategoryFiltering() {
             // Load reviews for this category
             currentCategory = category;
             currentPage = 1; // Reset current page when filtering
-            loadReviews(1, category);
+            currentSearchTerm = ''; // Clear search when filtering by category
+            currentScoreFilter = ''; // Clear score filter
+            currentYearFilter = ''; // Clear year filter
+            loadReviews(1, category, '', currentSort, '', '');
             
             // Scroll to reviews section
             document.getElementById('reviews').scrollIntoView({
@@ -1128,6 +1162,27 @@ function setupCategoryFiltering() {
                 block: 'start'
             });
         });
+    });
+    
+    // Update category counts
+    updateCategoryCounts();
+}
+
+function updateCategoryCounts() {
+    if (!snarkflixReviews) return;
+    
+    const categoryCounts = {};
+    snarkflixReviews.forEach(review => {
+        categoryCounts[review.category] = (categoryCounts[review.category] || 0) + 1;
+    });
+    
+    document.querySelectorAll('.snarkflix-category-card').forEach(card => {
+        const category = card.getAttribute('data-category');
+        const count = categoryCounts[category] || 0;
+        const countEl = card.querySelector('.snarkflix-category-count');
+        if (countEl) {
+            countEl.textContent = `${count} post${count !== 1 ? 's' : ''}`;
+        }
     });
 }
 
@@ -1146,6 +1201,7 @@ function setupSortDropdown() {
 function setupSearch() {
     const searchInput = document.getElementById('search-input');
     const clearSearchBtn = document.getElementById('clear-search-btn');
+    const suggestionsContainer = document.getElementById('search-suggestions');
     
     if (searchInput) {
         // Debounced search to avoid too many API calls
@@ -1155,7 +1211,7 @@ function setupSearch() {
             }
             currentSearchTerm = searchTerm;
             currentPage = 1; // Reset to first page when searching
-            loadReviews(1, currentCategory, currentSearchTerm, currentSort);
+            loadReviews(1, currentCategory, currentSearchTerm, currentSort, currentScoreFilter, currentYearFilter);
             
             // Hide search loading after a short delay
             setTimeout(() => {
@@ -1163,8 +1219,53 @@ function setupSearch() {
             }, 500);
         }, 300);
         
+        // Show autocomplete suggestions
+        const showSuggestions = (term) => {
+            if (!term || term.length < 2) {
+                if (suggestionsContainer) suggestionsContainer.style.display = 'none';
+                return;
+            }
+            
+            const termLower = term.toLowerCase();
+            const matches = snarkflixReviews
+                .filter(review => 
+                    review.title.toLowerCase().includes(termLower) ||
+                    review.category.toLowerCase().includes(termLower)
+                )
+                .slice(0, 5)
+                .map(review => ({
+                    title: review.title,
+                    category: review.category,
+                    id: review.id
+                }));
+            
+            if (matches.length > 0 && suggestionsContainer) {
+                suggestionsContainer.innerHTML = matches.map(match => 
+                    `<div class="snarkflix-suggestion-item" data-id="${match.id}" role="option" tabindex="0">
+                        <strong>${highlightMatch(match.title, term)}</strong>
+                        <span class="snarkflix-suggestion-category">${match.category}</span>
+                    </div>`
+                ).join('');
+                suggestionsContainer.style.display = 'block';
+                
+                // Add click handlers to suggestions
+                suggestionsContainer.querySelectorAll('.snarkflix-suggestion-item').forEach(item => {
+                    item.addEventListener('click', () => {
+                        const reviewId = parseInt(item.getAttribute('data-id'));
+                        const review = snarkflixReviews.find(r => r.id === reviewId);
+                        if (review) {
+                            navigateToReview(reviewId);
+                        }
+                    });
+                });
+            } else {
+                if (suggestionsContainer) suggestionsContainer.style.display = 'none';
+            }
+        };
+        
         searchInput.addEventListener('input', (e) => {
             const searchTerm = e.target.value.trim();
+            showSuggestions(searchTerm);
             debouncedSearch(searchTerm);
             
             // Show/hide clear button
@@ -1172,6 +1273,25 @@ function setupSearch() {
                 clearSearchBtn.style.display = 'block';
             } else {
                 clearSearchBtn.style.display = 'none';
+                if (suggestionsContainer) suggestionsContainer.style.display = 'none';
+            }
+        });
+        
+        // Hide suggestions when clicking outside
+        document.addEventListener('click', (e) => {
+            if (suggestionsContainer && !searchInput.contains(e.target) && !suggestionsContainer.contains(e.target)) {
+                suggestionsContainer.style.display = 'none';
+            }
+        });
+        
+        // Keyboard shortcut: '/' to focus search
+        document.addEventListener('keydown', (e) => {
+            if (e.key === '/' && !e.ctrlKey && !e.metaKey && !e.altKey) {
+                const activeElement = document.activeElement;
+                if (activeElement.tagName !== 'INPUT' && activeElement.tagName !== 'TEXTAREA') {
+                    e.preventDefault();
+                    searchInput.focus();
+                }
             }
         });
     }
@@ -1182,9 +1302,127 @@ function setupSearch() {
             currentSearchTerm = '';
             currentPage = 1;
             clearSearchBtn.style.display = 'none';
-            loadReviews(1, currentCategory, currentSearchTerm, currentSort);
+            if (suggestionsContainer) suggestionsContainer.style.display = 'none';
+            loadReviews(1, currentCategory, '', currentSort, currentScoreFilter, currentYearFilter);
         });
     }
+    
+    // Setup filter handlers
+    setupFilters();
+}
+
+function highlightMatch(text, term) {
+    const regex = new RegExp(`(${term})`, 'gi');
+    return text.replace(regex, '<mark>$1</mark>');
+}
+
+function setupFilters() {
+    const scoreFilter = document.getElementById('filter-score');
+    const yearFilter = document.getElementById('filter-year');
+    
+    // Populate year filter
+    if (yearFilter && snarkflixReviews) {
+        const years = [...new Set(snarkflixReviews.map(r => r.releaseYear))].sort((a, b) => b - a);
+        const currentYearHtml = yearFilter.innerHTML;
+        yearFilter.innerHTML = currentYearHtml + years.map(year => 
+            `<option value="${year}">${year}</option>`
+        ).join('');
+    }
+    
+    if (scoreFilter) {
+        scoreFilter.addEventListener('change', (e) => {
+            currentScoreFilter = e.target.value;
+            currentPage = 1;
+            loadReviews(1, currentCategory, currentSearchTerm, currentSort, currentScoreFilter, currentYearFilter);
+        });
+    }
+    
+    if (yearFilter) {
+        yearFilter.addEventListener('change', (e) => {
+            currentYearFilter = e.target.value;
+            currentPage = 1;
+            loadReviews(1, currentCategory, currentSearchTerm, currentSort, currentScoreFilter, currentYearFilter);
+        });
+    }
+}
+
+function updateSearchResultsCount(total, hasFilters) {
+    const resultsCount = document.getElementById('search-results-count');
+    if (!resultsCount) return;
+    
+    if (hasFilters && total > 0) {
+        resultsCount.textContent = `Found ${total} review${total !== 1 ? 's' : ''}`;
+        resultsCount.style.display = 'block';
+    } else {
+        resultsCount.style.display = 'none';
+    }
+}
+
+function updateProgressIndicator(loaded, total) {
+    const progressEl = document.getElementById('reviews-progress');
+    if (!progressEl) return;
+    
+    if (total > 0 && loaded < total) {
+        progressEl.textContent = `Showing ${loaded} of ${total} reviews`;
+        progressEl.style.display = 'block';
+    } else if (loaded >= total && total > 0) {
+        progressEl.textContent = `All ${total} review${total !== 1 ? 's' : ''} loaded`;
+        progressEl.style.display = 'block';
+    } else {
+        progressEl.style.display = 'none';
+    }
+}
+
+function setupBackToTop() {
+    const backToTopBtn = document.getElementById('back-to-top-btn');
+    if (!backToTopBtn) return;
+    
+    window.addEventListener('scroll', () => {
+        if (window.pageYOffset > 300) {
+            backToTopBtn.style.display = 'block';
+        } else {
+            backToTopBtn.style.display = 'none';
+        }
+    });
+    
+    backToTopBtn.addEventListener('click', () => {
+        window.scrollTo({
+            top: 0,
+            behavior: 'smooth'
+        });
+    });
+}
+
+function setupKeyboardNavigation() {
+    let focusedCardIndex = -1;
+    const cards = () => Array.from(document.querySelectorAll('.snarkflix-review-card:not([style*="display: none"])'));
+    
+    document.addEventListener('keydown', (e) => {
+        // Only handle arrow keys when not in input/textarea
+        if (['ArrowUp', 'ArrowDown', 'ArrowLeft', 'ArrowRight'].includes(e.key)) {
+            const activeElement = document.activeElement;
+            if (activeElement.tagName === 'INPUT' || activeElement.tagName === 'TEXTAREA') {
+                return;
+            }
+            
+            e.preventDefault();
+            const cardList = cards();
+            if (cardList.length === 0) return;
+            
+            if (focusedCardIndex === -1) {
+                focusedCardIndex = 0;
+            } else {
+                if (e.key === 'ArrowDown' || e.key === 'ArrowRight') {
+                    focusedCardIndex = (focusedCardIndex + 1) % cardList.length;
+                } else if (e.key === 'ArrowUp' || e.key === 'ArrowLeft') {
+                    focusedCardIndex = (focusedCardIndex - 1 + cardList.length) % cardList.length;
+                }
+            }
+            
+            cardList[focusedCardIndex].focus();
+            cardList[focusedCardIndex].scrollIntoView({ behavior: 'smooth', block: 'nearest' });
+        }
+    });
 }
 
 // Utility functions

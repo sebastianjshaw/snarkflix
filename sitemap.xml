@@ -1,27 +1,337 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
+  <!-- Homepage -->
   <url>
     <loc>https://snarkflix.com/</loc>
-    <lastmod>2025-01-27</lastmod>
+    <lastmod>2025-12-23</lastmod>
     <priority>1.0</priority>
     <changefreq>weekly</changefreq>
   </url>
+  <!-- Main Sections -->
   <url>
     <loc>https://snarkflix.com/#reviews</loc>
-    <lastmod>2025-01-27</lastmod>
+    <lastmod>2025-12-23</lastmod>
     <priority>0.8</priority>
     <changefreq>daily</changefreq>
   </url>
   <url>
     <loc>https://snarkflix.com/#categories</loc>
-    <lastmod>2025-01-27</lastmod>
+    <lastmod>2025-12-23</lastmod>
     <priority>0.7</priority>
     <changefreq>weekly</changefreq>
   </url>
   <url>
     <loc>https://snarkflix.com/#about</loc>
-    <lastmod>2025-01-27</lastmod>
+    <lastmod>2025-12-23</lastmod>
     <priority>0.6</priority>
     <changefreq>monthly</changefreq>
+  </url>
+  <!-- Review: Superman (2025) -->
+  <url>
+    <loc>https://snarkflix.com/review/1</loc>
+    <lastmod>2025-08-01</lastmod>
+    <priority>0.9</priority>
+    <changefreq>weekly</changefreq>
+  </url>
+  <!-- Review: Wicked (2024) -->
+  <url>
+    <loc>https://snarkflix.com/review/2</loc>
+    <lastmod>2024-01-02</lastmod>
+    <priority>0.8</priority>
+    <changefreq>monthly</changefreq>
+  </url>
+  <!-- Review: The Boy and the Heron (2023) -->
+  <url>
+    <loc>https://snarkflix.com/review/4</loc>
+    <lastmod>2024-11-30</lastmod>
+    <priority>0.8</priority>
+    <changefreq>monthly</changefreq>
+  </url>
+  <!-- Review: The Man from Earth (2007) -->
+  <url>
+    <loc>https://snarkflix.com/review/5</loc>
+    <lastmod>2024-11-30</lastmod>
+    <priority>0.8</priority>
+    <changefreq>monthly</changefreq>
+  </url>
+  <!-- Review: Wonka (2023) -->
+  <url>
+    <loc>https://snarkflix.com/review/6</loc>
+    <lastmod>2024-02-09</lastmod>
+    <priority>0.7</priority>
+    <changefreq>monthly</changefreq>
+  </url>
+  <!-- Review: The Marvels (2023) -->
+  <url>
+    <loc>https://snarkflix.com/review/7</loc>
+    <lastmod>2024-02-03</lastmod>
+    <priority>0.8</priority>
+    <changefreq>monthly</changefreq>
+  </url>
+  <!-- Review: To Me, the One Who Loved You (2022) -->
+  <url>
+    <loc>https://snarkflix.com/review/8</loc>
+    <lastmod>2023-05-23</lastmod>
+    <priority>0.8</priority>
+    <changefreq>yearly</changefreq>
+  </url>
+  <!-- Review: To Every You I've Loved Before (2022) -->
+  <url>
+    <loc>https://snarkflix.com/review/9</loc>
+    <lastmod>2023-05-23</lastmod>
+    <priority>0.8</priority>
+    <changefreq>yearly</changefreq>
+  </url>
+  <!-- Review: The Super Mario Bros. Movie (2023) -->
+  <url>
+    <loc>https://snarkflix.com/review/10</loc>
+    <lastmod>2023-05-21</lastmod>
+    <priority>0.7</priority>
+    <changefreq>yearly</changefreq>
+  </url>
+  <!-- Review: Prey (2022) -->
+  <url>
+    <loc>https://snarkflix.com/review/11</loc>
+    <lastmod>2023-05-07</lastmod>
+    <priority>0.8</priority>
+    <changefreq>yearly</changefreq>
+  </url>
+  <!-- Review: The Royal Tenenbaums (2001) -->
+  <url>
+    <loc>https://snarkflix.com/review/12</loc>
+    <lastmod>2023-05-01</lastmod>
+    <priority>0.9</priority>
+    <changefreq>yearly</changefreq>
+  </url>
+  <!-- Review: Cocaine Bear (2023) -->
+  <url>
+    <loc>https://snarkflix.com/review/13</loc>
+    <lastmod>2023-04-26</lastmod>
+    <priority>0.7</priority>
+    <changefreq>yearly</changefreq>
+  </url>
+  <!-- Review: The Whale (2022) -->
+  <url>
+    <loc>https://snarkflix.com/review/14</loc>
+    <lastmod>2023-04-23</lastmod>
+    <priority>0.9</priority>
+    <changefreq>yearly</changefreq>
+  </url>
+  <!-- Review: Dungeons & Dragons: Honour Amongst Thieves (2023) -->
+  <url>
+    <loc>https://snarkflix.com/review/15</loc>
+    <lastmod>2023-04-16</lastmod>
+    <priority>0.9</priority>
+    <changefreq>yearly</changefreq>
+  </url>
+  <!-- Review: Winnie the Pooh: Blood and Honey (2023) -->
+  <url>
+    <loc>https://snarkflix.com/review/16</loc>
+    <lastmod>2023-04-15</lastmod>
+    <priority>0.7</priority>
+    <changefreq>yearly</changefreq>
+  </url>
+  <!-- Review: Pinocchio (2022) -->
+  <url>
+    <loc>https://snarkflix.com/review/17</loc>
+    <lastmod>2023-04-07</lastmod>
+    <priority>0.8</priority>
+    <changefreq>yearly</changefreq>
+  </url>
+  <!-- Review: Avatar: The Way of Water (2022) -->
+  <url>
+    <loc>https://snarkflix.com/review/18</loc>
+    <lastmod>2023-04-02</lastmod>
+    <priority>0.7</priority>
+    <changefreq>yearly</changefreq>
+  </url>
+  <!-- Review: M3GAN (2023) -->
+  <url>
+    <loc>https://snarkflix.com/review/19</loc>
+    <lastmod>2023-03-27</lastmod>
+    <priority>0.7</priority>
+    <changefreq>yearly</changefreq>
+  </url>
+  <!-- Review: Shazam! Fury of the Gods (2023) -->
+  <url>
+    <loc>https://snarkflix.com/review/20</loc>
+    <lastmod>2023-03-18</lastmod>
+    <priority>0.9</priority>
+    <changefreq>yearly</changefreq>
+  </url>
+  <!-- Review: Black Panther: Wakanda Forever (2022) -->
+  <url>
+    <loc>https://snarkflix.com/review/21</loc>
+    <lastmod>2023-02-05</lastmod>
+    <priority>0.8</priority>
+    <changefreq>yearly</changefreq>
+  </url>
+  <!-- Review: Black Adam (2022) -->
+  <url>
+    <loc>https://snarkflix.com/review/22</loc>
+    <lastmod>2022-11-23</lastmod>
+    <priority>0.7</priority>
+    <changefreq>yearly</changefreq>
+  </url>
+  <!-- Review: The Suicide Squad (2021) -->
+  <url>
+    <loc>https://snarkflix.com/review/23</loc>
+    <lastmod>2022-08-07</lastmod>
+    <priority>0.9</priority>
+    <changefreq>yearly</changefreq>
+  </url>
+  <!-- Review: Pitch Perfect (2012) -->
+  <url>
+    <loc>https://snarkflix.com/review/24</loc>
+    <lastmod>2022-05-18</lastmod>
+    <priority>0.8</priority>
+    <changefreq>yearly</changefreq>
+  </url>
+  <!-- Review: The Batman (2022) -->
+  <url>
+    <loc>https://snarkflix.com/review/25</loc>
+    <lastmod>2022-04-17</lastmod>
+    <priority>0.7</priority>
+    <changefreq>yearly</changefreq>
+  </url>
+  <!-- Review: Finch (2021) -->
+  <url>
+    <loc>https://snarkflix.com/review/27</loc>
+    <lastmod>2022-01-29</lastmod>
+    <priority>0.7</priority>
+    <changefreq>yearly</changefreq>
+  </url>
+  <!-- Review: The Man Who Killed Hitler and Then the Bigfoot (2018) -->
+  <url>
+    <loc>https://snarkflix.com/review/28</loc>
+    <lastmod>2022-01-25</lastmod>
+    <priority>0.7</priority>
+    <changefreq>yearly</changefreq>
+  </url>
+  <!-- Review: Wolfwalkers (2020) -->
+  <url>
+    <loc>https://snarkflix.com/review/29</loc>
+    <lastmod>2022-01-22</lastmod>
+    <priority>0.9</priority>
+    <changefreq>yearly</changefreq>
+  </url>
+  <!-- Review: No Time to Die (2021) -->
+  <url>
+    <loc>https://snarkflix.com/review/30</loc>
+    <lastmod>2022-01-22</lastmod>
+    <priority>0.7</priority>
+    <changefreq>yearly</changefreq>
+  </url>
+  <!-- Review: Fantastic Four: First Steps (2025) -->
+  <url>
+    <loc>https://snarkflix.com/review/31</loc>
+    <lastmod>2025-09-28</lastmod>
+    <priority>0.9</priority>
+    <changefreq>weekly</changefreq>
+  </url>
+  <!-- Review: Don't Look Up (2021) -->
+  <url>
+    <loc>https://snarkflix.com/review/32</loc>
+    <lastmod>2022-01-22</lastmod>
+    <priority>0.9</priority>
+    <changefreq>yearly</changefreq>
+  </url>
+  <!-- Review: Encanto (2021) -->
+  <url>
+    <loc>https://snarkflix.com/review/33</loc>
+    <lastmod>2022-01-22</lastmod>
+    <priority>0.8</priority>
+    <changefreq>yearly</changefreq>
+  </url>
+  <!-- Review: Free Guy (2021) -->
+  <url>
+    <loc>https://snarkflix.com/review/34</loc>
+    <lastmod>2022-01-20</lastmod>
+    <priority>0.7</priority>
+    <changefreq>yearly</changefreq>
+  </url>
+  <!-- Review: Eternals (2021) -->
+  <url>
+    <loc>https://snarkflix.com/review/35</loc>
+    <lastmod>2022-01-19</lastmod>
+    <priority>0.8</priority>
+    <changefreq>yearly</changefreq>
+  </url>
+  <!-- Review: Ghostbusters: Afterlife (2021) -->
+  <url>
+    <loc>https://snarkflix.com/review/36</loc>
+    <lastmod>2021-12-01</lastmod>
+    <priority>0.7</priority>
+    <changefreq>yearly</changefreq>
+  </url>
+  <!-- Review: Black Widow (2021) -->
+  <url>
+    <loc>https://snarkflix.com/review/37</loc>
+    <lastmod>2021-07-17</lastmod>
+    <priority>0.8</priority>
+    <changefreq>yearly</changefreq>
+  </url>
+  <!-- Review: Zack Snyder's Justice League (2021) -->
+  <url>
+    <loc>https://snarkflix.com/review/38</loc>
+    <lastmod>2021-03-19</lastmod>
+    <priority>0.7</priority>
+    <changefreq>yearly</changefreq>
+  </url>
+  <!-- Review: Wonder Woman 1984 (2020) -->
+  <url>
+    <loc>https://snarkflix.com/review/39</loc>
+    <lastmod>2020-12-22</lastmod>
+    <priority>0.9</priority>
+    <changefreq>yearly</changefreq>
+  </url>
+  <!-- Review: Palm Springs (2020) -->
+  <url>
+    <loc>https://snarkflix.com/review/42</loc>
+    <lastmod>2025-10-02</lastmod>
+    <priority>0.8</priority>
+    <changefreq>weekly</changefreq>
+  </url>
+  <!-- Review: The Iron Giant (1999) -->
+  <url>
+    <loc>https://snarkflix.com/review/43</loc>
+    <lastmod>2025-10-04</lastmod>
+    <priority>0.9</priority>
+    <changefreq>weekly</changefreq>
+  </url>
+  <!-- Review: Goncharov (1973) -->
+  <url>
+    <loc>https://snarkflix.com/review/44</loc>
+    <lastmod>2024-08-15</lastmod>
+    <priority>0.9</priority>
+    <changefreq>monthly</changefreq>
+  </url>
+  <!-- Review: KPop DemonHunters (2025) -->
+  <url>
+    <loc>https://snarkflix.com/review/45</loc>
+    <lastmod>2025-10-07</lastmod>
+    <priority>0.8</priority>
+    <changefreq>weekly</changefreq>
+  </url>
+  <!-- Review: Zootopia (2016) -->
+  <url>
+    <loc>https://snarkflix.com/review/46</loc>
+    <lastmod>2025-10-09</lastmod>
+    <priority>0.8</priority>
+    <changefreq>weekly</changefreq>
+  </url>
+  <!-- Review: Thunderbolts (2025) -->
+  <url>
+    <loc>https://snarkflix.com/review/47</loc>
+    <lastmod>2025-10-18</lastmod>
+    <priority>0.8</priority>
+    <changefreq>weekly</changefreq>
+  </url>
+  <!-- Review: Care (2018) -->
+  <url>
+    <loc>https://snarkflix.com/review/48</loc>
+    <lastmod>2025-11-05</lastmod>
+    <priority>0.9</priority>
+    <changefreq>weekly</changefreq>
   </url>
 </urlset>

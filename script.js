@@ -749,6 +749,15 @@ function returnToHomepage() {
     // Update the page title back to homepage
     document.title = 'Snarkflix - Snarky Movie Reviews';
     
+    // Update canonical URL back to homepage
+    let canonicalLink = document.querySelector('link[rel="canonical"]');
+    if (!canonicalLink) {
+        canonicalLink = document.createElement('link');
+        canonicalLink.setAttribute('rel', 'canonical');
+        document.head.appendChild(canonicalLink);
+    }
+    canonicalLink.setAttribute('href', 'https://snarkflix.com/');
+    
     // Update meta description back to homepage
     const metaDescription = document.querySelector('meta[name="description"]');
     if (metaDescription) {
@@ -1606,6 +1615,15 @@ function updateMetaTagsForReview(review) {
     if (metaDescription) {
         metaDescription.setAttribute('content', `${review.title} - ${review.aiSummary.substring(0, 150)}...`);
     }
+    
+    // Update canonical URL
+    let canonicalLink = document.querySelector('link[rel="canonical"]');
+    if (!canonicalLink) {
+        canonicalLink = document.createElement('link');
+        canonicalLink.setAttribute('rel', 'canonical');
+        document.head.appendChild(canonicalLink);
+    }
+    canonicalLink.setAttribute('href', `https://snarkflix.com/review/${review.id}`);
     
     // Update Open Graph meta tags
     updateMetaTag('og:title', `${review.title} Review - SnarkAI Score: ${review.aiScore}/100 | Snarkflix`);

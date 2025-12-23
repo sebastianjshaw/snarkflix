@@ -1,7 +1,9 @@
-// Snarkflix Service Worker - Image Caching and Performance
-const CACHE_NAME = 'snarkflix-v2-2025-10-07-2202';
+// Snarkflix Service Worker - Enhanced Caching and Offline Support
+const CACHE_NAME = 'snarkflix-v3-2025-12-23';
+const OFFLINE_PAGE = '/offline.html';
 const urlsToCache = [
     '/',
+    '/offline.html',
     '/styles.css',
     '/script.js',
     '/reviews-data.js',
@@ -123,7 +125,16 @@ self.addEventListener('fetch', event => {
             }).catch(() => {
                 // If network fails, fall back to cache
                 console.log('Snarkflix Service Worker: Network failed, serving JS from cache', url.pathname);
-                return caches.match(request);
+                return caches.match(request).then(cachedResponse => {
+                    if (cachedResponse) {
+                        return cachedResponse;
+                    }
+                    // If no cache, return offline page for navigation requests
+                    if (request.mode === 'navigate') {
+                        return caches.match(OFFLINE_PAGE);
+                    }
+                    throw new Error('No cache available');
+                });
             })
         );
         return;
@@ -147,6 +158,32 @@ self.addEventListener('fetch', event => {
                         });
                     }
                     return fetchResponse;
+                });
+            })
+        );
+        return;
+    }
+    
+    // For navigation requests (HTML pages), use network-first with offline fallback
+    if (request.mode === 'navigate') {
+        event.respondWith(
+            fetch(request).then(response => {
+                // Cache successful navigation responses
+                if (response.status === 200) {
+                    const responseToCache = response.clone();
+                    caches.open(CACHE_NAME).then(cache => {
+                        cache.put(request, responseToCache);
+                    });
+                }
+                return response;
+            }).catch(() => {
+                // If network fails, try to serve from cache
+                return caches.match(request).then(cachedResponse => {
+                    if (cachedResponse) {
+                        return cachedResponse;
+                    }
+                    // If no cache, return offline page
+                    return caches.match(OFFLINE_PAGE);
                 });
             })
         );

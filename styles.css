@@ -71,6 +71,12 @@ html {
     scroll-behavior: smooth;
 }
 
+/* Font Display Optimization - ensures text is visible during font load */
+@font-face {
+    font-family: 'Inter';
+    font-display: swap;
+}
+
 /* Base Typography */
 body {
     font-family: var(--snarkflix-font-family);
@@ -2291,6 +2297,28 @@ input:focus-visible {
     width: 1px;
     height: 1px;
     overflow: hidden;
+}
+
+/* Blur-up placeholder animation for lazy loaded images */
+@keyframes shimmer {
+    0% {
+        background-position: -200% 0;
+    }
+    100% {
+        background-position: 200% 0;
+    }
+}
+
+/* Ensure lazy loaded images have proper dimensions to prevent layout shift */
+img[loading="lazy"] {
+    min-height: 200px;
+    background-color: #f0f0f0;
+}
+
+/* Remove placeholder animation once image loads */
+img[loading="lazy"]:not([src=""]) {
+    animation: none;
+    background: transparent;
 }
 
 /* Responsive adjustments for new features */

@@ -29,7 +29,9 @@ function createResponsiveImage(imageUrl, alt, loading = 'lazy') {
     if (!hasResponsiveVersions) {
         // Fall back to simple img tag for images without responsive versions
         const fetchPriority = loading === 'eager' ? ' fetchpriority="high"' : '';
-        return `<img src="${normalizedImageUrl}" alt="${alt}" loading="${loading}"${fetchPriority}>`;
+        // Add blur-up placeholder for lazy loaded images
+        const placeholderStyle = loading === 'lazy' ? ' style="background: linear-gradient(90deg, #f0f0f0 25%, #e0e0e0 50%, #f0f0f0 75%); background-size: 200% 100%; animation: shimmer 1.5s infinite;"' : '';
+        return `<img src="${normalizedImageUrl}" alt="${alt}" loading="${loading}"${fetchPriority}${placeholderStyle}>`;
     }
     
     // Create responsive image HTML for images with responsive versions
@@ -62,12 +64,15 @@ function createResponsiveImage(imageUrl, alt, loading = 'lazy') {
         return `${normalizedPath} ${size}`;
     }).join(', ');
     
+    // Add blur-up placeholder for lazy loaded images
+    const placeholderStyle = loading === 'lazy' ? ' style="background: linear-gradient(90deg, #f0f0f0 25%, #e0e0e0 50%, #f0f0f0 75%); background-size: 200% 100%; animation: shimmer 1.5s infinite;"' : '';
+    
     return `
         <picture>
             <source srcset="${normalizedSrcset}" 
                     sizes="${sizes}" 
                     type="image/webp">
-            <img src="${normalizedImageUrl}" alt="${alt}" loading="${loading}"${fetchPriority}>
+            <img src="${normalizedImageUrl}" alt="${alt}" loading="${loading}"${fetchPriority}${placeholderStyle}>
         </picture>
     `;
 }
@@ -608,7 +613,7 @@ function insertImagesInContent(review) {
     content = content.replace(/\[IMAGE:([^\]]+)\]/g, (match, imagePath) => {
         return `
             <div class="snarkflix-review-image-inline">
-                <img src="${imagePath}" alt="Scene from ${review.title} (${review.releaseYear})" class="snarkflix-review-img-inline" loading="lazy" width="400" height="300">
+                <img src="${imagePath}" alt="Scene from ${review.title} (${review.releaseYear})" class="snarkflix-review-img-inline" loading="lazy" width="400" height="300" style="background: linear-gradient(90deg, #f0f0f0 25%, #e0e0e0 50%, #f0f0f0 75%); background-size: 200% 100%; animation: shimmer 1.5s infinite;">
             </div>
         `;
     });
@@ -662,7 +667,7 @@ function insertImagesInContent(review) {
         if (imagePositions.includes(index) && imageIndex < allImages.length) {
             result += `
                 <div class="snarkflix-review-image-inline">
-                    <img src="${allImages[imageIndex]}" alt="Scene from ${review.title} (${review.releaseYear})" class="snarkflix-review-img-inline" loading="lazy" width="400" height="300">
+                    <img src="${allImages[imageIndex]}" alt="Scene from ${review.title} (${review.releaseYear})" class="snarkflix-review-img-inline" loading="lazy" width="400" height="300" style="background: linear-gradient(90deg, #f0f0f0 25%, #e0e0e0 50%, #f0f0f0 75%); background-size: 200% 100%; animation: shimmer 1.5s infinite;">
                 </div>
             `;
             imageIndex++;

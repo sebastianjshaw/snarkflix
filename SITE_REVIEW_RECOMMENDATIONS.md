@@ -101,11 +101,6 @@ This document provides comprehensive recommendations for improving Snarkflix acr
 
 **Recommendations:**
 
-1. **Review Cards**
-   - Add hover effects with subtle scale/transform
-   - Improve visual distinction between different score ranges (color coding)
-   - Add reading time indicator more prominently
-   - Consider card variants for featured reviews
 
 2. **Typography**
    - Improve line-height for long-form content (review text)

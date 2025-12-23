@@ -22,7 +22,8 @@ function createResponsiveImage(imageUrl, alt, loading = 'lazy') {
     
     if (!hasResponsiveVersions) {
         // Fall back to simple img tag for images without responsive versions
-        return `<img src="${imageUrl}" alt="${alt}" loading="${loading}">`;
+        const fetchPriority = loading === 'eager' ? ' fetchpriority="high"' : '';
+        return `<img src="${imageUrl}" alt="${alt}" loading="${loading}"${fetchPriority}>`;
     }
     
     // Create responsive image HTML for images with responsive versions
@@ -42,12 +43,15 @@ function createResponsiveImage(imageUrl, alt, loading = 'lazy') {
         ? "(max-width: 320px) 320px, (max-width: 640px) 640px, (max-width: 1024px) 1024px, 1920px"
         : "(max-width: 400px) 400px, (max-width: 800px) 800px, 1200px";
     
+    // Add fetchpriority for eager loading (LCP optimization)
+    const fetchPriority = loading === 'eager' ? ' fetchpriority="high"' : '';
+    
     return `
         <picture>
             <source srcset="${srcset}" 
                     sizes="${sizes}" 
                     type="image/webp">
-            <img src="${imageUrl}" alt="${alt}" loading="${loading}">
+            <img src="${imageUrl}" alt="${alt}" loading="${loading}"${fetchPriority}>
         </picture>
     `;
 }
@@ -824,7 +828,7 @@ function createReviewContentHTML(review) {
                 </header>
                 
                 <div class="snarkflix-review-hero-image">
-                    ${createResponsiveImage(review.imageUrl, `${review.title} movie poster`, 'lazy').replace('<img', '<img class="snarkflix-review-hero-img"')}
+                    ${createResponsiveImage(review.imageUrl, `${review.title} movie poster`, 'eager').replace('<img', '<img class="snarkflix-review-hero-img" fetchpriority="high"')}
                     <div class="snarkflix-review-tagline">
                         <blockquote>"${review.tagline}"</blockquote>
                     </div>
@@ -1150,11 +1154,20 @@ function handleImageError(img) {
     // Remove error event listener to prevent further calls
     img.removeEventListener('error', handleImageError);
     
-    // Set logo as fallback
-    img.src = 'images/site-assets/logo.avif';
+    // Set logo as fallback, but try PNG/WebP versions first
+    const logoPath = 'images/site-assets/logo.webp';
+    img.src = logoPath;
     img.alt = 'Image not available - showing logo';
     img.classList.add('snarkflix-image-error');
     img.classList.add('snarkflix-image-failed');
+    
+    // If logo also fails, try AVIF
+    img.addEventListener('error', function logoError() {
+        if (img.src.includes('logo.webp')) {
+            img.src = 'images/site-assets/logo.avif';
+            img.removeEventListener('error', logoError);
+        }
+    }, { once: true });
 }
 
 function handleImageLoad(img) {

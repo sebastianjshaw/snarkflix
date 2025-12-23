@@ -17,6 +17,7 @@ function createResponsiveImage(imageUrl, alt, loading = 'lazy') {
                                  imageUrl.includes('iron-giant') ||
                                  imageUrl.includes('kpop-demonhunters') ||
                                  imageUrl.includes('zootopia') ||
+                                 imageUrl.includes('care-2018') ||
                                  imageUrl.includes('logo');
     
     if (!hasResponsiveVersions) {

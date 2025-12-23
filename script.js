@@ -106,7 +106,7 @@ const snarkflixCategories = [
 let reviewsGrid;
 let loadMoreBtn;
 let currentPage = 1;
-const reviewsPerPage = 6;
+const reviewsPerPage = 4; // Reduced from 6 to improve initial load performance
 let currentSort = 'latest';
 let currentCategory = 'all';
 let currentSearchTerm = '';
@@ -128,35 +128,49 @@ function waitForReviewsData(callback, maxAttempts = 50) {
     }
 }
 
+// Optimize initial load by deferring non-critical work
 document.addEventListener('DOMContentLoaded', function() {
     // Add page loaded class for initial fade-in
     document.body.classList.add('snarkflix-page-loaded');
     
     // Wait for reviews data to be available before initializing
     waitForReviewsData(function() {
-        // Initialize critical functionality first
-        initializeApp();
-        
-        // Check for review parameter and update meta tags before checking for shared review
-        const urlParams = new URLSearchParams(window.location.search);
-        const reviewParam = urlParams.get('review');
-        
-        if (reviewParam) {
-            const reviewId = parseInt(reviewParam);
-            const review = snarkflixReviews.find(r => r.id === reviewId);
-            
-            if (review) {
-                // Update meta tags for social media sharing (using extracted function)
-                updateMetaTagsForReview(review);
-            }
+        // Use requestIdleCallback for initialization if available
+        if ('requestIdleCallback' in window) {
+            requestIdleCallback(() => {
+                initializeApp();
+                handleInitialReviewCheck();
+            }, { timeout: 500 });
+        } else {
+            // Fallback: small delay for browsers without requestIdleCallback
+            setTimeout(() => {
+                initializeApp();
+                handleInitialReviewCheck();
+            }, 50);
         }
-        
-        // Check for shared review after a short delay
-        setTimeout(() => {
-            checkForSharedReview();
-        }, 100);
     });
 });
+
+function handleInitialReviewCheck() {
+    // Check for review parameter and update meta tags before checking for shared review
+    const urlParams = new URLSearchParams(window.location.search);
+    const reviewParam = urlParams.get('review');
+    
+    if (reviewParam) {
+        const reviewId = parseInt(reviewParam);
+        const review = snarkflixReviews.find(r => r.id === reviewId);
+        
+        if (review) {
+            // Update meta tags for social media sharing (using extracted function)
+            updateMetaTagsForReview(review);
+        }
+    }
+    
+    // Check for shared review after a short delay
+    setTimeout(() => {
+        checkForSharedReview();
+    }, 100);
+}
 
 // Listen for hash changes (back/forward navigation) - legacy support
 window.addEventListener('hashchange', function() {
@@ -237,8 +251,11 @@ function initializeApp() {
     loadMoreBtn = document.getElementById('load-more-btn');
     
     // Initialize critical components first (for above-the-fold content)
-    loadReviews();
-    setupHeaderNavigation();
+    // Use requestAnimationFrame to ensure DOM is ready
+    requestAnimationFrame(() => {
+        loadReviews();
+        setupHeaderNavigation();
+    });
     
     // Defer non-critical initialization using requestIdleCallback
     if ('requestIdleCallback' in window) {
@@ -250,7 +267,7 @@ function initializeApp() {
             setupSearch();
             setupBackToTop();
             setupKeyboardNavigation();
-        }, { timeout: 1000 });
+        }, { timeout: 2000 });
     } else {
         // Fallback: use setTimeout for browsers without requestIdleCallback
         setTimeout(() => {
@@ -261,7 +278,7 @@ function initializeApp() {
             setupSearch();
             setupBackToTop();
             setupKeyboardNavigation();
-        }, 100);
+        }, 200);
     }
 }
 
@@ -394,13 +411,16 @@ function loadReviews(page = 1, category = currentCategory, searchTerm = currentS
         }
     }
     
-    // Render only the new reviews for this page
+    // Render reviews using DocumentFragment for better performance
+    const fragment = document.createDocumentFragment();
     reviewsToShow.forEach((review, index) => {
         const reviewElement = createReviewElement(review);
         // Add animation delay based on index for staggered effect
         reviewElement.style.animationDelay = `${index * 0.05}s`;
-        reviewsGrid.appendChild(reviewElement);
+        fragment.appendChild(reviewElement);
     });
+    // Append fragment in one operation for better performance
+    reviewsGrid.appendChild(fragment);
     
         // Store all filtered reviews for progress indicator
         allFilteredReviews = filteredReviews;
@@ -2108,12 +2128,6 @@ function updateCategoryCounts() {
     });
 }
 
-// Initialize search when DOM is ready
-document.addEventListener('DOMContentLoaded', () => {
-    // Uncomment the line below to enable search functionality
-    // setupSearch();
-});
-
 // Keyboard navigation support
 function setupKeyboardNavigation() {
     document.addEventListener('keydown', (e) => {
@@ -2225,19 +2239,7 @@ function setupKeyboardNavigation() {
     };
 }
 
-// Initialize error handling and keyboard navigation when DOM is ready
-document.addEventListener('DOMContentLoaded', () => {
-    setupImageErrorHandling();
-    // Delay keyboard navigation setup to ensure all elements are loaded
-    setTimeout(() => {
-        try {
-            setupKeyboardNavigation();
-        } catch (error) {
-            console.error('Error setting up keyboard navigation:', error);
-            // Don't let keyboard navigation errors break the app
-        }
-    }, 100);
-});
+// Image error handling is now set up in initializeApp via setupEventListeners
 
 // Loading States and Indicators
 function showLoadingSpinner(container, message = 'Loading...') {

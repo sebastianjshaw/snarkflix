@@ -471,9 +471,12 @@ function createReviewElement(review) {
     reviewCard.setAttribute('role', 'article');
     reviewCard.setAttribute('aria-label', `Review of ${review.title}`);
     
+    // Generate descriptive alt text for review poster
+    const posterAltText = `${review.title} (${review.releaseYear}) movie poster - ${review.category.charAt(0).toUpperCase() + review.category.slice(1)} film review on Snarkflix`;
+    
     reviewCard.innerHTML = `
         <div class="snarkflix-review-image">
-            ${createResponsiveImage(review.imageUrl, `Movie poster for ${review.title} (${review.releaseYear})`, 'lazy')}
+            ${createResponsiveImage(review.imageUrl, posterAltText, 'lazy')}
         </div>
         <div class="snarkflix-review-content">
             <h3 class="snarkflix-review-title">${review.title}</h3>
@@ -675,7 +678,7 @@ function insertImagesInContent(review) {
     content = content.replace(/\[IMAGE:([^\]]+)\]/g, (match, imagePath) => {
         return `
             <div class="snarkflix-review-image-inline">
-                <img src="${imagePath}" alt="Scene from ${review.title} (${review.releaseYear})" class="snarkflix-review-img-inline" loading="lazy" width="400" height="300" style="background: linear-gradient(90deg, #f0f0f0 25%, #e0e0e0 50%, #f0f0f0 75%); background-size: 200% 100%; animation: shimmer 1.5s infinite;">
+                <img src="${imagePath}" alt="Scene from ${review.title} (${review.releaseYear}) - ${review.category.charAt(0).toUpperCase() + review.category.slice(1)} movie still" class="snarkflix-review-img-inline" loading="lazy" width="400" height="300" style="background: linear-gradient(90deg, #f0f0f0 25%, #e0e0e0 50%, #f0f0f0 75%); background-size: 200% 100%; animation: shimmer 1.5s infinite;">
             </div>
         `;
     });
@@ -1006,7 +1009,7 @@ function createReviewContentHTML(review) {
                 </header>
                 
                 <div class="snarkflix-review-hero-image">
-                    ${createResponsiveImage(review.imageUrl, `${review.title} movie poster`, 'eager').replace('<img', '<img class="snarkflix-review-hero-img" fetchpriority="high"')}
+                    ${createResponsiveImage(review.imageUrl, `${review.title} (${review.releaseYear}) movie poster - ${review.category.charAt(0).toUpperCase() + review.category.slice(1)} film review header image on Snarkflix`, 'eager').replace('<img', '<img class="snarkflix-review-hero-img" fetchpriority="high"')}
                     <div class="snarkflix-review-tagline">
                         <blockquote>"${review.tagline}"</blockquote>
                     </div>
@@ -2562,10 +2565,18 @@ function updateMetaTagsForReview(review) {
     
     updateMetaTag('og:title', ogTitle);
     updateMetaTag('og:description', generateMetaDescription(review));
-    updateMetaTag('og:image', getAbsoluteUrl(review.imageUrl));
-    updateMetaTag('og:image:secure_url', getAbsoluteUrl(review.imageUrl));
-    updateMetaTag('og:image:type', 'image/png');
-    updateMetaTag('og:image:alt', `${review.title} Review`);
+    // Set Open Graph image with proper dimensions and fallback
+    const ogImageUrl = getAbsoluteUrl(review.imageUrl);
+    updateMetaTag('og:image', ogImageUrl);
+    updateMetaTag('og:image:secure_url', ogImageUrl);
+    updateMetaTag('og:image:type', 'image/webp');
+    updateMetaTag('og:image:width', '1200');
+    updateMetaTag('og:image:height', '630');
+    updateMetaTag('og:image:alt', `${review.title} (${review.releaseYear}) movie review poster - SnarkAI Score: ${review.aiScore}/100`);
+    
+    // Add fallback image if main image fails
+    const fallbackImageUrl = getAbsoluteUrl('images/site-assets/logo.avif');
+    // Note: OG doesn't support fallback directly, but we can set a default in index.html
     updateMetaTag('og:site_name', 'Snarkflix');
     updateMetaTag('og:locale', 'en_US');
     updateMetaTag('og:url', `https://snarkflix.com/review/${review.id}`);

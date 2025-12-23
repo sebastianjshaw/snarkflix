@@ -10,7 +10,7 @@
     "test:ci": "jest --ci --coverage --watchAll=false",
     "serve": "node server.js",
     "serve:python": "python3 -m http.server 8000",
-    "build": "node generate-review-pages.js && node generate-sitemap.js",
+    "build": "node generate-review-pages.js && node generate-sitemap.js && node generate-image-sitemap.js",
     "optimize-images": "node optimize-images.js",
     "compress-images": "bash compress-images-advanced.sh",
     "update-version": "node update-version.js",

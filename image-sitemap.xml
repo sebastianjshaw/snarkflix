@@ -1,0 +1,598 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9"
+        xmlns:image="http://www.google.com/schemas/sitemap-image/1.1">
+  <url>
+    <loc>https://snarkflix.com/review/1</loc>
+    <image:image>
+      <image:loc>https://snarkflix.com/images/reviews/superman-2025/header-superman.webp</image:loc>
+      <image:title>Superman (2025) Movie Review Poster</image:title>
+      <image:caption>Official movie poster for Superman (2025) - Action film review on Snarkflix</image:caption>
+      <image:license>https://snarkflix.com</image:license>
+    </image:image>
+    <image:image>
+      <image:loc>https://snarkflix.com/images/reviews/superman-2025/image-superman.png</image:loc>
+      <image:title>Superman (2025) - Additional Scene</image:title>
+      <image:caption>Scene from Superman (2025)</image:caption>
+      <image:license>https://snarkflix.com</image:license>
+    </image:image>
+  </url>
+  <url>
+    <loc>https://snarkflix.com/review/2</loc>
+    <image:image>
+      <image:loc>https://snarkflix.com/images/reviews/wicked-2024/header-wicked.webp</image:loc>
+      <image:title>Wicked (2024) Movie Review Poster</image:title>
+      <image:caption>Official movie poster for Wicked (2024) - Musical film review on Snarkflix</image:caption>
+      <image:license>https://snarkflix.com</image:license>
+    </image:image>
+    <image:image>
+      <image:loc>https://snarkflix.com/images/reviews/wicked-2024/image-wicked.webp</image:loc>
+      <image:title>Wicked (2024) - Scene 1</image:title>
+      <image:caption>Scene 1 from Wicked (2024)</image:caption>
+      <image:license>https://snarkflix.com</image:license>
+    </image:image>
+    <image:image>
+      <image:loc>https://snarkflix.com/images/reviews/wicked-2024/image-wicked2.avif</image:loc>
+      <image:title>Wicked (2024) - Scene 2</image:title>
+      <image:caption>Scene 2 from Wicked (2024)</image:caption>
+      <image:license>https://snarkflix.com</image:license>
+    </image:image>
+    <image:image>
+      <image:loc>https://snarkflix.com/images/reviews/wicked-2024/image-wicked3.avif</image:loc>
+      <image:title>Wicked (2024) - Scene 3</image:title>
+      <image:caption>Scene 3 from Wicked (2024)</image:caption>
+      <image:license>https://snarkflix.com</image:license>
+    </image:image>
+  </url>
+  <url>
+    <loc>https://snarkflix.com/review/4</loc>
+    <image:image>
+      <image:loc>https://snarkflix.com/images/reviews/the-boy-and-the-heron-2023/header-the-boy-and-the-heron-2023.avif</image:loc>
+      <image:title>The Boy and the Heron (2023) Movie Review Poster</image:title>
+      <image:caption>Official movie poster for The Boy and the Heron (2023) - Animation film review on Snarkflix</image:caption>
+      <image:license>https://snarkflix.com</image:license>
+    </image:image>
+    <image:image>
+      <image:loc>https://snarkflix.com/images/reviews/the-boy-and-the-heron-2023/imagethe-boy-and-the-heron-2023.avif</image:loc>
+      <image:title>The Boy and the Heron (2023) - Scene 1</image:title>
+      <image:caption>Scene 1 from The Boy and the Heron (2023)</image:caption>
+      <image:license>https://snarkflix.com</image:license>
+    </image:image>
+    <image:image>
+      <image:loc>https://snarkflix.com/images/reviews/the-boy-and-the-heron-2023/imagethe-boy-and-the-heron-2023-2.avif</image:loc>
+      <image:title>The Boy and the Heron (2023) - Scene 2</image:title>
+      <image:caption>Scene 2 from The Boy and the Heron (2023)</image:caption>
+      <image:license>https://snarkflix.com</image:license>
+    </image:image>
+  </url>
+  <url>
+    <loc>https://snarkflix.com/review/5</loc>
+    <image:image>
+      <image:loc>https://snarkflix.com/images/reviews/the-man-from-earth-2007/header-the-man-from-earth-2007.avif</image:loc>
+      <image:title>The Man from Earth (2007) Movie Review Poster</image:title>
+      <image:caption>Official movie poster for The Man from Earth (2007) - Drama film review on Snarkflix</image:caption>
+      <image:license>https://snarkflix.com</image:license>
+    </image:image>
+    <image:image>
+      <image:loc>https://snarkflix.com/images/reviews/the-man-from-earth-2007/image-the-man-from-earth-2007.avif</image:loc>
+      <image:title>The Man from Earth (2007) - Additional Scene</image:title>
+      <image:caption>Scene from The Man from Earth (2007)</image:caption>
+      <image:license>https://snarkflix.com</image:license>
+    </image:image>
+  </url>
+  <url>
+    <loc>https://snarkflix.com/review/6</loc>
+    <image:image>
+      <image:loc>https://snarkflix.com/images/reviews/wonka-2024/header-wonka-2024.webp</image:loc>
+      <image:title>Wonka (2023) Movie Review Poster</image:title>
+      <image:caption>Official movie poster for Wonka (2023) - Musical film review on Snarkflix</image:caption>
+      <image:license>https://snarkflix.com</image:license>
+    </image:image>
+    <image:image>
+      <image:loc>https://snarkflix.com/images/reviews/wonka-2024/image-wonka-2024.avif</image:loc>
+      <image:title>Wonka (2023) - Additional Scene</image:title>
+      <image:caption>Scene from Wonka (2023)</image:caption>
+      <image:license>https://snarkflix.com</image:license>
+    </image:image>
+  </url>
+  <url>
+    <loc>https://snarkflix.com/review/7</loc>
+    <image:image>
+      <image:loc>https://snarkflix.com/images/reviews/the-marvels/header-the-marvels.webp</image:loc>
+      <image:title>The Marvels (2023) Movie Review Poster</image:title>
+      <image:caption>Official movie poster for The Marvels (2023) - Action film review on Snarkflix</image:caption>
+      <image:license>https://snarkflix.com</image:license>
+    </image:image>
+    <image:image>
+      <image:loc>https://snarkflix.com/images/reviews/the-marvels/image-the-marvels-1.png</image:loc>
+      <image:title>The Marvels (2023) - Scene 1</image:title>
+      <image:caption>Scene 1 from The Marvels (2023)</image:caption>
+      <image:license>https://snarkflix.com</image:license>
+    </image:image>
+    <image:image>
+      <image:loc>https://snarkflix.com/images/reviews/the-marvels/image-the-marvels-2.png</image:loc>
+      <image:title>The Marvels (2023) - Scene 2</image:title>
+      <image:caption>Scene 2 from The Marvels (2023)</image:caption>
+      <image:license>https://snarkflix.com</image:license>
+    </image:image>
+    <image:image>
+      <image:loc>https://snarkflix.com/images/reviews/the-marvels/image-the-marvels-3.png</image:loc>
+      <image:title>The Marvels (2023) - Scene 3</image:title>
+      <image:caption>Scene 3 from The Marvels (2023)</image:caption>
+      <image:license>https://snarkflix.com</image:license>
+    </image:image>
+  </url>
+  <url>
+    <loc>https://snarkflix.com/review/8</loc>
+    <image:image>
+      <image:loc>https://snarkflix.com/images/reviews/to-me-the-one-who-loved-you/header-to-me-the-one-who-loved-you.avif</image:loc>
+      <image:title>To Me, the One Who Loved You (2022) Movie Review Poster</image:title>
+      <image:caption>Official movie poster for To Me, the One Who Loved You (2022) - Animation film review on Snarkflix</image:caption>
+      <image:license>https://snarkflix.com</image:license>
+    </image:image>
+  </url>
+  <url>
+    <loc>https://snarkflix.com/review/9</loc>
+    <image:image>
+      <image:loc>https://snarkflix.com/images/reviews/to-every-you-i-ve-loved-before/header-to-every-you-i-ve-loved-before.avif</image:loc>
+      <image:title>To Every You I've Loved Before (2022) Movie Review Poster</image:title>
+      <image:caption>Official movie poster for To Every You I've Loved Before (2022) - Animation film review on Snarkflix</image:caption>
+      <image:license>https://snarkflix.com</image:license>
+    </image:image>
+  </url>
+  <url>
+    <loc>https://snarkflix.com/review/10</loc>
+    <image:image>
+      <image:loc>https://snarkflix.com/images/reviews/the-super-mario-bros-movie-2023/header-the-super-mario-bros-movie-2023.webp</image:loc>
+      <image:title>The Super Mario Bros. Movie (2023) Movie Review Poster</image:title>
+      <image:caption>Official movie poster for The Super Mario Bros. Movie (2023) - Animation film review on Snarkflix</image:caption>
+      <image:license>https://snarkflix.com</image:license>
+    </image:image>
+    <image:image>
+      <image:loc>https://snarkflix.com/images/reviews/the-super-mario-bros-movie-2023/image-the-super-mario-bros-movie-2023.avif</image:loc>
+      <image:title>The Super Mario Bros. Movie (2023) - Additional Scene</image:title>
+      <image:caption>Scene from The Super Mario Bros. Movie (2023)</image:caption>
+      <image:license>https://snarkflix.com</image:license>
+    </image:image>
+  </url>
+  <url>
+    <loc>https://snarkflix.com/review/11</loc>
+    <image:image>
+      <image:loc>https://snarkflix.com/images/reviews/prey/header-prey.avif</image:loc>
+      <image:title>Prey (2022) Movie Review Poster</image:title>
+      <image:caption>Official movie poster for Prey (2022) - Action film review on Snarkflix</image:caption>
+      <image:license>https://snarkflix.com</image:license>
+    </image:image>
+    <image:image>
+      <image:loc>https://snarkflix.com/images/reviews/prey/image-prey.avif</image:loc>
+      <image:title>Prey (2022) - Additional Scene</image:title>
+      <image:caption>Scene from Prey (2022)</image:caption>
+      <image:license>https://snarkflix.com</image:license>
+    </image:image>
+  </url>
+  <url>
+    <loc>https://snarkflix.com/review/12</loc>
+    <image:image>
+      <image:loc>https://snarkflix.com/images/reviews/the-royal-tenenbaums/header-the-royal-tenenbaums.avif</image:loc>
+      <image:title>The Royal Tenenbaums (2001) Movie Review Poster</image:title>
+      <image:caption>Official movie poster for The Royal Tenenbaums (2001) - Drama film review on Snarkflix</image:caption>
+      <image:license>https://snarkflix.com</image:license>
+    </image:image>
+  </url>
+  <url>
+    <loc>https://snarkflix.com/review/13</loc>
+    <image:image>
+      <image:loc>https://snarkflix.com/images/reviews/cocaine-bear/header-cocaine-bear.webp</image:loc>
+      <image:title>Cocaine Bear (2023) Movie Review Poster</image:title>
+      <image:caption>Official movie poster for Cocaine Bear (2023) - Comedy film review on Snarkflix</image:caption>
+      <image:license>https://snarkflix.com</image:license>
+    </image:image>
+    <image:image>
+      <image:loc>https://snarkflix.com/images/reviews/cocaine-bear/image-cocaine-bear.avif</image:loc>
+      <image:title>Cocaine Bear (2023) - Scene 1</image:title>
+      <image:caption>Scene 1 from Cocaine Bear (2023)</image:caption>
+      <image:license>https://snarkflix.com</image:license>
+    </image:image>
+    <image:image>
+      <image:loc>https://snarkflix.com/images/reviews/cocaine-bear/image-cocaine-bear-2.avif</image:loc>
+      <image:title>Cocaine Bear (2023) - Scene 2</image:title>
+      <image:caption>Scene 2 from Cocaine Bear (2023)</image:caption>
+      <image:license>https://snarkflix.com</image:license>
+    </image:image>
+    <image:image>
+      <image:loc>https://snarkflix.com/images/reviews/cocaine-bear/image-cocaine-bear-3.avif</image:loc>
+      <image:title>Cocaine Bear (2023) - Scene 3</image:title>
+      <image:caption>Scene 3 from Cocaine Bear (2023)</image:caption>
+      <image:license>https://snarkflix.com</image:license>
+    </image:image>
+  </url>
+  <url>
+    <loc>https://snarkflix.com/review/14</loc>
+    <image:image>
+      <image:loc>https://snarkflix.com/images/reviews/the-whale/header-the-whale.avif</image:loc>
+      <image:title>The Whale (2022) Movie Review Poster</image:title>
+      <image:caption>Official movie poster for The Whale (2022) - Drama film review on Snarkflix</image:caption>
+      <image:license>https://snarkflix.com</image:license>
+    </image:image>
+    <image:image>
+      <image:loc>https://snarkflix.com/images/reviews/the-whale/image-the-whale.avif</image:loc>
+      <image:title>The Whale (2022) - Additional Scene</image:title>
+      <image:caption>Scene from The Whale (2022)</image:caption>
+      <image:license>https://snarkflix.com</image:license>
+    </image:image>
+  </url>
+  <url>
+    <loc>https://snarkflix.com/review/15</loc>
+    <image:image>
+      <image:loc>https://snarkflix.com/images/reviews/dungeons-dragons-honour-amongst-thieves-2023/header-dungeons-dragons-honour-amongst-thieves-2023.avif</image:loc>
+      <image:title>Dungeons & Dragons: Honour Amongst Thieves (2023) Movie Review Poster</image:title>
+      <image:caption>Official movie poster for Dungeons & Dragons: Honour Amongst Thieves (2023) - Adventure film review on Snarkflix</image:caption>
+      <image:license>https://snarkflix.com</image:license>
+    </image:image>
+    <image:image>
+      <image:loc>https://snarkflix.com/images/reviews/dungeons-dragons-honour-amongst-thieves-2023/image-dungeons-dragons-honour-amongst-thieves-2023.avif</image:loc>
+      <image:title>Dungeons & Dragons: Honour Amongst Thieves (2023) - Scene 1</image:title>
+      <image:caption>Scene 1 from Dungeons & Dragons: Honour Amongst Thieves (2023)</image:caption>
+      <image:license>https://snarkflix.com</image:license>
+    </image:image>
+    <image:image>
+      <image:loc>https://snarkflix.com/images/reviews/dungeons-dragons-honour-amongst-thieves-2023/image-dungeons-dragons-honour-amongst-thieves-2023-2.avif</image:loc>
+      <image:title>Dungeons & Dragons: Honour Amongst Thieves (2023) - Scene 2</image:title>
+      <image:caption>Scene 2 from Dungeons & Dragons: Honour Amongst Thieves (2023)</image:caption>
+      <image:license>https://snarkflix.com</image:license>
+    </image:image>
+  </url>
+  <url>
+    <loc>https://snarkflix.com/review/16</loc>
+    <image:image>
+      <image:loc>https://snarkflix.com/images/reviews/winnie-the-pooh-blood-honey/header-winnie-the-pooh-blood-honey.avif</image:loc>
+      <image:title>Winnie the Pooh: Blood and Honey (2023) Movie Review Poster</image:title>
+      <image:caption>Official movie poster for Winnie the Pooh: Blood and Honey (2023) - Horror film review on Snarkflix</image:caption>
+      <image:license>https://snarkflix.com</image:license>
+    </image:image>
+  </url>
+  <url>
+    <loc>https://snarkflix.com/review/17</loc>
+    <image:image>
+      <image:loc>https://snarkflix.com/images/reviews/pinocchio-2022/header-pinocchio-2022.avif</image:loc>
+      <image:title>Pinocchio (2022) Movie Review Poster</image:title>
+      <image:caption>Official movie poster for Pinocchio (2022) - Animation film review on Snarkflix</image:caption>
+      <image:license>https://snarkflix.com</image:license>
+    </image:image>
+    <image:image>
+      <image:loc>https://snarkflix.com/images/reviews/pinocchio-2022/image-pinocchio-2022.avif</image:loc>
+      <image:title>Pinocchio (2022) - Additional Scene</image:title>
+      <image:caption>Scene from Pinocchio (2022)</image:caption>
+      <image:license>https://snarkflix.com</image:license>
+    </image:image>
+  </url>
+  <url>
+    <loc>https://snarkflix.com/review/18</loc>
+    <image:image>
+      <image:loc>https://snarkflix.com/images/reviews/avatar-the-way-of-water-2022/header-avatar-the-way-of-water-2022.png</image:loc>
+      <image:title>Avatar: The Way of Water (2022) Movie Review Poster</image:title>
+      <image:caption>Official movie poster for Avatar: The Way of Water (2022) - Sci-fi film review on Snarkflix</image:caption>
+      <image:license>https://snarkflix.com</image:license>
+    </image:image>
+    <image:image>
+      <image:loc>https://snarkflix.com/images/reviews/avatar-the-way-of-water-2022/image-avatar-the-way-of-water-2022.png</image:loc>
+      <image:title>Avatar: The Way of Water (2022) - Additional Scene</image:title>
+      <image:caption>Scene from Avatar: The Way of Water (2022)</image:caption>
+      <image:license>https://snarkflix.com</image:license>
+    </image:image>
+    <image:image>
+      <image:loc>https://snarkflix.com/images/reviews/avatar-the-way-of-water-2022/image-avatar-the-way-of-water-2022-2.png</image:loc>
+      <image:title>Avatar: The Way of Water (2022) - Scene 1</image:title>
+      <image:caption>Scene 1 from Avatar: The Way of Water (2022)</image:caption>
+      <image:license>https://snarkflix.com</image:license>
+    </image:image>
+  </url>
+  <url>
+    <loc>https://snarkflix.com/review/19</loc>
+    <image:image>
+      <image:loc>https://snarkflix.com/images/reviews/m3gan/header-m3gan.avif</image:loc>
+      <image:title>M3GAN (2023) Movie Review Poster</image:title>
+      <image:caption>Official movie poster for M3GAN (2023) - Horror film review on Snarkflix</image:caption>
+      <image:license>https://snarkflix.com</image:license>
+    </image:image>
+  </url>
+  <url>
+    <loc>https://snarkflix.com/review/20</loc>
+    <image:image>
+      <image:loc>https://snarkflix.com/images/reviews/shazam-fury-of-the-gods/header-shazam-fury-of-the-gods.avif</image:loc>
+      <image:title>Shazam! Fury of the Gods (2023) Movie Review Poster</image:title>
+      <image:caption>Official movie poster for Shazam! Fury of the Gods (2023) - Action film review on Snarkflix</image:caption>
+      <image:license>https://snarkflix.com</image:license>
+    </image:image>
+  </url>
+  <url>
+    <loc>https://snarkflix.com/review/21</loc>
+    <image:image>
+      <image:loc>https://snarkflix.com/images/reviews/black-panther-wakanda-forever/header-black-panther-wakanda-forever.avif</image:loc>
+      <image:title>Black Panther: Wakanda Forever (2022) Movie Review Poster</image:title>
+      <image:caption>Official movie poster for Black Panther: Wakanda Forever (2022) - Action film review on Snarkflix</image:caption>
+      <image:license>https://snarkflix.com</image:license>
+    </image:image>
+    <image:image>
+      <image:loc>https://snarkflix.com/images/reviews/black-panther-wakanda-forever/image-black-panther-wakanda-forever.avif</image:loc>
+      <image:title>Black Panther: Wakanda Forever (2022) - Additional Scene</image:title>
+      <image:caption>Scene from Black Panther: Wakanda Forever (2022)</image:caption>
+      <image:license>https://snarkflix.com</image:license>
+    </image:image>
+  </url>
+  <url>
+    <loc>https://snarkflix.com/review/22</loc>
+    <image:image>
+      <image:loc>https://snarkflix.com/images/reviews/black-adam/header-black-adam.avif</image:loc>
+      <image:title>Black Adam (2022) Movie Review Poster</image:title>
+      <image:caption>Official movie poster for Black Adam (2022) - Action film review on Snarkflix</image:caption>
+      <image:license>https://snarkflix.com</image:license>
+    </image:image>
+  </url>
+  <url>
+    <loc>https://snarkflix.com/review/23</loc>
+    <image:image>
+      <image:loc>https://snarkflix.com/images/reviews/the-suicide-squad/header-the-suicide-squad.webp</image:loc>
+      <image:title>The Suicide Squad (2021) Movie Review Poster</image:title>
+      <image:caption>Official movie poster for The Suicide Squad (2021) - Action film review on Snarkflix</image:caption>
+      <image:license>https://snarkflix.com</image:license>
+    </image:image>
+  </url>
+  <url>
+    <loc>https://snarkflix.com/review/24</loc>
+    <image:image>
+      <image:loc>https://snarkflix.com/images/reviews/pitch-perfect/header-pitch-perfect.webp</image:loc>
+      <image:title>Pitch Perfect (2012) Movie Review Poster</image:title>
+      <image:caption>Official movie poster for Pitch Perfect (2012) - Musical film review on Snarkflix</image:caption>
+      <image:license>https://snarkflix.com</image:license>
+    </image:image>
+  </url>
+  <url>
+    <loc>https://snarkflix.com/review/25</loc>
+    <image:image>
+      <image:loc>https://snarkflix.com/images/reviews/the-batman/header-the-batman.avif</image:loc>
+      <image:title>The Batman (2022) Movie Review Poster</image:title>
+      <image:caption>Official movie poster for The Batman (2022) - Action film review on Snarkflix</image:caption>
+      <image:license>https://snarkflix.com</image:license>
+    </image:image>
+  </url>
+  <url>
+    <loc>https://snarkflix.com/review/27</loc>
+    <image:image>
+      <image:loc>https://snarkflix.com/images/reviews/finch/header-finch.avif</image:loc>
+      <image:title>Finch (2021) Movie Review Poster</image:title>
+      <image:caption>Official movie poster for Finch (2021) - Sci-fi film review on Snarkflix</image:caption>
+      <image:license>https://snarkflix.com</image:license>
+    </image:image>
+  </url>
+  <url>
+    <loc>https://snarkflix.com/review/28</loc>
+    <image:image>
+      <image:loc>https://snarkflix.com/images/reviews/the-man-who-killed-hitler-and-then-the-bigfoot/header-the-man-who-killed-hitler-and-then-the-bigfoot.webp</image:loc>
+      <image:title>The Man Who Killed Hitler and Then the Bigfoot (2018) Movie Review Poster</image:title>
+      <image:caption>Official movie poster for The Man Who Killed Hitler and Then the Bigfoot (2018) - Action film review on Snarkflix</image:caption>
+      <image:license>https://snarkflix.com</image:license>
+    </image:image>
+  </url>
+  <url>
+    <loc>https://snarkflix.com/review/29</loc>
+    <image:image>
+      <image:loc>https://snarkflix.com/images/reviews/wolfwalkers/header-wolfwalkers.avif</image:loc>
+      <image:title>Wolfwalkers (2020) Movie Review Poster</image:title>
+      <image:caption>Official movie poster for Wolfwalkers (2020) - Animation film review on Snarkflix</image:caption>
+      <image:license>https://snarkflix.com</image:license>
+    </image:image>
+  </url>
+  <url>
+    <loc>https://snarkflix.com/review/30</loc>
+    <image:image>
+      <image:loc>https://snarkflix.com/images/reviews/no-time-to-die/header-no-time-to-die.avif</image:loc>
+      <image:title>No Time to Die (2021) Movie Review Poster</image:title>
+      <image:caption>Official movie poster for No Time to Die (2021) - Action film review on Snarkflix</image:caption>
+      <image:license>https://snarkflix.com</image:license>
+    </image:image>
+  </url>
+  <url>
+    <loc>https://snarkflix.com/review/31</loc>
+    <image:image>
+      <image:loc>https://snarkflix.com/images/reviews/fantastic-four-first-steps/header-fantastic-four-first-steps.webp</image:loc>
+      <image:title>Fantastic Four: First Steps (2025) Movie Review Poster</image:title>
+      <image:caption>Official movie poster for Fantastic Four: First Steps (2025) - Action film review on Snarkflix</image:caption>
+      <image:license>https://snarkflix.com</image:license>
+    </image:image>
+    <image:image>
+      <image:loc>https://snarkflix.com/images/reviews/fantastic-four-first-steps/image-fantastic-four-first-steps.png</image:loc>
+      <image:title>Fantastic Four: First Steps (2025) - Additional Scene</image:title>
+      <image:caption>Scene from Fantastic Four: First Steps (2025)</image:caption>
+      <image:license>https://snarkflix.com</image:license>
+    </image:image>
+    <image:image>
+      <image:loc>https://snarkflix.com/images/reviews/fantastic-four-first-steps/image-fantastic-four-first-steps-2.png</image:loc>
+      <image:title>Fantastic Four: First Steps (2025) - Scene 1</image:title>
+      <image:caption>Scene 1 from Fantastic Four: First Steps (2025)</image:caption>
+      <image:license>https://snarkflix.com</image:license>
+    </image:image>
+  </url>
+  <url>
+    <loc>https://snarkflix.com/review/32</loc>
+    <image:image>
+      <image:loc>https://snarkflix.com/images/reviews/dont-look-up/header-dont-look-up.avif</image:loc>
+      <image:title>Don't Look Up (2021) Movie Review Poster</image:title>
+      <image:caption>Official movie poster for Don't Look Up (2021) - Comedy film review on Snarkflix</image:caption>
+      <image:license>https://snarkflix.com</image:license>
+    </image:image>
+  </url>
+  <url>
+    <loc>https://snarkflix.com/review/33</loc>
+    <image:image>
+      <image:loc>https://snarkflix.com/images/reviews/encanto-2021/header-encanto.png</image:loc>
+      <image:title>Encanto (2021) Movie Review Poster</image:title>
+      <image:caption>Official movie poster for Encanto (2021) - Animation film review on Snarkflix</image:caption>
+      <image:license>https://snarkflix.com</image:license>
+    </image:image>
+  </url>
+  <url>
+    <loc>https://snarkflix.com/review/34</loc>
+    <image:image>
+      <image:loc>https://snarkflix.com/images/reviews/free-guy-2021/header-free-guy.avif</image:loc>
+      <image:title>Free Guy (2021) Movie Review Poster</image:title>
+      <image:caption>Official movie poster for Free Guy (2021) - Sci-fi film review on Snarkflix</image:caption>
+      <image:license>https://snarkflix.com</image:license>
+    </image:image>
+  </url>
+  <url>
+    <loc>https://snarkflix.com/review/35</loc>
+    <image:image>
+      <image:loc>https://snarkflix.com/images/reviews/eternals-2021/header-eternals.avif</image:loc>
+      <image:title>Eternals (2021) Movie Review Poster</image:title>
+      <image:caption>Official movie poster for Eternals (2021) - Sci-fi film review on Snarkflix</image:caption>
+      <image:license>https://snarkflix.com</image:license>
+    </image:image>
+    <image:image>
+      <image:loc>https://snarkflix.com/images/reviews/eternals-2021/image-eternals.avif</image:loc>
+      <image:title>Eternals (2021) - Additional Scene</image:title>
+      <image:caption>Scene from Eternals (2021)</image:caption>
+      <image:license>https://snarkflix.com</image:license>
+    </image:image>
+  </url>
+  <url>
+    <loc>https://snarkflix.com/review/36</loc>
+    <image:image>
+      <image:loc>https://snarkflix.com/images/reviews/ghostbusters-afterlife-2021/header-ghostbusters-afterlife.avif</image:loc>
+      <image:title>Ghostbusters: Afterlife (2021) Movie Review Poster</image:title>
+      <image:caption>Official movie poster for Ghostbusters: Afterlife (2021) - Comedy film review on Snarkflix</image:caption>
+      <image:license>https://snarkflix.com</image:license>
+    </image:image>
+    <image:image>
+      <image:loc>https://snarkflix.com/images/reviews/ghostbusters-afterlife-2021/image-ghostbusters-afterlife.avif</image:loc>
+      <image:title>Ghostbusters: Afterlife (2021) - Additional Scene</image:title>
+      <image:caption>Scene from Ghostbusters: Afterlife (2021)</image:caption>
+      <image:license>https://snarkflix.com</image:license>
+    </image:image>
+  </url>
+  <url>
+    <loc>https://snarkflix.com/review/37</loc>
+    <image:image>
+      <image:loc>https://snarkflix.com/images/reviews/black-widow-2021/header-black-widow.webp</image:loc>
+      <image:title>Black Widow (2021) Movie Review Poster</image:title>
+      <image:caption>Official movie poster for Black Widow (2021) - Action film review on Snarkflix</image:caption>
+      <image:license>https://snarkflix.com</image:license>
+    </image:image>
+  </url>
+  <url>
+    <loc>https://snarkflix.com/review/38</loc>
+    <image:image>
+      <image:loc>https://snarkflix.com/images/reviews/zack-snyders-justice-league-2021/header-zack-snyders-justice-league.avif</image:loc>
+      <image:title>Zack Snyder's Justice League (2021) Movie Review Poster</image:title>
+      <image:caption>Official movie poster for Zack Snyder's Justice League (2021) - Action film review on Snarkflix</image:caption>
+      <image:license>https://snarkflix.com</image:license>
+    </image:image>
+    <image:image>
+      <image:loc>https://snarkflix.com/images/reviews/zack-snyders-justice-league-2021/image-zack-snyders-justice-league-1.avif</image:loc>
+      <image:title>Zack Snyder's Justice League (2021) - Scene 1</image:title>
+      <image:caption>Scene 1 from Zack Snyder's Justice League (2021)</image:caption>
+      <image:license>https://snarkflix.com</image:license>
+    </image:image>
+    <image:image>
+      <image:loc>https://snarkflix.com/images/reviews/zack-snyders-justice-league-2021/image-zack-snyders-justice-league-2.avif</image:loc>
+      <image:title>Zack Snyder's Justice League (2021) - Scene 2</image:title>
+      <image:caption>Scene 2 from Zack Snyder's Justice League (2021)</image:caption>
+      <image:license>https://snarkflix.com</image:license>
+    </image:image>
+    <image:image>
+      <image:loc>https://snarkflix.com/images/reviews/zack-snyders-justice-league-2021/image-zack-snyders-justice-league-3.avif</image:loc>
+      <image:title>Zack Snyder's Justice League (2021) - Scene 3</image:title>
+      <image:caption>Scene 3 from Zack Snyder's Justice League (2021)</image:caption>
+      <image:license>https://snarkflix.com</image:license>
+    </image:image>
+    <image:image>
+      <image:loc>https://snarkflix.com/images/reviews/zack-snyders-justice-league-2021/image-zack-snyders-justice-league-4.avif</image:loc>
+      <image:title>Zack Snyder's Justice League (2021) - Scene 4</image:title>
+      <image:caption>Scene 4 from Zack Snyder's Justice League (2021)</image:caption>
+      <image:license>https://snarkflix.com</image:license>
+    </image:image>
+  </url>
+  <url>
+    <loc>https://snarkflix.com/review/39</loc>
+    <image:image>
+      <image:loc>https://snarkflix.com/images/reviews/wonder-woman-1984/header-wonder-woman-1984.avif</image:loc>
+      <image:title>Wonder Woman 1984 (2020) Movie Review Poster</image:title>
+      <image:caption>Official movie poster for Wonder Woman 1984 (2020) - Action film review on Snarkflix</image:caption>
+      <image:license>https://snarkflix.com</image:license>
+    </image:image>
+    <image:image>
+      <image:loc>https://snarkflix.com/images/reviews/wonder-woman-1984/image-wonder-woman-1984-1.avif</image:loc>
+      <image:title>Wonder Woman 1984 (2020) - Additional Scene</image:title>
+      <image:caption>Scene from Wonder Woman 1984 (2020)</image:caption>
+      <image:license>https://snarkflix.com</image:license>
+    </image:image>
+  </url>
+  <url>
+    <loc>https://snarkflix.com/review/42</loc>
+    <image:image>
+      <image:loc>https://snarkflix.com/images/reviews/palm-springs-2020/header-palm-springs-2020.webp</image:loc>
+      <image:title>Palm Springs (2020) Movie Review Poster</image:title>
+      <image:caption>Official movie poster for Palm Springs (2020) - Comedy film review on Snarkflix</image:caption>
+      <image:license>https://snarkflix.com</image:license>
+    </image:image>
+  </url>
+  <url>
+    <loc>https://snarkflix.com/review/43</loc>
+    <image:image>
+      <image:loc>https://snarkflix.com/images/reviews/iron-giant-1999/header-iron-giant.webp</image:loc>
+      <image:title>The Iron Giant (1999) Movie Review Poster</image:title>
+      <image:caption>Official movie poster for The Iron Giant (1999) - Animation film review on Snarkflix</image:caption>
+      <image:license>https://snarkflix.com</image:license>
+    </image:image>
+  </url>
+  <url>
+    <loc>https://snarkflix.com/review/44</loc>
+    <image:image>
+      <image:loc>https://snarkflix.com/images/reviews/goncharov-1973/header-goncharov-1973.png</image:loc>
+      <image:title>Goncharov (1973) Movie Review Poster</image:title>
+      <image:caption>Official movie poster for Goncharov (1973) - Thriller film review on Snarkflix</image:caption>
+      <image:license>https://snarkflix.com</image:license>
+    </image:image>
+    <image:image>
+      <image:loc>https://snarkflix.com/images/reviews/goncharov-1973/image-goncharov-1973.png</image:loc>
+      <image:title>Goncharov (1973) - Scene 1</image:title>
+      <image:caption>Scene 1 from Goncharov (1973)</image:caption>
+      <image:license>https://snarkflix.com</image:license>
+    </image:image>
+  </url>
+  <url>
+    <loc>https://snarkflix.com/review/45</loc>
+    <image:image>
+      <image:loc>https://snarkflix.com/images/reviews/kpop-demonhunters-2025/header-kpop-demonhunters-2025.webp</image:loc>
+      <image:title>KPop DemonHunters (2025) Movie Review Poster</image:title>
+      <image:caption>Official movie poster for KPop DemonHunters (2025) - Animation film review on Snarkflix</image:caption>
+      <image:license>https://snarkflix.com</image:license>
+    </image:image>
+  </url>
+  <url>
+    <loc>https://snarkflix.com/review/46</loc>
+    <image:image>
+      <image:loc>https://snarkflix.com/images/reviews/zootopia-2016/header-zootopia-2016.webp</image:loc>
+      <image:title>Zootopia (2016) Movie Review Poster</image:title>
+      <image:caption>Official movie poster for Zootopia (2016) - Animation film review on Snarkflix</image:caption>
+      <image:license>https://snarkflix.com</image:license>
+    </image:image>
+  </url>
+  <url>
+    <loc>https://snarkflix.com/review/47</loc>
+    <image:image>
+      <image:loc>https://snarkflix.com/images/reviews/thunderbolts-2025/header-thunderbolts-2025.webp</image:loc>
+      <image:title>Thunderbolts (2025) Movie Review Poster</image:title>
+      <image:caption>Official movie poster for Thunderbolts (2025) - Action film review on Snarkflix</image:caption>
+      <image:license>https://snarkflix.com</image:license>
+    </image:image>
+  </url>
+  <url>
+    <loc>https://snarkflix.com/review/48</loc>
+    <image:image>
+      <image:loc>https://snarkflix.com/images/reviews/care-2018/header-care-2018.webp</image:loc>
+      <image:title>Care (2018) Movie Review Poster</image:title>
+      <image:caption>Official movie poster for Care (2018) - Drama film review on Snarkflix</image:caption>
+      <image:license>https://snarkflix.com</image:license>
+    </image:image>
+  </url>
+</urlset>

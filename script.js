@@ -2527,6 +2527,7 @@ function generateMetaDescription(review) {
 
 function updateMetaTagsForReview(review) {
     // Update page title - consider year at beginning for recent movies
+    // Declare currentYear once at the top of the function
     const currentYear = new Date().getFullYear();
     const isRecent = review.releaseYear >= currentYear - 1;
     
@@ -2557,8 +2558,7 @@ function updateMetaTagsForReview(review) {
     canonicalLink.setAttribute('href', `https://snarkflix.com/review/${review.id}`);
     
     // Update Open Graph meta tags
-    const currentYear = new Date().getFullYear();
-    const isRecent = review.releaseYear >= currentYear - 1;
+    // Reuse currentYear and isRecent from above
     const ogTitle = isRecent 
         ? `${review.releaseYear} ${review.title.replace(/\s*\(\d{4}\)\s*/, '')} Review - SnarkAI Score: ${review.aiScore}/100 | Snarkflix`
         : `${review.title} Review - SnarkAI Score: ${review.aiScore}/100 | Snarkflix`;
@@ -2587,8 +2587,7 @@ function updateMetaTagsForReview(review) {
     updateMetaTag('twitter:image:src', getAbsoluteUrl(review.imageUrl));
     
     // Update Twitter Card meta tags
-    const currentYear = new Date().getFullYear();
-    const isRecent = review.releaseYear >= currentYear - 1;
+    // Reuse currentYear and isRecent from above
     const twitterTitle = isRecent 
         ? `${review.releaseYear} ${review.title.replace(/\s*\(\d{4}\)\s*/, '')} Review - SnarkAI Score: ${review.aiScore}/100 | Snarkflix`
         : `${review.title} Review - SnarkAI Score: ${review.aiScore}/100 | Snarkflix`;

@@ -2111,10 +2111,8 @@ img {
         background: var(--snarkflix-primary);
         color: var(--snarkflix-white);
     }
-}
-
-/* Dark mode error styles */
-@media (prefers-color-scheme: dark) {
+    
+    /* Dark mode error styles */
     .snarkflix-error-message {
         background: var(--snarkflix-white);
         border-color: #e74c3c;
@@ -2125,7 +2123,7 @@ img {
     }
     
     .snarkflix-error-content p {
-        color: var(--snarkflix-dark);
+        color: var(--snarkflix-text-primary);
     }
     
     .snarkflix-error-state {
@@ -2138,7 +2136,7 @@ img {
     }
     
     .snarkflix-error-state p {
-        color: var(--snarkflix-gray);
+        color: var(--snarkflix-text-secondary);
     }
 }
 

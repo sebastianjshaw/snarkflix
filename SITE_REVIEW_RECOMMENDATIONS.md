@@ -20,21 +20,7 @@ This document provides comprehensive recommendations for improving Snarkflix acr
 **Recommendations:**
 
 
-2. **Typography**
-   - Improve line-height for long-form content (review text)
-   - Add better paragraph spacing
-   - Consider serif font for review content (improves readability)
-   - Add text selection styling
 
-3. **Color System**
-   - Create score-based color system (e.g., green for 80+, yellow for 60-79, red for <60)
-   - Improve contrast in category cards
-   - Add dark mode support (highly requested feature)
-
-4. **Spacing & Whitespace**
-   - Increase padding in review cards for better breathing room
-   - Improve section spacing consistency
-   - Add more whitespace around hero section
 
 ### 2.2 Interactive Elements
 

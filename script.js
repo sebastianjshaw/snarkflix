@@ -106,7 +106,7 @@ const snarkflixCategories = [
 let reviewsGrid;
 let loadMoreBtn;
 let currentPage = 1;
-const reviewsPerPage = 4; // Reduced from 6 to improve initial load performance
+const reviewsPerPage = 6; // Restored to original value
 let currentSort = 'latest';
 let currentCategory = 'all';
 let currentSearchTerm = '';
@@ -128,36 +128,35 @@ function waitForReviewsData(callback, maxAttempts = 50) {
     }
 }
 
-// Optimize initial load by deferring non-critical work
-// Use a more aggressive deferral strategy
-if (document.readyState === 'loading') {
-    document.addEventListener('DOMContentLoaded', initializeWhenReady);
-} else {
-    // DOM already loaded
-    initializeWhenReady();
-}
-
-function initializeWhenReady() {
+document.addEventListener('DOMContentLoaded', function() {
     // Add page loaded class for initial fade-in
     document.body.classList.add('snarkflix-page-loaded');
     
     // Wait for reviews data to be available before initializing
     waitForReviewsData(function() {
-        // Use requestIdleCallback with longer timeout for better performance
-        if ('requestIdleCallback' in window) {
-            requestIdleCallback(() => {
-                initializeApp();
-                handleInitialReviewCheck();
-            }, { timeout: 1000 });
-        } else {
-            // Fallback: longer delay for browsers without requestIdleCallback
-            setTimeout(() => {
-                initializeApp();
-                handleInitialReviewCheck();
-            }, 100);
+        // Initialize immediately - no delays for critical content
+        initializeApp();
+        
+        // Check for review parameter and update meta tags before checking for shared review
+        const urlParams = new URLSearchParams(window.location.search);
+        const reviewParam = urlParams.get('review');
+        
+        if (reviewParam) {
+            const reviewId = parseInt(reviewParam);
+            const review = snarkflixReviews.find(r => r.id === reviewId);
+            
+            if (review) {
+                // Update meta tags for social media sharing (using extracted function)
+                updateMetaTagsForReview(review);
+            }
         }
+        
+        // Check for shared review after a short delay
+        setTimeout(() => {
+            checkForSharedReview();
+        }, 100);
     });
-}
+});
 
 function handleInitialReviewCheck() {
     // Check for review parameter and update meta tags before checking for shared review
@@ -258,16 +257,11 @@ function initializeApp() {
     reviewsGrid = document.getElementById('reviews-grid');
     loadMoreBtn = document.getElementById('load-more-btn');
     
-    // Initialize critical components first (for above-the-fold content)
-    // Use double requestAnimationFrame for better performance (wait for next paint)
-    requestAnimationFrame(() => {
-        requestAnimationFrame(() => {
-            loadReviews();
-            setupHeaderNavigation();
-        });
-    });
+    // Initialize critical components immediately
+    loadReviews();
+    setupHeaderNavigation();
     
-    // Defer non-critical initialization using requestIdleCallback with longer timeout
+    // Defer non-critical initialization slightly
     if ('requestIdleCallback' in window) {
         requestIdleCallback(() => {
             setupEventListeners();
@@ -277,9 +271,9 @@ function initializeApp() {
             setupSearch();
             setupBackToTop();
             setupKeyboardNavigation();
-        }, { timeout: 3000 });
+        }, { timeout: 2000 });
     } else {
-        // Fallback: use longer setTimeout for browsers without requestIdleCallback
+        // Fallback: use setTimeout for browsers without requestIdleCallback
         setTimeout(() => {
             setupEventListeners();
             setupAccessibility();
@@ -288,7 +282,7 @@ function initializeApp() {
             setupSearch();
             setupBackToTop();
             setupKeyboardNavigation();
-        }, 500);
+        }, 100);
     }
 }
 
@@ -330,143 +324,133 @@ function loadReviews(page = 1, category = currentCategory, searchTerm = currentS
                 return;
             }
         
-        // Update global variables to match parameters
-        currentCategory = category;
-        currentSearchTerm = searchTerm;
-        currentSort = sort;
-        currentScoreFilter = scoreFilter;
-        currentYearFilter = yearFilter;
+            // Update global variables to match parameters
+            currentCategory = category;
+            currentSearchTerm = searchTerm;
+            currentSort = sort;
+            currentScoreFilter = scoreFilter;
+            currentYearFilter = yearFilter;
+            
+            // Check if reviews data is available
+            if (!snarkflixReviews || !Array.isArray(snarkflixReviews)) {
+                throw new Error('Reviews data not available');
+            }
+            
+            let filteredReviews = snarkflixReviews;
         
-        // Check if reviews data is available
-        if (!snarkflixReviews || !Array.isArray(snarkflixReviews)) {
-            throw new Error('Reviews data not available');
-        }
-        
-        let filteredReviews = snarkflixReviews;
-    
-    // Filter by category if specified
-    if (category && category !== 'all') {
-        filteredReviews = filteredReviews.filter(review => 
-            review.category === category
-        );
-    }
-    
-    // Filter by search term if specified
-    if (searchTerm) {
-        const searchTermLower = searchTerm.toLowerCase();
-        filteredReviews = filteredReviews.filter(review => 
-            review.title.toLowerCase().includes(searchTermLower) ||
-            review.content.toLowerCase().includes(searchTermLower) ||
-            review.tagline.toLowerCase().includes(searchTermLower) ||
-            review.aiSummary.toLowerCase().includes(searchTermLower) ||
-            review.category.toLowerCase().includes(searchTermLower)
-        );
-    }
-    
-    // Filter by score if specified
-    if (scoreFilter) {
-        const [min, max] = scoreFilter.split('-').map(Number);
-        filteredReviews = filteredReviews.filter(review => 
-            review.aiScore >= min && review.aiScore <= max
-        );
-    }
-    
-    // Filter by year if specified
-    if (yearFilter) {
-        const year = parseInt(yearFilter);
-        filteredReviews = filteredReviews.filter(review => 
-            review.releaseYear === year
-        );
-    }
-    
-    // Sort based on current sort option
-    filteredReviews = filteredReviews.sort((a, b) => {
-        switch (sort) {
-            case 'latest':
-                // Sort by date (newest first)
-                const dateA = new Date(a.publishDate);
-                const dateB = new Date(b.publishDate);
-                return dateB - dateA;
-            case 'best':
-                // Sort by AI score (highest first)
-                return b.aiScore - a.aiScore;
-            case 'longest':
-                // Sort by reading duration (longest first)
-                const durationA = parseInt(a.readingDuration);
-                const durationB = parseInt(b.readingDuration);
-                return durationB - durationA;
-            default:
-                return 0;
-        }
-    });
-    
-    // Calculate pagination
-    const startIndex = (page - 1) * reviewsPerPage;
-    const endIndex = startIndex + reviewsPerPage;
-    const reviewsToShow = filteredReviews.slice(startIndex, endIndex);
-    
-    // Clear existing reviews if it's the first page
-    if (page === 1) {
-        reviewsGrid.innerHTML = '';
-        
-        // Show empty state if no reviews found
-        if (filteredReviews.length === 0) {
-            showEmptyState(reviewsGrid, searchTerm, category, scoreFilter, yearFilter);
-            updateLoadMoreButton(0, 0);
-            updateProgressIndicator(0, 0);
-            updateSearchResultsCount(0, true);
-            announceToScreenReader('No reviews found matching your criteria.');
-            setTimeout(() => resolve(), 100);
-            return;
-        }
-    }
-    
-    // Render reviews using DocumentFragment for better performance
-    const fragment = document.createDocumentFragment();
-    reviewsToShow.forEach((review, index) => {
-        const reviewElement = createReviewElement(review);
-        // Add animation delay based on index for staggered effect
-        reviewElement.style.animationDelay = `${index * 0.05}s`;
-        fragment.appendChild(reviewElement);
-    });
-    // Append fragment in one operation for better performance
-    reviewsGrid.appendChild(fragment);
-    
-        // Store all filtered reviews for progress indicator
-        allFilteredReviews = filteredReviews;
-        
-        // Update load more button
-        const currentDisplayedCount = reviewsGrid.children.length;
-        updateLoadMoreButton(filteredReviews.length, currentDisplayedCount);
-        
-        // Update progress indicator
-        updateProgressIndicator(currentDisplayedCount, filteredReviews.length);
-        
-        // Update search results count
-        updateSearchResultsCount(filteredReviews.length, searchTerm || category !== 'all' || scoreFilter || yearFilter);
-        
-        // Announce to screen readers
-        announceToScreenReader(`Loaded ${reviewsToShow.length} review${reviewsToShow.length !== 1 ? 's' : ''}. ${filteredReviews.length} total review${filteredReviews.length !== 1 ? 's' : ''} available.`);
-        
-        // Update current page
-        currentPage = page;
-        
-        // Resolve immediately - DOM updates are already done via DocumentFragment
-        resolve();
+            // Filter by category if specified
+            if (category && category !== 'all') {
+                filteredReviews = filteredReviews.filter(review => 
+                    review.category === category
+                );
+            }
+            
+            // Filter by search term if specified
+            if (searchTerm) {
+                const searchTermLower = searchTerm.toLowerCase();
+                filteredReviews = filteredReviews.filter(review => 
+                    review.title.toLowerCase().includes(searchTermLower) ||
+                    review.content.toLowerCase().includes(searchTermLower) ||
+                    review.tagline.toLowerCase().includes(searchTermLower) ||
+                    review.aiSummary.toLowerCase().includes(searchTermLower) ||
+                    review.category.toLowerCase().includes(searchTermLower)
+                );
+            }
+            
+            // Filter by score if specified
+            if (scoreFilter) {
+                const [min, max] = scoreFilter.split('-').map(Number);
+                filteredReviews = filteredReviews.filter(review => 
+                    review.aiScore >= min && review.aiScore <= max
+                );
+            }
+            
+            // Filter by year if specified
+            if (yearFilter) {
+                const year = parseInt(yearFilter);
+                filteredReviews = filteredReviews.filter(review => 
+                    review.releaseYear === year
+                );
+            }
+            
+            // Sort based on current sort option
+            filteredReviews = filteredReviews.sort((a, b) => {
+                switch (sort) {
+                    case 'latest':
+                        // Sort by date (newest first)
+                        const dateA = new Date(a.publishDate);
+                        const dateB = new Date(b.publishDate);
+                        return dateB - dateA;
+                    case 'best':
+                        // Sort by AI score (highest first)
+                        return b.aiScore - a.aiScore;
+                    case 'longest':
+                        // Sort by reading duration (longest first)
+                        const durationA = parseInt(a.readingDuration);
+                        const durationB = parseInt(b.readingDuration);
+                        return durationB - durationA;
+                    default:
+                        return 0;
+                }
+            });
+            
+            // Calculate pagination
+            const startIndex = (page - 1) * reviewsPerPage;
+            const endIndex = startIndex + reviewsPerPage;
+            const reviewsToShow = filteredReviews.slice(startIndex, endIndex);
+            
+            // Clear existing reviews if it's the first page
+            if (page === 1) {
+                reviewsGrid.innerHTML = '';
+                
+                // Show empty state if no reviews found
+                if (filteredReviews.length === 0) {
+                    showEmptyState(reviewsGrid, searchTerm, category, scoreFilter, yearFilter);
+                    updateLoadMoreButton(0, 0);
+                    updateProgressIndicator(0, 0);
+                    updateSearchResultsCount(0, true);
+                    announceToScreenReader('No reviews found matching your criteria.');
+                    setTimeout(() => resolve(), 100);
+                    return;
+                }
+            }
+            
+            // Render reviews using DocumentFragment for better performance
+            const fragment = document.createDocumentFragment();
+            reviewsToShow.forEach((review, index) => {
+                const reviewElement = createReviewElement(review);
+                // Add animation delay based on index for staggered effect
+                reviewElement.style.animationDelay = `${index * 0.05}s`;
+                fragment.appendChild(reviewElement);
+            });
+            // Append fragment in one operation for better performance
+            reviewsGrid.appendChild(fragment);
+            
+            // Store all filtered reviews for progress indicator
+            allFilteredReviews = filteredReviews;
+            
+            // Update load more button
+            const currentDisplayedCount = reviewsGrid.children.length;
+            updateLoadMoreButton(filteredReviews.length, currentDisplayedCount);
+            
+            // Update progress indicator
+            updateProgressIndicator(currentDisplayedCount, filteredReviews.length);
+            
+            // Update search results count
+            updateSearchResultsCount(filteredReviews.length, searchTerm || category !== 'all' || scoreFilter || yearFilter);
+            
+            // Announce to screen readers
+            announceToScreenReader(`Loaded ${reviewsToShow.length} review${reviewsToShow.length !== 1 ? 's' : ''}. ${filteredReviews.length} total review${filteredReviews.length !== 1 ? 's' : ''} available.`);
+            
+            // Update current page
+            currentPage = page;
+            
+            // Resolve immediately - DOM updates are already done via DocumentFragment
+            resolve();
         } catch (error) {
             console.error('Error loading reviews:', error);
             handleReviewLoadError(error);
             reject(error);
-        }
-    });
-}
-        
-        // Defer filtering work if possible
-        if ('requestIdleCallback' in window && page === 1) {
-            requestIdleCallback(performLoad, { timeout: 500 });
-        } else {
-            // For subsequent pages or browsers without requestIdleCallback, run immediately
-            performLoad();
         }
     });
 }

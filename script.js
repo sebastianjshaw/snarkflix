@@ -249,6 +249,12 @@ function setupHeaderNavigation() {
 
 function loadReviews(page = 1, category = currentCategory, searchTerm = currentSearchTerm, sort = currentSort) {
     try {
+        // Check if reviewsGrid exists
+        if (!reviewsGrid) {
+            console.warn('Reviews grid not found, waiting for DOM...');
+            return;
+        }
+        
         // Update global variables to match parameters
         currentCategory = category;
         currentSearchTerm = searchTerm;
@@ -1180,71 +1186,95 @@ function debounce(func, wait) {
 
 // Error handling functions
 function handleImageError(img) {
-    // Check if image is inside a picture element - picture elements may trigger
-    // errors during srcset selection, but the fallback img should still load
-    const picture = img.closest('picture');
-    if (picture) {
-        // For picture elements, wait a bit to see if the image actually loads
-        // This prevents false positives from srcset selection
-        const checkTimeout = setTimeout(() => {
-            // If image still hasn't loaded after a short delay, treat as real error
-            if (!img.complete || img.naturalWidth === 0) {
-                handleImageErrorFinal(img);
-            }
-        }, 100);
+    try {
+        // Prevent infinite retry loops - only try once
+        if (!img || img.dataset.errorHandled === 'true') {
+            return;
+        }
         
-        // If image loads successfully, cancel the error handling
-        img.addEventListener('load', () => {
-            clearTimeout(checkTimeout);
-        }, { once: true });
+        // Check if image actually failed (not just a false positive)
+        // For picture elements, the browser may fire an error during srcset selection
+        // but the fallback img should still load, so we check if it's actually loaded
+        if (img.complete && img.naturalWidth > 0) {
+            // Image actually loaded successfully, ignore the error
+            return;
+        }
         
-        return;
+        // For picture elements, give a small delay to allow the fallback to load
+        const picture = img.closest && img.closest('picture');
+        if (picture) {
+            // Wait a moment to see if the fallback image loads
+            setTimeout(() => {
+                try {
+                    // Check again if image loaded
+                    if (img.complete && img.naturalWidth > 0) {
+                        // Image loaded successfully, ignore the error
+                        return;
+                    }
+                    // Image still failed, handle the error
+                    handleImageErrorFinal(img);
+                } catch (e) {
+                    console.error('Error in image error handler timeout:', e);
+                }
+            }, 50);
+            return;
+        }
+        
+        // For regular img elements, handle error immediately
+        handleImageErrorFinal(img);
+    } catch (e) {
+        console.error('Error in handleImageError:', e);
+        // Don't let error handler break the page
     }
-    
-    // For regular img elements, handle error immediately
-    handleImageErrorFinal(img);
 }
 
 function handleImageErrorFinal(img) {
-    // Prevent infinite retry loops - only try once
-    if (img.dataset.errorHandled === 'true') {
-        return;
-    }
-    
-    // Check if image actually failed (not just a false positive)
-    if (img.complete && img.naturalWidth > 0) {
-        // Image actually loaded, ignore the error
-        return;
-    }
-    
-    console.warn('Image failed to load:', img.src);
-    
-    // Mark as handled immediately to prevent further calls
-    img.dataset.errorHandled = 'true';
-    
-    // Remove error event listener to prevent further calls
-    img.removeEventListener('error', handleImageError);
-    
-    // Set logo as fallback, but try PNG/WebP versions first
-    // Use absolute path to avoid path resolution issues
-    const logoPath = img.src.includes('http') 
-        ? `${window.location.origin}/images/site-assets/logo.webp`
-        : '/images/site-assets/logo.webp';
-    img.src = logoPath;
-    img.alt = 'Image not available - showing logo';
-    img.classList.add('snarkflix-image-error');
-    img.classList.add('snarkflix-image-failed');
-    
-    // If logo also fails, try AVIF
-    img.addEventListener('error', function logoError() {
-        if (img.src.includes('logo.webp')) {
-            const avifPath = img.src.includes('http')
-                ? `${window.location.origin}/images/site-assets/logo.avif`
-                : '/images/site-assets/logo.avif';
-            img.src = avifPath;
-            img.removeEventListener('error', logoError);
+    try {
+        // Double-check we haven't already handled this
+        if (!img || img.dataset.errorHandled === 'true') {
+            return;
         }
-    }, { once: true });
+        
+        // Final check if image loaded
+        if (img.complete && img.naturalWidth > 0) {
+            return;
+        }
+        
+        console.warn('Image failed to load:', img.src);
+        
+        // Mark as handled immediately to prevent further calls
+        img.dataset.errorHandled = 'true';
+        
+        // Set logo as fallback, but try PNG/WebP versions first
+        // Use absolute path to avoid path resolution issues
+        const logoPath = img.src && img.src.includes('http') 
+            ? `${window.location.origin}/images/site-assets/logo.webp`
+            : '/images/site-assets/logo.webp';
+        img.src = logoPath;
+        img.alt = 'Image not available - showing logo';
+        if (img.classList) {
+            img.classList.add('snarkflix-image-error');
+            img.classList.add('snarkflix-image-failed');
+        }
+        
+        // If logo also fails, try AVIF
+        img.addEventListener('error', function logoError() {
+            try {
+                if (img.src && img.src.includes('logo.webp')) {
+                    const avifPath = img.src.includes('http')
+                        ? `${window.location.origin}/images/site-assets/logo.avif`
+                        : '/images/site-assets/logo.avif';
+                    img.src = avifPath;
+                    img.removeEventListener('error', logoError);
+                }
+            } catch (e) {
+                console.error('Error in logo fallback:', e);
+            }
+        }, { once: true });
+    } catch (e) {
+        console.error('Error in handleImageErrorFinal:', e);
+        // Don't let error handler break the page
+    }
 }
 
 function handleImageLoad(img) {

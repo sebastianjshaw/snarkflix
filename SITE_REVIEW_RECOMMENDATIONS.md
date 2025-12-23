@@ -4,40 +4,7 @@
 
 This document provides comprehensive recommendations for improving Snarkflix across four key areas: **Usability**, **Design**, **SEO**, and **GEO** (Geographic/Localization). The site has a solid foundation with good accessibility practices, responsive design, and basic SEO implementation, but there are significant opportunities for enhancement.
 
----
 
-## 1. USABILITY IMPROVEMENTS
-
-### 1.1 Navigation & User Flow
-
-**Current Issues:**
-- Review pages redirect immediately, which can be jarring for users
-- No skip-to-content link visible on page load
-- Breadcrumb navigation is present but could be more prominent
-- Mobile menu toggle exists but needs better visual feedback
-
-
-**Recommendations:**
-
-1. **Image Optimization**
-   - Implement lazy loading for all below-fold images (partially done)
-   - Add blur-up placeholder technique for images
-   - Consider using `loading="lazy"` more consistently
-
-2. **Font Loading**
-   - Current font loading is good with `media="print"` trick
-   - Consider adding `font-display: swap` to CSS
-   - Preload critical font weights
-
-3. **JavaScript Optimization**
-   - Consider code splitting for review pages
-   - Defer non-critical JavaScript
-   - Add error boundaries for failed image loads
-
-4. **Service Worker**
-   - Enhance caching strategy
-   - Add offline fallback page
-   - Cache review data for offline access
 
 ---
 

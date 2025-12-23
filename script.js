@@ -493,14 +493,15 @@ function createReviewElement(review) {
 
 // Get score class for color coding
 function getScoreClass(score) {
+    // Green for 80+, Yellow for 60-79, Red for <60
     if (score >= 80) {
-        return 'snarkflix-score-excellent';
+        return 'snarkflix-score-excellent'; // Green
     } else if (score >= 60) {
-        return 'snarkflix-score-good';
+        return 'snarkflix-score-good'; // Yellow
     } else if (score >= 40) {
-        return 'snarkflix-score-fair';
+        return 'snarkflix-score-fair'; // Red
     } else {
-        return 'snarkflix-score-poor';
+        return 'snarkflix-score-poor'; // Darker red
     }
 }
 

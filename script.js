@@ -2,8 +2,14 @@
 
 // Helper function to create responsive image HTML
 function createResponsiveImage(imageUrl, alt, loading = 'lazy') {
+    // Ensure image URL is absolute (starts with /) to avoid path resolution issues on review pages
+    let normalizedImageUrl = imageUrl;
+    if (!normalizedImageUrl.startsWith('http') && !normalizedImageUrl.startsWith('/')) {
+        normalizedImageUrl = '/' + normalizedImageUrl;
+    }
+    
     // Extract base path and extension
-    const pathParts = imageUrl.split('/');
+    const pathParts = normalizedImageUrl.split('/');
     const filename = pathParts[pathParts.length - 1];
     const basePath = pathParts.slice(0, -1).join('/');
     const nameWithoutExt = filename.replace(/\.(webp|avif|png)$/, '');
@@ -11,26 +17,26 @@ function createResponsiveImage(imageUrl, alt, loading = 'lazy') {
     
     // Check if responsive versions exist by looking for common patterns
     // Only use responsive images for images that we know have responsive versions
-    const hasResponsiveVersions = imageUrl.includes('fantastic-four') || 
-                                 imageUrl.includes('palm-springs') || 
-                                 imageUrl.includes('superman') || 
-                                 imageUrl.includes('iron-giant') ||
-                                 imageUrl.includes('kpop-demonhunters') ||
-                                 imageUrl.includes('zootopia') ||
-                                 imageUrl.includes('care-2018') ||
-                                 imageUrl.includes('logo');
+    const hasResponsiveVersions = normalizedImageUrl.includes('fantastic-four') || 
+                                 normalizedImageUrl.includes('palm-springs') || 
+                                 normalizedImageUrl.includes('superman') || 
+                                 normalizedImageUrl.includes('iron-giant') ||
+                                 normalizedImageUrl.includes('kpop-demonhunters') ||
+                                 normalizedImageUrl.includes('zootopia') ||
+                                 normalizedImageUrl.includes('care-2018') ||
+                                 normalizedImageUrl.includes('logo');
     
     if (!hasResponsiveVersions) {
         // Fall back to simple img tag for images without responsive versions
         const fetchPriority = loading === 'eager' ? ' fetchpriority="high"' : '';
-        return `<img src="${imageUrl}" alt="${alt}" loading="${loading}"${fetchPriority}>`;
+        return `<img src="${normalizedImageUrl}" alt="${alt}" loading="${loading}"${fetchPriority}>`;
     }
     
     // Create responsive image HTML for images with responsive versions
     // Use WebP format with responsive sizes and PNG fallback
     // Handle different naming patterns
     let srcset;
-    if (imageUrl.includes('kpop-demonhunters') || imageUrl.includes('zootopia')) {
+    if (normalizedImageUrl.includes('kpop-demonhunters') || normalizedImageUrl.includes('zootopia')) {
         // Kpop Demon Hunters and Zootopia use old naming pattern
         srcset = `${basePath}/${nameWithoutExt}-sm.webp 320w, ${basePath}/${nameWithoutExt}-md.webp 640w, ${basePath}/${nameWithoutExt}-lg.webp 1024w, ${basePath}/${nameWithoutExt}-xl.webp 1920w`;
     } else {
@@ -39,7 +45,7 @@ function createResponsiveImage(imageUrl, alt, loading = 'lazy') {
     }
     
     // Use appropriate sizes based on naming pattern
-    const sizes = (imageUrl.includes('kpop-demonhunters') || imageUrl.includes('zootopia')) 
+    const sizes = (normalizedImageUrl.includes('kpop-demonhunters') || normalizedImageUrl.includes('zootopia')) 
         ? "(max-width: 320px) 320px, (max-width: 640px) 640px, (max-width: 1024px) 1024px, 1920px"
         : "(max-width: 400px) 400px, (max-width: 800px) 800px, 1200px";
     
@@ -51,7 +57,7 @@ function createResponsiveImage(imageUrl, alt, loading = 'lazy') {
             <source srcset="${srcset}" 
                     sizes="${sizes}" 
                     type="image/webp">
-            <img src="${imageUrl}" alt="${alt}" loading="${loading}"${fetchPriority}>
+            <img src="${normalizedImageUrl}" alt="${alt}" loading="${loading}"${fetchPriority}>
         </picture>
     `;
 }

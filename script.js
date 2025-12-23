@@ -757,6 +757,10 @@ function createReviewPage(review) {
     // Update meta tags (using extracted function)
     updateMetaTagsForReview(review);
     
+    // Add structured data (Review and Breadcrumb)
+    addReviewStructuredData(review);
+    addBreadcrumbStructuredData(review);
+    
     // Update existing breadcrumb
     const existingBreadcrumb = document.querySelector('.snarkflix-breadcrumb');
     if (existingBreadcrumb) {
@@ -843,6 +847,9 @@ function returnToHomepage() {
     
     // Remove review page class from body
     document.body.classList.remove('snarkflix-review-page');
+    
+    // Remove structured data scripts
+    removeStructuredData();
     
     // Hide breadcrumb
     const existingBreadcrumb = document.querySelector('.snarkflix-breadcrumb');
@@ -2285,6 +2292,125 @@ function hideReviewLoadingSkeleton() {
 }
 
 // Update meta tags for review (extracted for reuse)
+// Add Review Structured Data (JSON-LD)
+function addReviewStructuredData(review) {
+    // Remove existing review structured data if present
+    const existingScript = document.querySelector('script[type="application/ld+json"][data-schema="review"]');
+    if (existingScript) {
+        existingScript.remove();
+    }
+    
+    // Parse publish date to ISO format
+    let datePublished = new Date().toISOString().split('T')[0];
+    try {
+        const dateMatch = review.publishDate.match(/(\w+)\s+(\d+),\s+(\d+)/);
+        if (dateMatch) {
+            const months = {
+                'Jan': '01', 'Feb': '02', 'Mar': '03', 'Apr': '04',
+                'May': '05', 'Jun': '06', 'Jul': '07', 'Aug': '08',
+                'Sep': '09', 'Oct': '10', 'Nov': '11', 'Dec': '12'
+            };
+            const month = months[dateMatch[1]] || '01';
+            const day = dateMatch[2].padStart(2, '0');
+            const year = dateMatch[3];
+            datePublished = `${year}-${month}-${day}`;
+        }
+    } catch (e) {
+        // Use current date if parsing fails
+    }
+    
+    // Get absolute image URL
+    const imageUrl = getAbsoluteUrl(review.imageUrl);
+    
+    // Get review body (first 500 chars of content for preview)
+    const reviewBody = review.content.substring(0, 500) + (review.content.length > 500 ? '...' : '');
+    
+    // Create Review structured data
+    const reviewSchema = {
+        "@context": "https://schema.org",
+        "@type": "Review",
+        "itemReviewed": {
+            "@type": "Movie",
+            "name": review.title,
+            "datePublished": review.releaseYear.toString()
+        },
+        "reviewRating": {
+            "@type": "Rating",
+            "ratingValue": review.aiScore.toString(),
+            "bestRating": "100",
+            "worstRating": "0"
+        },
+        "author": {
+            "@type": "Person",
+            "name": "Snarkflix Reviewer"
+        },
+        "datePublished": datePublished,
+        "reviewBody": reviewBody,
+        "headline": review.title,
+        "image": imageUrl
+    };
+    
+    // Create and append script tag
+    const script = document.createElement('script');
+    script.type = 'application/ld+json';
+    script.setAttribute('data-schema', 'review');
+    script.textContent = JSON.stringify(reviewSchema, null, 2);
+    document.head.appendChild(script);
+}
+
+// Add Breadcrumb Structured Data (JSON-LD)
+function addBreadcrumbStructuredData(review) {
+    // Remove existing breadcrumb structured data if present
+    const existingScript = document.querySelector('script[type="application/ld+json"][data-schema="breadcrumb"]');
+    if (existingScript) {
+        existingScript.remove();
+    }
+    
+    const baseUrl = window.location.origin;
+    
+    // Create BreadcrumbList structured data
+    const breadcrumbSchema = {
+        "@context": "https://schema.org",
+        "@type": "BreadcrumbList",
+        "itemListElement": [
+            {
+                "@type": "ListItem",
+                "position": 1,
+                "name": "Home",
+                "item": baseUrl + "/"
+            },
+            {
+                "@type": "ListItem",
+                "position": 2,
+                "name": "Reviews",
+                "item": baseUrl + "/#reviews"
+            },
+            {
+                "@type": "ListItem",
+                "position": 3,
+                "name": review.title,
+                "item": baseUrl + `/review/${review.id}`
+            }
+        ]
+    };
+    
+    // Create and append script tag
+    const script = document.createElement('script');
+    script.type = 'application/ld+json';
+    script.setAttribute('data-schema', 'breadcrumb');
+    script.textContent = JSON.stringify(breadcrumbSchema, null, 2);
+    document.head.appendChild(script);
+}
+
+// Remove structured data when returning to homepage
+function removeStructuredData() {
+    const reviewScript = document.querySelector('script[type="application/ld+json"][data-schema="review"]');
+    const breadcrumbScript = document.querySelector('script[type="application/ld+json"][data-schema="breadcrumb"]');
+    
+    if (reviewScript) reviewScript.remove();
+    if (breadcrumbScript) breadcrumbScript.remove();
+}
+
 function updateMetaTagsForReview(review) {
     // Update page title
     document.title = `${review.title} Review - SnarkAI Score: ${review.aiScore}/100 | Snarkflix`;

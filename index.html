@@ -47,11 +47,13 @@
 
     <!-- Resource Preloading for Performance -->
     <!-- Using absolute paths to avoid issues on review pages -->
+    <!-- Preload only critical above-the-fold resources -->
     <link rel="preload" href="/images/site-assets/logo.webp" as="image" fetchpriority="high">
-    <link rel="preload" href="/images/site-assets/background.avif" as="image">
     <link rel="preload" href="/styles.css" as="style">
     <!-- Preload critical font weights -->
     <link rel="preload" href="https://fonts.gstatic.com/s/inter/v13/UcCO3FwrK3iLTeHuS_fvQtMwCp50KnMw2boKoduKmMEVuLyfAZ9hiJ-Ek-_EeA.woff2" as="font" type="font/woff2" crossorigin>
+    <!-- Defer background image loading -->
+    <link rel="prefetch" href="/images/site-assets/background.avif" as="image">
     <!-- reviews-data.js preload removed - it's loaded with defer and may not be needed on review pages -->
 
     <title>Snarkflix - Snarky Movie Reviews</title>
@@ -62,7 +64,8 @@
     <link rel="stylesheet" href="styles.css">
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet" media="print" onload="this.media='all'">
+    <!-- Load fonts asynchronously to prevent render blocking -->
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet" media="print" onload="this.media='all'; this.onload=null;">
     <noscript><link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet"></noscript>
     <!-- Font-display: swap is already included in the Google Fonts URL via &display=swap -->
     
@@ -105,13 +108,13 @@
     
     <!-- Header -->
     <header class="snarkflix-header">
-        <nav class="snarkflix-nav" role="navigation" aria-label="Main navigation">
+        <nav class="snarkflix-nav" role="navigation" aria-label="Main navigation" id="main-navigation">
             <div class="snarkflix-nav-container">
                 <div class="snarkflix-logo">
                     <h1><a href="/" aria-label="Snarkflix home">Snarkflix</a></h1>
                 </div>
                 <div class="snarkflix-nav-links">
-                    <button class="snarkflix-mobile-menu-close" aria-label="Close menu">×</button>
+                    <button type="button" class="snarkflix-mobile-menu-close" aria-label="Close menu">×</button>
                     <a href="#reviews" class="snarkflix-nav-link">
                         <svg class="snarkflix-nav-icon" aria-hidden="true" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
                             <path d="M4 19.5A2.5 2.5 0 0 1 6.5 17H20"></path>
@@ -138,10 +141,10 @@
                     </a>
                 </div>
                 <div class="snarkflix-mobile-menu-backdrop"></div>
-                <button class="snarkflix-mobile-menu-toggle snarkflix-mobile-menu-btn" aria-label="Toggle mobile menu" aria-expanded="false">
-                    <span></span>
-                    <span></span>
-                    <span></span>
+                <button type="button" class="snarkflix-mobile-menu-toggle snarkflix-mobile-menu-btn" aria-label="Toggle mobile menu" aria-expanded="false" aria-controls="main-navigation">
+                    <span aria-hidden="true"></span>
+                    <span aria-hidden="true"></span>
+                    <span aria-hidden="true"></span>
                 </button>
             </div>
         </nav>
@@ -166,8 +169,8 @@
                     as we take a lighthearted and entertaining approach to critiquing films.
                 </p>
                 <div class="snarkflix-hero-cta">
-                    <a href="#reviews" class="snarkflix-btn snarkflix-btn-primary">Read Reviews</a>
-                    <a href="#about" class="snarkflix-btn snarkflix-btn-secondary">Learn More</a>
+                    <a href="#reviews" class="snarkflix-btn snarkflix-btn-primary" aria-label="Browse movie reviews">Read Reviews</a>
+                    <a href="#about" class="snarkflix-btn snarkflix-btn-secondary" aria-label="Learn more about Snarkflix">Learn More</a>
                 </div>
             </div>
             <div class="snarkflix-hero-image">
@@ -228,15 +231,15 @@
                 <!-- Reviews will be dynamically loaded here -->
             </div>
             <div class="snarkflix-load-more">
-                <div id="reviews-progress" class="snarkflix-reviews-progress"></div>
-                <button class="snarkflix-btn snarkflix-btn-outline" id="load-more-btn">
+                <div id="reviews-progress" class="snarkflix-reviews-progress" aria-live="polite" aria-atomic="true"></div>
+                <button type="button" class="snarkflix-btn snarkflix-btn-outline" id="load-more-btn" aria-label="Load more movie reviews">
                     <span class="snarkflix-btn-text">Load More Reviews</span>
-                    <span class="snarkflix-btn-loader" style="display: none;">
-                        <span class="snarkflix-spinner"></span>
+                    <span class="snarkflix-btn-loader" style="display: none;" aria-hidden="true">
+                        <span class="snarkflix-spinner" aria-label="Loading"></span>
                     </span>
                 </button>
             </div>
-            <button id="back-to-top-btn" class="snarkflix-back-to-top" aria-label="Back to top" style="display: none;">↑</button>
+            <button type="button" id="back-to-top-btn" class="snarkflix-back-to-top" aria-label="Back to top" style="display: none;">↑</button>
         </div>
     </section>
 

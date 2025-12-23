@@ -72,6 +72,19 @@ html {
     scroll-behavior: smooth;
 }
 
+/* Performance: Reduce layout shifts */
+img, picture, video {
+    max-width: 100%;
+    height: auto;
+}
+
+/* Performance: Optimize font rendering */
+body {
+    text-rendering: optimizeLegibility;
+    -webkit-font-smoothing: antialiased;
+    -moz-osx-font-smoothing: grayscale;
+}
+
 /* Font Display Optimization - ensures text is visible during font load */
 @font-face {
     font-family: 'Inter';
@@ -428,6 +441,13 @@ body.snarkflix-keyboard-user .snarkflix-skip-link:focus {
     border: 2px solid transparent;
     cursor: pointer;
     text-align: center;
+    /* Performance: Use will-change for smooth animations */
+    will-change: transform;
+}
+
+/* Reset will-change after animation */
+.snarkflix-btn:not(:hover):not(:active) {
+    will-change: auto;
 }
 
 .snarkflix-btn-primary {

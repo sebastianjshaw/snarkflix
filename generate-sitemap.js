@@ -88,10 +88,16 @@ reviews.forEach(review => {
   
   let changefreq = 'monthly';
   if (age === 0) {
+    // Reviews from current year: weekly
     changefreq = 'weekly';
   } else if (age <= 1) {
+    // Reviews from last year: monthly
     changefreq = 'monthly';
+  } else if (age <= 3) {
+    // Reviews 2-3 years old: yearly
+    changefreq = 'yearly';
   } else {
+    // Older reviews: rarely change
     changefreq = 'yearly';
   }
   

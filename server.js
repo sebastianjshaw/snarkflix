@@ -2,6 +2,7 @@ const http = require('http');
 const fs = require('fs');
 const path = require('path');
 const url = require('url');
+const zlib = require('zlib');
 
 const PORT = process.env.PORT || 8000;
 
@@ -39,7 +40,38 @@ function serveFile(res, filePath) {
     }
 
     const mimeType = getMimeType(filePath);
-    res.writeHead(200, { 'Content-Type': mimeType });
+    const ext = path.extname(filePath).toLowerCase();
+    
+    // Compress text-based files (HTML, CSS, JS, JSON)
+    const shouldCompress = ['.html', '.css', '.js', '.json', '.svg'].includes(ext);
+    
+    if (shouldCompress) {
+      // Check if client accepts gzip
+      const acceptEncoding = res.req.headers['accept-encoding'] || '';
+      if (acceptEncoding.includes('gzip')) {
+        zlib.gzip(data, (err, compressed) => {
+          if (err) {
+            // If compression fails, serve uncompressed
+            res.writeHead(200, { 'Content-Type': mimeType });
+            res.end(data);
+            return;
+          }
+          res.writeHead(200, {
+            'Content-Type': mimeType,
+            'Content-Encoding': 'gzip',
+            'Cache-Control': 'public, max-age=31536000' // 1 year cache for static assets
+          });
+          res.end(compressed);
+        });
+        return;
+      }
+    }
+    
+    // Serve uncompressed
+    res.writeHead(200, {
+      'Content-Type': mimeType,
+      'Cache-Control': shouldCompress ? 'public, max-age=31536000' : 'public, max-age=86400'
+    });
     res.end(data);
   });
 }

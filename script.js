@@ -132,10 +132,40 @@ document.addEventListener('DOMContentLoaded', function() {
     // Add page loaded class for initial fade-in
     document.body.classList.add('snarkflix-page-loaded');
     
-    // Wait for reviews data to be available before initializing
+    // Initialize DOM elements immediately (don't wait for data)
+    reviewsGrid = document.getElementById('reviews-grid');
+    loadMoreBtn = document.getElementById('load-more-btn');
+    
+    // Setup header navigation immediately
+    setupHeaderNavigation();
+    
+    // Wait for reviews data to be available before loading reviews
     waitForReviewsData(function() {
-        // Initialize immediately - no delays for critical content
-        initializeApp();
+        // Load reviews once data is available
+        loadReviews();
+        
+        // Setup event listeners and other non-critical features
+        if ('requestIdleCallback' in window) {
+            requestIdleCallback(() => {
+                setupEventListeners();
+                setupAccessibility();
+                setupCategoryFiltering();
+                setupSortDropdown();
+                setupSearch();
+                setupBackToTop();
+                setupKeyboardNavigation();
+            }, { timeout: 2000 });
+        } else {
+            setTimeout(() => {
+                setupEventListeners();
+                setupAccessibility();
+                setupCategoryFiltering();
+                setupSortDropdown();
+                setupSearch();
+                setupBackToTop();
+                setupKeyboardNavigation();
+            }, 100);
+        }
         
         // Check for review parameter and update meta tags before checking for shared review
         const urlParams = new URLSearchParams(window.location.search);
@@ -252,39 +282,7 @@ function checkForSharedReview() {
     }
 }
 
-function initializeApp() {
-    // Get DOM elements
-    reviewsGrid = document.getElementById('reviews-grid');
-    loadMoreBtn = document.getElementById('load-more-btn');
-    
-    // Initialize critical components immediately
-    loadReviews();
-    setupHeaderNavigation();
-    
-    // Defer non-critical initialization slightly
-    if ('requestIdleCallback' in window) {
-        requestIdleCallback(() => {
-            setupEventListeners();
-            setupAccessibility();
-            setupCategoryFiltering();
-            setupSortDropdown();
-            setupSearch();
-            setupBackToTop();
-            setupKeyboardNavigation();
-        }, { timeout: 2000 });
-    } else {
-        // Fallback: use setTimeout for browsers without requestIdleCallback
-        setTimeout(() => {
-            setupEventListeners();
-            setupAccessibility();
-            setupCategoryFiltering();
-            setupSortDropdown();
-            setupSearch();
-            setupBackToTop();
-            setupKeyboardNavigation();
-        }, 100);
-    }
-}
+// initializeApp function removed - initialization now happens directly in DOMContentLoaded
 
 function setupHeaderNavigation() {
     // Update header logo to use returnToHomepage function

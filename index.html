@@ -112,9 +112,30 @@
                 </div>
                 <div class="snarkflix-nav-links">
                     <button class="snarkflix-mobile-menu-close" aria-label="Close menu">×</button>
-                    <a href="#reviews" class="snarkflix-nav-link">Reviews</a>
-                    <a href="#categories" class="snarkflix-nav-link">Categories</a>
-                    <a href="#about" class="snarkflix-nav-link">About</a>
+                    <a href="#reviews" class="snarkflix-nav-link">
+                        <svg class="snarkflix-nav-icon" aria-hidden="true" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                            <path d="M4 19.5A2.5 2.5 0 0 1 6.5 17H20"></path>
+                            <path d="M6.5 2H20v20H6.5A2.5 2.5 0 0 1 4 19.5v-15A2.5 2.5 0 0 1 6.5 2z"></path>
+                        </svg>
+                        <span>Reviews</span>
+                    </a>
+                    <a href="#categories" class="snarkflix-nav-link">
+                        <svg class="snarkflix-nav-icon" aria-hidden="true" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                            <rect x="3" y="3" width="7" height="7"></rect>
+                            <rect x="14" y="3" width="7" height="7"></rect>
+                            <rect x="14" y="14" width="7" height="7"></rect>
+                            <rect x="3" y="14" width="7" height="7"></rect>
+                        </svg>
+                        <span>Categories</span>
+                    </a>
+                    <a href="#about" class="snarkflix-nav-link">
+                        <svg class="snarkflix-nav-icon" aria-hidden="true" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                            <circle cx="12" cy="12" r="10"></circle>
+                            <path d="M12 16v-4"></path>
+                            <path d="M12 8h.01"></path>
+                        </svg>
+                        <span>About</span>
+                    </a>
                 </div>
                 <div class="snarkflix-mobile-menu-backdrop"></div>
                 <button class="snarkflix-mobile-menu-toggle snarkflix-mobile-menu-btn" aria-label="Toggle mobile menu" aria-expanded="false">
@@ -189,7 +210,7 @@
                     </div>
                 </div>
                 <div class="snarkflix-search-filters">
-                    <select id="filter-score" class="snarkflix-filter-select" aria-label="Filter by score">
+                    <select id="filter-score" class="snarkflix-filter-select" data-filter="score" aria-label="Filter by score">
                         <option value="">All Scores</option>
                         <option value="90-100">90-100 (Excellent)</option>
                         <option value="80-89">80-89 (Great)</option>
@@ -197,7 +218,7 @@
                         <option value="60-69">60-69 (Fair)</option>
                         <option value="0-59">0-59 (Poor)</option>
                     </select>
-                    <select id="filter-year" class="snarkflix-filter-select" aria-label="Filter by year">
+                    <select id="filter-year" class="snarkflix-filter-select" data-filter="year" aria-label="Filter by year">
                         <option value="">All Years</option>
                     </select>
                 </div>
@@ -224,86 +245,86 @@
         <div class="snarkflix-container">
             <h2 class="snarkflix-section-title">Browse by Category</h2>
             <div class="snarkflix-categories-grid">
-                <a href="#action" class="snarkflix-category-card" data-category="action" aria-label="Browse Action category reviews">
+                <button type="button" class="snarkflix-category-card" data-category="action" aria-label="Browse Action category reviews, 13 posts available">
                     <div class="snarkflix-category-image action-category">
                         <picture>
                             <source srcset="images/category-icons/Action.webp" type="image/webp">
-                            <img src="images/category-icons/Action.png" alt="Action" class="snarkflix-category-icon" loading="lazy" width="48" height="48">
+                            <img src="images/category-icons/Action.png" alt="" class="snarkflix-category-icon" loading="lazy" width="100" height="100" aria-hidden="true">
                         </picture>
                     </div>
-                    <h3>Action</h3>
+                    <span class="snarkflix-category-name">Action</span>
                     <span class="snarkflix-category-count">13 posts</span>
-                </a>
-                <a href="#adventure" class="snarkflix-category-card" data-category="adventure" aria-label="Browse Adventure category reviews">
+                </button>
+                <button type="button" class="snarkflix-category-card" data-category="adventure" aria-label="Browse Adventure category reviews, 1 post available">
                     <div class="snarkflix-category-image adventure-category">
                         <picture>
                             <source srcset="images/category-icons/Adventure.webp" type="image/webp">
-                            <img src="images/category-icons/Adventure.png" alt="Adventure" class="snarkflix-category-icon" loading="lazy" width="48" height="48">
+                            <img src="images/category-icons/Adventure.png" alt="" class="snarkflix-category-icon" loading="lazy" width="100" height="100" aria-hidden="true">
                         </picture>
                     </div>
-                    <h3>Adventure</h3>
+                    <span class="snarkflix-category-name">Adventure</span>
                     <span class="snarkflix-category-count">1 post</span>
-                </a>
-                <a href="#animation" class="snarkflix-category-card" data-category="animation" aria-label="Browse Animation category reviews">
+                </button>
+                <button type="button" class="snarkflix-category-card" data-category="animation" aria-label="Browse Animation category reviews, 6 posts available">
                     <div class="snarkflix-category-image animation-category">
                         <picture>
                             <source srcset="images/category-icons/Animation.webp" type="image/webp">
-                            <img src="images/category-icons/Animation.png" alt="Animation" class="snarkflix-category-icon" loading="lazy" width="48" height="48">
+                            <img src="images/category-icons/Animation.png" alt="" class="snarkflix-category-icon" loading="lazy" width="100" height="100" aria-hidden="true">
                         </picture>
                     </div>
-                    <h3>Animation</h3>
+                    <span class="snarkflix-category-name">Animation</span>
                     <span class="snarkflix-category-count">6 posts</span>
-                </a>
-                <a href="#comedy" class="snarkflix-category-card" data-category="comedy" aria-label="Browse Comedy category reviews">
+                </button>
+                <button type="button" class="snarkflix-category-card" data-category="comedy" aria-label="Browse Comedy category reviews, 3 posts available">
                     <div class="snarkflix-category-image comedy-category">
                         <picture>
                             <source srcset="images/category-icons/Comedy.webp" type="image/webp">
-                            <img src="images/category-icons/Comedy.png" alt="Comedy" class="snarkflix-category-icon" loading="lazy" width="48" height="48">
+                            <img src="images/category-icons/Comedy.png" alt="" class="snarkflix-category-icon" loading="lazy" width="100" height="100" aria-hidden="true">
                         </picture>
                     </div>
-                    <h3>Comedy</h3>
+                    <span class="snarkflix-category-name">Comedy</span>
                     <span class="snarkflix-category-count">3 posts</span>
-                </a>
-                <a href="#drama" class="snarkflix-category-card" data-category="drama" aria-label="Browse Drama category reviews">
+                </button>
+                <button type="button" class="snarkflix-category-card" data-category="drama" aria-label="Browse Drama category reviews, 4 posts available">
                     <div class="snarkflix-category-image drama-category">
                         <picture>
                             <source srcset="images/category-icons/Drama.webp" type="image/webp">
-                            <img src="images/category-icons/Drama.png" alt="Drama" class="snarkflix-category-icon" loading="lazy" width="48" height="48">
+                            <img src="images/category-icons/Drama.png" alt="" class="snarkflix-category-icon" loading="lazy" width="100" height="100" aria-hidden="true">
                         </picture>
                     </div>
-                    <h3>Drama</h3>
+                    <span class="snarkflix-category-name">Drama</span>
                     <span class="snarkflix-category-count">4 posts</span>
-                </a>
-                <a href="#horror" class="snarkflix-category-card" data-category="horror" aria-label="Browse Horror category reviews">
+                </button>
+                <button type="button" class="snarkflix-category-card" data-category="horror" aria-label="Browse Horror category reviews, 2 posts available">
                     <div class="snarkflix-category-image horror-category">
                         <picture>
                             <source srcset="images/category-icons/Horror.webp" type="image/webp">
-                            <img src="images/category-icons/Horror.png" alt="Horror" class="snarkflix-category-icon" loading="lazy" width="48" height="48">
+                            <img src="images/category-icons/Horror.png" alt="" class="snarkflix-category-icon" loading="lazy" width="100" height="100" aria-hidden="true">
                         </picture>
                     </div>
-                    <h3>Horror</h3>
+                    <span class="snarkflix-category-name">Horror</span>
                     <span class="snarkflix-category-count">2 posts</span>
-                </a>
-                <a href="#sci-fi" class="snarkflix-category-card" data-category="sci-fi" aria-label="Browse Sci-Fi category reviews">
+                </button>
+                <button type="button" class="snarkflix-category-card" data-category="sci-fi" aria-label="Browse Sci-Fi category reviews, 4 posts available">
                     <div class="snarkflix-category-image scifi-category">
                         <picture>
                             <source srcset="images/category-icons/SciFi.webp" type="image/webp">
-                            <img src="images/category-icons/SciFi.png" alt="Sci-Fi" class="snarkflix-category-icon" loading="lazy" width="48" height="48">
+                            <img src="images/category-icons/SciFi.png" alt="" class="snarkflix-category-icon" loading="lazy" width="100" height="100" aria-hidden="true">
                         </picture>
                     </div>
-                    <h3>Sci-Fi</h3>
+                    <span class="snarkflix-category-name">Sci-Fi</span>
                     <span class="snarkflix-category-count">4 posts</span>
-                </a>
-                <a href="#musical" class="snarkflix-category-card" data-category="musical" aria-label="Browse Musical category reviews">
+                </button>
+                <button type="button" class="snarkflix-category-card" data-category="musical" aria-label="Browse Musical category reviews, 3 posts available">
                     <div class="snarkflix-category-image musical-category">
                         <picture>
                             <source srcset="images/category-icons/Musical.webp" type="image/webp">
-                            <img src="images/category-icons/Musical.png" alt="Musical" class="snarkflix-category-icon" loading="lazy" width="48" height="48">
+                            <img src="images/category-icons/Musical.png" alt="" class="snarkflix-category-icon" loading="lazy" width="100" height="100" aria-hidden="true">
                         </picture>
                     </div>
-                    <h3>Musical</h3>
+                    <span class="snarkflix-category-name">Musical</span>
                     <span class="snarkflix-category-count">3 posts</span>
-                </a>
+                </button>
             </div>
         </div>
     </section>

@@ -360,6 +360,17 @@ function loadReviews(page = 1, category = currentCategory, searchTerm = currentS
     // Clear existing reviews if it's the first page
     if (page === 1) {
         reviewsGrid.innerHTML = '';
+        
+        // Show empty state if no reviews found
+        if (filteredReviews.length === 0) {
+            showEmptyState(reviewsGrid, searchTerm, category, scoreFilter, yearFilter);
+            updateLoadMoreButton(0, 0);
+            updateProgressIndicator(0, 0);
+            updateSearchResultsCount(0, true);
+            announceToScreenReader('No reviews found matching your criteria.');
+            setTimeout(() => resolve(), 100);
+            return;
+        }
     }
     
     // Render only the new reviews for this page
@@ -1285,8 +1296,13 @@ function setupAccessibility() {
     // Add ARIA labels to interactive elements
     const categoryCards = document.querySelectorAll('.snarkflix-category-card');
     categoryCards.forEach(card => {
-        const categoryName = card.querySelector('h3').textContent;
-        card.setAttribute('aria-label', `Browse ${categoryName} movies`);
+        const categoryNameEl = card.querySelector('.snarkflix-category-name') || card.querySelector('h3');
+        const categoryCountEl = card.querySelector('.snarkflix-category-count');
+        if (categoryNameEl) {
+            const categoryName = categoryNameEl.textContent;
+            const count = categoryCountEl ? categoryCountEl.textContent : '';
+            card.setAttribute('aria-label', `Browse ${categoryName} category reviews${count ? `, ${count} available` : ''}`);
+        }
     });
     
     // Add keyboard navigation support (consolidated)
@@ -1394,6 +1410,43 @@ function updateSortDropdownDisplay() {
     
     // Create custom display (if needed for styling)
     sortDropdown.setAttribute('data-selected', currentSort);
+}
+
+// Empty state display
+function showEmptyState(container, searchTerm, category, scoreFilter, yearFilter) {
+    const emptyState = document.createElement('div');
+    emptyState.className = 'snarkflix-empty-state';
+    
+    let title = 'No Reviews Found';
+    let message = 'Try adjusting your filters or search terms.';
+    let icon = '🔍';
+    
+    if (searchTerm) {
+        title = 'No Results for "' + searchTerm + '"';
+        message = 'We couldn\'t find any reviews matching your search. Try different keywords or clear your search.';
+        icon = '🔎';
+    } else if (category && category !== 'all') {
+        title = `No Reviews in ${category.charAt(0).toUpperCase() + category.slice(1)}`;
+        message = 'There are no reviews in this category yet. Check back soon or browse other categories.';
+        icon = '📂';
+    } else if (scoreFilter || yearFilter) {
+        title = 'No Reviews Match Your Filters';
+        message = 'Try adjusting your score or year filters to see more results.';
+        icon = '🎯';
+    }
+    
+    emptyState.innerHTML = `
+        <div class="snarkflix-empty-state-icon">${icon}</div>
+        <h3 class="snarkflix-empty-state-title">${title}</h3>
+        <p class="snarkflix-empty-state-message">${message}</p>
+        <div class="snarkflix-empty-state-actions">
+            ${searchTerm ? `<button class="snarkflix-btn snarkflix-btn-outline" onclick="document.getElementById('search-input').value = ''; document.getElementById('search-input').dispatchEvent(new Event('input', { bubbles: true }));">Clear Search</button>` : ''}
+            ${category && category !== 'all' ? `<button class="snarkflix-btn snarkflix-btn-outline" onclick="document.querySelectorAll('.snarkflix-category-card').forEach(c => c.classList.remove('snarkflix-category-active')); document.querySelector('.snarkflix-category-card[data-category=\"all\"]')?.classList.add('snarkflix-category-active'); loadReviews(1, 'all', '', currentSort, '', '').catch(() => {});">View All Categories</button>` : ''}
+            ${scoreFilter || yearFilter ? `<button class="snarkflix-btn snarkflix-btn-outline" onclick="document.getElementById('filter-score').value = ''; document.getElementById('filter-year').value = ''; document.getElementById('filter-score').dispatchEvent(new Event('change', { bubbles: true }));">Clear Filters</button>` : ''}
+        </div>
+    `;
+    
+    container.appendChild(emptyState);
 }
 
 function setupSearch() {

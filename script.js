@@ -52,9 +52,19 @@ function createResponsiveImage(imageUrl, alt, loading = 'lazy') {
     // Add fetchpriority for eager loading (LCP optimization)
     const fetchPriority = loading === 'eager' ? ' fetchpriority="high"' : '';
     
+    // Ensure srcset paths are also absolute
+    const normalizedSrcset = srcset.split(', ').map(item => {
+        const [path, size] = item.split(' ');
+        // If path doesn't start with / or http, make it absolute
+        const normalizedPath = (!path.startsWith('/') && !path.startsWith('http')) 
+            ? '/' + path 
+            : path;
+        return `${normalizedPath} ${size}`;
+    }).join(', ');
+    
     return `
         <picture>
-            <source srcset="${srcset}" 
+            <source srcset="${normalizedSrcset}" 
                     sizes="${sizes}" 
                     type="image/webp">
             <img src="${normalizedImageUrl}" alt="${alt}" loading="${loading}"${fetchPriority}>
@@ -696,6 +706,20 @@ function createReviewPage(review) {
     reviewWrapper.className = 'snarkflix-review-content-wrapper';
     reviewWrapper.innerHTML = createReviewContentHTML(review);
     
+    // Immediately attach error handlers to images before they start loading
+    // This prevents race conditions where images fail before handlers are attached
+    const images = reviewWrapper.querySelectorAll('img');
+    images.forEach(img => {
+        if (img.dataset.errorHandled !== 'true') {
+            img.addEventListener('error', () => {
+                if (img.dataset.errorHandled !== 'true') {
+                    handleImageError(img);
+                }
+            }, { once: true });
+            img.addEventListener('load', () => handleImageLoad(img), { once: true });
+        }
+    });
+    
     // Insert the review content after the header
     const header = document.querySelector('.snarkflix-header');
     if (header && header.nextSibling) {
@@ -1156,12 +1180,44 @@ function debounce(func, wait) {
 
 // Error handling functions
 function handleImageError(img) {
-    console.warn('Image failed to load:', img.src);
+    // Check if image is inside a picture element - picture elements may trigger
+    // errors during srcset selection, but the fallback img should still load
+    const picture = img.closest('picture');
+    if (picture) {
+        // For picture elements, wait a bit to see if the image actually loads
+        // This prevents false positives from srcset selection
+        const checkTimeout = setTimeout(() => {
+            // If image still hasn't loaded after a short delay, treat as real error
+            if (!img.complete || img.naturalWidth === 0) {
+                handleImageErrorFinal(img);
+            }
+        }, 100);
+        
+        // If image loads successfully, cancel the error handling
+        img.addEventListener('load', () => {
+            clearTimeout(checkTimeout);
+        }, { once: true });
+        
+        return;
+    }
     
+    // For regular img elements, handle error immediately
+    handleImageErrorFinal(img);
+}
+
+function handleImageErrorFinal(img) {
     // Prevent infinite retry loops - only try once
     if (img.dataset.errorHandled === 'true') {
         return;
     }
+    
+    // Check if image actually failed (not just a false positive)
+    if (img.complete && img.naturalWidth > 0) {
+        // Image actually loaded, ignore the error
+        return;
+    }
+    
+    console.warn('Image failed to load:', img.src);
     
     // Mark as handled immediately to prevent further calls
     img.dataset.errorHandled = 'true';
@@ -1170,7 +1226,10 @@ function handleImageError(img) {
     img.removeEventListener('error', handleImageError);
     
     // Set logo as fallback, but try PNG/WebP versions first
-    const logoPath = 'images/site-assets/logo.webp';
+    // Use absolute path to avoid path resolution issues
+    const logoPath = img.src.includes('http') 
+        ? `${window.location.origin}/images/site-assets/logo.webp`
+        : '/images/site-assets/logo.webp';
     img.src = logoPath;
     img.alt = 'Image not available - showing logo';
     img.classList.add('snarkflix-image-error');
@@ -1179,7 +1238,10 @@ function handleImageError(img) {
     // If logo also fails, try AVIF
     img.addEventListener('error', function logoError() {
         if (img.src.includes('logo.webp')) {
-            img.src = 'images/site-assets/logo.avif';
+            const avifPath = img.src.includes('http')
+                ? `${window.location.origin}/images/site-assets/logo.avif`
+                : '/images/site-assets/logo.avif';
+            img.src = avifPath;
             img.removeEventListener('error', logoError);
         }
     }, { once: true });

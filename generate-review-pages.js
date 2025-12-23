@@ -85,13 +85,14 @@ reviews.forEach(review => {
     <script>
         // Delay redirect to allow social media crawlers to read meta tags
         // But redirect immediately if this is a real user (not a crawler)
+        // Use new client-side routing format /review/:id
         if (navigator.userAgent && !navigator.userAgent.includes('bot') && !navigator.userAgent.includes('crawler')) {
-            // Immediate redirect for real users
-            window.location.href = 'https://snarkflix.com/?review=${review.id}';
+            // Immediate redirect for real users to client-side route
+            window.location.href = 'https://snarkflix.com/review/${review.id}';
         } else {
-            // Delayed redirect for crawlers
+            // Delayed redirect for crawlers (they need time to read meta tags)
             setTimeout(function() {
-                window.location.href = 'https://snarkflix.com/?review=${review.id}';
+                window.location.href = 'https://snarkflix.com/review/${review.id}';
             }, 3000);
         }
     </script>
@@ -100,7 +101,7 @@ reviews.forEach(review => {
     <div style="font-family: Arial, sans-serif; text-align: center; padding: 50px; background: #1a1a1a; color: white; min-height: 100vh;">
         <h1>${review.title} Review</h1>
         <p>Loading review...</p>
-        <p><a href="https://snarkflix.com/?review=${review.id}" style="color: #007bff;">Click here if you're not redirected automatically</a></p>
+        <p><a href="https://snarkflix.com/review/${review.id}" style="color: #007bff;">Click here if you're not redirected automatically</a></p>
     </div>
 </body>
 </html>`;

@@ -102,64 +102,84 @@ document.addEventListener('DOMContentLoaded', function() {
         const review = snarkflixReviews.find(r => r.id === reviewId);
         
         if (review) {
-            // Update meta tags for social media sharing
-            updateMetaTag('og:title', `${review.title} Review - SnarkAI Score: ${review.aiScore}/100 | Snarkflix`);
-            updateMetaTag('og:description', `${review.title} - ${review.aiSummary.substring(0, 200)}...`);
-            updateMetaTag('og:image', getAbsoluteUrl(review.imageUrl));
-            updateMetaTag('og:url', `https://snarkflix.com/review/${review.id}`);
-            
-            updateMetaTag('twitter:title', `${review.title} Review - SnarkAI Score: ${review.aiScore}/100 | Snarkflix`);
-            updateMetaTag('twitter:description', `${review.title} - ${review.aiSummary.substring(0, 200)}...`);
-            updateMetaTag('twitter:image', getAbsoluteUrl(review.imageUrl));
-            updateMetaTag('twitter:url', `https://snarkflix.com/review/${review.id}`);
-            
-            // Update page title and description
-            document.title = `${review.title} Review - SnarkAI Score: ${review.aiScore}/100 | Snarkflix`;
-            const metaDescription = document.querySelector('meta[name="description"]');
-            if (metaDescription) {
-                metaDescription.setAttribute('content', `${review.title} - ${review.aiSummary.substring(0, 150)}...`);
-            }
+            // Update meta tags for social media sharing (using extracted function)
+            updateMetaTagsForReview(review);
         }
     }
     
     checkForSharedReview();
 });
 
-// Listen for hash changes (back/forward navigation)
+// Listen for hash changes (back/forward navigation) - legacy support
 window.addEventListener('hashchange', function() {
     checkForSharedReview();
 });
 
-// Check if there's a review ID in the URL hash or parameters and open it
+// Listen for popstate (back/forward navigation with History API)
+window.addEventListener('popstate', function(event) {
+    if (event.state && event.state.type === 'review') {
+        const reviewId = event.state.reviewId;
+        const review = snarkflixReviews.find(r => r.id === reviewId);
+        if (review) {
+            showReviewLoadingSkeleton();
+            setTimeout(() => {
+                createReviewPage(review);
+                hideReviewLoadingSkeleton();
+            }, 150);
+        }
+    } else {
+        // Return to homepage
+        returnToHomepage();
+    }
+});
+
+// Check if there's a review ID in the URL and open it
 function checkForSharedReview() {
+    const path = window.location.pathname;
     const hash = window.location.hash;
     const urlParams = new URLSearchParams(window.location.search);
     const reviewParam = urlParams.get('review');
     
     let reviewId = null;
     
-    // Check hash first (for backward compatibility)
-    const reviewMatch = hash.match(/#review-(\d+)/);
-    if (reviewMatch) {
-        reviewId = parseInt(reviewMatch[1]);
+    // Check for /review/:id path (new format)
+    const pathMatch = path.match(/\/review\/(\d+)/);
+    if (pathMatch) {
+        reviewId = parseInt(pathMatch[1]);
     }
-    // Check URL parameter
-    else if (reviewParam) {
-        reviewId = parseInt(reviewParam);
+    // Check hash (for backward compatibility)
+    else {
+        const reviewMatch = hash.match(/#review-(\d+)/);
+        if (reviewMatch) {
+            reviewId = parseInt(reviewMatch[1]);
+        }
+        // Check URL parameter (for backward compatibility)
+        else if (reviewParam) {
+            reviewId = parseInt(reviewParam);
+        }
     }
     
     if (reviewId) {
         const review = snarkflixReviews.find(r => r.id === reviewId);
         
         if (review) {
-            // Small delay to ensure the page is fully loaded
+            // Show loading skeleton
+            showReviewLoadingSkeleton();
+            
+            // Update state for History API
+            window.history.replaceState({ reviewId: reviewId, type: 'review' }, '', `/review/${reviewId}`);
+            
+            // Small delay to show skeleton, then create review page
             setTimeout(() => {
                 createReviewPage(review);
-            }, 100);
+                hideReviewLoadingSkeleton();
+            }, 150);
         }
-    } else if ((hash === '' || hash === '#') && !reviewParam) {
-        // If hash is empty and no review param, return to homepage
-        returnToHomepage();
+    } else if ((hash === '' || hash === '#') && !reviewParam && !pathMatch) {
+        // If no review in URL, ensure we're on homepage
+        if (path !== '/' && !path.endsWith('/index.html') && !path.endsWith('index.html')) {
+            returnToHomepage();
+        }
     }
 }
 
@@ -383,8 +403,21 @@ function createReviewElement(review) {
 function navigateToReview(reviewId) {
     const review = snarkflixReviews.find(r => r.id === reviewId);
     if (review) {
-        // Create a new review page
-        createReviewPage(review);
+        // Show loading skeleton
+        showReviewLoadingSkeleton();
+        
+        // Update URL using History API
+        const newUrl = `/review/${reviewId}`;
+        window.history.pushState({ reviewId: reviewId, type: 'review' }, '', newUrl);
+        
+        // Update meta tags for SEO
+        updateMetaTagsForReview(review);
+        
+        // Small delay to show skeleton, then create review page
+        setTimeout(() => {
+            createReviewPage(review);
+            hideReviewLoadingSkeleton();
+        }, 150);
     }
 }
 
@@ -598,35 +631,8 @@ function createReviewPage(review) {
     // Add class to body to indicate we're on a review page
     document.body.classList.add('snarkflix-review-page');
     
-    // Update the page title
-    document.title = `${review.title} Review - SnarkAI Score: ${review.aiScore}/100 | Snarkflix`;
-    
-    // Update meta description
-    const metaDescription = document.querySelector('meta[name="description"]');
-    if (metaDescription) {
-        metaDescription.setAttribute('content', `${review.title} - ${review.aiSummary.substring(0, 150)}...`);
-    }
-    
-    // Update Open Graph meta tags
-    updateMetaTag('og:title', `${review.title} Review - SnarkAI Score: ${review.aiScore}/100 | Snarkflix`);
-    updateMetaTag('og:description', `${review.title} - ${review.aiSummary.substring(0, 200)}...`);
-    updateMetaTag('og:image', getAbsoluteUrl(review.imageUrl));
-    updateMetaTag('og:image:secure_url', getAbsoluteUrl(review.imageUrl));
-    updateMetaTag('og:image:type', 'image/png');
-    updateMetaTag('og:image:alt', `${review.title} Review`);
-    updateMetaTag('og:site_name', 'Snarkflix');
-    updateMetaTag('og:locale', 'en_US');
-    updateMetaTag('og:url', `https://snarkflix.com/review/${review.id}`);
-    
-    // WhatsApp specific meta tags
-    updateMetaTag('og:image:url', getAbsoluteUrl(review.imageUrl));
-    updateMetaTag('twitter:image:src', getAbsoluteUrl(review.imageUrl));
-    
-    // Update Twitter Card meta tags
-    updateMetaTag('twitter:title', `${review.title} Review - SnarkAI Score: ${review.aiScore}/100 | Snarkflix`);
-    updateMetaTag('twitter:description', `${review.title} - ${review.aiSummary.substring(0, 200)}...`);
-    updateMetaTag('twitter:image', getAbsoluteUrl(review.imageUrl));
-    updateMetaTag('twitter:url', `https://snarkflix.com/review/${review.id}`);
+    // Update meta tags (using extracted function)
+    updateMetaTagsForReview(review);
     
     // Update existing breadcrumb
     const existingBreadcrumb = document.querySelector('.snarkflix-breadcrumb');
@@ -694,6 +700,9 @@ function createReviewPage(review) {
 function returnToHomepage() {
     // Add page transition class
     document.body.classList.add('snarkflix-page-transitioning');
+    
+    // Update URL using History API
+    window.history.pushState({ type: 'home' }, '', '/');
     
     // Remove review page class from body
     document.body.classList.remove('snarkflix-review-page');
@@ -951,12 +960,34 @@ function setupEventListeners() {
 }
 
 function setupAccessibility() {
-    // Add skip link
-    const skipLink = document.createElement('a');
-    skipLink.href = '#reviews';
-    skipLink.className = 'snarkflix-skip-link';
-    skipLink.textContent = 'Skip to main content';
-    document.body.insertBefore(skipLink, document.body.firstChild);
+    // Skip link is now in HTML for better accessibility and SEO
+    // Add keyboard user detection for enhanced skip link visibility
+    let isKeyboardUser = false;
+    
+    // Handle skip link click with smooth scroll
+    const skipLink = document.querySelector('.snarkflix-skip-link');
+    if (skipLink) {
+        skipLink.addEventListener('click', function(e) {
+            const targetId = this.getAttribute('href');
+            if (targetId.startsWith('#')) {
+                const targetElement = document.querySelector(targetId);
+                if (targetElement) {
+                    e.preventDefault();
+                    targetElement.scrollIntoView({
+                        behavior: 'smooth',
+                        block: 'start'
+                    });
+                    // Focus the target element for screen readers
+                    targetElement.setAttribute('tabindex', '-1');
+                    targetElement.focus();
+                    // Remove tabindex after focus to avoid tab order issues
+                    setTimeout(() => {
+                        targetElement.removeAttribute('tabindex');
+                    }, 1000);
+                }
+            }
+        });
+    }
     
     // Add ARIA labels to interactive elements
     const categoryCards = document.querySelectorAll('.snarkflix-category-card');
@@ -965,8 +996,14 @@ function setupAccessibility() {
         card.setAttribute('aria-label', `Browse ${categoryName} movies`);
     });
     
-    // Add keyboard navigation support
+    // Add keyboard navigation support (consolidated)
     document.addEventListener('keydown', (e) => {
+        // Tab key indicates keyboard navigation - show skip link
+        if (e.key === 'Tab' || e.keyCode === 9) {
+            isKeyboardUser = true;
+            document.body.classList.add('snarkflix-keyboard-user');
+        }
+        
         // Escape key closes mobile menu
         if (e.key === 'Escape') {
             const mobileMenuToggle = document.querySelector('.snarkflix-mobile-menu-toggle');
@@ -1461,6 +1498,95 @@ function hideReviewsLoading() {
     if (reviewsSpinner) {
         hideLoadingSpinner(reviewsSpinner);
     }
+}
+
+// Review page skeleton loading
+function showReviewLoadingSkeleton() {
+    // Remove any existing skeleton
+    hideReviewLoadingSkeleton();
+    
+    // Hide existing sections
+    const sectionsToHide = document.querySelectorAll('section:not(.snarkflix-header):not(.snarkflix-footer)');
+    sectionsToHide.forEach(section => {
+        section.style.display = 'none';
+    });
+    
+    // Create skeleton wrapper
+    const skeletonWrapper = document.createElement('div');
+    skeletonWrapper.className = 'snarkflix-review-skeleton-wrapper';
+    skeletonWrapper.innerHTML = `
+        <div class="snarkflix-review-skeleton">
+            <div class="snarkflix-skeleton-breadcrumb">
+                <div class="snarkflix-skeleton-line snarkflix-skeleton-short"></div>
+            </div>
+            <div class="snarkflix-skeleton-header">
+                <div class="snarkflix-skeleton-line snarkflix-skeleton-title"></div>
+                <div class="snarkflix-skeleton-line snarkflix-skeleton-meta"></div>
+                <div class="snarkflix-skeleton-line snarkflix-skeleton-score"></div>
+            </div>
+            <div class="snarkflix-skeleton-hero">
+                <div class="snarkflix-skeleton-image"></div>
+            </div>
+            <div class="snarkflix-skeleton-content">
+                <div class="snarkflix-skeleton-line"></div>
+                <div class="snarkflix-skeleton-line"></div>
+                <div class="snarkflix-skeleton-line snarkflix-skeleton-short"></div>
+                <div class="snarkflix-skeleton-line"></div>
+                <div class="snarkflix-skeleton-line"></div>
+                <div class="snarkflix-skeleton-line snarkflix-skeleton-short"></div>
+            </div>
+        </div>
+    `;
+    
+    // Insert after header
+    const header = document.querySelector('.snarkflix-header');
+    if (header && header.nextSibling) {
+        header.parentNode.insertBefore(skeletonWrapper, header.nextSibling);
+    } else if (header) {
+        header.parentNode.appendChild(skeletonWrapper);
+    }
+}
+
+function hideReviewLoadingSkeleton() {
+    const skeleton = document.querySelector('.snarkflix-review-skeleton-wrapper');
+    if (skeleton) {
+        skeleton.remove();
+    }
+}
+
+// Update meta tags for review (extracted for reuse)
+function updateMetaTagsForReview(review) {
+    // Update page title
+    document.title = `${review.title} Review - SnarkAI Score: ${review.aiScore}/100 | Snarkflix`;
+    
+    // Update meta description
+    const metaDescription = document.querySelector('meta[name="description"]');
+    if (metaDescription) {
+        metaDescription.setAttribute('content', `${review.title} - ${review.aiSummary.substring(0, 150)}...`);
+    }
+    
+    // Update Open Graph meta tags
+    updateMetaTag('og:title', `${review.title} Review - SnarkAI Score: ${review.aiScore}/100 | Snarkflix`);
+    updateMetaTag('og:description', `${review.title} - ${review.aiSummary.substring(0, 200)}...`);
+    updateMetaTag('og:image', getAbsoluteUrl(review.imageUrl));
+    updateMetaTag('og:image:secure_url', getAbsoluteUrl(review.imageUrl));
+    updateMetaTag('og:image:type', 'image/png');
+    updateMetaTag('og:image:alt', `${review.title} Review`);
+    updateMetaTag('og:site_name', 'Snarkflix');
+    updateMetaTag('og:locale', 'en_US');
+    updateMetaTag('og:url', `https://snarkflix.com/review/${review.id}`);
+    updateMetaTag('og:type', 'article');
+    
+    // WhatsApp specific meta tags
+    updateMetaTag('og:image:url', getAbsoluteUrl(review.imageUrl));
+    updateMetaTag('twitter:image:src', getAbsoluteUrl(review.imageUrl));
+    
+    // Update Twitter Card meta tags
+    updateMetaTag('twitter:title', `${review.title} Review - SnarkAI Score: ${review.aiScore}/100 | Snarkflix`);
+    updateMetaTag('twitter:description', `${review.title} - ${review.aiSummary.substring(0, 200)}...`);
+    updateMetaTag('twitter:image', getAbsoluteUrl(review.imageUrl));
+    updateMetaTag('twitter:url', `https://snarkflix.com/review/${review.id}`);
+    updateMetaTag('twitter:card', 'summary_large_image');
 }
 
 // Export functions for testing (if needed)

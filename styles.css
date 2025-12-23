@@ -100,21 +100,57 @@ body.snarkflix-page-loaded {
     outline-offset: 2px;
 }
 
-/* Skip Link for Screen Readers */
+/* Skip Link for Accessibility */
 .snarkflix-skip-link {
     position: absolute;
-    top: -40px;
-    left: 6px;
+    top: -100px;
+    left: 0;
     background: var(--snarkflix-primary);
     color: var(--snarkflix-white);
-    padding: 8px;
+    padding: var(--snarkflix-spacing-sm) var(--snarkflix-spacing-md);
     text-decoration: none;
-    border-radius: var(--snarkflix-radius-sm);
-    z-index: 1000;
+    border-radius: 0 0 var(--snarkflix-radius-md) 0;
+    z-index: 10000;
+    font-weight: 600;
+    font-size: var(--snarkflix-font-size-base);
+    transition: top 0.2s ease-out, opacity 0.2s ease-out;
+    opacity: 0;
+    pointer-events: none;
+    box-shadow: var(--snarkflix-shadow-lg);
 }
 
+/* Show skip link when focused (keyboard navigation) */
 .snarkflix-skip-link:focus {
-    top: 6px;
+    top: 0;
+    opacity: 1;
+    pointer-events: auto;
+    outline: 3px solid var(--snarkflix-white);
+    outline-offset: -3px;
+}
+
+/* Show skip link when using keyboard navigation (focus-visible) */
+.snarkflix-skip-link:focus-visible {
+    top: 0;
+    opacity: 1;
+    pointer-events: auto;
+    outline: 3px solid var(--snarkflix-white);
+    outline-offset: -3px;
+}
+
+/* Show skip link when body has keyboard-user class (added via JS) */
+body.snarkflix-keyboard-user .snarkflix-skip-link {
+    opacity: 0.9;
+    pointer-events: auto;
+}
+
+body.snarkflix-keyboard-user .snarkflix-skip-link:hover {
+    opacity: 1;
+    background: var(--snarkflix-secondary);
+}
+
+body.snarkflix-keyboard-user .snarkflix-skip-link:focus {
+    top: 0;
+    opacity: 1;
 }
 
 /* Header Styles */
@@ -1542,6 +1578,100 @@ img {
     color: var(--snarkflix-gray);
     font-size: var(--snarkflix-font-size-sm);
     font-weight: 500;
+}
+
+/* Review Page Skeleton Loading */
+.snarkflix-review-skeleton-wrapper {
+    min-height: 100vh;
+    background: var(--snarkflix-white);
+    padding-top: var(--snarkflix-spacing-xl);
+}
+
+.snarkflix-review-skeleton {
+    max-width: 1200px;
+    margin: 0 auto;
+    padding: 0 var(--snarkflix-spacing-md);
+}
+
+.snarkflix-skeleton-breadcrumb {
+    margin-bottom: var(--snarkflix-spacing-lg);
+}
+
+.snarkflix-skeleton-header {
+    margin-bottom: var(--snarkflix-spacing-xl);
+}
+
+.snarkflix-skeleton-hero {
+    margin-bottom: var(--snarkflix-spacing-2xl);
+}
+
+.snarkflix-skeleton-image {
+    width: 100%;
+    height: 0;
+    padding-bottom: 56.25%; /* 16:9 aspect ratio */
+    background: linear-gradient(
+        90deg,
+        var(--snarkflix-light) 0%,
+        #e9ecef 50%,
+        var(--snarkflix-light) 100%
+    );
+    background-size: 200% 100%;
+    animation: skeleton-loading 1.5s ease-in-out infinite;
+    border-radius: var(--snarkflix-radius-md);
+}
+
+.snarkflix-skeleton-content {
+    max-width: 800px;
+    margin: 0 auto;
+}
+
+.snarkflix-skeleton-line {
+    height: 1.2em;
+    background: linear-gradient(
+        90deg,
+        var(--snarkflix-light) 0%,
+        #e9ecef 50%,
+        var(--snarkflix-light) 100%
+    );
+    background-size: 200% 100%;
+    animation: skeleton-loading 1.5s ease-in-out infinite;
+    border-radius: var(--snarkflix-radius-sm);
+    margin-bottom: var(--snarkflix-spacing-md);
+}
+
+.snarkflix-skeleton-line:last-child {
+    margin-bottom: 0;
+}
+
+.snarkflix-skeleton-title {
+    height: 2.5em;
+    width: 80%;
+    margin-bottom: var(--snarkflix-spacing-md);
+}
+
+.snarkflix-skeleton-meta {
+    width: 60%;
+    height: 1.5em;
+    margin-bottom: var(--snarkflix-spacing-sm);
+}
+
+.snarkflix-skeleton-score {
+    width: 40%;
+    height: 1.8em;
+    margin-bottom: var(--snarkflix-spacing-lg);
+}
+
+.snarkflix-skeleton-short {
+    width: 70%;
+}
+
+@keyframes skeleton-loading {
+    0% {
+        background-position: 200% 0;
+    }
+    100% {
+        background-position: -200% 0;
+    }
 }
 
 .snarkflix-image-loading {

@@ -18,14 +18,7 @@ This document provides comprehensive recommendations for improving Snarkflix acr
 
 **Recommendations:**
 
-1. **Add Visible Skip Link**
-   - Currently `.snarkflix-skip-link` exists but is hidden until focus
-   - Make it visible on keyboard navigation or add a "Skip to main content" button
 
-2. **Improve Review Page Experience**
-   - Consider removing the redirect for users and using client-side routing instead
-   - Add a loading state with skeleton screens instead of blank redirect
-   - Implement proper URL handling with History API
 
 3. **Enhanced Search Functionality**
    - Add search suggestions/autocomplete

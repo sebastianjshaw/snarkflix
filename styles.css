@@ -390,8 +390,12 @@ body.snarkflix-keyboard-user .snarkflix-skip-link:focus {
 }
 
 .snarkflix-hero-cta .snarkflix-btn {
-    text-shadow: 1px 1px 2px rgba(0, 0, 0, 0.5);
     box-shadow: 0 4px 8px rgba(0, 0, 0, 0.3);
+}
+
+.snarkflix-hero-cta .snarkflix-btn-primary {
+    background: #ffd23f;
+    color: #000000;
 }
 
 .snarkflix-hero .snarkflix-hero-cta .snarkflix-btn-secondary {
@@ -451,8 +455,8 @@ body.snarkflix-keyboard-user .snarkflix-skip-link:focus {
 }
 
 .snarkflix-btn-primary {
-    background: var(--snarkflix-accent);
-    color: var(--snarkflix-dark);
+    background: #ffd23f;
+    color: #000000;
 }
 
 .snarkflix-btn-primary:hover {
@@ -1048,8 +1052,8 @@ body.snarkflix-keyboard-user .snarkflix-skip-link:focus {
     align-items: center;
     gap: 4px;
     font-weight: 600;
-    color: var(--snarkflix-secondary);
-    background: rgba(0, 78, 137, 0.1);
+    color: #001a2e;
+    background: rgba(0, 78, 137, 0.3);
     padding: 4px var(--snarkflix-spacing-sm);
     border-radius: var(--snarkflix-radius-sm);
     font-size: var(--snarkflix-font-size-sm);
@@ -1326,8 +1330,8 @@ body.snarkflix-keyboard-user .snarkflix-skip-link:focus {
 
 /* Footer */
 .snarkflix-footer {
-    background: var(--snarkflix-dark);
-    color: var(--snarkflix-white);
+    background: #1a1a1a;
+    color: #ffffff;
     padding: var(--snarkflix-spacing-3xl) 0 var(--snarkflix-spacing-xl);
 }
 
@@ -1340,8 +1344,13 @@ body.snarkflix-keyboard-user .snarkflix-skip-link:focus {
 
 .snarkflix-footer-logo h3 {
     font-size: var(--snarkflix-font-size-xl);
-    color: var(--snarkflix-primary);
+    color: #ffffff;
     margin-bottom: var(--snarkflix-spacing-sm);
+    font-weight: 700;
+}
+
+.snarkflix-footer-logo p {
+    color: #ffffff;
 }
 
 .snarkflix-footer-links {
@@ -1351,7 +1360,7 @@ body.snarkflix-keyboard-user .snarkflix-skip-link:focus {
 }
 
 .snarkflix-footer-links a {
-    color: var(--snarkflix-white);
+    color: #ffffff;
     text-decoration: none;
     transition: var(--snarkflix-transition);
 }
@@ -1362,7 +1371,11 @@ body.snarkflix-keyboard-user .snarkflix-skip-link:focus {
 
 .snarkflix-footer-social {
     text-align: right;
-    color: var(--snarkflix-gray);
+    color: #ffffff;
+}
+
+.snarkflix-footer-social p {
+    color: #ffffff;
 }
 
 /* Responsive Design */
@@ -2550,6 +2563,34 @@ img {
     body {
         background-color: var(--snarkflix-bg-primary);
         color: var(--snarkflix-text-primary);
+    }
+    
+    /* Footer must always have dark background with white text for proper contrast */
+    /* Override dark mode variable inversions */
+    .snarkflix-footer {
+        background: #1a1a1a;
+        color: #ffffff;
+    }
+    
+    .snarkflix-footer p,
+    .snarkflix-footer h3,
+    .snarkflix-footer h2,
+    .snarkflix-footer h1 {
+        color: #ffffff;
+    }
+    
+    .snarkflix-footer-logo h3,
+    .snarkflix-footer-logo p {
+        color: #ffffff;
+    }
+    
+    .snarkflix-footer-social,
+    .snarkflix-footer-social p {
+        color: #ffffff;
+    }
+    
+    .snarkflix-footer-links a {
+        color: #ffffff;
     }
     
     .snarkflix-review-card {

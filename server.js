@@ -31,7 +31,7 @@ function getMimeType(filePath) {
   return mimeTypes[ext] || 'application/octet-stream';
 }
 
-function serveFile(res, filePath) {
+function serveFile(req, res, filePath) {
   fs.readFile(filePath, (err, data) => {
     if (err) {
       res.writeHead(404, { 'Content-Type': 'text/plain' });
@@ -47,7 +47,7 @@ function serveFile(res, filePath) {
     
     if (shouldCompress) {
       // Check if client accepts gzip
-      const acceptEncoding = res.req.headers['accept-encoding'] || '';
+      const acceptEncoding = req.headers['accept-encoding'] || '';
       if (acceptEncoding.includes('gzip')) {
         zlib.gzip(data, (err, compressed) => {
           if (err) {
@@ -87,10 +87,10 @@ const server = http.createServer((req, res) => {
     const reviewFile = path.join(__dirname, 'review', `${reviewId}.html`);
     
     // Check if the review file exists
-    fs.access(reviewFile, fs.constants.F_OK, (err) => {
-      if (err) {
-        // Return a proper 404 HTML page
-        const notFoundHtml = `
+        fs.access(reviewFile, fs.constants.F_OK, (err) => {
+          if (err) {
+            // Return a proper 404 HTML page
+            const notFoundHtml = `
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -109,12 +109,12 @@ const server = http.createServer((req, res) => {
     <p><a href="/">← Back to Snarkflix</a></p>
 </body>
 </html>`;
-        res.writeHead(404, { 'Content-Type': 'text/html' });
-        res.end(notFoundHtml);
-      } else {
-        serveFile(res, reviewFile);
-      }
-    });
+            res.writeHead(404, { 'Content-Type': 'text/html' });
+            res.end(notFoundHtml);
+          } else {
+            serveFile(req, res, reviewFile);
+          }
+        });
     return;
   }
 
@@ -132,11 +132,11 @@ const server = http.createServer((req, res) => {
     if (err || !stats.isFile()) {
       // If file doesn't exist, serve index.html for SPA routing
       const indexPath = path.join(__dirname, 'index.html');
-      serveFile(res, indexPath);
+      serveFile(req, res, indexPath);
       return;
     }
 
-    serveFile(res, filePath);
+    serveFile(req, res, filePath);
   });
 });
 

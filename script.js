@@ -24,6 +24,7 @@ function createResponsiveImage(imageUrl, alt, loading = 'lazy') {
                                  normalizedImageUrl.includes('kpop-demonhunters') ||
                                  normalizedImageUrl.includes('zootopia') ||
                                  normalizedImageUrl.includes('care-2018') ||
+                                 normalizedImageUrl.includes('the-holdovers-2023') ||
                                  normalizedImageUrl.includes('logo');
     
     if (!hasResponsiveVersions) {

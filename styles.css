@@ -1052,8 +1052,8 @@ body.snarkflix-keyboard-user .snarkflix-skip-link:focus {
     align-items: center;
     gap: 4px;
     font-weight: 600;
-    color: #001a2e;
-    background: rgba(0, 78, 137, 0.3);
+    color: #ffffff;
+    background: #004e89;
     padding: 4px var(--snarkflix-spacing-sm);
     border-radius: var(--snarkflix-radius-sm);
     font-size: var(--snarkflix-font-size-sm);
@@ -1375,6 +1375,15 @@ body.snarkflix-keyboard-user .snarkflix-skip-link:focus {
 }
 
 .snarkflix-footer-social p {
+    color: #ffffff;
+}
+
+.snarkflix-footer-social summary,
+.snarkflix-footer-social details summary {
+    color: #ffffff;
+}
+
+.snarkflix-keyboard-shortcuts summary {
     color: #ffffff;
 }
 

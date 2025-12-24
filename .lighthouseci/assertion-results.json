@@ -14,39 +14,5 @@
     "auditId": "categories",
     "level": "error",
     "url": "http://localhost:8000/"
-  },
-  {
-    "name": "maxNumericValue",
-    "expected": 0.1,
-    "actual": 0.11799506318988233,
-    "values": [
-      0.11799506318988233,
-      0.11799506318988233,
-      0.11799506318988233
-    ],
-    "operator": "<=",
-    "passed": false,
-    "auditId": "cumulative-layout-shift",
-    "level": "error",
-    "url": "https://snarkflix.com/?review=1",
-    "auditTitle": "Cumulative Layout Shift",
-    "auditDocumentationLink": "https://web.dev/cls/"
-  },
-  {
-    "name": "maxNumericValue",
-    "expected": 0.1,
-    "actual": 0.11799506318988233,
-    "values": [
-      0.11799506318988233,
-      0.11799506318988233,
-      0.11799506318988233
-    ],
-    "operator": "<=",
-    "passed": false,
-    "auditId": "cumulative-layout-shift",
-    "level": "error",
-    "url": "https://snarkflix.com/?review=2",
-    "auditTitle": "Cumulative Layout Shift",
-    "auditDocumentationLink": "https://web.dev/cls/"
   }
 ]

@@ -675,11 +675,22 @@ function showShareNotification(message) {
 function insertImagesInContent(review) {
     let content = review.content;
     
+    // Helper function to normalize image paths to absolute paths
+    function normalizeImagePath(imagePath) {
+        // If already absolute (starts with / or http), return as is
+        if (imagePath.startsWith('/') || imagePath.startsWith('http')) {
+            return imagePath;
+        }
+        // Otherwise, make it absolute by adding leading slash
+        return '/' + imagePath;
+    }
+    
     // First, process inline image markers [IMAGE:path]
     content = content.replace(/\[IMAGE:([^\]]+)\]/g, (match, imagePath) => {
+        const normalizedPath = normalizeImagePath(imagePath);
         return `
             <div class="snarkflix-review-image-inline">
-                <img src="${imagePath}" alt="Scene from ${review.title} (${review.releaseYear}) - ${review.category.charAt(0).toUpperCase() + review.category.slice(1)} movie still" class="snarkflix-review-img-inline" loading="lazy" width="400" height="300" style="background: linear-gradient(90deg, #f0f0f0 25%, #e0e0e0 50%, #f0f0f0 75%); background-size: 200% 100%; animation: shimmer 1.5s infinite;">
+                <img src="${normalizedPath}" alt="Scene from ${review.title} (${review.releaseYear}) - ${review.category.charAt(0).toUpperCase() + review.category.slice(1)} movie still" class="snarkflix-review-img-inline" loading="lazy" width="400" height="300" style="background: linear-gradient(90deg, #f0f0f0 25%, #e0e0e0 50%, #f0f0f0 75%); background-size: 200% 100%; animation: shimmer 1.5s infinite;">
             </div>
         `;
     });
@@ -690,13 +701,15 @@ function insertImagesInContent(review) {
     
     // Collect remaining available images (not already used inline)
     if (review.additionalImage) {
-        allImages.push(review.additionalImage);
+        allImages.push(normalizeImagePath(review.additionalImage));
     }
     if (review.additionalImages) {
         // Filter out images that were already used inline
         const inlineImages = (review.content.match(/\[IMAGE:([^\]]+)\]/g) || [])
             .map(match => match.replace(/\[IMAGE:([^\]]+)\]/, '$1'));
-        const remainingImages = review.additionalImages.filter(img => !inlineImages.includes(img));
+        const remainingImages = review.additionalImages
+            .filter(img => !inlineImages.includes(img))
+            .map(img => normalizeImagePath(img));
         allImages.push(...remainingImages);
     }
     
@@ -731,9 +744,10 @@ function insertImagesInContent(review) {
         
         // Insert image if this is a designated position
         if (imagePositions.includes(index) && imageIndex < allImages.length) {
+            const imagePath = allImages[imageIndex];
             result += `
                 <div class="snarkflix-review-image-inline">
-                    <img src="${allImages[imageIndex]}" alt="Scene from ${review.title} (${review.releaseYear})" class="snarkflix-review-img-inline" loading="lazy" width="400" height="300" style="background: linear-gradient(90deg, #f0f0f0 25%, #e0e0e0 50%, #f0f0f0 75%); background-size: 200% 100%; animation: shimmer 1.5s infinite;">
+                    <img src="${imagePath}" alt="Scene from ${review.title} (${review.releaseYear})" class="snarkflix-review-img-inline" loading="lazy" width="400" height="300" style="background: linear-gradient(90deg, #f0f0f0 25%, #e0e0e0 50%, #f0f0f0 75%); background-size: 200% 100%; animation: shimmer 1.5s infinite;">
                 </div>
             `;
             imageIndex++;

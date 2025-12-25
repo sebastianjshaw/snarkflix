@@ -702,6 +702,20 @@ const snarkflixReviews = [
         category: "drama",
         imageUrl: "images/reviews/the-holdovers-2023/header-the-holdovers-2023.webp",
         youtubeTrailer: "https://www.youtube.com/watch?v=AhKLpJmHhIg"
+    },
+    {
+        id: 50,
+        title: "The Family Stone (2005)",
+        releaseYear: 2005,
+        publishDate: "Dec 25, 2025",
+        readingDuration: "6 min read",
+        aiScore: 54,
+        aiSummary: "tldr: A stacked cast, a rotten spine. What wants to be a warm liberal Christmas hug mostly plays like two hours of punching a socially awkward woman until she apologises for existing, then rewarding the man who betrayed her.",
+        tagline: "Feel the love.",
+        content: "On paper, this is catnip. Sarah Jessica Parker, Diane Keaton, Rachel McAdams, Dermot Mulroney, Craig T. Nelson, Luke Wilson, Claire Danes. In 2005 this was an embarrassment of riches. What they are given to do with it is… less rich.\n\nParker's Meredith is framed as the problem from the moment she arrives. Upright, Republican-coded in the pre-QAnon sense, overdressed, hyper-verbal, visibly uncomfortable with boundary-free intimacy. The film thinks this makes her icy. In hindsight it mostly reads as autistic coding played for sport. She info-dumps. She misses social cues. She panics when routines collapse. The movie's response is to have an entire family collectively bully her and call it charm.\n\nThe Stones are introduced as aggressively liberal in the way mid-2000s cinema loved congratulating itself for. Deaf gay son, Black boyfriend, affectionate dad, sign language everywhere, pot-smoking free spirit brother. It is inclusive, yes, but also weirdly performative, like the director is nudging you and whispering \"see, good people\". That matters, because it's used as moral cover for behaviour that would be unacceptable if Meredith were framed as anything other than an interloper to be corrected.\n\nThe charades scene is the film in microcosm. Meredith is outnumbered, mocked, ignored, then blamed for being upset. Everett, her fiancé, does nothing. This is his defining trait. He never has her back. Not once. He watches his family needle her, lets his brother make deeply uncomfortable sexual jokes at her expense, then quietly lines up a romance with her sister the moment she arrives. When he publicly abandons Meredith, he leaves her stranded in his family home while he goes off to pursue Claire Danes like a golden retriever who's spotted a tennis ball.\n\nLuke Wilson's Ben is meant to be the soulful antidote. In practice, the grey sweatpants thrusting and \"I dreamed about you\" bit lands closer to sexual intimidation than rom-com banter. It is astonishing this was ever played for laughs. When the film later uses Meredith's blackout-drunk night as a punchline and a plot accelerant, it crosses from tone-deaf into actively irresponsible.\n\nYes, the mother is dying. Yes, grief explains some sharp edges. It does not excuse the film's moral arithmetic, where the woman who is honest about her discomfort is punished, and the man who cheats emotionally, lies by omission, and runs at the first better option is rewarded with true love and a neat bow.\n\nThis is a film very much of its time. It relies on misunderstanding as propulsion rather than character growth. It mistakes cruelty for authenticity and discomfort for comedy. The jokes land flat. The politics are dated. Meredith does not deserve what happens to her, and the film never quite realises that makes it the villain.\n\nThere are better Christmas films. There were better films in 2005. It is genuinely unfortunate a cast this good was spent propping up a story this smug and this mean.",
+        category: "drama",
+        imageUrl: "images/reviews/the-family-stone-2005/header-the-family-stone-2005.webp",
+        youtubeTrailer: "https://www.youtube.com/watch?v=ps8DhuMfScQ"
     }
 ];
 

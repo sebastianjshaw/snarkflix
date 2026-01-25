@@ -225,8 +225,11 @@ window.addEventListener('popstate', function(event) {
         if (review) {
             showReviewLoadingSkeleton();
             setTimeout(() => {
-                createReviewPage(review);
-                hideReviewLoadingSkeleton();
+                try {
+                    createReviewPage(review);
+                } finally {
+                    hideReviewLoadingSkeleton();
+                }
             }, 150);
         }
     } else {
@@ -273,8 +276,11 @@ function checkForSharedReview() {
             
             // Small delay to show skeleton, then create review page
             setTimeout(() => {
-                createReviewPage(review);
-                hideReviewLoadingSkeleton();
+                try {
+                    createReviewPage(review);
+                } finally {
+                    hideReviewLoadingSkeleton();
+                }
             }, 150);
         }
     } else if ((hash === '' || hash === '#') && !reviewParam && !pathMatch) {
@@ -587,8 +593,11 @@ function navigateToReview(reviewId) {
         
         // Small delay to show skeleton, then create review page
         setTimeout(() => {
-            createReviewPage(review);
-            hideReviewLoadingSkeleton();
+            try {
+                createReviewPage(review);
+            } finally {
+                hideReviewLoadingSkeleton();
+            }
         }, 150);
     }
 }
@@ -811,6 +820,13 @@ function convertToEmbedUrl(youtubeUrl) {
 }
 
 function createReviewPage(review) {
+    // Ensure mobile menu is closed so it doesn’t overlay the review
+    const navLinks = document.querySelector('.snarkflix-nav-links');
+    const backdrop = document.querySelector('.snarkflix-mobile-menu-backdrop');
+    if (navLinks) navLinks.classList.remove('snarkflix-mobile-menu-open');
+    if (backdrop) backdrop.classList.remove('active');
+    document.body.style.overflow = '';
+    
     // Add page transition class
     document.body.classList.add('snarkflix-page-transitioning');
     
@@ -871,6 +887,8 @@ function createReviewPage(review) {
     const header = document.querySelector('.snarkflix-header');
     if (header && header.nextSibling) {
         header.parentNode.insertBefore(reviewWrapper, header.nextSibling);
+    } else if (header) {
+        header.parentNode.appendChild(reviewWrapper);
     }
     
     // Add share button event listeners

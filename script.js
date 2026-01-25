@@ -132,6 +132,19 @@ function waitForReviewsData(callback, maxAttempts = 50) {
 }
 
 document.addEventListener('DOMContentLoaded', function() {
+    // If we're loading a direct review URL (?review= or /review/id), ensure mobile nav is closed
+    // so the overlay never appears (avoids "massive" nav on /review/51 etc)
+    var isDirectReview = /\?.*\breview=\d+/.test(location.search) || /^\/review\/\d+(\/|$)/.test(location.pathname);
+    if (isDirectReview) {
+        var n = document.querySelector('.snarkflix-nav-links');
+        var b = document.querySelector('.snarkflix-mobile-menu-backdrop');
+        var t = document.querySelector('.snarkflix-mobile-menu-toggle');
+        if (n) n.classList.remove('snarkflix-mobile-menu-open');
+        if (b) b.classList.remove('active');
+        if (t) t.setAttribute('aria-expanded', 'false');
+        document.body.style.overflow = '';
+    }
+    
     // Add page loaded class for initial fade-in
     document.body.classList.add('snarkflix-page-loaded');
     
@@ -2361,6 +2374,15 @@ function hideReviewsLoading() {
 
 // Review page skeleton loading
 function showReviewLoadingSkeleton() {
+    // Close mobile menu so it never overlays the review (critical when opening directly to /review/id)
+    const navLinks = document.querySelector('.snarkflix-nav-links');
+    const backdrop = document.querySelector('.snarkflix-mobile-menu-backdrop');
+    const mobileMenuToggle = document.querySelector('.snarkflix-mobile-menu-toggle');
+    if (navLinks) navLinks.classList.remove('snarkflix-mobile-menu-open');
+    if (backdrop) backdrop.classList.remove('active');
+    if (mobileMenuToggle) mobileMenuToggle.setAttribute('aria-expanded', 'false');
+    document.body.style.overflow = '';
+    
     // Remove any existing skeleton
     hideReviewLoadingSkeleton();
     

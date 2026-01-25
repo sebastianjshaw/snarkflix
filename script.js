@@ -26,6 +26,7 @@ function createResponsiveImage(imageUrl, alt, loading = 'lazy') {
                                  normalizedImageUrl.includes('care-2018') ||
                                  normalizedImageUrl.includes('the-holdovers-2023') ||
                                  normalizedImageUrl.includes('the-family-stone-2005') ||
+                                 normalizedImageUrl.includes('good-boy-2025') ||
                                  normalizedImageUrl.includes('logo');
     
     if (!hasResponsiveVersions) {

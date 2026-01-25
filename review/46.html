@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <meta name="description" content="Zootopia (2016) - tldr: A sharp, snarky takedown of Zootopia's mixed messaging—cute anti-bias veneer, copaganda core, essentialist gags, a marginalized villain scapegoa...">
+    <meta name="description" content="Zootopia (2016) - tldr: A sharp, snarky takedown of Zootopia's mixed messaging - cute anti-bias veneer, copaganda core, essentialist gags, a marginalized villain scapeg...">
     <meta name="keywords" content="movie reviews, film criticism, snarky reviews, cinema, movies, entertainment, Zootopia (2016)">
     <meta name="author" content="Snarkflix">
     
@@ -23,7 +23,7 @@
     <meta property="og:type" content="article">
     <meta property="og:url" content="https://snarkflix.com/review/46">
     <meta property="og:title" content="Zootopia (2016) Review - SnarkAI Score: 64/100 | Snarkflix">
-    <meta property="og:description" content="Zootopia (2016) - tldr: A sharp, snarky takedown of Zootopia's mixed messaging—cute anti-bias veneer, copaganda core, essentialist gags, a marginalized villain scapegoat, and a militarized happy ending—wrapped in jokes...">
+    <meta property="og:description" content="Zootopia (2016) - tldr: A sharp, snarky takedown of Zootopia's mixed messaging - cute anti-bias veneer, copaganda core, essentialist gags, a marginalized villain scapegoat, and a militarized happy ending - wrapped in j...">
     <meta property="og:image" content="https://snarkflix.com/images/reviews/zootopia-2016/header-zootopia-2016.webp">
     <meta property="og:image:secure_url" content="https://snarkflix.com/images/reviews/zootopia-2016/header-zootopia-2016.webp">
     <meta property="og:image:type" content="image/png">
@@ -41,7 +41,7 @@
     <meta property="twitter:card" content="summary_large_image">
     <meta property="twitter:url" content="https://snarkflix.com/review/46">
     <meta property="twitter:title" content="Zootopia (2016) Review - SnarkAI Score: 64/100 | Snarkflix">
-    <meta property="twitter:description" content="Zootopia (2016) - tldr: A sharp, snarky takedown of Zootopia's mixed messaging—cute anti-bias veneer, copaganda core, essentialist gags, a marginalized villain scapegoat, and a militarized happy ending—wrapped in jokes...">
+    <meta property="twitter:description" content="Zootopia (2016) - tldr: A sharp, snarky takedown of Zootopia's mixed messaging - cute anti-bias veneer, copaganda core, essentialist gags, a marginalized villain scapegoat, and a militarized happy ending - wrapped in j...">
     <meta property="twitter:image" content="https://snarkflix.com/images/reviews/zootopia-2016/header-zootopia-2016.webp">
     <meta property="twitter:image:alt" content="Zootopia (2016) Review">
     <meta property="twitter:site" content="@snarkflix">
@@ -59,16 +59,13 @@
     </script>
     
     <script>
-        // Delay redirect to allow social media crawlers to read meta tags
-        // But redirect immediately if this is a real user (not a crawler)
+        // Redirect to SPA with ?review=id. Using /review/id would loop: Netlify serves
+        // /review/id as /review/id.html, which would redirect to /review/id again.
+        var target = 'https://snarkflix.com/?review=46';
         if (navigator.userAgent && !navigator.userAgent.includes('bot') && !navigator.userAgent.includes('crawler')) {
-            // Immediate redirect for real users
-            window.location.href = 'https://snarkflix.com/?review=46';
+            window.location.href = target;
         } else {
-            // Delayed redirect for crawlers
-            setTimeout(function() {
-                window.location.href = 'https://snarkflix.com/?review=46';
-            }, 3000);
+            setTimeout(function() { window.location.href = target; }, 3000);
         }
     </script>
 </head>

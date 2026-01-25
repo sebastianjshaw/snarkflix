@@ -59,16 +59,13 @@
     </script>
     
     <script>
-        // Delay redirect to allow social media crawlers to read meta tags
-        // But redirect immediately if this is a real user (not a crawler)
+        // Redirect to SPA with ?review=id. Using /review/id would loop: Netlify serves
+        // /review/id as /review/id.html, which would redirect to /review/id again.
+        var target = 'https://snarkflix.com/?review=2';
         if (navigator.userAgent && !navigator.userAgent.includes('bot') && !navigator.userAgent.includes('crawler')) {
-            // Immediate redirect for real users
-            window.location.href = 'https://snarkflix.com/?review=2';
+            window.location.href = target;
         } else {
-            // Delayed redirect for crawlers
-            setTimeout(function() {
-                window.location.href = 'https://snarkflix.com/?review=2';
-            }, 3000);
+            setTimeout(function() { window.location.href = target; }, 3000);
         }
     </script>
 </head>

@@ -23,7 +23,7 @@
     <meta property="og:type" content="article">
     <meta property="og:url" content="https://snarkflix.com/review/31">
     <meta property="og:title" content="Fantastic Four: First Steps (2025) Review - SnarkAI Score: 82/100 | Snarkflix">
-    <meta property="og:description" content="Fantastic Four: First Steps (2025) - Retro-futurist flair, clever worldbuilding, and the best-looking Thing ever put on screen make this FF outing the first one that actually feels worthy of the name. Reed is written perfectly—brilliant,...">
+    <meta property="og:description" content="Fantastic Four: First Steps (2025) - Retro-futurist flair, clever worldbuilding, and the best-looking Thing ever put on screen make this FF outing the first one that actually feels worthy of the name. Reed is written perfectly - brillian...">
     <meta property="og:image" content="https://snarkflix.com/images/reviews/fantastic-four-first-steps/header-fantastic-four-first-steps.webp">
     <meta property="og:image:secure_url" content="https://snarkflix.com/images/reviews/fantastic-four-first-steps/header-fantastic-four-first-steps.webp">
     <meta property="og:image:type" content="image/png">
@@ -41,7 +41,7 @@
     <meta property="twitter:card" content="summary_large_image">
     <meta property="twitter:url" content="https://snarkflix.com/review/31">
     <meta property="twitter:title" content="Fantastic Four: First Steps (2025) Review - SnarkAI Score: 82/100 | Snarkflix">
-    <meta property="twitter:description" content="Fantastic Four: First Steps (2025) - Retro-futurist flair, clever worldbuilding, and the best-looking Thing ever put on screen make this FF outing the first one that actually feels worthy of the name. Reed is written perfectly—brilliant,...">
+    <meta property="twitter:description" content="Fantastic Four: First Steps (2025) - Retro-futurist flair, clever worldbuilding, and the best-looking Thing ever put on screen make this FF outing the first one that actually feels worthy of the name. Reed is written perfectly - brillian...">
     <meta property="twitter:image" content="https://snarkflix.com/images/reviews/fantastic-four-first-steps/header-fantastic-four-first-steps.webp">
     <meta property="twitter:image:alt" content="Fantastic Four: First Steps (2025) Review">
     <meta property="twitter:site" content="@snarkflix">
@@ -59,16 +59,13 @@
     </script>
     
     <script>
-        // Delay redirect to allow social media crawlers to read meta tags
-        // But redirect immediately if this is a real user (not a crawler)
+        // Redirect to SPA with ?review=id. Using /review/id would loop: Netlify serves
+        // /review/id as /review/id.html, which would redirect to /review/id again.
+        var target = 'https://snarkflix.com/?review=31';
         if (navigator.userAgent && !navigator.userAgent.includes('bot') && !navigator.userAgent.includes('crawler')) {
-            // Immediate redirect for real users
-            window.location.href = 'https://snarkflix.com/?review=31';
+            window.location.href = target;
         } else {
-            // Delayed redirect for crawlers
-            setTimeout(function() {
-                window.location.href = 'https://snarkflix.com/?review=31';
-            }, 3000);
+            setTimeout(function() { window.location.href = target; }, 3000);
         }
     </script>
 </head>

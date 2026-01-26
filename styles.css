@@ -1061,8 +1061,14 @@ body.snarkflix-keyboard-user .snarkflix-skip-link:focus {
     margin: 0;
     font-size: var(--snarkflix-font-size-sm);
     color: var(--snarkflix-gray);
-    flex-wrap: wrap;
     gap: var(--snarkflix-spacing-xs);
+}
+
+.snarkflix-reviews-grid .snarkflix-review-meta-badges {
+    display: flex;
+    align-items: center;
+    gap: var(--snarkflix-spacing-xs);
+    flex-shrink: 0;
 }
 
 .snarkflix-reviews-grid .snarkflix-review-duration {

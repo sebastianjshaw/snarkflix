@@ -504,8 +504,10 @@ function createReviewElement(review) {
             <h3 class="snarkflix-review-title">${review.title}</h3>
             <div class="snarkflix-review-meta">
                 <span class="snarkflix-review-date">${review.publishDate}</span>
-                <span class="snarkflix-review-duration">${review.readingDuration}</span>
-                <span class="snarkflix-review-score ${scoreClass}">SnarkAI: ${review.aiScore}/100</span>
+                <div class="snarkflix-review-meta-badges">
+                    <span class="snarkflix-review-duration">${review.readingDuration}</span>
+                    <span class="snarkflix-review-score ${scoreClass}">SnarkAI: ${review.aiScore}/100</span>
+                </div>
             </div>
             <p class="snarkflix-review-summary">${review.aiSummary}</p>
             <p class="snarkflix-review-tagline">"${review.tagline}"</p>
@@ -1173,8 +1175,10 @@ function loadRelatedReviews(currentReview) {
                 <h3 class="snarkflix-review-title">${relatedReview.title}</h3>
                 <div class="snarkflix-review-meta">
                     <span class="snarkflix-review-date">${relatedReview.publishDate}</span>
-                    <span class="snarkflix-review-duration">${relatedReview.readingDuration}</span>
-                    <span class="snarkflix-review-score">SnarkAI: ${relatedReview.aiScore}/100</span>
+                    <div class="snarkflix-review-meta-badges">
+                        <span class="snarkflix-review-duration">${relatedReview.readingDuration}</span>
+                        <span class="snarkflix-review-score">SnarkAI: ${relatedReview.aiScore}/100</span>
+                    </div>
                 </div>
                 <p class="snarkflix-review-summary">${relatedReview.aiSummary}</p>
                 <p class="snarkflix-review-tagline">"${relatedReview.tagline}"</p>

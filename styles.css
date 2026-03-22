@@ -890,6 +890,21 @@ body.snarkflix-keyboard-user .snarkflix-skip-link:focus {
     }
 }
 
+/* Share link copied notification */
+.snarkflix-share-notification {
+    position: fixed;
+    top: 20px;
+    right: 20px;
+    background: var(--snarkflix-accent);
+    color: var(--snarkflix-dark);
+    padding: 12px 20px;
+    border-radius: 8px;
+    font-weight: bold;
+    z-index: 1000;
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.2);
+    animation: slideIn 0.3s ease-out;
+}
+
 /* Mobile responsiveness for reviews header */
 @media (max-width: 768px) {
     .snarkflix-reviews-header .snarkflix-section-title {

@@ -1,5 +1,21 @@
 // Snarkflix JavaScript - Movie Review Blog
 
+// Responsive image config — add an entry here whenever a new image has responsive variants.
+// 'standard' = -400w / -800w / -1200w naming; 'legacy' = -sm / -md / -lg / -xl naming.
+const RESPONSIVE_IMAGE_CONFIG = {
+    'fantastic-four':      'standard',
+    'palm-springs':        'standard',
+    'superman':            'standard',
+    'iron-giant':          'standard',
+    'care-2018':           'standard',
+    'the-holdovers-2023':  'standard',
+    'the-family-stone-2005': 'standard',
+    'good-boy-2025':       'standard',
+    'logo':                'standard',
+    'kpop-demonhunters':   'legacy',
+    'zootopia':            'legacy',
+};
+
 // Helper function to create responsive image HTML
 function createResponsiveImage(imageUrl, alt, loading = 'lazy') {
     // Ensure image URL is absolute (starts with /) to avoid path resolution issues on review pages
@@ -7,73 +23,42 @@ function createResponsiveImage(imageUrl, alt, loading = 'lazy') {
     if (!normalizedImageUrl.startsWith('http') && !normalizedImageUrl.startsWith('/')) {
         normalizedImageUrl = '/' + normalizedImageUrl;
     }
-    
-    // Extract base path and extension
+
+    // Determine responsive naming pattern from config
+    const namingPattern = Object.keys(RESPONSIVE_IMAGE_CONFIG).find(key =>
+        normalizedImageUrl.includes(key)
+    );
+
+    if (!namingPattern) {
+        // No responsive variants — simple img tag
+        const fetchPriority = loading === 'eager' ? ' fetchpriority="high"' : '';
+        const placeholderStyle = loading === 'lazy' ? ' style="background: linear-gradient(90deg, #f0f0f0 25%, #e0e0e0 50%, #f0f0f0 75%); background-size: 200% 100%; animation: shimmer 1.5s infinite;"' : '';
+        return `<img src="${normalizedImageUrl}" alt="${alt}" loading="${loading}"${fetchPriority}${placeholderStyle}>`;
+    }
+
+    // Extract base path and filename stem
     const pathParts = normalizedImageUrl.split('/');
     const filename = pathParts[pathParts.length - 1];
     const basePath = pathParts.slice(0, -1).join('/');
     const nameWithoutExt = filename.replace(/\.(webp|avif|png)$/, '');
-    const ext = filename.match(/\.(webp|avif|png)$/)?.[1] || 'webp';
-    
-    // Check if responsive versions exist by looking for common patterns
-    // Only use responsive images for images that we know have responsive versions
-    const hasResponsiveVersions = normalizedImageUrl.includes('fantastic-four') || 
-                                 normalizedImageUrl.includes('palm-springs') || 
-                                 normalizedImageUrl.includes('superman') || 
-                                 normalizedImageUrl.includes('iron-giant') ||
-                                 normalizedImageUrl.includes('kpop-demonhunters') ||
-                                 normalizedImageUrl.includes('zootopia') ||
-                                 normalizedImageUrl.includes('care-2018') ||
-                                 normalizedImageUrl.includes('the-holdovers-2023') ||
-                                 normalizedImageUrl.includes('the-family-stone-2005') ||
-                                 normalizedImageUrl.includes('good-boy-2025') ||
-                                 normalizedImageUrl.includes('logo');
-    
-    if (!hasResponsiveVersions) {
-        // Fall back to simple img tag for images without responsive versions
-        const fetchPriority = loading === 'eager' ? ' fetchpriority="high"' : '';
-        // Add blur-up placeholder for lazy loaded images
-        const placeholderStyle = loading === 'lazy' ? ' style="background: linear-gradient(90deg, #f0f0f0 25%, #e0e0e0 50%, #f0f0f0 75%); background-size: 200% 100%; animation: shimmer 1.5s infinite;"' : '';
-        return `<img src="${normalizedImageUrl}" alt="${alt}" loading="${loading}"${fetchPriority}${placeholderStyle}>`;
-    }
-    
-    // Create responsive image HTML for images with responsive versions
-    // Use WebP format with responsive sizes and PNG fallback
-    // Handle different naming patterns
-    let srcset;
-    if (normalizedImageUrl.includes('kpop-demonhunters') || normalizedImageUrl.includes('zootopia')) {
-        // Kpop Demon Hunters and Zootopia use old naming pattern
+
+    const pattern = RESPONSIVE_IMAGE_CONFIG[namingPattern];
+    let srcset, sizes;
+    if (pattern === 'legacy') {
         srcset = `${basePath}/${nameWithoutExt}-sm.webp 320w, ${basePath}/${nameWithoutExt}-md.webp 640w, ${basePath}/${nameWithoutExt}-lg.webp 1024w, ${basePath}/${nameWithoutExt}-xl.webp 1920w`;
+        sizes = "(max-width: 320px) 320px, (max-width: 640px) 640px, (max-width: 1024px) 1024px, 1920px";
     } else {
-        // Other images use new naming pattern
         srcset = `${basePath}/${nameWithoutExt}-400w.webp 400w, ${basePath}/${nameWithoutExt}-800w.webp 800w, ${basePath}/${nameWithoutExt}-1200w.webp 1200w`;
+        sizes = "(max-width: 400px) 400px, (max-width: 800px) 800px, 1200px";
     }
-    
-    // Use appropriate sizes based on naming pattern
-    const sizes = (normalizedImageUrl.includes('kpop-demonhunters') || normalizedImageUrl.includes('zootopia')) 
-        ? "(max-width: 320px) 320px, (max-width: 640px) 640px, (max-width: 1024px) 1024px, 1920px"
-        : "(max-width: 400px) 400px, (max-width: 800px) 800px, 1200px";
-    
-    // Add fetchpriority for eager loading (LCP optimization)
+
     const fetchPriority = loading === 'eager' ? ' fetchpriority="high"' : '';
-    
-    // Ensure srcset paths are also absolute
-    const normalizedSrcset = srcset.split(', ').map(item => {
-        const [path, size] = item.split(' ');
-        // If path doesn't start with / or http, make it absolute
-        const normalizedPath = (!path.startsWith('/') && !path.startsWith('http')) 
-            ? '/' + path 
-            : path;
-        return `${normalizedPath} ${size}`;
-    }).join(', ');
-    
-    // Add blur-up placeholder for lazy loaded images
     const placeholderStyle = loading === 'lazy' ? ' style="background: linear-gradient(90deg, #f0f0f0 25%, #e0e0e0 50%, #f0f0f0 75%); background-size: 200% 100%; animation: shimmer 1.5s infinite;"' : '';
-    
+
     return `
         <picture>
-            <source srcset="${normalizedSrcset}" 
-                    sizes="${sizes}" 
+            <source srcset="${srcset}"
+                    sizes="${sizes}"
                     type="image/webp">
             <img src="${normalizedImageUrl}" alt="${alt}" loading="${loading}"${fetchPriority}${placeholderStyle}>
         </picture>
@@ -85,24 +70,59 @@ function createResponsiveImage(imageUrl, alt, loading = 'lazy') {
 // For now, we'll use the data directly from reviews-data.js
 // The reviews are now loaded from reviews-data.js via script tag
 
-// Category data
+// Default meta tag values for the homepage.
+// Used by returnToHomepage() to reset tags after visiting a review.
+// Add new meta tags here once — no need to touch returnToHomepage().
+const HOMEPAGE_META = {
+    title:           'Snarkflix - Snarky Movie Reviews',
+    description:     'Snarky movie reviews with a side of sass. Join our small but mighty team as we take a lighthearted and entertaining approach to critiquing films.',
+    canonicalHref:   'https://snarkflix.com/',
+    ogType:          'website',
+    ogImageType:     'image/avif',
+    ogImageAlt:      'Snarkflix - Snarky Movie Reviews',
+    ogSiteName:      'Snarkflix',
+    ogLocale:        'en_US',
+};
+
+// SVG paths for share buttons — defined once, reused in card and review page.
+const SHARE_ICONS = {
+    twitter:  `<path d="M18.244 2.25h3.308l-7.227 8.26 8.502 11.24H16.17l-5.214-6.817L4.99 21.75H1.68l7.73-8.835L1.254 2.25H8.08l4.713 6.231zm-1.161 17.52h1.833L7.084 4.126H5.117z"/>`,
+    facebook: `<path d="M24 12.073c0-6.627-5.373-12-12-12s-12 5.373-12 12c0 5.99 4.388 10.954 10.125 11.854v-8.385H7.078v-3.47h3.047V9.43c0-3.007 1.792-4.669 4.533-4.669 1.312 0 2.686.235 2.686.235v2.953H15.83c-1.491 0-1.956.925-1.956 1.874v2.25h3.328l-.532 3.47h-2.796v8.385C19.612 23.027 24 18.062 24 12.073z"/>`,
+    copy:     `<path d="M16 1H4c-1.1 0-2 .9-2 2v14h2V3h12V1zm3 4H8c-1.1 0-2 .9-2 2v14c0 1.1.9 2 2 2h11c1.1 0 2-.9 2-2V7c0-1.1-.9-2-2-2zm0 16H8V7h11v14z"/>`,
+};
+
+// Generates the three share button elements as an HTML string.
+// Pass labelText=true to include visible platform labels (used on the review page).
+function shareButtonsHTML(reviewId, labelText = false) {
+    return ['twitter', 'facebook', 'copy'].map(platform => {
+        const label = labelText ? `<span class="snarkflix-share-text">${platform === 'copy' ? 'Copy Link' : platform.charAt(0).toUpperCase() + platform.slice(1)}</span>` : '';
+        const title = platform === 'twitter' ? 'Share on Twitter' : platform === 'facebook' ? 'Share on Facebook' : 'Copy link';
+        return `<button class="snarkflix-share-btn snarkflix-share-${platform}" data-review-id="${reviewId}" title="${title}">
+                    <svg class="snarkflix-share-icon" viewBox="0 0 24 24" fill="currentColor">${SHARE_ICONS[platform]}</svg>
+                    ${label}
+                </button>`;
+    }).join('');
+}
+
+// Category data — counts are intentionally omitted here; they are computed
+// at runtime from the actual reviews data by updateCategoryCounts().
 const snarkflixCategories = [
-    { name: "Action", slug: "action", count: 15, color: "action" },
-    { name: "Adventure", slug: "adventure", count: 1, color: "adventure" },
-    { name: "Animation", slug: "animation", count: 7, color: "animation" },
-    { name: "Comedy", slug: "comedy", count: 8, color: "comedy" },
-    { name: "Crime & Mystery", slug: "crime-mystery", count: 1, color: "crime-mystery" },
-    { name: "Drama", slug: "drama", count: 6, color: "drama" },
-    { name: "Experimental", slug: "experimental", count: 0, color: "other" },
-    { name: "Fantasy", slug: "fantasy", count: 6, color: "fantasy" },
-    { name: "Horror", slug: "horror", count: 4, color: "horror" },
-    { name: "Historical", slug: "historical", count: 0, color: "other" },
-    { name: "Romance", slug: "romance", count: 0, color: "other" },
-    { name: "Sci-Fi", slug: "scifi", count: 11, color: "scifi" },
-    { name: "Thriller", slug: "thriller", count: 2, color: "thriller" },
-    { name: "Western", slug: "western", count: 1, color: "western" },
-    { name: "Other", slug: "other", count: 1, color: "other" },
-    { name: "Musical", slug: "musical", count: 1, color: "other" }
+    { name: "Action",        slug: "action",       color: "action"       },
+    { name: "Adventure",     slug: "adventure",    color: "adventure"    },
+    { name: "Animation",     slug: "animation",    color: "animation"    },
+    { name: "Comedy",        slug: "comedy",       color: "comedy"       },
+    { name: "Crime & Mystery", slug: "crime-mystery", color: "crime-mystery" },
+    { name: "Drama",         slug: "drama",        color: "drama"        },
+    { name: "Experimental",  slug: "experimental", color: "other"        },
+    { name: "Fantasy",       slug: "fantasy",      color: "fantasy"      },
+    { name: "Horror",        slug: "horror",       color: "horror"       },
+    { name: "Historical",    slug: "historical",   color: "other"        },
+    { name: "Romance",       slug: "romance",      color: "other"        },
+    { name: "Sci-Fi",        slug: "scifi",        color: "scifi"        },
+    { name: "Thriller",      slug: "thriller",     color: "thriller"     },
+    { name: "Western",       slug: "western",      color: "western"      },
+    { name: "Other",         slug: "other",        color: "other"        },
+    { name: "Musical",       slug: "musical",      color: "other"        },
 ];
 
 // DOM elements
@@ -204,27 +224,6 @@ document.addEventListener('DOMContentLoaded', function() {
     });
 });
 
-function handleInitialReviewCheck() {
-    // Check for review parameter and update meta tags before checking for shared review
-    const urlParams = new URLSearchParams(window.location.search);
-    const reviewParam = urlParams.get('review');
-    
-    if (reviewParam) {
-        const reviewId = parseInt(reviewParam);
-        const review = snarkflixReviews.find(r => r.id === reviewId);
-        
-        if (review) {
-            // Update meta tags for social media sharing (using extracted function)
-            updateMetaTagsForReview(review);
-        }
-    }
-    
-    // Check for shared review after a short delay
-    setTimeout(() => {
-        checkForSharedReview();
-    }, 100);
-}
-
 // Listen for hash changes (back/forward navigation) - legacy support
 window.addEventListener('hashchange', function() {
     checkForSharedReview();
@@ -237,13 +236,11 @@ window.addEventListener('popstate', function(event) {
         const review = snarkflixReviews.find(r => r.id === reviewId);
         if (review) {
             showReviewLoadingSkeleton();
-            setTimeout(() => {
-                try {
-                    createReviewPage(review);
-                } finally {
-                    hideReviewLoadingSkeleton();
-                }
-            }, 150);
+            try {
+                createReviewPage(review);
+            } finally {
+                hideReviewLoadingSkeleton();
+            }
         }
     } else {
         // Return to homepage
@@ -283,18 +280,15 @@ function checkForSharedReview() {
         if (review) {
             // Show loading skeleton
             showReviewLoadingSkeleton();
-            
+
             // Update state for History API
             window.history.replaceState({ reviewId: reviewId, type: 'review' }, '', `/review/${reviewId}`);
-            
-            // Small delay to show skeleton, then create review page
-            setTimeout(() => {
-                try {
-                    createReviewPage(review);
-                } finally {
-                    hideReviewLoadingSkeleton();
-                }
-            }, 150);
+
+            try {
+                createReviewPage(review);
+            } finally {
+                hideReviewLoadingSkeleton();
+            }
         }
     } else if ((hash === '' || hash === '#') && !reviewParam && !pathMatch) {
         // If no review in URL, ensure we're on homepage
@@ -393,8 +387,8 @@ function loadReviews(page = 1, category = currentCategory, searchTerm = currentS
                 );
             }
             
-            // Sort based on current sort option
-            filteredReviews = filteredReviews.sort((a, b) => {
+            // Sort based on current sort option — use .slice() to avoid mutating the source array
+            filteredReviews = filteredReviews.slice().sort((a, b) => {
                 switch (sort) {
                     case 'latest':
                         // Sort by date (newest first)
@@ -512,21 +506,7 @@ function createReviewElement(review) {
             <p class="snarkflix-review-summary">${review.aiSummary}</p>
             <p class="snarkflix-review-tagline">"${review.tagline}"</p>
             <div class="snarkflix-review-share">
-                <button class="snarkflix-share-btn snarkflix-share-twitter" data-review-id="${review.id}" title="Share on Twitter">
-                    <svg class="snarkflix-share-icon" viewBox="0 0 24 24" fill="currentColor">
-                        <path d="M18.244 2.25h3.308l-7.227 8.26 8.502 11.24H16.17l-5.214-6.817L4.99 21.75H1.68l7.73-8.835L1.254 2.25H8.08l4.713 6.231zm-1.161 17.52h1.833L7.084 4.126H5.117z"/>
-                    </svg>
-                </button>
-                <button class="snarkflix-share-btn snarkflix-share-facebook" data-review-id="${review.id}" title="Share on Facebook">
-                    <svg class="snarkflix-share-icon" viewBox="0 0 24 24" fill="currentColor">
-                        <path d="M24 12.073c0-6.627-5.373-12-12-12s-12 5.373-12 12c0 5.99 4.388 10.954 10.125 11.854v-8.385H7.078v-3.47h3.047V9.43c0-3.007 1.792-4.669 4.533-4.669 1.312 0 2.686.235 2.686.235v2.953H15.83c-1.491 0-1.956.925-1.956 1.874v2.25h3.328l-.532 3.47h-2.796v8.385C19.612 23.027 24 18.062 24 12.073z"/>
-                    </svg>
-                </button>
-                <button class="snarkflix-share-btn snarkflix-share-copy" data-review-id="${review.id}" title="Copy link">
-                    <svg class="snarkflix-share-icon" viewBox="0 0 24 24" fill="currentColor">
-                        <path d="M16 1H4c-1.1 0-2 .9-2 2v14h2V3h12V1zm3 4H8c-1.1 0-2 .9-2 2v14c0 1.1.9 2 2 2h11c1.1 0 2-.9 2-2V7c0-1.1-.9-2-2-2zm0 16H8V7h11v14z"/>
-                    </svg>
-                </button>
+                ${shareButtonsHTML(review.id)}
             </div>
         </div>
     `;
@@ -606,14 +586,11 @@ function navigateToReview(reviewId) {
         // Update meta tags for SEO
         updateMetaTagsForReview(review);
         
-        // Small delay to show skeleton, then create review page
-        setTimeout(() => {
-            try {
-                createReviewPage(review);
-            } finally {
-                hideReviewLoadingSkeleton();
-            }
-        }, 150);
+        try {
+            createReviewPage(review);
+        } finally {
+            hideReviewLoadingSkeleton();
+        }
     }
 }
 
@@ -667,24 +644,10 @@ function shareReview(review, platform) {
 }
 
 function showShareNotification(message) {
-    // Create a temporary notification
     const notification = document.createElement('div');
     notification.className = 'snarkflix-share-notification';
     notification.textContent = message;
-    notification.style.cssText = `
-        position: fixed;
-        top: 20px;
-        right: 20px;
-        background: var(--snarkflix-accent);
-        color: var(--snarkflix-dark);
-        padding: 12px 20px;
-        border-radius: 8px;
-        font-weight: bold;
-        z-index: 1000;
-        box-shadow: 0 4px 12px rgba(0,0,0,0.2);
-        animation: slideIn 0.3s ease-out;
-    `;
-    
+
     document.body.appendChild(notification);
     
     // Remove after 3 seconds
@@ -806,13 +769,7 @@ function getAbsoluteUrl(imagePath) {
     if (imagePath.startsWith('http')) {
         return imagePath;
     }
-    
-    // For local development or relative paths
-    if (window.location.protocol === 'file:') {
-        return `${window.location.origin}/${imagePath}`;
-    } else {
-        return `${window.location.origin}/${imagePath}`;
-    }
+    return `https://snarkflix.com/${imagePath.replace(/^\//, '')}`;
 }
 
 // Helper function to convert YouTube watch URL to embed URL
@@ -953,44 +910,43 @@ function returnToHomepage() {
         existingBreadcrumb.style.display = 'none';
     }
     
-    // Update the page title back to homepage
-    document.title = 'Snarkflix - Snarky Movie Reviews';
-    
-    // Update canonical URL back to homepage
+    // Reset page title and canonical URL
+    document.title = HOMEPAGE_META.title;
     let canonicalLink = document.querySelector('link[rel="canonical"]');
     if (!canonicalLink) {
         canonicalLink = document.createElement('link');
         canonicalLink.setAttribute('rel', 'canonical');
         document.head.appendChild(canonicalLink);
     }
-    canonicalLink.setAttribute('href', 'https://snarkflix.com/');
-    
-    // Update meta description back to homepage
+    canonicalLink.setAttribute('href', HOMEPAGE_META.canonicalHref);
+
+    // Reset meta description
     const metaDescription = document.querySelector('meta[name="description"]');
     if (metaDescription) {
-        metaDescription.setAttribute('content', 'Snarky movie reviews with a side of sass. Join our small but mighty team as we take a lighthearted and entertaining approach to critiquing films.');
+        metaDescription.setAttribute('content', HOMEPAGE_META.description);
     }
-    
-    // Reset Open Graph meta tags
-    updateMetaTag('og:title', 'Snarkflix - Snarky Movie Reviews');
-    updateMetaTag('og:description', 'Snarky movie reviews with a side of sass. Join our small but mighty team as we take a lighthearted and entertaining approach to critiquing films.');
-    updateMetaTag('og:image', getAbsoluteUrl('images/site-assets/logo.avif'));
-    updateMetaTag('og:image:secure_url', getAbsoluteUrl('images/site-assets/logo.avif'));
-    updateMetaTag('og:image:type', 'image/avif');
-    updateMetaTag('og:image:alt', 'Snarkflix - Snarky Movie Reviews');
-    updateMetaTag('og:site_name', 'Snarkflix');
-    updateMetaTag('og:locale', 'en_US');
-    updateMetaTag('og:url', `${window.location.origin}${window.location.pathname}`);
-    
-    // WhatsApp specific meta tags
-    updateMetaTag('og:image:url', getAbsoluteUrl('images/site-assets/logo.avif'));
-    updateMetaTag('twitter:image:src', getAbsoluteUrl('images/site-assets/logo.avif'));
-    
-    // Reset Twitter Card meta tags
-    updateMetaTag('twitter:title', 'Snarkflix - Snarky Movie Reviews');
-    updateMetaTag('twitter:description', 'Snarky movie reviews with a side of sass. Join our small but mighty team as we take a lighthearted and entertaining approach to critiquing films.');
-    updateMetaTag('twitter:image', getAbsoluteUrl('images/site-assets/logo.avif'));
-    updateMetaTag('twitter:url', `${window.location.origin}${window.location.pathname}`);
+
+    // Reset all Open Graph / Twitter meta tags from the single source of truth
+    const logoUrl = getAbsoluteUrl('images/site-assets/logo.avif');
+    const homepageUrl = HOMEPAGE_META.canonicalHref;
+    updateMetaTag('og:title',           HOMEPAGE_META.title);
+    updateMetaTag('og:description',     HOMEPAGE_META.description);
+    updateMetaTag('og:image',           logoUrl);
+    updateMetaTag('og:image:secure_url', logoUrl);
+    updateMetaTag('og:image:type',      HOMEPAGE_META.ogImageType);
+    updateMetaTag('og:image:alt',       HOMEPAGE_META.ogImageAlt);
+    updateMetaTag('og:site_name',       HOMEPAGE_META.ogSiteName);
+    updateMetaTag('og:locale',          HOMEPAGE_META.ogLocale);
+    updateMetaTag('og:url',             homepageUrl);
+    updateMetaTag('og:type',            HOMEPAGE_META.ogType);
+    // WhatsApp specific
+    updateMetaTag('og:image:url',       logoUrl);
+    updateMetaTag('twitter:image:src',  logoUrl);
+    // Twitter Card
+    updateMetaTag('twitter:title',       HOMEPAGE_META.title);
+    updateMetaTag('twitter:description', HOMEPAGE_META.description);
+    updateMetaTag('twitter:image',       logoUrl);
+    updateMetaTag('twitter:url',         homepageUrl);
     
     // Show all existing sections
     const sectionsToShow = document.querySelectorAll('section');
@@ -1071,24 +1027,7 @@ function createReviewContentHTML(review) {
                         <div class="snarkflix-review-share-section">
                             <h2>Share this review</h2>
                             <div class="snarkflix-review-share">
-                                <button class="snarkflix-share-btn snarkflix-share-twitter" data-review-id="${review.id}" title="Share on Twitter">
-                                    <svg class="snarkflix-share-icon" viewBox="0 0 24 24" fill="currentColor">
-                                        <path d="M18.244 2.25h3.308l-7.227 8.26 8.502 11.24H16.17l-5.214-6.817L4.99 21.75H1.68l7.73-8.835L1.254 2.25H8.08l4.713 6.231zm-1.161 17.52h1.833L7.084 4.126H5.117z"/>
-                                    </svg>
-                                    <span class="snarkflix-share-text">Twitter</span>
-                                </button>
-                                <button class="snarkflix-share-btn snarkflix-share-facebook" data-review-id="${review.id}" title="Share on Facebook">
-                                    <svg class="snarkflix-share-icon" viewBox="0 0 24 24" fill="currentColor">
-                                        <path d="M24 12.073c0-6.627-5.373-12-12-12s-12 5.373-12 12c0 5.99 4.388 10.954 10.125 11.854v-8.385H7.078v-3.47h3.047V9.43c0-3.007 1.792-4.669 4.533-4.669 1.312 0 2.686.235 2.686.235v2.953H15.83c-1.491 0-1.956.925-1.956 1.874v2.25h3.328l-.532 3.47h-2.796v8.385C19.612 23.027 24 18.062 24 12.073z"/>
-                                    </svg>
-                                    <span class="snarkflix-share-text">Facebook</span>
-                                </button>
-                                <button class="snarkflix-share-btn snarkflix-share-copy" data-review-id="${review.id}" title="Copy link">
-                                    <svg class="snarkflix-share-icon" viewBox="0 0 24 24" fill="currentColor">
-                                        <path d="M16 1H4c-1.1 0-2 .9-2 2v14h2V3h12V1zm3 4H8c-1.1 0-2 .9-2 2v14c0 1.1.9 2 2 2h11c1.1 0 2-.9 2-2V7c0-1.1-.9-2-2-2zm0 16H8V7h11v14z"/>
-                                    </svg>
-                                    <span class="snarkflix-share-text">Copy Link</span>
-                                </button>
+                                ${shareButtonsHTML(review.id, true)}
                             </div>
                         </div>
                         
@@ -1131,65 +1070,74 @@ function createReviewContentHTML(review) {
     `;
 }
 
+// Creates a minimal review card for the Related Reviews section.
+// Shares structure with createReviewElement but omits share buttons
+// (not needed on the review page itself).
+function createRelatedReviewCard(review) {
+    const card = document.createElement('article');
+    card.className = 'snarkflix-review-card';
+    card.setAttribute('data-category', review.category);
+    card.setAttribute('tabindex', '0');
+    card.setAttribute('role', 'article');
+    card.setAttribute('aria-label', `Review of ${review.title}`);
+
+    card.innerHTML = `
+        <div class="snarkflix-review-image">
+            ${createResponsiveImage(review.imageUrl, `${review.title} movie poster`, 'lazy')}
+        </div>
+        <div class="snarkflix-review-content">
+            <h3 class="snarkflix-review-title">${review.title}</h3>
+            <div class="snarkflix-review-meta">
+                <span class="snarkflix-review-date">${review.publishDate}</span>
+                <div class="snarkflix-review-meta-badges">
+                    <span class="snarkflix-review-duration">${review.readingDuration}</span>
+                    <span class="snarkflix-review-score ${getScoreClass(review.aiScore)}">SnarkAI: ${review.aiScore}/100</span>
+                </div>
+            </div>
+            <p class="snarkflix-review-summary">${review.aiSummary}</p>
+            <p class="snarkflix-review-tagline">"${review.tagline}"</p>
+        </div>
+    `;
+
+    card.addEventListener('click', () => navigateToReview(review.id));
+    card.addEventListener('keydown', (e) => {
+        if (e.key === 'Enter' || e.key === ' ') {
+            e.preventDefault();
+            navigateToReview(review.id);
+        }
+    });
+
+    const img = card.querySelector('img');
+    if (img) {
+        img.addEventListener('load', () => handleImageLoad(img));
+        img.addEventListener('error', () => handleImageError(img));
+    }
+
+    return card;
+}
+
 function loadRelatedReviews(currentReview) {
     const relatedGrid = document.getElementById('related-reviews-grid');
     const categoryLinksSection = document.getElementById('category-links-section');
-    
+
     if (!relatedGrid) return;
-    
+
     // Get reviews from same category first, then others
     const sameCategoryReviews = snarkflixReviews
         .filter(r => r.id !== currentReview.id && r.category === currentReview.category)
-        .sort((a, b) => {
-            const dateA = new Date(a.publishDate);
-            const dateB = new Date(b.publishDate);
-            return dateB - dateA;
-        })
+        .slice().sort((a, b) => new Date(b.publishDate) - new Date(a.publishDate))
         .slice(0, 2);
-    
+
     // Get other recent reviews to fill up to 3
     const otherReviews = snarkflixReviews
         .filter(r => r.id !== currentReview.id && r.category !== currentReview.category)
-        .sort((a, b) => {
-            const dateA = new Date(a.publishDate);
-            const dateB = new Date(b.publishDate);
-            return dateB - dateA;
-        })
+        .slice().sort((a, b) => new Date(b.publishDate) - new Date(a.publishDate))
         .slice(0, 3 - sameCategoryReviews.length);
-    
+
     const relatedReviews = [...sameCategoryReviews, ...otherReviews];
-    
+
     relatedReviews.forEach(relatedReview => {
-        const reviewCard = document.createElement('article');
-        reviewCard.className = 'snarkflix-review-card';
-        reviewCard.setAttribute('data-category', relatedReview.category);
-        reviewCard.setAttribute('tabindex', '0');
-        reviewCard.setAttribute('role', 'article');
-        reviewCard.setAttribute('aria-label', `Review of ${relatedReview.title}`);
-        
-        reviewCard.innerHTML = `
-            <div class="snarkflix-review-image">
-                ${createResponsiveImage(relatedReview.imageUrl, `${relatedReview.title} movie poster`, 'lazy')}
-            </div>
-            <div class="snarkflix-review-content">
-                <h3 class="snarkflix-review-title">${relatedReview.title}</h3>
-                <div class="snarkflix-review-meta">
-                    <span class="snarkflix-review-date">${relatedReview.publishDate}</span>
-                    <div class="snarkflix-review-meta-badges">
-                        <span class="snarkflix-review-duration">${relatedReview.readingDuration}</span>
-                        <span class="snarkflix-review-score">SnarkAI: ${relatedReview.aiScore}/100</span>
-                    </div>
-                </div>
-                <p class="snarkflix-review-summary">${relatedReview.aiSummary}</p>
-                <p class="snarkflix-review-tagline">"${relatedReview.tagline}"</p>
-            </div>
-        `;
-        
-        reviewCard.addEventListener('click', () => {
-            createReviewPage(relatedReview);
-        });
-        
-        relatedGrid.appendChild(reviewCard);
+        relatedGrid.appendChild(createRelatedReviewCard(relatedReview));
     });
     
     // Add category links section
@@ -1604,12 +1552,41 @@ function showEmptyState(container, searchTerm, category, scoreFilter, yearFilter
         <h3 class="snarkflix-empty-state-title">${title}</h3>
         <p class="snarkflix-empty-state-message">${message}</p>
         <div class="snarkflix-empty-state-actions">
-            ${searchTerm ? `<button class="snarkflix-btn snarkflix-btn-outline" onclick="document.getElementById('search-input').value = ''; document.getElementById('search-input').dispatchEvent(new Event('input', { bubbles: true }));">Clear Search</button>` : ''}
-            ${category && category !== 'all' ? `<button class="snarkflix-btn snarkflix-btn-outline" onclick="document.querySelectorAll('.snarkflix-category-card').forEach(c => c.classList.remove('snarkflix-category-active')); document.querySelector('.snarkflix-category-card[data-category=\"all\"]')?.classList.add('snarkflix-category-active'); loadReviews(1, 'all', '', currentSort, '', '').catch(() => {});">View All Categories</button>` : ''}
-            ${scoreFilter || yearFilter ? `<button class="snarkflix-btn snarkflix-btn-outline" onclick="document.getElementById('filter-score').value = ''; document.getElementById('filter-year').value = ''; document.getElementById('filter-score').dispatchEvent(new Event('change', { bubbles: true }));">Clear Filters</button>` : ''}
+            ${searchTerm ? `<button class="snarkflix-btn snarkflix-btn-outline" data-action="clear-search">Clear Search</button>` : ''}
+            ${category && category !== 'all' ? `<button class="snarkflix-btn snarkflix-btn-outline" data-action="all-categories">View All Categories</button>` : ''}
+            ${scoreFilter || yearFilter ? `<button class="snarkflix-btn snarkflix-btn-outline" data-action="clear-filters">Clear Filters</button>` : ''}
         </div>
     `;
-    
+
+    const clearSearchBtn = emptyState.querySelector('[data-action="clear-search"]');
+    if (clearSearchBtn) {
+        clearSearchBtn.addEventListener('click', () => {
+            const input = document.getElementById('search-input');
+            if (input) {
+                input.value = '';
+                input.dispatchEvent(new Event('input', { bubbles: true }));
+            }
+        });
+    }
+    const allCategoriesBtn = emptyState.querySelector('[data-action="all-categories"]');
+    if (allCategoriesBtn) {
+        allCategoriesBtn.addEventListener('click', () => {
+            document.querySelectorAll('.snarkflix-category-card').forEach(c => c.classList.remove('snarkflix-category-active'));
+            document.querySelector('.snarkflix-category-card[data-category="all"]')?.classList.add('snarkflix-category-active');
+            loadReviews(1, 'all', '', currentSort, '', '').catch(() => {});
+        });
+    }
+    const clearFiltersBtn = emptyState.querySelector('[data-action="clear-filters"]');
+    if (clearFiltersBtn) {
+        clearFiltersBtn.addEventListener('click', () => {
+            const scoreEl = document.getElementById('filter-score');
+            const yearEl = document.getElementById('filter-year');
+            if (scoreEl) scoreEl.value = '';
+            if (yearEl) yearEl.value = '';
+            if (scoreEl) scoreEl.dispatchEvent(new Event('change', { bubbles: true }));
+        });
+    }
+
     container.appendChild(emptyState);
 }
 
@@ -1773,7 +1750,8 @@ function setupSearch() {
 }
 
 function highlightMatch(text, term) {
-    const regex = new RegExp(`(${term})`, 'gi');
+    const escaped = term.replace(/[.*+?^${}()|[\]\\]/g, '\\$&');
+    const regex = new RegExp(`(${escaped})`, 'gi');
     return text.replace(regex, '<mark>$1</mark>');
 }
 
@@ -1853,7 +1831,7 @@ function setupBackToTop() {
     if (!backToTopBtn) return;
     
     window.addEventListener('scroll', () => {
-        if (window.pageYOffset > 300) {
+        if (window.scrollY > 300) {
             backToTopBtn.style.display = 'block';
         } else {
             backToTopBtn.style.display = 'none';
@@ -2101,12 +2079,13 @@ function handleFetchError(error, context = 'Unknown operation') {
         <div class="snarkflix-error-content">
             <h3>Oops! Something went wrong</h3>
             <p>We encountered an error while ${context.toLowerCase()}. Please try again.</p>
-            <button onclick="this.parentElement.parentElement.remove()" class="snarkflix-btn snarkflix-btn-primary">
+            <button class="snarkflix-btn snarkflix-btn-primary snarkflix-dismiss-btn">
                 Dismiss
             </button>
         </div>
     `;
-    
+    errorMessage.querySelector('.snarkflix-dismiss-btn').addEventListener('click', () => errorMessage.remove());
+
     // Add error message to page
     document.body.appendChild(errorMessage);
     
@@ -2127,11 +2106,12 @@ function handleReviewLoadError(error) {
             <div class="snarkflix-error-state">
                 <h3>Unable to load reviews</h3>
                 <p>We're having trouble loading the reviews. Please refresh the page or try again later.</p>
-                <button onclick="location.reload()" class="snarkflix-btn snarkflix-btn-primary">
+                <button class="snarkflix-btn snarkflix-btn-primary snarkflix-reload-btn">
                     Refresh Page
                 </button>
             </div>
         `;
+        reviewsGrid.querySelector('.snarkflix-reload-btn').addEventListener('click', () => location.reload());
     }
 }
 
@@ -2163,25 +2143,24 @@ window.addEventListener('unhandledrejection', (event) => {
 });
 
 
-// Update category counts based on actual review data
+// Update category counts based on actual review data, and hide categories with no reviews.
 function updateCategoryCounts() {
-    // Count reviews by category
     const categoryCounts = {};
     snarkflixReviews.forEach(review => {
-        const category = review.category;
-        categoryCounts[category] = (categoryCounts[category] || 0) + 1;
+        categoryCounts[review.category] = (categoryCounts[review.category] || 0) + 1;
     });
-    
-    // Update the category count displays
-    const categoryCards = document.querySelectorAll('.snarkflix-category-card');
-    categoryCards.forEach(card => {
+
+    document.querySelectorAll('.snarkflix-category-card').forEach(card => {
         const category = card.getAttribute('data-category');
+        const count = categoryCounts[category] || 0;
         const countElement = card.querySelector('.snarkflix-category-count');
-        
-        if (countElement && categoryCounts[category] !== undefined) {
-            const count = categoryCounts[category];
+
+        if (countElement) {
             countElement.textContent = `${count} post${count !== 1 ? 's' : ''}`;
         }
+
+        // Hide categories that have no reviews — they offer no value to the user
+        card.style.display = count > 0 ? '' : 'none';
     });
 }
 

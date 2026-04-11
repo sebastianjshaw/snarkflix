@@ -1,0 +1,452 @@
+<?xml version="1.0" encoding="utf-8"?>
+<feed xmlns="http://www.w3.org/2005/Atom">
+  <title>Snarkflix — film reviews</title>
+  <link href="https://snarkflix.com/feed.xml" rel="self" type="application/atom+xml"/>
+  <link href="https://snarkflix.com/" rel="alternate" type="text/html"/>
+  <id>https://snarkflix.com/feed.xml</id>
+  <updated>2026-04-11T12:00:00.000Z</updated>
+  <subtitle>First-person film reviews — British English.</subtitle>
+  <rights>© Snarkflix</rights>
+  <generator uri="https://snarkflix.com/">Snarkflix static generator</generator>
+  <entry>
+    <title>28 Years Later (2025)</title>
+    <link href="https://snarkflix.com/review/53" rel="alternate" type="text/html"/>
+    <id>https://snarkflix.com/review/53</id>
+    <updated>2026-04-11T12:00:00.000Z</updated>
+    <published>2026-04-11T12:00:00.000Z</published>
+    <author><name>Snarkflix</name></author>
+    <summary type="html">&lt;p&gt;tldr: A slow, bleak, deeply strange sequel that mistakes grimness for depth and a sociopathic child for a protagonist. Has some genuinely interesting ideas buried under poor pacing, characters you actively want to fail, and a plot driven entirely by people refusing to have basic conversations. The bone pyramid is unsettling, the tidal mechanics are wrong, and Spike should probably be in therapy.&lt;/p&gt; &lt;p&gt;&lt;small&gt;Theatrical release (approx.): 2025-06-20&lt;/small&gt;&lt;/p&gt;</summary>
+  </entry>
+  <entry>
+    <title>Sinners (2025)</title>
+    <link href="https://snarkflix.com/review/52" rel="alternate" type="text/html"/>
+    <id>https://snarkflix.com/review/52</id>
+    <updated>2026-03-22T12:00:00.000Z</updated>
+    <published>2026-03-22T12:00:00.000Z</published>
+    <author><name>Snarkflix</name></author>
+    <summary type="html">&lt;p&gt;tldr: Ryan Coogler&apos;s American Gothic is 10/10 on cinematography and score, and asks you to overlook significant logic holes in everything else. Two Michael B. Jordans sounds better than it plays — this is not a comedy — and the film takes far too long to get to the vampires it&apos;s been promising you. Once it does, Miss Annie is a standout, the atmosphere is genuinely excellent, and the Irish vampire leading choreographed dancing outside is a choice we all must sit with. The vampire ecology is not &lt;/p&gt; &lt;p&gt;&lt;small&gt;Theatrical release (approx.): 2025-07-01&lt;/small&gt;&lt;/p&gt;</summary>
+  </entry>
+  <entry>
+    <title>Good Boy (2025)</title>
+    <link href="https://snarkflix.com/review/51" rel="alternate" type="text/html"/>
+    <id>https://snarkflix.com/review/51</id>
+    <updated>2026-01-25T12:00:00.000Z</updated>
+    <published>2026-01-25T12:00:00.000Z</published>
+    <author><name>Snarkflix</name></author>
+    <summary type="html">&lt;p&gt;tldr: A slow, contained horror film that works almost entirely because its lead actor is a dog who behaves like a dog. Smart camera choices, genuinely unsettling moments, and one of the few horror films where the threat lands harder because the protagonist is not human. The metaphor wobbles, but the craft carries it.&lt;/p&gt; &lt;p&gt;&lt;small&gt;Theatrical release (approx.): 2025-07-01&lt;/small&gt;&lt;/p&gt;</summary>
+  </entry>
+  <entry>
+    <title>The Family Stone (2005)</title>
+    <link href="https://snarkflix.com/review/50" rel="alternate" type="text/html"/>
+    <id>https://snarkflix.com/review/50</id>
+    <updated>2025-12-25T12:00:00.000Z</updated>
+    <published>2025-12-25T12:00:00.000Z</published>
+    <author><name>Snarkflix</name></author>
+    <summary type="html">&lt;p&gt;tldr: A stacked cast, a rotten spine. What wants to be a warm liberal Christmas hug mostly plays like two hours of punching a socially awkward woman until she apologises for existing, then rewarding the man who betrayed her.&lt;/p&gt; &lt;p&gt;&lt;small&gt;Theatrical release (approx.): 2005-07-01&lt;/small&gt;&lt;/p&gt;</summary>
+  </entry>
+  <entry>
+    <title>The Holdovers (2023)</title>
+    <link href="https://snarkflix.com/review/49" rel="alternate" type="text/html"/>
+    <id>https://snarkflix.com/review/49</id>
+    <updated>2025-12-24T12:00:00.000Z</updated>
+    <published>2025-12-24T12:00:00.000Z</published>
+    <author><name>Snarkflix</name></author>
+    <summary type="html">&lt;p&gt;tldr: A grumpy classics teacher, a stranded student, and a grieving cafeteria manager form an unlikely Christmas truce. Nothing revolutionary, but sharply written, well acted, and emotionally honest. A comfort film with teeth.&lt;/p&gt; &lt;p&gt;&lt;small&gt;Theatrical release (approx.): 2023-07-01&lt;/small&gt;&lt;/p&gt;</summary>
+  </entry>
+  <entry>
+    <title>Care (2018)</title>
+    <link href="https://snarkflix.com/review/48" rel="alternate" type="text/html"/>
+    <id>https://snarkflix.com/review/48</id>
+    <updated>2025-11-05T12:00:00.000Z</updated>
+    <published>2025-11-05T12:00:00.000Z</published>
+    <author><name>Snarkflix</name></author>
+    <summary type="html">&lt;p&gt;tldr: A grimly precise, emotionally unsparing NHS horror story where the monster is bureaucracy, exhaustion, and not enough money. Quietly devastating. Uncomfortable in exactly the right ways.&lt;/p&gt; &lt;p&gt;&lt;small&gt;Theatrical release (approx.): 2018-07-01&lt;/small&gt;&lt;/p&gt;</summary>
+  </entry>
+  <entry>
+    <title>Thunderbolts (2025)</title>
+    <link href="https://snarkflix.com/review/47" rel="alternate" type="text/html"/>
+    <id>https://snarkflix.com/review/47</id>
+    <updated>2025-10-18T12:00:00.000Z</updated>
+    <published>2025-10-18T12:00:00.000Z</published>
+    <author><name>Snarkflix</name></author>
+    <summary type="html">&lt;p&gt;tldr: Thunderbolts is MCU group therapy where Florence Pugh crushes, Harbour hams, JLD does Selina with supervillains, and Lewis Pullman&apos;s Sentry turns clinical depression into a VFX cloud you can hug away. Smart zingers, samey punch-shoot action, messy third act, and a catastrophically bad decision to let Val brand them &quot;New Avengers.&quot; Not bad - just mid.&lt;/p&gt; &lt;p&gt;&lt;small&gt;Theatrical release (approx.): 2025-07-01&lt;/small&gt;&lt;/p&gt;</summary>
+  </entry>
+  <entry>
+    <title>Zootopia (2016)</title>
+    <link href="https://snarkflix.com/review/46" rel="alternate" type="text/html"/>
+    <id>https://snarkflix.com/review/46</id>
+    <updated>2025-10-09T12:00:00.000Z</updated>
+    <published>2025-10-09T12:00:00.000Z</published>
+    <author><name>Snarkflix</name></author>
+    <summary type="html">&lt;p&gt;tldr: A sharp, snarky takedown of Zootopia&apos;s mixed messaging - cute anti-bias veneer, copaganda core, essentialist gags, a marginalized villain scapegoat, and a militarized happy ending - wrapped in jokes and unanswered worldbuilding.&lt;/p&gt; &lt;p&gt;&lt;small&gt;Theatrical release (approx.): 2016-07-01&lt;/small&gt;&lt;/p&gt;</summary>
+  </entry>
+  <entry>
+    <title>KPop DemonHunters (2025)</title>
+    <link href="https://snarkflix.com/review/45" rel="alternate" type="text/html"/>
+    <id>https://snarkflix.com/review/45</id>
+    <updated>2025-10-07T12:00:00.000Z</updated>
+    <published>2025-10-07T12:00:00.000Z</published>
+    <author><name>Snarkflix</name></author>
+    <summary type="html">&lt;p&gt;tldr: A fun but flawed anime-musical hybrid that takes K-pop, demon hunting, and girl power and throws them in a blender. The 3D animation looks odd with 2D anime shortcuts, but the demon designs are great and the songs are genuinely catchy. Flirts with queer themes through gender-nonconforming demon boy bands and Rumi&apos;s shame about her markings, but never fully commits to the allegory. The middle drags with too much dithering over diss-track lyrics, and the finale still needs a man&apos;s sacrifice &lt;/p&gt; &lt;p&gt;&lt;small&gt;Theatrical release (approx.): 2025-07-01&lt;/small&gt;&lt;/p&gt;</summary>
+  </entry>
+  <entry>
+    <title>The Iron Giant (1999)</title>
+    <link href="https://snarkflix.com/review/43" rel="alternate" type="text/html"/>
+    <id>https://snarkflix.com/review/43</id>
+    <updated>2025-10-04T12:00:00.000Z</updated>
+    <published>2025-10-04T12:00:00.000Z</published>
+    <author><name>Snarkflix</name></author>
+    <summary type="html">&lt;p&gt;tldr: Brad Bird&apos;s masterpiece about a gun with a soul became the best Superman film ever made, despite WB executives trying to add Poochie and a hip-hop soundtrack. Born from personal trauma and Ted Hughes&apos;s grief over Sylvia Plath&apos;s suicide, this low-budget battle against merchandising gave us one of animation&apos;s most emotional moments. Features a child unfortunately named Hogarth, a beatnik junk artist whose soul patch does all the work, and an FBI agent who commits multiple crimes yet still ge&lt;/p&gt; &lt;p&gt;&lt;small&gt;Theatrical release (approx.): 1999-07-01&lt;/small&gt;&lt;/p&gt;</summary>
+  </entry>
+  <entry>
+    <title>Palm Springs (2020)</title>
+    <link href="https://snarkflix.com/review/42" rel="alternate" type="text/html"/>
+    <id>https://snarkflix.com/review/42</id>
+    <updated>2025-10-02T12:00:00.000Z</updated>
+    <published>2025-10-02T12:00:00.000Z</published>
+    <author><name>Snarkflix</name></author>
+    <summary type="html">&lt;p&gt;tldr: Andy Samberg and Cristin Milioti breathe fresh life into the incredibly overplayed time-loop concept with surprising charm and chemistry. Despite being yet another Groundhog Day riff (seriously, every show has done this), it manages to find genuine moments between the expected genre beats. Features the most genre-savvy protagonist ever (&apos;one of those infinite time loops you may have heard about&apos;), dinosaurs on shrooms, and a physics-obsessed Sarah who literally learns quantum mechanics to &lt;/p&gt; &lt;p&gt;&lt;small&gt;Theatrical release (approx.): 2020-07-01&lt;/small&gt;&lt;/p&gt;</summary>
+  </entry>
+  <entry>
+    <title>Fantastic Four: First Steps (2025)</title>
+    <link href="https://snarkflix.com/review/31" rel="alternate" type="text/html"/>
+    <id>https://snarkflix.com/review/31</id>
+    <updated>2025-09-28T12:00:00.000Z</updated>
+    <published>2025-09-28T12:00:00.000Z</published>
+    <author><name>Snarkflix</name></author>
+    <summary type="html">&lt;p&gt;Retro-futurist flair, clever worldbuilding, and the best-looking Thing ever put on screen make this FF outing the first one that actually feels worthy of the name. Reed is written perfectly - brilliant, insufferable, and just creepy enough to remind us why body-horror stretching should be part of the package - though his actual powers are undercooked. Sue finally gets her due, from ultrasound scans to smart stealth tactics, even if the &quot;mama bear&quot; boost is cliché. Johnny&apos;s downgrade to &quot;ugly but&lt;/p&gt; &lt;p&gt;&lt;small&gt;Theatrical release (approx.): 2025-07-01&lt;/small&gt;&lt;/p&gt;</summary>
+  </entry>
+  <entry>
+    <title>Superman (2025)</title>
+    <link href="https://snarkflix.com/review/1" rel="alternate" type="text/html"/>
+    <id>https://snarkflix.com/review/1</id>
+    <updated>2025-08-01T12:00:00.000Z</updated>
+    <published>2025-08-01T12:00:00.000Z</published>
+    <author><name>Snarkflix</name></author>
+    <summary type="html">&lt;p&gt;tldr: James Gunn finally gives us the hopeful Superman we&apos;ve been waiting decades for, complete with snarky Lois pinning Clark to walls and Lex&apos;s storage unit of people who&apos;ve slighted him (chef&apos;s kiss). Though it lacks Snyder&apos;s visual beauty, it more than makes up for it by getting the tone right. Bonus points for the hilariously awkward ICE arrest scene and that accidental Israel-Palestine allegory Gunn insists is just a weird coincidence.&lt;/p&gt; &lt;p&gt;&lt;small&gt;Theatrical release (approx.): 2025-07-11&lt;/small&gt;&lt;/p&gt;</summary>
+  </entry>
+  <entry>
+    <title>The Boy and the Heron (2023)</title>
+    <link href="https://snarkflix.com/review/4" rel="alternate" type="text/html"/>
+    <id>https://snarkflix.com/review/4</id>
+    <updated>2024-11-30T12:00:00.000Z</updated>
+    <published>2024-11-30T12:00:00.000Z</published>
+    <author><name>Snarkflix</name></author>
+    <summary type="html">&lt;p&gt;tldr: Miyazaki&apos;s latest retirement-unretirement project is peak Miyazaki weirdness: war orphans, morally questionable dads hooking up with dead wives&apos; sisters, and potato-faced old women who apparently undergo &apos;monumental transformations&apos; at retirement age. The animation&apos;s gorgeous but starting to feel dated next to Demon Slayer. The unhinged plot twist of &apos;I&apos;m going to be your new mother from now on. Sound good?&apos; said to a war orphan is wild even by Ghibli standards. The English dub&apos;s A-list ca&lt;/p&gt; &lt;p&gt;&lt;small&gt;Theatrical release (approx.): 2023-07-01&lt;/small&gt;&lt;/p&gt;</summary>
+  </entry>
+  <entry>
+    <title>The Man from Earth (2007)</title>
+    <link href="https://snarkflix.com/review/5" rel="alternate" type="text/html"/>
+    <id>https://snarkflix.com/review/5</id>
+    <updated>2024-11-30T12:00:00.000Z</updated>
+    <published>2024-11-30T12:00:00.000Z</published>
+    <author><name>Snarkflix</name></author>
+    <summary type="html">&lt;p&gt;tldr: This movie is a low-budget, high-concept gem where all the action happens in one dude&apos;s house. John Oldman casually drops a bombshell to his friends: he&apos;s a 14,000-year-old Cro-Magnon who&apos;s hung out with history&apos;s VIPs, from Buddha to Van Gogh, and - plot twist - claims to have inspired Jesus. The group debates whether he&apos;s a fraud or the real deal, but the story stays just convincing enough to mess with your head. No flashy effects here, just one actor absolutely carrying the film. The en&lt;/p&gt; &lt;p&gt;&lt;small&gt;Theatrical release (approx.): 2007-07-01&lt;/small&gt;&lt;/p&gt;</summary>
+  </entry>
+  <entry>
+    <title>Goncharov (1973)</title>
+    <link href="https://snarkflix.com/review/44" rel="alternate" type="text/html"/>
+    <id>https://snarkflix.com/review/44</id>
+    <updated>2024-08-15T12:00:00.000Z</updated>
+    <published>2024-08-15T12:00:00.000Z</published>
+    <author><name>Snarkflix</name></author>
+    <summary type="html">&lt;p&gt;tldr: Scorsese&apos;s coldest, most controlled work. A study in loyalty, desire, and the slow death of idealism disguised as a mafia film. Every clock ticks toward ruin, and every look carries a secret.&lt;/p&gt; &lt;p&gt;&lt;small&gt;Theatrical release (approx.): 1973-07-01&lt;/small&gt;&lt;/p&gt;</summary>
+  </entry>
+  <entry>
+    <title>Wonka (2023)</title>
+    <link href="https://snarkflix.com/review/6" rel="alternate" type="text/html"/>
+    <id>https://snarkflix.com/review/6</id>
+    <updated>2024-02-09T12:00:00.000Z</updated>
+    <published>2024-02-09T12:00:00.000Z</published>
+    <author><name>Snarkflix</name></author>
+    <summary type="html">&lt;p&gt;tldr: The Willy Wonka origin story no one asked for, starring Chalamet as a naive child who lacks Wilder&apos;s chaotic energy or Depp&apos;s unpredictability. Without his Factory&apos;s magic and danger, Wonka comes across as deranged rather than enchanting. The film can&apos;t commit to comedy or dark drama, the music is lazy (Moodle to rhyme with Noodle?), and Chalamet&apos;s Pure Imagination rendition misses the mark. A stronger Wonka would have brought the tension this film desperately needed.&lt;/p&gt; &lt;p&gt;&lt;small&gt;Theatrical release (approx.): 2023-07-01&lt;/small&gt;&lt;/p&gt;</summary>
+  </entry>
+  <entry>
+    <title>The Marvels (2023)</title>
+    <link href="https://snarkflix.com/review/7" rel="alternate" type="text/html"/>
+    <id>https://snarkflix.com/review/7</id>
+    <updated>2024-02-03T12:00:00.000Z</updated>
+    <published>2024-02-03T12:00:00.000Z</published>
+    <author><name>Snarkflix</name></author>
+    <summary type="html">&lt;p&gt;tldr: &quot;The Marvels&quot; is like a cosmic joyride with a few flat tires along the way. Iman Vellani&apos;s Kamala Khan brings a nerdy enthusiasm that&apos;s as refreshing as finding an untouched slice of pizza the morning after a party. Monica&apos;s superhero landing needs work, and the Skrull sympathy play feels like trying to hug a cactus. The CGI swings from &quot;meh&quot; to &quot;passable,&quot; with a side of cat-rescue missions that make you question your life choices. Clocking in at a merciful 1h45m, &quot;The Marvels&quot; manages to&lt;/p&gt; &lt;p&gt;&lt;small&gt;Theatrical release (approx.): 2023-07-01&lt;/small&gt;&lt;/p&gt;</summary>
+  </entry>
+  <entry>
+    <title>Wicked (2024)</title>
+    <link href="https://snarkflix.com/review/2" rel="alternate" type="text/html"/>
+    <id>https://snarkflix.com/review/2</id>
+    <updated>2024-01-02T12:00:00.000Z</updated>
+    <published>2024-01-02T12:00:00.000Z</published>
+    <author><name>Snarkflix</name></author>
+    <summary type="html">&lt;p&gt;tldr: There&apos;s magic in Wicked, but it&apos;s buried under layers of inconsistent tone, pacing issues, and a runtime that feels as long as the Yellow Brick Road. Die-hard fans of the musical will find much to love - especially the musical numbers - but casual viewers might find themselves checking the clock.&lt;/p&gt; &lt;p&gt;&lt;small&gt;Theatrical release (approx.): 2024-07-01&lt;/small&gt;&lt;/p&gt;</summary>
+  </entry>
+  <entry>
+    <title>To Me, the One Who Loved You (2022)</title>
+    <link href="https://snarkflix.com/review/8" rel="alternate" type="text/html"/>
+    <id>https://snarkflix.com/review/8</id>
+    <updated>2023-05-23T12:00:00.000Z</updated>
+    <published>2023-05-23T12:00:00.000Z</published>
+    <author><name>Snarkflix</name></author>
+    <summary type="html">&lt;p&gt;tldr: Welcome back, time-travelers, for another round of the Koyomi Takasaki multiverse lottery! If you&apos;ve already consumed the blue pill, I mean, film, prepare yourself for the pink version of this animated trip. It&apos;s like trying to solve a jigsaw puzzle where the pieces constantly change, and the rules are written in &apos;pseudo-scientific&apos; gobbledegook. Dad&apos;s house and the Imaginary Sciences Research Institute prove a slightly less enticing setting than the run-down mansion of movie one. But hey,&lt;/p&gt; &lt;p&gt;&lt;small&gt;Theatrical release (approx.): 2022-07-01&lt;/small&gt;&lt;/p&gt;</summary>
+  </entry>
+  <entry>
+    <title>To Every You I&apos;ve Loved Before (2022)</title>
+    <link href="https://snarkflix.com/review/9" rel="alternate" type="text/html"/>
+    <id>https://snarkflix.com/review/9</id>
+    <updated>2023-05-23T12:00:00.000Z</updated>
+    <published>2023-05-23T12:00:00.000Z</published>
+    <author><name>Snarkflix</name></author>
+    <summary type="html">&lt;p&gt;tldr: Alternate reality anime films for the multitaskers, mind-benders, and time-twisters among us. Bring your own navigation system and sense of humor as you embark on a journey through different timelines with Koyomi Takasaki, a teenager who&apos;s got more forks in his life road than a utensil drawer. It&apos;s a surround sound extravaganza with animation as wobbly as a drunken Picasso, but its quirky charm and concept might just reel you in. Watch if you&apos;re up for a filmic version of a Rubik&apos;s cube or&lt;/p&gt; &lt;p&gt;&lt;small&gt;Theatrical release (approx.): 2022-07-01&lt;/small&gt;&lt;/p&gt;</summary>
+  </entry>
+  <entry>
+    <title>The Super Mario Bros. Movie (2023)</title>
+    <link href="https://snarkflix.com/review/10" rel="alternate" type="text/html"/>
+    <id>https://snarkflix.com/review/10</id>
+    <updated>2023-05-21T12:00:00.000Z</updated>
+    <published>2023-05-21T12:00:00.000Z</published>
+    <author><name>Snarkflix</name></author>
+    <summary type="html">&lt;p&gt;tldr: A 90-minute Nintendo advert disguised as a film, complete with pudgy white men with scraggly beards doing terrible Italian accents for exactly 20 seconds. The animation&apos;s mediocre (I&apos;ve played video games with better renders), and Peach&apos;s narcissistic throne under a massive stained glass picture of herself is hilariously on-brand. Features the best character: the cheery, insane blue flame who screams &apos;There&apos;s no sunshine, only Darkness!&apos; Kids&apos;ll love it because it&apos;s loud and colourful, but&lt;/p&gt; &lt;p&gt;&lt;small&gt;Theatrical release (approx.): 2023-07-01&lt;/small&gt;&lt;/p&gt;</summary>
+  </entry>
+  <entry>
+    <title>Prey (2022)</title>
+    <link href="https://snarkflix.com/review/11" rel="alternate" type="text/html"/>
+    <id>https://snarkflix.com/review/11</id>
+    <updated>2023-05-07T12:00:00.000Z</updated>
+    <published>2023-05-07T12:00:00.000Z</published>
+    <author><name>Snarkflix</name></author>
+    <summary type="html">&lt;p&gt;tldr: Finally, a Predator movie that doesn&apos;t suffer from the Worf Effect! Naru carries the entire film while everyone else is forgettable (except Coco, the authentic canine actor who&apos;s not trained at all). The landscapes are gorgeous, the action&apos;s tense, and we get the most realistic dog performance ever (he wanders off camera and grins). Sure, the Predator&apos;s carrying the idiot ball at the end, but it&apos;s a solid horror/action flick that actually makes you root for the human.&lt;/p&gt; &lt;p&gt;&lt;small&gt;Theatrical release (approx.): 2022-07-01&lt;/small&gt;&lt;/p&gt;</summary>
+  </entry>
+  <entry>
+    <title>The Royal Tenenbaums (2001)</title>
+    <link href="https://snarkflix.com/review/12" rel="alternate" type="text/html"/>
+    <id>https://snarkflix.com/review/12</id>
+    <updated>2023-05-01T12:00:00.000Z</updated>
+    <published>2023-05-01T12:00:00.000Z</published>
+    <author><name>Snarkflix</name></author>
+    <summary type="html">&lt;p&gt;tldr: Not the parodic self-parody Wes Anderson has become — the symmetry and pastel colours are a subtle thread rather than the whole tapestry. Set in a New York permanently frozen in the 1970s, it follows a family of prodigies in various states of collapse: a playwright, a tennis star, a business genius, and one neighbour without the immunity their royalty provides. The cast is outstanding — Hackman channelling Lex Luthor, Paltrow before she discovered alkaline water and steamed vaginas, Anjeli&lt;/p&gt; &lt;p&gt;&lt;small&gt;Theatrical release (approx.): 2001-07-01&lt;/small&gt;&lt;/p&gt;</summary>
+  </entry>
+  <entry>
+    <title>Cocaine Bear (2023)</title>
+    <link href="https://snarkflix.com/review/13" rel="alternate" type="text/html"/>
+    <id>https://snarkflix.com/review/13</id>
+    <updated>2023-04-26T12:00:00.000Z</updated>
+    <published>2023-04-26T12:00:00.000Z</published>
+    <author><name>Snarkflix</name></author>
+    <summary type="html">&lt;p&gt;tldr: It&apos;s a movie about a bear doing cocaine based on &apos;True Events&apos; - that&apos;s all you need to know. The bear is hilariously ineffective (you could outdistance him at a brisk walk), ambulance crews get eaten, and there&apos;s a detective with a fancy dog instead of a &apos;man&apos;s best friend&apos; type. The line drawings are genuinely beautiful, but everything else is gloriously stupid. If you&apos;ve got 90 minutes to kill and want to turn your brain off, give it a go.&lt;/p&gt; &lt;p&gt;&lt;small&gt;Theatrical release (approx.): 2023-07-01&lt;/small&gt;&lt;/p&gt;</summary>
+  </entry>
+  <entry>
+    <title>The Whale (2022)</title>
+    <link href="https://snarkflix.com/review/14" rel="alternate" type="text/html"/>
+    <id>https://snarkflix.com/review/14</id>
+    <updated>2023-04-23T12:00:00.000Z</updated>
+    <published>2023-04-23T12:00:00.000Z</published>
+    <author><name>Snarkflix</name></author>
+    <summary type="html">&lt;p&gt;tldr: Darren Aronofsky really wanted that Oscar, and Fraser deserved it. Charlie&apos;s trapped in his own body and guilt, eating buckets of fried chicken while his nurse leans her head on him (questionable hygiene choices). The scene of Charlie cramming food into his face until he&apos;s sick and weeping is deeply uncomfortable. The Mormon missionary&apos;s &apos;I find you disgusting&apos; moment hits like a truck. It&apos;s claustrophobic, uncomfortable, and absolutely devastating. A- rating, though you won&apos;t be able to e&lt;/p&gt; &lt;p&gt;&lt;small&gt;Theatrical release (approx.): 2022-07-01&lt;/small&gt;&lt;/p&gt;</summary>
+  </entry>
+  <entry>
+    <title>Dungeons &amp; Dragons: Honour Amongst Thieves (2023)</title>
+    <link href="https://snarkflix.com/review/15" rel="alternate" type="text/html"/>
+    <id>https://snarkflix.com/review/15</id>
+    <updated>2023-04-16T12:00:00.000Z</updated>
+    <published>2023-04-16T12:00:00.000Z</published>
+    <author><name>Snarkflix</name></author>
+    <summary type="html">&lt;p&gt;tldr: Natural 20/10 - this is literally a D&amp;D campaign come to life, complete with random scenery changes, consistently failing plans, and reliance on random objects to solve problems. The Paladin walks over rocks instead of around them (peak Paladin behavior), and we get the first Chekov&apos;s Balloon in cinema history. Features every D&amp;D creature you want: Displacer Beasts, Gelatinous Cubes, Mimics, and of course Elminster shows up because it&apos;s not a Forgotten Realms adventure without that old med&lt;/p&gt; &lt;p&gt;&lt;small&gt;Theatrical release (approx.): 2023-07-01&lt;/small&gt;&lt;/p&gt;</summary>
+  </entry>
+  <entry>
+    <title>Winnie the Pooh: Blood and Honey (2023)</title>
+    <link href="https://snarkflix.com/review/16" rel="alternate" type="text/html"/>
+    <id>https://snarkflix.com/review/16</id>
+    <updated>2023-04-15T12:00:00.000Z</updated>
+    <published>2023-04-15T12:00:00.000Z</published>
+    <author><name>Snarkflix</name></author>
+    <summary type="html">&lt;p&gt;tldr: Someone took Winnie the Pooh entering public domain and ran with it in all the wrong directions. The bear is hilariously ineffective (looks like an overweight furry you could outdistance at a brisk walk), characters make the dumbest decisions possible, and there&apos;s a complete lack of ending (they just ran out of money or battery life). The line drawings are genuinely beautiful, but everything else is so stupid it&apos;s not even &apos;so bad it&apos;s good&apos; territory. Don&apos;t bother.&lt;/p&gt; &lt;p&gt;&lt;small&gt;Theatrical release (approx.): 2023-07-01&lt;/small&gt;&lt;/p&gt;</summary>
+  </entry>
+  <entry>
+    <title>Pinocchio (2022)</title>
+    <link href="https://snarkflix.com/review/17" rel="alternate" type="text/html"/>
+    <id>https://snarkflix.com/review/17</id>
+    <updated>2023-04-07T12:00:00.000Z</updated>
+    <published>2023-04-07T12:00:00.000Z</published>
+    <author><name>Snarkflix</name></author>
+    <summary type="html">&lt;p&gt;tldr: Del Toro&apos;s Pinocchio is set in Mussolini&apos;s Italy, features zombie rabbits, a terrifying four-winged Guardian with a thousand eyes, a circus master who looks like Wolverine, and a wooden boy who cannot die — just respawns in the land of the dead, spending more time there with each death until the suns burn out. It looks aimed at kids but is dark, odd and deeply mature. The puppets are beautiful, the autopsy scene is genuinely great (&apos;It&apos;s always been rigid, he&apos;s made of wood!&apos;), and Pinocch&lt;/p&gt; &lt;p&gt;&lt;small&gt;Theatrical release (approx.): 2022-07-01&lt;/small&gt;&lt;/p&gt;</summary>
+  </entry>
+  <entry>
+    <title>Avatar: The Way of Water (2022)</title>
+    <link href="https://snarkflix.com/review/18" rel="alternate" type="text/html"/>
+    <id>https://snarkflix.com/review/18</id>
+    <updated>2023-04-02T12:00:00.000Z</updated>
+    <published>2023-04-02T12:00:00.000Z</published>
+    <author><name>Snarkflix</name></author>
+    <summary type="html">&lt;p&gt;tldr: Reviewer stopped twice — once for a walk, once to play GTA — before finishing this three-hour film the next day. Sully turned racist almost immediately despite technically still being human (&apos;basically a feral cat&apos; about the one human child on the planet). The magic whale brain juice motivating the entire third act is pointless in a civilisation that already mastered immortality through flawless cloning. The long underwater sequences were designed for IMAX 3D; on a regular TV they are pain&lt;/p&gt; &lt;p&gt;&lt;small&gt;Theatrical release (approx.): 2022-07-01&lt;/small&gt;&lt;/p&gt;</summary>
+  </entry>
+  <entry>
+    <title>M3GAN (2023)</title>
+    <link href="https://snarkflix.com/review/19" rel="alternate" type="text/html"/>
+    <id>https://snarkflix.com/review/19</id>
+    <updated>2023-03-27T12:00:00.000Z</updated>
+    <published>2023-03-27T12:00:00.000Z</published>
+    <author><name>Snarkflix</name></author>
+    <summary type="html">&lt;p&gt;tldr: A killer robot child&apos;s toy that could pass the Turing test, diagnose learning disabilities, hack all cell phones, survive being torn in half, and costs $10,000 — less than a Tesla. The scientist who built her explicitly knew she hadn&apos;t done &apos;any of the proper protocols&apos; but shipped anyway because a businessman set an arbitrary waterfall deadline. M3GAN breaks into Disney songs, sits in the dark playing piano creepily, and tortures her victims with a complexity that suggests malice rather t&lt;/p&gt; &lt;p&gt;&lt;small&gt;Theatrical release (approx.): 2023-07-01&lt;/small&gt;&lt;/p&gt;</summary>
+  </entry>
+  <entry>
+    <title>Shazam! Fury of the Gods (2023)</title>
+    <link href="https://snarkflix.com/review/20" rel="alternate" type="text/html"/>
+    <id>https://snarkflix.com/review/20</id>
+    <updated>2023-03-18T12:00:00.000Z</updated>
+    <published>2023-03-18T12:00:00.000Z</published>
+    <author><name>Snarkflix</name></author>
+    <summary type="html">&lt;p&gt;tldr: Better than Black Adam — which is a low bar given the Rock&apos;s ego — and genuinely fun in a way DC films almost never manage. The Marvel Family actually seem to enjoy each other, Freddie steals every scene, and the dragon and realm of the gods are straight from Skyrim, yet another medium Todd&apos;s had us pay for Skyrim in. Worse than the first Shazam!, full of clichés, more than a bit incoherent, and the Wonder Woman cameo feels bolted on by someone who knew the DCEU was ending. A refreshing ch&lt;/p&gt; &lt;p&gt;&lt;small&gt;Theatrical release (approx.): 2023-07-01&lt;/small&gt;&lt;/p&gt;</summary>
+  </entry>
+  <entry>
+    <title>Black Panther: Wakanda Forever (2022)</title>
+    <link href="https://snarkflix.com/review/21" rel="alternate" type="text/html"/>
+    <id>https://snarkflix.com/review/21</id>
+    <updated>2023-02-05T12:00:00.000Z</updated>
+    <published>2023-02-05T12:00:00.000Z</published>
+    <author><name>Snarkflix</name></author>
+    <summary type="html">&lt;p&gt;tldr: Killmonger&apos;s Still Right, and with Namor&apos;s underwater Mayan kingdom now revealed, we have a second ultra-powered nation that watched colonisation happen and chose not to stop it. Namor is the wrong character — too yielding, can&apos;t pronounce his own name, kept the silly ankle wings but changed everything else. M&apos;Baku remains the best character in any MCU film. Michaela Coel is criminally underused. Shuri&apos;s AI dismissal (&apos;it&apos;s not like the movies, Mother&apos;) is the dumbest line in a film set in&lt;/p&gt; &lt;p&gt;&lt;small&gt;Theatrical release (approx.): 2022-07-01&lt;/small&gt;&lt;/p&gt;</summary>
+  </entry>
+  <entry>
+    <title>Black Adam (2022)</title>
+    <link href="https://snarkflix.com/review/22" rel="alternate" type="text/html"/>
+    <id>https://snarkflix.com/review/22</id>
+    <updated>2022-11-23T12:00:00.000Z</updated>
+    <published>2022-11-23T12:00:00.000Z</published>
+    <author><name>Snarkflix</name></author>
+    <summary type="html">&lt;p&gt;A visually impressive but narratively broken superhero film that squanders its strong cast and compelling source material. The Rock&apos;s ego-driven changes to Black Adam&apos;s character fundamentally undermine the story, while the plot&apos;s logic collapses under scrutiny. Despite good performances and world-building, the film&apos;s tonal inconsistencies and poor scripting make it a frustrating missed opportunity.&lt;/p&gt; &lt;p&gt;&lt;small&gt;Theatrical release (approx.): 2022-07-01&lt;/small&gt;&lt;/p&gt;</summary>
+  </entry>
+  <entry>
+    <title>The Suicide Squad (2021)</title>
+    <link href="https://snarkflix.com/review/23" rel="alternate" type="text/html"/>
+    <id>https://snarkflix.com/review/23</id>
+    <updated>2022-08-07T12:00:00.000Z</updated>
+    <published>2022-08-07T12:00:00.000Z</published>
+    <author><name>Snarkflix</name></author>
+    <summary type="html">&lt;p&gt;tldr: A thousand times better than the 2016 Suicide Squad, which is a very low bar. King Shark looks worse than in the Flash TV show. Elba is better than Smith as this archetype, though it&apos;s a shame he keeps taking dubious superhero roles. Harley Quinn has a very weird moral code about kids for someone who has killed thousands, and the film can&apos;t quite decide if she&apos;s a protagonist or a punchline — same issue as the Rock&apos;s Black Adam, where A-lister fame skews villain into hero at the expense of&lt;/p&gt; &lt;p&gt;&lt;small&gt;Theatrical release (approx.): 2021-07-01&lt;/small&gt;&lt;/p&gt;</summary>
+  </entry>
+  <entry>
+    <title>Pitch Perfect (2012)</title>
+    <link href="https://snarkflix.com/review/24" rel="alternate" type="text/html"/>
+    <id>https://snarkflix.com/review/24</id>
+    <updated>2022-05-18T12:00:00.000Z</updated>
+    <published>2022-05-18T12:00:00.000Z</published>
+    <author><name>Snarkflix</name></author>
+    <summary type="html">&lt;p&gt;tldr: It&apos;s a Beca/Chloe love story that a network insisted on adding a cishet romance to — one so unmemorable the reviewer has watched the film six times and cannot tell you the male lead&apos;s name. His hobby is &apos;liking movies.&apos; That&apos;s not a hobby. Fat Amy&apos;s &apos;so skinny bitches like you can&apos;t get there first&apos; is the only raw, honest thing she says in three films, and it&apos;s never returned to. The riff-offs are where this franchise shines; the competition songs are clinical. The Beca/Chloe shower harmo&lt;/p&gt; &lt;p&gt;&lt;small&gt;Theatrical release (approx.): 2012-07-01&lt;/small&gt;&lt;/p&gt;</summary>
+  </entry>
+  <entry>
+    <title>The Batman (2022)</title>
+    <link href="https://snarkflix.com/review/25" rel="alternate" type="text/html"/>
+    <id>https://snarkflix.com/review/25</id>
+    <updated>2022-04-17T12:00:00.000Z</updated>
+    <published>2022-04-17T12:00:00.000Z</published>
+    <author><name>Snarkflix</name></author>
+    <summary type="html">&lt;p&gt;tldr: A tonally inconsistent Batman film that can&apos;t decide between dark psychological thriller and slapstick comedy. While it delivers on detective work (finally!) and has solid aesthetics, the 3-hour runtime drags, Pattinson&apos;s voice lacks authority, and the Riddler casting is a miss. The film&apos;s biggest strength is avoiding the usual DC pitfalls, but it still suffers from the &apos;everything takes forever to go nowhere&apos; problem that plagues most DC films. Features a random dog having the time of its&lt;/p&gt; &lt;p&gt;&lt;small&gt;Theatrical release (approx.): 2022-07-01&lt;/small&gt;&lt;/p&gt;</summary>
+  </entry>
+  <entry>
+    <title>Finch (2021)</title>
+    <link href="https://snarkflix.com/review/27" rel="alternate" type="text/html"/>
+    <id>https://snarkflix.com/review/27</id>
+    <updated>2022-01-29T12:00:00.000Z</updated>
+    <published>2022-01-29T12:00:00.000Z</published>
+    <author><name>Snarkflix</name></author>
+    <summary type="html">&lt;p&gt;tldr: Tom Hanks builds a robot to look after his dog and ignores all the suffering humans, which is a completely valid priority. Then he makes every AI alignment decision wrong: the fourth directive is genuinely terrifying, the robot isn&apos;t weather-sealed despite massive sandstorms being the main apocalyptic hazard, and he&apos;s destroying books to scan them rather than preserving analogue information. A better script would follow Hanks accidentally releasing a paperclip optimiser AI on the already-b&lt;/p&gt; &lt;p&gt;&lt;small&gt;Theatrical release (approx.): 2021-07-01&lt;/small&gt;&lt;/p&gt;</summary>
+  </entry>
+  <entry>
+    <title>The Man Who Killed Hitler and Then the Bigfoot (2018)</title>
+    <link href="https://snarkflix.com/review/28" rel="alternate" type="text/html"/>
+    <id>https://snarkflix.com/review/28</id>
+    <updated>2022-01-25T12:00:00.000Z</updated>
+    <published>2022-01-25T12:00:00.000Z</published>
+    <author><name>Snarkflix</name></author>
+    <summary type="html">&lt;p&gt;tldr: Sam Elliott stars in a bizarre mashup that should&apos;ve been two separate films. The Hitler assassination backstory could be compelling if taken seriously, and a retired hunter vs Bigfoot could work (see Prey), but mashing them together with a nonsensical plague subplot creates tonal whiplash. Elliott&apos;s immune to a deadly virus for no reason, the government ignores basic science, and Bigfoot looks like a budget mummy. The attempted cremation scene is accidentally hilarious. It takes itself wa&lt;/p&gt; &lt;p&gt;&lt;small&gt;Theatrical release (approx.): 2018-07-01&lt;/small&gt;&lt;/p&gt;</summary>
+  </entry>
+  <entry>
+    <title>Wolfwalkers (2020)</title>
+    <link href="https://snarkflix.com/review/29" rel="alternate" type="text/html"/>
+    <id>https://snarkflix.com/review/29</id>
+    <updated>2022-01-22T12:00:00.000Z</updated>
+    <published>2022-01-22T12:00:00.000Z</published>
+    <author><name>Snarkflix</name></author>
+    <summary type="html">&lt;p&gt;tldr: Cartoon Saloon&apos;s gorgeous Irish folklore tale pairs Watership Down-style animation with innovative &quot;Wolfvision&quot; that required inventing entirely new 3D animation techniques. The deliberate contrast between sharp woodcut town lines and fluid forest scenes isn&apos;t a flaw - it&apos;s thematic genius reflecting industrialization vs. nature. Set in 1650 Kilkenny with actual good Irish accents (shocking for animation), it follows an English hunter&apos;s daughter who becomes a Wolfwalker after being bitten &lt;/p&gt; &lt;p&gt;&lt;small&gt;Theatrical release (approx.): 2020-07-01&lt;/small&gt;&lt;/p&gt;</summary>
+  </entry>
+  <entry>
+    <title>No Time to Die (2021)</title>
+    <link href="https://snarkflix.com/review/30" rel="alternate" type="text/html"/>
+    <id>https://snarkflix.com/review/30</id>
+    <updated>2022-01-22T12:00:00.000Z</updated>
+    <published>2022-01-22T12:00:00.000Z</published>
+    <author><name>Snarkflix</name></author>
+    <summary type="html">&lt;p&gt;tldr: Bond retires to an island, then retires to a different island, then the film ends. His girlfriend is 36; he is 54. There&apos;s a full legal adult of age between them. Gross. The moment things go wrong he has less emotional interest in her than you&apos;d show a stranger. M has created a Von Neumann bioweapon — a nanite that spreads through touch and kills by DNA targeting — off the books, which makes him more of a villain than anyone Bond has ever faced, and the film ends without him being convicte&lt;/p&gt; &lt;p&gt;&lt;small&gt;Theatrical release (approx.): 2021-07-01&lt;/small&gt;&lt;/p&gt;</summary>
+  </entry>
+  <entry>
+    <title>Don&apos;t Look Up (2021)</title>
+    <link href="https://snarkflix.com/review/32" rel="alternate" type="text/html"/>
+    <id>https://snarkflix.com/review/32</id>
+    <updated>2022-01-22T12:00:00.000Z</updated>
+    <published>2022-01-22T12:00:00.000Z</published>
+    <author><name>Snarkflix</name></author>
+    <summary type="html">&lt;p&gt;tldr: Depressingly good, and achingly familiar to Ben Elton&apos;s novel Stark in a lot of respects, particularly the epilogue. The sense of stress and frustration — trying to convince a stubborn unwilling audience of something self-evident — is painfully relatable. Ariana Grande continues to impress with her self-aware sense of humour; Leo&apos;s love interest being age-appropriate is funnier than it should be. &apos;He&apos;s a platinum Eagle level donor to the campaign. He has full clearance&apos; is painful in its c&lt;/p&gt; &lt;p&gt;&lt;small&gt;Theatrical release (approx.): 2021-07-01&lt;/small&gt;&lt;/p&gt;</summary>
+  </entry>
+  <entry>
+    <title>Encanto (2021)</title>
+    <link href="https://snarkflix.com/review/33" rel="alternate" type="text/html"/>
+    <id>https://snarkflix.com/review/33</id>
+    <updated>2022-01-22T12:00:00.000Z</updated>
+    <published>2022-01-22T12:00:00.000Z</published>
+    <author><name>Snarkflix</name></author>
+    <summary type="html">&lt;p&gt;tldr: Encanto&apos;s got some bangers (Luisa&apos;s song slaps), but it&apos;s basically a toxic family therapy session disguised as a Disney musical. Abuela&apos;s unhinged and basically the villain with a redemption arc, characters have superpowers they can&apos;t control, and there&apos;s a complete lack of validation for anyone who isn&apos;t perfect. The animation&apos;s gorgeous, but the family dynamic is so messed up it makes you want to call child services. Still, it&apos;s got heart and some genuinely beautiful moments.&lt;/p&gt; &lt;p&gt;&lt;small&gt;Theatrical release (approx.): 2021-07-01&lt;/small&gt;&lt;/p&gt;</summary>
+  </entry>
+  <entry>
+    <title>Free Guy (2021)</title>
+    <link href="https://snarkflix.com/review/34" rel="alternate" type="text/html"/>
+    <id>https://snarkflix.com/review/34</id>
+    <updated>2022-01-20T12:00:00.000Z</updated>
+    <published>2022-01-20T12:00:00.000Z</published>
+    <author><name>Snarkflix</name></author>
+    <summary type="html">&lt;p&gt;tldr: Given we&apos;ve already had Ready Player One, The Matrix Resurrections and the Jumanji reboot, Free Guy feels lazy — a very boomer understanding of video games from a director who turned the job down because he&apos;s not a gamer, then changed his mind when Reynolds called. He was right the first time. It could have been a smart critique of gun entitlement through gaming. Instead it&apos;s some kind of MMO that old filmmakers have read about in newspapers. The tech is complete gibberish, the server room&lt;/p&gt; &lt;p&gt;&lt;small&gt;Theatrical release (approx.): 2021-07-01&lt;/small&gt;&lt;/p&gt;</summary>
+  </entry>
+  <entry>
+    <title>Eternals (2021)</title>
+    <link href="https://snarkflix.com/review/35" rel="alternate" type="text/html"/>
+    <id>https://snarkflix.com/review/35</id>
+    <updated>2022-01-19T12:00:00.000Z</updated>
+    <published>2022-01-19T12:00:00.000Z</published>
+    <author><name>Snarkflix</name></author>
+    <summary type="html">&lt;p&gt;tldr: Eternals is Marvel&apos;s attempt at DC-style superheroes, complete with cosmic beings who&apos;ve been on Earth for 7000 years doing absolutely nothing useful. The superheroes are boring (basically immortal space robots with the personality of wet cardboard), the plot makes no sense (why didn&apos;t they stop Thanos?), and the villain is hilariously ineffective (a giant space baby that just sits there). The visuals are gorgeous, but everything else is so dull it makes you want to watch paint dry.&lt;/p&gt; &lt;p&gt;&lt;small&gt;Theatrical release (approx.): 2021-07-01&lt;/small&gt;&lt;/p&gt;</summary>
+  </entry>
+  <entry>
+    <title>Ghostbusters: Afterlife (2021)</title>
+    <link href="https://snarkflix.com/review/36" rel="alternate" type="text/html"/>
+    <id>https://snarkflix.com/review/36</id>
+    <updated>2021-12-01T12:00:00.000Z</updated>
+    <published>2021-12-01T12:00:00.000Z</published>
+    <author><name>Snarkflix</name></author>
+    <summary type="html">&lt;p&gt;tldr: What if Ant-Man&apos;s kid, Young Sheldon&apos;s sister, an unpublished Stephen King novel, and Mike from Stranger Things busted ghosts in an 80s-themed town despite it being 2022? Ghostbusters Afterlife knows exactly what Gen X wants — Ecto-1, proton packs, Gozer references, that marshmallow man — and delivers all of it with the subtlety of a Family Guy cutaway gag. 2016 had a stronger cast, cleaner plot and better CGI; 2022 has the nostalgia hit. Whether you find that satisfying or hollow is entir&lt;/p&gt; &lt;p&gt;&lt;small&gt;Theatrical release (approx.): 2021-07-01&lt;/small&gt;&lt;/p&gt;</summary>
+  </entry>
+  <entry>
+    <title>Black Widow (2021)</title>
+    <link href="https://snarkflix.com/review/37" rel="alternate" type="text/html"/>
+    <id>https://snarkflix.com/review/37</id>
+    <updated>2021-07-17T12:00:00.000Z</updated>
+    <published>2021-07-17T12:00:00.000Z</published>
+    <author><name>Snarkflix</name></author>
+    <summary type="html">&lt;p&gt;tldr: A solid spy thriller that arrived three years too late. Pugh and Harbour bring humor and pathos to a story squeezed between Civil War and Infinity War but released after Endgame had closed the chapter. Closer in tone to Winter Soldier than typical MCU fare, which works in its favor. Taskmaster&apos;s the weakest link - executive meddling turned a skilled comic villain into a cyborg with obvious stunt-double issues. Winter Soldier would&apos;ve hit harder. Widow finally gets strong characterization (&lt;/p&gt; &lt;p&gt;&lt;small&gt;Theatrical release (approx.): 2021-07-01&lt;/small&gt;&lt;/p&gt;</summary>
+  </entry>
+  <entry>
+    <title>Zack Snyder&apos;s Justice League (2021)</title>
+    <link href="https://snarkflix.com/review/38" rel="alternate" type="text/html"/>
+    <id>https://snarkflix.com/review/38</id>
+    <updated>2021-03-19T12:00:00.000Z</updated>
+    <published>2021-03-19T12:00:00.000Z</published>
+    <author><name>Snarkflix</name></author>
+    <summary type="html">&lt;p&gt;tldr: If you&apos;ve got a spare eon and enjoy seeing superheroes in a midlife crisis, this film&apos;s for you. &apos;Justice League: Snyder Cut&apos; redefines &apos;epic&apos; in length, if not in substance. A cinematic equivalent of a marathon with scenic detours – plenty of them. Snyder stitches together a patchwork quilt of origin stories, slow-mo shots, and brooding heroes with enough firepower to start a small war. The plot? As focused as a cat in a laser pointer factory. Flash stumbles around like he&apos;s learning to w&lt;/p&gt; &lt;p&gt;&lt;small&gt;Theatrical release (approx.): 2021-07-01&lt;/small&gt;&lt;/p&gt;</summary>
+  </entry>
+  <entry>
+    <title>Wonder Woman 1984 (2020)</title>
+    <link href="https://snarkflix.com/review/39" rel="alternate" type="text/html"/>
+    <id>https://snarkflix.com/review/39</id>
+    <updated>2020-12-22T12:00:00.000Z</updated>
+    <published>2020-12-22T12:00:00.000Z</published>
+    <author><name>Snarkflix</name></author>
+    <summary type="html">&lt;p&gt;tldr: A genuinely fun film that nails the 80s vibe, particularly the mall opening scene, and Pascal is as always superb. Not as good as the first Wonder Woman, but way better than BvS or Justice League — which is damning with faint praise until you remember how genuinely bad those are. There are clunky edits — the gold armour appearance is clearly from a cut sequence — and the film completely skips past the fact that Wonder Woman and Steve Trevor are making the owner of Trevor&apos;s body an unwillin&lt;/p&gt; &lt;p&gt;&lt;small&gt;Theatrical release (approx.): 2020-07-01&lt;/small&gt;&lt;/p&gt;</summary>
+  </entry>
+</feed>

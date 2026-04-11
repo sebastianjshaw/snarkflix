@@ -1,5 +1,24 @@
 // Snarkflix JavaScript - Movie Review Blog
 
+/**
+ * Root-absolute path for http(s) (e.g. /images/...), or file URL relative to the current HTML
+ * document when using file:// — so images work from disk and from /review/* routes.
+ */
+function resolveAssetUrl(path) {
+    if (!path || /^https?:\/\//i.test(path)) {
+        return path;
+    }
+    const trimmed = path.replace(/^\/+/, '');
+    if (window.location.protocol === 'file:') {
+        try {
+            return new URL(trimmed, window.location.href).href;
+        } catch (e) {
+            return '/' + trimmed;
+        }
+    }
+    return '/' + trimmed;
+}
+
 // Responsive image config — add an entry here whenever a new image has responsive variants.
 // 'standard' = -400w / -800w / -1200w naming; 'legacy' = -sm / -md / -lg / -xl naming.
 const RESPONSIVE_IMAGE_CONFIG = {
@@ -18,26 +37,23 @@ const RESPONSIVE_IMAGE_CONFIG = {
 
 // Helper function to create responsive image HTML
 function createResponsiveImage(imageUrl, alt, loading = 'lazy') {
-    // Ensure image URL is absolute (starts with /) to avoid path resolution issues on review pages
-    let normalizedImageUrl = imageUrl;
-    if (!normalizedImageUrl.startsWith('http') && !normalizedImageUrl.startsWith('/')) {
-        normalizedImageUrl = '/' + normalizedImageUrl;
-    }
+    const logicalPath = (!imageUrl.startsWith('http') && !imageUrl.startsWith('/'))
+        ? '/' + imageUrl
+        : imageUrl;
 
     // Determine responsive naming pattern from config
     const namingPattern = Object.keys(RESPONSIVE_IMAGE_CONFIG).find(key =>
-        normalizedImageUrl.includes(key)
+        logicalPath.includes(key)
     );
 
     if (!namingPattern) {
-        // No responsive variants — simple img tag
         const fetchPriority = loading === 'eager' ? ' fetchpriority="high"' : '';
         const placeholderStyle = loading === 'lazy' ? ' style="background: linear-gradient(90deg, #f0f0f0 25%, #e0e0e0 50%, #f0f0f0 75%); background-size: 200% 100%; animation: shimmer 1.5s infinite;"' : '';
-        return `<img src="${normalizedImageUrl}" alt="${alt}" loading="${loading}"${fetchPriority}${placeholderStyle}>`;
+        const src = resolveAssetUrl(logicalPath);
+        return `<img src="${src}" alt="${alt}" loading="${loading}"${fetchPriority}${placeholderStyle}>`;
     }
 
-    // Extract base path and filename stem
-    const pathParts = normalizedImageUrl.split('/');
+    const pathParts = logicalPath.split('/');
     const filename = pathParts[pathParts.length - 1];
     const basePath = pathParts.slice(0, -1).join('/');
     const nameWithoutExt = filename.replace(/\.(webp|avif|png)$/, '');
@@ -45,22 +61,30 @@ function createResponsiveImage(imageUrl, alt, loading = 'lazy') {
     const pattern = RESPONSIVE_IMAGE_CONFIG[namingPattern];
     let srcset, sizes;
     if (pattern === 'legacy') {
-        srcset = `${basePath}/${nameWithoutExt}-sm.webp 320w, ${basePath}/${nameWithoutExt}-md.webp 640w, ${basePath}/${nameWithoutExt}-lg.webp 1024w, ${basePath}/${nameWithoutExt}-xl.webp 1920w`;
+        const a = resolveAssetUrl(`${basePath}/${nameWithoutExt}-sm.webp`);
+        const b = resolveAssetUrl(`${basePath}/${nameWithoutExt}-md.webp`);
+        const c = resolveAssetUrl(`${basePath}/${nameWithoutExt}-lg.webp`);
+        const d = resolveAssetUrl(`${basePath}/${nameWithoutExt}-xl.webp`);
+        srcset = `${a} 320w, ${b} 640w, ${c} 1024w, ${d} 1920w`;
         sizes = "(max-width: 320px) 320px, (max-width: 640px) 640px, (max-width: 1024px) 1024px, 1920px";
     } else {
-        srcset = `${basePath}/${nameWithoutExt}-400w.webp 400w, ${basePath}/${nameWithoutExt}-800w.webp 800w, ${basePath}/${nameWithoutExt}-1200w.webp 1200w`;
+        const w400 = resolveAssetUrl(`${basePath}/${nameWithoutExt}-400w.webp`);
+        const w800 = resolveAssetUrl(`${basePath}/${nameWithoutExt}-800w.webp`);
+        const w1200 = resolveAssetUrl(`${basePath}/${nameWithoutExt}-1200w.webp`);
+        srcset = `${w400} 400w, ${w800} 800w, ${w1200} 1200w`;
         sizes = "(max-width: 400px) 400px, (max-width: 800px) 800px, 1200px";
     }
 
     const fetchPriority = loading === 'eager' ? ' fetchpriority="high"' : '';
     const placeholderStyle = loading === 'lazy' ? ' style="background: linear-gradient(90deg, #f0f0f0 25%, #e0e0e0 50%, #f0f0f0 75%); background-size: 200% 100%; animation: shimmer 1.5s infinite;"' : '';
+    const fallbackSrc = resolveAssetUrl(logicalPath);
 
     return `
         <picture>
             <source srcset="${srcset}"
                     sizes="${sizes}"
                     type="image/webp">
-            <img src="${normalizedImageUrl}" alt="${alt}" loading="${loading}"${fetchPriority}${placeholderStyle}>
+            <img src="${fallbackSrc}" alt="${alt}" loading="${loading}"${fetchPriority}${placeholderStyle}>
         </picture>
     `;
 }
@@ -73,16 +97,243 @@ function createResponsiveImage(imageUrl, alt, loading = 'lazy') {
 // Default meta tag values for the homepage.
 // Used by returnToHomepage() to reset tags after visiting a review.
 // Add new meta tags here once — no need to touch returnToHomepage().
+/** Canonical origin for structured data, sitemaps, and OG (not file://). */
+const SNARKFLIX_SITE_ORIGIN = 'https://snarkflix.com';
+
 const HOMEPAGE_META = {
-    title:           'Snarkflix - Snarky Movie Reviews',
-    description:     'Snarky movie reviews with a side of sass. Join our small but mighty team as we take a lighthearted and entertaining approach to critiquing films.',
-    canonicalHref:   'https://snarkflix.com/',
+    title:           'Snarkflix — film reviews in the first person',
+    description:     'Film reviews in the first person — sharp, honest, British English. One critic, a snarky robot, and a Bernedoodle who would rate a blank screen five stars.',
+    canonicalHref:   `${SNARKFLIX_SITE_ORIGIN}/`,
+    keywords:        'film reviews, movie reviews, British film critic, UK cinema blog, first person reviews, Snarkflix, film criticism, SnarkAI',
+    robots:          'index, follow, max-image-preview:large, max-snippet:-1, max-video-preview:-1',
     ogType:          'website',
     ogImageType:     'image/avif',
-    ogImageAlt:      'Snarkflix - Snarky Movie Reviews',
+    ogImageAlt:      'Snarkflix — film reviews in the first person',
     ogSiteName:      'Snarkflix',
-    ogLocale:        'en_US',
+    ogLocale:        'en_GB',
 };
+
+/** Rotating lines while search runs — specific to this site, not generic “loading” filler */
+const SNARKFLIX_DELIGHT_SEARCH_LINES = [
+    'Rifling through my notes…',
+    'Checking whether I actually wrote that down…',
+    'Grepping my own opinions…',
+    'Convincing the grid to behave…',
+    'Merlin is “supervising” from the sofa…',
+];
+
+const SNARKFLIX_DELIGHT_LOAD_MORE_LINES = [
+    'One more reel…',
+    'Digging further into the pile…',
+    'Still arguing with SnarkAI about the order…',
+    'Backlog does not organise itself…',
+    'Popcorn patience — almost there…',
+];
+
+const SNARKFLIX_DELIGHT_SHARE_TOASTS = [
+    'Link copied — paste with conviction.',
+    'On your clipboard. Use it wisely.',
+    'Pinched. Don’t let it go straight to DVD.',
+    'Copied. Share the trauma responsibly.',
+];
+
+function pickSnarkflixDelightLine(lines, avoid) {
+    if (!lines.length) return '';
+    if (lines.length === 1) return lines[0];
+    let pick;
+    let guard = 0;
+    do {
+        pick = lines[Math.floor(Math.random() * lines.length)];
+        guard++;
+    } while (pick === avoid && guard < 12);
+    return pick;
+}
+
+/** Root href for breadcrumb + navigation (/, or index.html on file://). */
+function getBreadcrumbHomeHref() {
+    const path = window.location.pathname || '';
+    if (window.location.protocol === 'file:' && path.endsWith('index.html')) {
+        return 'index.html';
+    }
+    return '/';
+}
+
+function getBreadcrumbReviewsHref() {
+    return getBreadcrumbHomeHref() === 'index.html' ? 'index.html#reviews' : '/#reviews';
+}
+
+function getBreadcrumbListElement() {
+    const nav = document.querySelector('.snarkflix-breadcrumb');
+    if (!nav) return null;
+    let list = nav.querySelector('ol.snarkflix-breadcrumb-list, ol#snarkflix-breadcrumb-list, ol');
+    if (!list) {
+        list = document.createElement('ol');
+        list.className = 'snarkflix-breadcrumb-list';
+        list.id = 'snarkflix-breadcrumb-list';
+        nav.appendChild(list);
+    }
+    return list;
+}
+
+/** Honest homepage trail: you are on the site root (not a review). */
+function renderHomepageBreadcrumb() {
+    const nav = document.querySelector('.snarkflix-breadcrumb');
+    if (!nav) return;
+    nav.style.display = '';
+    const list = getBreadcrumbListElement();
+    if (!list) return;
+    list.replaceChildren();
+    const li = document.createElement('li');
+    li.setAttribute('aria-current', 'page');
+    li.textContent = 'Home';
+    list.appendChild(li);
+}
+
+/** Review trail: Home → Reviews → film title (DOM APIs avoid HTML injection from titles). */
+function renderReviewBreadcrumb(review) {
+    const nav = document.querySelector('.snarkflix-breadcrumb');
+    if (!nav) return;
+    nav.style.display = '';
+    const list = getBreadcrumbListElement();
+    if (!list) return;
+    list.replaceChildren();
+
+    const liHome = document.createElement('li');
+    const aHome = document.createElement('a');
+    aHome.href = getBreadcrumbHomeHref();
+    aHome.textContent = 'Home';
+    liHome.appendChild(aHome);
+    list.appendChild(liHome);
+
+    const liReviews = document.createElement('li');
+    const aReviews = document.createElement('a');
+    aReviews.href = getBreadcrumbReviewsHref();
+    aReviews.textContent = 'Reviews';
+    liReviews.appendChild(aReviews);
+    list.appendChild(liReviews);
+
+    const liTitle = document.createElement('li');
+    liTitle.setAttribute('aria-current', 'page');
+    liTitle.textContent = review.title;
+    list.appendChild(liTitle);
+}
+
+/** History URL for a review — file:// cannot use path-style /review/:id (SecurityError in some browsers). */
+function getReviewHistoryURL(reviewId) {
+    if (window.location.protocol === 'file:') {
+        return `?review=${reviewId}`;
+    }
+    return `/review/${reviewId}`;
+}
+
+function safePushHomeState() {
+    try {
+        const url = window.location.protocol === 'file:' ? '' : '/';
+        window.history.pushState({ type: 'home', q: '' }, '', url);
+    } catch (e) {
+        try {
+            window.history.pushState({ type: 'home', q: '' }, '', window.location.pathname || '/');
+        } catch (e2) {
+            console.warn('Snarkflix: could not update history for home', e2);
+        }
+    }
+}
+
+function safePushReviewState(reviewId) {
+    const state = { reviewId, type: 'review' };
+    const url = getReviewHistoryURL(reviewId);
+    try {
+        window.history.pushState(state, '', url);
+    } catch (e) {
+        console.warn('Snarkflix: pushState failed, retrying with query URL', e);
+        try {
+            window.history.pushState(state, '', `?review=${reviewId}`);
+        } catch (e2) {
+            console.warn('Snarkflix: pushState failed', e2);
+        }
+    }
+}
+
+function safeReplaceReviewState(reviewId) {
+    const state = { reviewId, type: 'review' };
+    const url = getReviewHistoryURL(reviewId);
+    try {
+        window.history.replaceState(state, '', url);
+    } catch (e) {
+        console.warn('Snarkflix: replaceState failed, retrying with query URL', e);
+        try {
+            window.history.replaceState(state, '', `?review=${reviewId}`);
+        } catch (e2) {
+            console.warn('Snarkflix: replaceState failed', e2);
+        }
+    }
+}
+
+/** True when the address bar is the homepage (not a /review/:id view). */
+function isSnarkflixHomePathForSearch() {
+    const path = window.location.pathname || '';
+    if (/\/review\/\d+/.test(path)) return false;
+    const params = new URLSearchParams(window.location.search);
+    if (params.get('review')) return false;
+    return path === '/' || path === '' || path.endsWith('/index.html') || path.endsWith('index.html');
+}
+
+/**
+ * Sync grid + input from ?q= (and clear when absent). Skips when a review route is active.
+ */
+function applySearchQueryFromURL() {
+    if (!snarkflixReviews || !Array.isArray(snarkflixReviews)) return;
+    const params = new URLSearchParams(window.location.search);
+    const q = (params.get('q') || '').trim();
+    const path = window.location.pathname || '';
+    if (/\/review\/\d+/.test(path) || params.get('review')) return;
+
+    currentSearchTerm = q;
+    const searchInput = document.getElementById('search-input');
+    if (searchInput) searchInput.value = q;
+    if (reviewsGrid) {
+        loadReviews(1, currentCategory, q, currentSort, currentScoreFilter, currentYearFilter).catch(() => {});
+    }
+}
+
+/**
+ * Keep ?q= in the URL on the homepage without spamming history (replaceState).
+ */
+function syncSearchQueryToURL(searchTerm) {
+    if (window.location.protocol === 'file:') return;
+    if (!isSnarkflixHomePathForSearch()) return;
+    if (document.body.classList.contains('snarkflix-review-page')) return;
+
+    const q = (searchTerm || '').trim();
+    const u = new URL(window.location.href);
+    u.hash = '';
+    if (q) u.searchParams.set('q', q);
+    else u.searchParams.delete('q');
+    const next = u.pathname + (u.search ? u.search : '') + u.hash;
+    const cur = window.location.pathname + window.location.search + window.location.hash;
+    if (next === cur) return;
+
+    try {
+        window.history.replaceState({ type: 'home', q }, '', next);
+    } catch (e) {
+        console.warn('Snarkflix: could not sync search to URL', e);
+    }
+}
+
+/** Keeps order: header → breadcrumb → review (was inserting before breadcrumb). */
+function insertReviewWrapperInDocument(reviewWrapper) {
+    const breadcrumb = document.querySelector('.snarkflix-breadcrumb');
+    if (breadcrumb) {
+        breadcrumb.insertAdjacentElement('afterend', reviewWrapper);
+        return;
+    }
+    const header = document.querySelector('.snarkflix-header');
+    if (header && header.nextSibling) {
+        header.parentNode.insertBefore(reviewWrapper, header.nextSibling);
+    } else if (header) {
+        header.parentNode.appendChild(reviewWrapper);
+    }
+}
 
 // SVG paths for share buttons — defined once, reused in card and review page.
 const SHARE_ICONS = {
@@ -137,8 +388,30 @@ let currentScoreFilter = '';
 let currentYearFilter = '';
 let allFilteredReviews = []; // Store all filtered reviews for progress indicator
 
+let snarkflixSearchLoadingRotateId = null;
+let snarkflixLoadMoreWhisperId = null;
+
 // Initialize the application
 // Wait for both DOM and reviews data to be ready
+/** Konami code toggles warm “matinee” stock — harmless, reversible */
+function setupSnarkflixDelightKonami() {
+    const seq = ['ArrowUp', 'ArrowUp', 'ArrowDown', 'ArrowDown', 'ArrowLeft', 'ArrowRight', 'ArrowLeft', 'ArrowRight', 'b', 'a'];
+    let idx = 0;
+    document.addEventListener('keydown', (e) => {
+        const want = seq[idx];
+        const got = want.startsWith('Arrow') ? e.key : e.key.toLowerCase();
+        if (got === want) {
+            idx += 1;
+            if (idx === seq.length) {
+                document.body.classList.toggle('snarkflix-delight-matinee');
+                idx = 0;
+            }
+        } else {
+            idx = got === seq[0] ? 1 : 0;
+        }
+    });
+}
+
 function waitForReviewsData(callback, maxAttempts = 50) {
     if (typeof snarkflixReviews !== 'undefined' && Array.isArray(snarkflixReviews)) {
         callback();
@@ -167,6 +440,16 @@ document.addEventListener('DOMContentLoaded', function() {
     
     // Add page loaded class for initial fade-in
     document.body.classList.add('snarkflix-page-loaded');
+
+    if (typeof console !== 'undefined' && console.log) {
+        console.log(
+            '%cSnarkflix%c Film brain online. If you’re poking the console: the hot takes live in the prose, not the minified bundle.',
+            'font-weight:700;font-size:13px;color:#ff6b35;',
+            'color:#6c757d;font-size:12px;'
+        );
+    }
+
+    setupSnarkflixDelightKonami();
     
     // Initialize DOM elements immediately (don't wait for data)
     reviewsGrid = document.getElementById('reviews-grid');
@@ -177,6 +460,16 @@ document.addEventListener('DOMContentLoaded', function() {
     
     // Wait for reviews data to be available before loading reviews
     waitForReviewsData(function() {
+        const bootParams = new URLSearchParams(window.location.search);
+        const qBoot = (bootParams.get('q') || '').trim();
+        const pathBoot = window.location.pathname || '';
+        const hasReviewRouteBoot = /\/review\/\d+/.test(pathBoot) || bootParams.get('review');
+        if (!hasReviewRouteBoot && qBoot) {
+            currentSearchTerm = qBoot;
+            const searchInputBoot = document.getElementById('search-input');
+            if (searchInputBoot) searchInputBoot.value = qBoot;
+        }
+
         // Load reviews once data is available
         loadReviews();
         
@@ -204,8 +497,7 @@ document.addEventListener('DOMContentLoaded', function() {
         }
         
         // Check for review parameter and update meta tags before checking for shared review
-        const urlParams = new URLSearchParams(window.location.search);
-        const reviewParam = urlParams.get('review');
+        const reviewParam = bootParams.get('review');
         
         if (reviewParam) {
             const reviewId = parseInt(reviewParam);
@@ -232,19 +524,21 @@ window.addEventListener('hashchange', function() {
 // Listen for popstate (back/forward navigation with History API)
 window.addEventListener('popstate', function(event) {
     if (event.state && event.state.type === 'review') {
-        const reviewId = event.state.reviewId;
-        const review = snarkflixReviews.find(r => r.id === reviewId);
+        const reviewId = Number(event.state.reviewId);
+        const review = snarkflixReviews.find(r => Number(r.id) === reviewId);
         if (review) {
+            removeReviewNotFoundPage();
             showReviewLoadingSkeleton();
             try {
                 createReviewPage(review);
             } finally {
                 hideReviewLoadingSkeleton();
             }
+        } else {
+            showReviewNotFoundPage(reviewId);
         }
     } else {
-        // Return to homepage
-        returnToHomepage();
+        returnToHomepage({ skipHistory: true });
     }
 });
 
@@ -276,19 +570,18 @@ function checkForSharedReview() {
     
     if (reviewId) {
         const review = snarkflixReviews.find(r => r.id === reviewId);
-        
+
         if (review) {
-            // Show loading skeleton
+            removeReviewNotFoundPage();
             showReviewLoadingSkeleton();
-
-            // Update state for History API
-            window.history.replaceState({ reviewId: reviewId, type: 'review' }, '', `/review/${reviewId}`);
-
+            safeReplaceReviewState(reviewId);
             try {
                 createReviewPage(review);
             } finally {
                 hideReviewLoadingSkeleton();
             }
+        } else {
+            showReviewNotFoundPage(reviewId);
         }
     } else if ((hash === '' || hash === '#') && !reviewParam && !pathMatch) {
         // If no review in URL, ensure we're on homepage
@@ -423,7 +716,7 @@ function loadReviews(page = 1, category = currentCategory, searchTerm = currentS
                     updateLoadMoreButton(0, 0);
                     updateProgressIndicator(0, 0);
                     updateSearchResultsCount(0, true);
-                    announceToScreenReader('No reviews found matching your criteria.');
+                    announceToScreenReader('Nothing matched those filters or that search.');
                     setTimeout(() => resolve(), 100);
                     return;
                 }
@@ -454,7 +747,7 @@ function loadReviews(page = 1, category = currentCategory, searchTerm = currentS
             updateSearchResultsCount(filteredReviews.length, searchTerm || category !== 'all' || scoreFilter || yearFilter);
             
             // Announce to screen readers
-            announceToScreenReader(`Loaded ${reviewsToShow.length} review${reviewsToShow.length !== 1 ? 's' : ''}. ${filteredReviews.length} total review${filteredReviews.length !== 1 ? 's' : ''} available.`);
+            announceToScreenReader(`Showing ${reviewsToShow.length} review${reviewsToShow.length !== 1 ? 's' : ''} on this page; ${filteredReviews.length} match in total.`);
             
             // Update current page
             currentPage = page;
@@ -574,23 +867,21 @@ function getScoreClass(score) {
 }
 
 function navigateToReview(reviewId) {
-    const review = snarkflixReviews.find(r => r.id === reviewId);
+    const id = Number(reviewId);
+    const review = snarkflixReviews.find(r => Number(r.id) === id);
     if (review) {
-        // Show loading skeleton
         showReviewLoadingSkeleton();
-        
-        // Update URL using History API
-        const newUrl = `/review/${reviewId}`;
-        window.history.pushState({ reviewId: reviewId, type: 'review' }, '', newUrl);
-        
-        // Update meta tags for SEO
+        safePushReviewState(id);
         updateMetaTagsForReview(review);
-        
         try {
             createReviewPage(review);
         } finally {
             hideReviewLoadingSkeleton();
         }
+    } else {
+        console.warn('Snarkflix: navigateToReview — no review for id', reviewId);
+        safePushReviewState(id);
+        showReviewNotFoundPage(id);
     }
 }
 
@@ -624,7 +915,7 @@ function shareReview(review, platform) {
         case 'copy':
             // Copy to clipboard
             navigator.clipboard.writeText(reviewUrl).then(() => {
-                showShareNotification('Link copied to clipboard!');
+                showShareNotification();
             }).catch(() => {
                 // Fallback for older browsers
                 const textArea = document.createElement('textarea');
@@ -633,7 +924,7 @@ function shareReview(review, platform) {
                 textArea.select();
                 document.execCommand('copy');
                 document.body.removeChild(textArea);
-                showShareNotification('Link copied to clipboard!');
+                showShareNotification();
             });
             return;
     }
@@ -646,7 +937,7 @@ function shareReview(review, platform) {
 function showShareNotification(message) {
     const notification = document.createElement('div');
     notification.className = 'snarkflix-share-notification';
-    notification.textContent = message;
+    notification.textContent = message || pickSnarkflixDelightLine(SNARKFLIX_DELIGHT_SHARE_TOASTS);
 
     document.body.appendChild(notification);
     
@@ -664,14 +955,11 @@ function showShareNotification(message) {
 function insertImagesInContent(review) {
     let content = review.content;
     
-    // Helper function to normalize image paths to absolute paths
     function normalizeImagePath(imagePath) {
-        // If already absolute (starts with / or http), return as is
-        if (imagePath.startsWith('/') || imagePath.startsWith('http')) {
-            return imagePath;
-        }
-        // Otherwise, make it absolute by adding leading slash
-        return '/' + imagePath;
+        const logical = (imagePath.startsWith('/') || imagePath.startsWith('http'))
+            ? imagePath
+            : '/' + imagePath;
+        return resolveAssetUrl(logical);
     }
     
     // First, process inline image markers [IMAGE:path]
@@ -746,22 +1034,70 @@ function insertImagesInContent(review) {
     return result;
 }
 
-// Helper function to update meta tags
-function updateMetaTag(property, content) {
-    let metaTag = document.querySelector(`meta[property="${property}"]`) || 
-                  document.querySelector(`meta[name="${property}"]`);
-    
+// Helper function to update meta tags (Twitter uses name=*, Open Graph / article use property=*)
+function updateMetaTag(key, content) {
+    const useProperty = key.startsWith('og:') || key.startsWith('article:');
+    const useName = key.startsWith('twitter:') || !useProperty;
+
+    let metaTag = useProperty
+        ? document.querySelector(`meta[property="${key}"]`)
+        : document.querySelector(`meta[name="${key}"]`);
+
+    if (!metaTag && useName) {
+        metaTag = document.querySelector(`meta[property="${key}"]`);
+        if (metaTag) {
+            metaTag.removeAttribute('property');
+            metaTag.setAttribute('name', key);
+        }
+    }
+
     if (!metaTag) {
         metaTag = document.createElement('meta');
-        if (property.startsWith('og:') || property.startsWith('twitter:')) {
-            metaTag.setAttribute('property', property);
+        if (useProperty) {
+            metaTag.setAttribute('property', key);
         } else {
-            metaTag.setAttribute('name', property);
+            metaTag.setAttribute('name', key);
         }
         document.head.appendChild(metaTag);
     }
-    
+
     metaTag.setAttribute('content', content);
+}
+
+function removeOgArticleMeta() {
+    document.querySelectorAll('meta[property^="article:"]').forEach((el) => el.remove());
+}
+
+/** ISO date YYYY-MM-DD from review.publishDate (e.g. Nov 5, 2025) */
+function parseReviewPublishDateISO(review) {
+    let datePublished = new Date().toISOString().split('T')[0];
+    try {
+        const dateMatch = review.publishDate.match(/(\w+)\s+(\d+),\s+(\d+)/);
+        if (dateMatch) {
+            const months = {
+                Jan: '01', Feb: '02', Mar: '03', Apr: '04',
+                May: '05', Jun: '06', Jul: '07', Aug: '08',
+                Sep: '09', Oct: '10', Nov: '11', Dec: '12'
+            };
+            const month = months[dateMatch[1]] || '01';
+            const day = dateMatch[2].padStart(2, '0');
+            const year = dateMatch[3];
+            datePublished = `${year}-${month}-${day}`;
+        }
+    } catch (e) {
+        /* keep fallback */
+    }
+    return datePublished;
+}
+
+/** Match lib/get-movie-release.cjs — theatrical date for JSON-LD Movie.datePublished */
+function getMovieTheatricalReleaseISO(review) {
+    if (review.theatricalReleaseISO && /^\d{4}-\d{2}-\d{2}$/.test(review.theatricalReleaseISO)) {
+        return review.theatricalReleaseISO;
+    }
+    const y = Number(review.releaseYear);
+    if (!Number.isFinite(y)) return undefined;
+    return `${y}-07-01`;
 }
 
 // Helper function to get absolute URL for images
@@ -769,7 +1105,7 @@ function getAbsoluteUrl(imagePath) {
     if (imagePath.startsWith('http')) {
         return imagePath;
     }
-    return `https://snarkflix.com/${imagePath.replace(/^\//, '')}`;
+    return `${SNARKFLIX_SITE_ORIGIN}/${imagePath.replace(/^\//, '')}`;
 }
 
 // Helper function to convert YouTube watch URL to embed URL
@@ -792,6 +1128,8 @@ function convertToEmbedUrl(youtubeUrl) {
 }
 
 function createReviewPage(review) {
+    removeReviewNotFoundPage();
+
     // Ensure mobile menu is closed so it doesn’t overlay the review
     const navLinks = document.querySelector('.snarkflix-nav-links');
     const backdrop = document.querySelector('.snarkflix-mobile-menu-backdrop');
@@ -812,19 +1150,7 @@ function createReviewPage(review) {
     addReviewStructuredData(review);
     addBreadcrumbStructuredData(review);
     
-    // Update existing breadcrumb
-    const existingBreadcrumb = document.querySelector('.snarkflix-breadcrumb');
-    if (existingBreadcrumb) {
-        existingBreadcrumb.style.display = 'block';
-        const breadcrumbList = existingBreadcrumb.querySelector('ol');
-        if (breadcrumbList) {
-            breadcrumbList.innerHTML = `
-                <li><a href="index.html">Home</a></li>
-                <li><a href="index.html#reviews">Reviews</a></li>
-                <li aria-current="page">${review.title}</li>
-            `;
-        }
-    }
+    renderReviewBreadcrumb(review);
     const sectionsToHide = document.querySelectorAll('section:not(.snarkflix-header):not(.snarkflix-footer)');
     sectionsToHide.forEach(section => {
         section.style.display = 'none';
@@ -855,13 +1181,7 @@ function createReviewPage(review) {
         }
     });
     
-    // Insert the review content after the header
-    const header = document.querySelector('.snarkflix-header');
-    if (header && header.nextSibling) {
-        header.parentNode.insertBefore(reviewWrapper, header.nextSibling);
-    } else if (header) {
-        header.parentNode.appendChild(reviewWrapper);
-    }
+    insertReviewWrapperInDocument(reviewWrapper);
     
     // Add share button event listeners
     const shareButtons = reviewWrapper.querySelectorAll('.snarkflix-share-btn');
@@ -891,12 +1211,16 @@ function createReviewPage(review) {
     }, 300);
 }
 
-function returnToHomepage() {
-    // Add page transition class
+function returnToHomepage(options = {}) {
+    const skipHistory = options.skipHistory === true;
+
+    removeReviewNotFoundPage();
+
     document.body.classList.add('snarkflix-page-transitioning');
-    
-    // Update URL using History API
-    window.history.pushState({ type: 'home' }, '', '/');
+
+    if (!skipHistory) {
+        safePushHomeState();
+    }
     
     // Remove review page class from body
     document.body.classList.remove('snarkflix-review-page');
@@ -904,11 +1228,7 @@ function returnToHomepage() {
     // Remove structured data scripts
     removeStructuredData();
     
-    // Hide breadcrumb
-    const existingBreadcrumb = document.querySelector('.snarkflix-breadcrumb');
-    if (existingBreadcrumb) {
-        existingBreadcrumb.style.display = 'none';
-    }
+    renderHomepageBreadcrumb();
     
     // Reset page title and canonical URL
     document.title = HOMEPAGE_META.title;
@@ -925,6 +1245,14 @@ function returnToHomepage() {
     if (metaDescription) {
         metaDescription.setAttribute('content', HOMEPAGE_META.description);
     }
+
+    const metaKeywords = document.querySelector('meta[name="keywords"]');
+    if (metaKeywords) {
+        metaKeywords.setAttribute('content', HOMEPAGE_META.keywords);
+    }
+    updateMetaTag('robots', HOMEPAGE_META.robots);
+    updateMetaTag('googlebot', HOMEPAGE_META.robots);
+    removeOgArticleMeta();
 
     // Reset all Open Graph / Twitter meta tags from the single source of truth
     const logoUrl = getAbsoluteUrl('images/site-assets/logo.avif');
@@ -943,11 +1271,12 @@ function returnToHomepage() {
     updateMetaTag('og:image:url',       logoUrl);
     updateMetaTag('twitter:image:src',  logoUrl);
     // Twitter Card
+    updateMetaTag('twitter:card',        'summary_large_image');
     updateMetaTag('twitter:title',       HOMEPAGE_META.title);
     updateMetaTag('twitter:description', HOMEPAGE_META.description);
     updateMetaTag('twitter:image',       logoUrl);
     updateMetaTag('twitter:url',         homepageUrl);
-    
+
     // Show all existing sections
     const sectionsToShow = document.querySelectorAll('section');
     sectionsToShow.forEach(section => {
@@ -971,6 +1300,8 @@ function returnToHomepage() {
         document.body.classList.remove('snarkflix-page-transitioning');
         document.body.classList.add('snarkflix-page-loaded');
     }, 300);
+
+    applySearchQueryFromURL();
 }
 
 function createReviewContentHTML(review) {
@@ -1000,16 +1331,16 @@ function createReviewContentHTML(review) {
                         </div>
                         
                         <div class="snarkflix-review-meta-info">
-                            <h2>Movie Details</h2>
+                            <h2>Film details</h2>
                             <ul class="snarkflix-review-details">
-                                <li><strong>Release Year:</strong> ${review.releaseYear}</li>
+                                <li><strong>Release year:</strong> ${review.releaseYear}</li>
                                 <li><strong>Category:</strong> <a href="#categories" class="snarkflix-category-link" data-category="${review.category}">${review.category.charAt(0).toUpperCase() + review.category.slice(1)}</a></li>
-                                <li><strong>SnarkAI Score:</strong> ${review.aiScore}/100</li>
+                                <li><strong>SnarkAI score:</strong> ${review.aiScore}/100</li>
                             </ul>
                         </div>
                         
                         <div class="snarkflix-review-disclaimer">
-                            <strong>Disclaimer:</strong> Our Scores are generated by SnarkAI's analysis of our reviewer's writing. The tldr summary is drafted by SnarkAI based on that review. All Images are AI-generated based on the reviewer's descriptions of scenes.
+                            <strong>Disclaimer:</strong> Scores come from SnarkAI's read of my review text. The tl;dr summary is drafted by SnarkAI from that review. Images are AI-generated from my scene descriptions.
                         </div>
                     </div>
                 </header>
@@ -1025,7 +1356,7 @@ function createReviewContentHTML(review) {
                     <div class="snarkflix-container">
                         
                         <div class="snarkflix-review-share-section">
-                            <h2>Share this review</h2>
+                            <h2>Share this piece</h2>
                             <div class="snarkflix-review-share">
                                 ${shareButtonsHTML(review.id, true)}
                             </div>
@@ -1037,7 +1368,7 @@ function createReviewContentHTML(review) {
                         
                         ${review.youtubeTrailer ? `
                         <div class="snarkflix-review-trailer">
-                            <h2>Watch the Trailer</h2>
+                            <h2>Watch the trailer</h2>
                             <div class="snarkflix-youtube-container">
                                 <iframe 
                                     class="snarkflix-youtube-iframe"
@@ -1058,7 +1389,7 @@ function createReviewContentHTML(review) {
         <!-- Related Reviews Section -->
         <section class="snarkflix-related-reviews">
             <div class="snarkflix-container">
-                <h2 class="snarkflix-section-title">More Reviews</h2>
+                <h2 class="snarkflix-section-title">More from me</h2>
                 <div class="snarkflix-reviews-grid" id="related-reviews-grid">
                     <!-- Related reviews will be loaded here -->
                 </div>
@@ -1147,10 +1478,10 @@ function loadRelatedReviews(currentReview) {
         
         categoryLinksSection.innerHTML = `
             <div class="snarkflix-category-links-content">
-                <h3>More ${categoryName} Reviews</h3>
-                <p>Explore more ${categoryName.toLowerCase()} movie reviews on Snarkflix.</p>
-                <a href="#categories" class="snarkflix-btn snarkflix-btn-outline" data-category="${currentReview.category}" aria-label="Browse all ${categoryName.toLowerCase()} reviews">
-                    Browse All ${categoryName} Reviews (${categoryCount} total)
+                <h3>More ${categoryName}</h3>
+                <p>Other ${categoryName.toLowerCase()} films I've written up.</p>
+                <a href="#categories" class="snarkflix-btn snarkflix-btn-outline" data-category="${currentReview.category}" aria-label="See all ${categoryName.toLowerCase()} reviews">
+                    Every ${categoryName} review (${categoryCount})
                 </a>
             </div>
         `;
@@ -1184,9 +1515,9 @@ function updateLoadMoreButton(totalReviews, currentCount) {
     } else {
         loadMoreBtn.style.display = 'block';
         if (btnText) {
-            btnText.textContent = `Load More Reviews (${totalReviews - currentCount} remaining)`;
+            btnText.textContent = `Load more reviews (${totalReviews - currentCount} left)`;
         } else {
-            loadMoreBtn.textContent = `Load More Reviews (${totalReviews - currentCount} remaining)`;
+            loadMoreBtn.textContent = `Load more reviews (${totalReviews - currentCount} left)`;
         }
         // Hide loader if visible
         if (btnLoader) btnLoader.style.display = 'none';
@@ -1199,15 +1530,34 @@ function setLoadMoreButtonLoading(isLoading) {
     
     const btnText = loadMoreBtn.querySelector('.snarkflix-btn-text');
     const btnLoader = loadMoreBtn.querySelector('.snarkflix-btn-loader');
+    const caption = loadMoreBtn.querySelector('.snarkflix-btn-loader-caption');
+    
+    if (snarkflixLoadMoreWhisperId) {
+        clearInterval(snarkflixLoadMoreWhisperId);
+        snarkflixLoadMoreWhisperId = null;
+    }
     
     if (isLoading) {
         loadMoreBtn.disabled = true;
+        loadMoreBtn.setAttribute('aria-busy', 'true');
+        loadMoreBtn.style.overflow = 'visible';
         if (btnText) btnText.style.display = 'none';
         if (btnLoader) btnLoader.style.display = 'inline-flex';
+        if (caption) {
+            let last = '';
+            const spin = () => {
+                last = pickSnarkflixDelightLine(SNARKFLIX_DELIGHT_LOAD_MORE_LINES, last);
+                caption.textContent = last;
+            };
+            spin();
+            snarkflixLoadMoreWhisperId = setInterval(spin, 2000);
+        }
     } else {
         loadMoreBtn.disabled = false;
+        loadMoreBtn.removeAttribute('aria-busy');
         if (btnText) btnText.style.display = 'inline';
         if (btnLoader) btnLoader.style.display = 'none';
+        if (caption) caption.textContent = '';
     }
 }
 
@@ -1230,6 +1580,7 @@ function addRippleEffect(button, event) {
     
     setTimeout(() => {
         ripple.remove();
+        button.style.overflow = '';
     }, 600);
 }
 
@@ -1269,7 +1620,7 @@ function showRecentSearches(container) {
     }
     
     recentContainer.innerHTML = `
-        <div class="snarkflix-recent-searches-header">Recent Searches</div>
+        <div class="snarkflix-recent-searches-header">Recent searches</div>
         ${recentSearches.map(term => `
             <div class="snarkflix-recent-search-item" data-term="${term}">
                 <span class="snarkflix-recent-search-icon">🕐</span>
@@ -1429,10 +1780,13 @@ function setupAccessibility() {
         if (e.key === 'Escape') {
             const mobileMenuToggle = document.querySelector('.snarkflix-mobile-menu-toggle');
             const navLinks = document.querySelector('.snarkflix-nav-links');
+            const mobileMenuBackdrop = document.querySelector('.snarkflix-mobile-menu-backdrop');
             
             if (mobileMenuToggle && navLinks) {
                 mobileMenuToggle.setAttribute('aria-expanded', 'false');
                 navLinks.classList.remove('snarkflix-mobile-menu-open');
+                if (mobileMenuBackdrop) mobileMenuBackdrop.classList.remove('active');
+                document.body.style.overflow = '';
             }
         }
     });
@@ -1490,7 +1844,7 @@ function updateCategoryCounts() {
         const count = categoryCounts[category] || 0;
         const countEl = card.querySelector('.snarkflix-category-count');
         if (countEl) {
-            countEl.textContent = `${count} post${count !== 1 ? 's' : ''}`;
+            countEl.textContent = `${count} review${count !== 1 ? 's' : ''}`;
         }
     });
 }
@@ -1529,21 +1883,21 @@ function showEmptyState(container, searchTerm, category, scoreFilter, yearFilter
     const emptyState = document.createElement('div');
     emptyState.className = 'snarkflix-empty-state';
     
-    let title = 'No Reviews Found';
-    let message = 'Try adjusting your filters or search terms.';
+    let title = 'Nothing here';
+    let message = 'Loosen the filters or clear the search and I\'ll show you the archive again.';
     let icon = '🔍';
     
     if (searchTerm) {
-        title = 'No Results for "' + searchTerm + '"';
-        message = 'We couldn\'t find any reviews matching your search. Try different keywords or clear your search.';
+        title = 'No matches for "' + searchTerm + '"';
+        message = 'I couldn\'t find that in my reviews. Try different words or clear the search box.';
         icon = '🔎';
     } else if (category && category !== 'all') {
-        title = `No Reviews in ${category.charAt(0).toUpperCase() + category.slice(1)}`;
-        message = 'There are no reviews in this category yet. Check back soon or browse other categories.';
+        title = `Nothing filed under ${category.charAt(0).toUpperCase() + category.slice(1)}`;
+        message = 'Either I haven\'t written that one yet or the category filter\'s too tight. Try another genre.';
         icon = '📂';
     } else if (scoreFilter || yearFilter) {
-        title = 'No Reviews Match Your Filters';
-        message = 'Try adjusting your score or year filters to see more results.';
+        title = 'Nothing matches those filters';
+        message = 'Widen the score band or the year — I promise I\'ve written something that fits.';
         icon = '🎯';
     }
     
@@ -1552,9 +1906,9 @@ function showEmptyState(container, searchTerm, category, scoreFilter, yearFilter
         <h3 class="snarkflix-empty-state-title">${title}</h3>
         <p class="snarkflix-empty-state-message">${message}</p>
         <div class="snarkflix-empty-state-actions">
-            ${searchTerm ? `<button class="snarkflix-btn snarkflix-btn-outline" data-action="clear-search">Clear Search</button>` : ''}
-            ${category && category !== 'all' ? `<button class="snarkflix-btn snarkflix-btn-outline" data-action="all-categories">View All Categories</button>` : ''}
-            ${scoreFilter || yearFilter ? `<button class="snarkflix-btn snarkflix-btn-outline" data-action="clear-filters">Clear Filters</button>` : ''}
+            ${searchTerm ? `<button class="snarkflix-btn snarkflix-btn-outline" data-action="clear-search">Clear search</button>` : ''}
+            ${category && category !== 'all' ? `<button class="snarkflix-btn snarkflix-btn-outline" data-action="all-categories">View all categories</button>` : ''}
+            ${scoreFilter || yearFilter ? `<button class="snarkflix-btn snarkflix-btn-outline" data-action="clear-filters">Clear filters</button>` : ''}
         </div>
     `;
 
@@ -1565,6 +1919,7 @@ function showEmptyState(container, searchTerm, category, scoreFilter, yearFilter
             if (input) {
                 input.value = '';
                 input.dispatchEvent(new Event('input', { bubbles: true }));
+                syncSearchQueryToURL('');
             }
         });
     }
@@ -1606,7 +1961,8 @@ function setupSearch() {
             currentSearchTerm = searchTerm;
             currentPage = 1; // Reset to first page when searching
             loadReviews(1, currentCategory, currentSearchTerm, currentSort, currentScoreFilter, currentYearFilter);
-            
+            syncSearchQueryToURL(searchTerm);
+
             // Hide search loading after a short delay
             setTimeout(() => {
                 hideSearchLoading();
@@ -1742,6 +2098,7 @@ function setupSearch() {
             clearSearchBtn.style.display = 'none';
             if (suggestionsContainer) suggestionsContainer.style.display = 'none';
             loadReviews(1, currentCategory, '', currentSort, currentScoreFilter, currentYearFilter);
+            syncSearchQueryToURL('');
         });
     }
     
@@ -1790,7 +2147,7 @@ function updateSearchResultsCount(total, hasFilters) {
     if (!resultsCount) return;
     
     if (hasFilters && total > 0) {
-        const message = `Found ${total} review${total !== 1 ? 's' : ''}`;
+        const message = `${total} review${total !== 1 ? 's' : ''} match`;
         resultsCount.textContent = message;
         resultsCount.style.display = 'block';
         // Announce to screen readers
@@ -1816,10 +2173,10 @@ function updateProgressIndicator(loaded, total) {
     if (!progressEl) return;
     
     if (total > 0 && loaded < total) {
-        progressEl.textContent = `Showing ${loaded} of ${total} reviews`;
+        progressEl.textContent = `Showing ${loaded} of ${total} reviews so far`;
         progressEl.style.display = 'block';
     } else if (loaded >= total && total > 0) {
-        progressEl.textContent = `All ${total} review${total !== 1 ? 's' : ''} loaded`;
+        progressEl.textContent = `That's all ${total} — every matching review is loaded`;
         progressEl.style.display = 'block';
     } else {
         progressEl.style.display = 'none';
@@ -1832,9 +2189,9 @@ function setupBackToTop() {
     
     window.addEventListener('scroll', () => {
         if (window.scrollY > 300) {
-            backToTopBtn.style.display = 'block';
+            backToTopBtn.classList.add('snarkflix-back-to-top--visible');
         } else {
-            backToTopBtn.style.display = 'none';
+            backToTopBtn.classList.remove('snarkflix-back-to-top--visible');
         }
     });
     
@@ -2104,10 +2461,10 @@ function handleReviewLoadError(error) {
     if (reviewsGrid) {
         reviewsGrid.innerHTML = `
             <div class="snarkflix-error-state">
-                <h3>Unable to load reviews</h3>
-                <p>We're having trouble loading the reviews. Please refresh the page or try again later.</p>
+                <h3>Couldn't load the archive</h3>
+                <p>Something went wrong pulling reviews into the page. Give it a refresh — if it persists, I'll be annoyed on your behalf.</p>
                 <button class="snarkflix-btn snarkflix-btn-primary snarkflix-reload-btn">
-                    Refresh Page
+                    Refresh page
                 </button>
             </div>
         `;
@@ -2120,11 +2477,11 @@ function handleSearchError(error) {
     
     const searchInput = document.querySelector('.snarkflix-search-input');
     if (searchInput) {
-        searchInput.placeholder = 'Search temporarily unavailable';
+        searchInput.placeholder = 'Search is having a moment — try again in a tick';
         searchInput.disabled = true;
         
         setTimeout(() => {
-            searchInput.placeholder = 'Search for movies...';
+            searchInput.placeholder = 'Search films, cast, or a stray quote…';
             searchInput.disabled = false;
         }, 3000);
     }
@@ -2156,7 +2513,7 @@ function updateCategoryCounts() {
         const countElement = card.querySelector('.snarkflix-category-count');
 
         if (countElement) {
-            countElement.textContent = `${count} post${count !== 1 ? 's' : ''}`;
+            countElement.textContent = `${count} review${count !== 1 ? 's' : ''}`;
         }
 
         // Hide categories that have no reviews — they offer no value to the user
@@ -2325,13 +2682,28 @@ function showSearchLoading() {
     if (searchContainer) {
         const existingSpinner = searchContainer.querySelector('.snarkflix-loading-spinner');
         if (!existingSpinner) {
-            const spinner = showLoadingSpinner(searchContainer, 'Searching...');
+            const firstLine = pickSnarkflixDelightLine(SNARKFLIX_DELIGHT_SEARCH_LINES);
+            const spinner = showLoadingSpinner(searchContainer, firstLine);
             spinner.className += ' snarkflix-search-loading';
+            if (snarkflixSearchLoadingRotateId) {
+                clearInterval(snarkflixSearchLoadingRotateId);
+                snarkflixSearchLoadingRotateId = null;
+            }
+            snarkflixSearchLoadingRotateId = setInterval(() => {
+                const textEl = searchContainer.querySelector('.snarkflix-search-loading .snarkflix-loading-text');
+                if (!textEl) return;
+                const next = pickSnarkflixDelightLine(SNARKFLIX_DELIGHT_SEARCH_LINES, textEl.textContent);
+                textEl.textContent = next;
+            }, 2400);
         }
     }
 }
 
 function hideSearchLoading() {
+    if (snarkflixSearchLoadingRotateId) {
+        clearInterval(snarkflixSearchLoadingRotateId);
+        snarkflixSearchLoadingRotateId = null;
+    }
     const searchSpinner = document.querySelector('.snarkflix-search-loading');
     if (searchSpinner) {
         hideLoadingSpinner(searchSpinner);
@@ -2418,6 +2790,84 @@ function hideReviewLoadingSkeleton() {
     }
 }
 
+function removeReviewNotFoundPage() {
+    const el = document.querySelector('.snarkflix-review-not-found-wrap');
+    if (el) el.remove();
+}
+
+/**
+ * In-SPA “missing review” view (static hosts still 404 on /review/:id.html when absent).
+ */
+function showReviewNotFoundPage(reviewId) {
+    removeReviewNotFoundPage();
+    removeStructuredData();
+
+    const navLinks = document.querySelector('.snarkflix-nav-links');
+    const backdrop = document.querySelector('.snarkflix-mobile-menu-backdrop');
+    if (navLinks) navLinks.classList.remove('snarkflix-mobile-menu-open');
+    if (backdrop) backdrop.classList.remove('active');
+    document.body.style.overflow = '';
+
+    document.body.classList.add('snarkflix-review-page');
+
+    document.title = 'Review not found | Snarkflix';
+
+    let canonicalLink = document.querySelector('link[rel="canonical"]');
+    if (!canonicalLink) {
+        canonicalLink = document.createElement('link');
+        canonicalLink.setAttribute('rel', 'canonical');
+        document.head.appendChild(canonicalLink);
+    }
+    canonicalLink.setAttribute('href', `${HOMEPAGE_META.canonicalHref}`);
+
+    const metaDescription = document.querySelector('meta[name="description"]');
+    if (metaDescription) {
+        metaDescription.setAttribute('content', 'No Snarkflix review matches this link. Browse all reviews on the homepage.');
+    }
+    updateMetaTag('robots', 'noindex, nofollow');
+
+    removeOgArticleMeta();
+    const logoUrl = getAbsoluteUrl('images/site-assets/logo.avif');
+    updateMetaTag('og:title', 'Review not found | Snarkflix');
+    updateMetaTag('og:description', 'This review does not exist or the link is wrong.');
+    updateMetaTag('og:image', logoUrl);
+    updateMetaTag('og:url', `${SNARKFLIX_SITE_ORIGIN}/review/${reviewId}`);
+    updateMetaTag('og:type', 'website');
+    updateMetaTag('twitter:title', 'Review not found | Snarkflix');
+    updateMetaTag('twitter:description', 'This review does not exist or the link is wrong.');
+    updateMetaTag('twitter:image', logoUrl);
+    updateMetaTag('twitter:card', 'summary_large_image');
+
+    const existingReviewContent = document.querySelector('.snarkflix-review-content-wrapper');
+    if (existingReviewContent) existingReviewContent.remove();
+
+    const sectionsToHide = document.querySelectorAll('section:not(.snarkflix-header):not(.snarkflix-footer)');
+    sectionsToHide.forEach(section => {
+        section.style.display = 'none';
+    });
+
+    renderHomepageBreadcrumb();
+
+    const wrap = document.createElement('div');
+    wrap.className = 'snarkflix-review-not-found-wrap';
+    wrap.innerHTML = `
+        <div class="snarkflix-review-not-found-inner">
+            <p class="snarkflix-review-not-found-code">404</p>
+            <h1 class="snarkflix-review-not-found-title">No review here</h1>
+            <p class="snarkflix-review-not-found-body">There is no review with id <strong>${String(reviewId)}</strong>. The URL may be mistyped or the review was removed.</p>
+            <p class="snarkflix-review-not-found-actions">
+                <button type="button" class="snarkflix-btn snarkflix-btn-primary snarkflix-review-not-found-home">Back to all reviews</button>
+            </p>
+        </div>
+    `;
+    const homeBtn = wrap.querySelector('.snarkflix-review-not-found-home');
+    if (homeBtn) {
+        homeBtn.addEventListener('click', () => returnToHomepage());
+    }
+    insertReviewWrapperInDocument(wrap);
+    window.scrollTo({ top: 0, behavior: 'smooth' });
+}
+
 // Update meta tags for review (extracted for reuse)
 // Add Review Structured Data (JSON-LD)
 function addReviewStructuredData(review) {
@@ -2426,62 +2876,73 @@ function addReviewStructuredData(review) {
     if (existingScript) {
         existingScript.remove();
     }
-    
-    // Parse publish date to ISO format
-    let datePublished = new Date().toISOString().split('T')[0];
-    try {
-        const dateMatch = review.publishDate.match(/(\w+)\s+(\d+),\s+(\d+)/);
-        if (dateMatch) {
-            const months = {
-                'Jan': '01', 'Feb': '02', 'Mar': '03', 'Apr': '04',
-                'May': '05', 'Jun': '06', 'Jul': '07', 'Aug': '08',
-                'Sep': '09', 'Oct': '10', 'Nov': '11', 'Dec': '12'
-            };
-            const month = months[dateMatch[1]] || '01';
-            const day = dateMatch[2].padStart(2, '0');
-            const year = dateMatch[3];
-            datePublished = `${year}-${month}-${day}`;
-        }
-    } catch (e) {
-        // Use current date if parsing fails
-    }
-    
-    // Get absolute image URL
+
+    const datePublished = parseReviewPublishDateISO(review);
     const imageUrl = getAbsoluteUrl(review.imageUrl);
-    
-    // Get review body (first 500 chars of content for preview)
+    const pageUrl = `${SNARKFLIX_SITE_ORIGIN}/review/${review.id}`;
     const reviewBody = review.content.substring(0, 500) + (review.content.length > 500 ? '...' : '');
-    
-    // Create Review structured data
+    const descPlain = (review.aiSummary || '').replace(/\s+/g, ' ').trim();
+    const description = descPlain.length > 360 ? `${descPlain.slice(0, 357)}...` : descPlain;
+    const genreLabel = review.category.charAt(0).toUpperCase() + review.category.slice(1);
+    const filmReleaseISO = getMovieTheatricalReleaseISO(review);
+
     const reviewSchema = {
-        "@context": "https://schema.org",
-        "@type": "Review",
-        "itemReviewed": {
-            "@type": "Movie",
-            "name": review.title,
-            "datePublished": review.releaseYear.toString()
+        '@context': 'https://schema.org',
+        '@type': 'Review',
+        '@id': `${pageUrl}#review`,
+        'url': pageUrl,
+        'name': `${review.title} — film review`,
+        'headline': `${review.title} review`,
+        'description': description || undefined,
+        'inLanguage': 'en-GB',
+        'datePublished': datePublished,
+        'reviewBody': reviewBody,
+        'image': imageUrl,
+        'author': {
+            '@type': 'Person',
+            'name': 'Snarkflix'
         },
-        "reviewRating": {
-            "@type": "Rating",
-            "ratingValue": review.aiScore.toString(),
-            "bestRating": "100",
-            "worstRating": "0"
+        'publisher': {
+            '@type': 'Organization',
+            '@id': `${SNARKFLIX_SITE_ORIGIN}/#organization`,
+            'name': 'Snarkflix',
+            'url': `${SNARKFLIX_SITE_ORIGIN}/`,
+            'logo': {
+                '@type': 'ImageObject',
+                'url': `${SNARKFLIX_SITE_ORIGIN}/images/site-assets/logo.avif`
+            }
         },
-        "author": {
-            "@type": "Person",
-            "name": "Snarkflix Reviewer"
+        'itemReviewed': (() => {
+            const movie = {
+                '@type': 'Movie',
+                'name': review.title,
+                'url': pageUrl,
+                'image': imageUrl,
+                'genre': genreLabel
+            };
+            if (filmReleaseISO) movie.datePublished = filmReleaseISO;
+            return movie;
+        })(),
+        'reviewRating': {
+            '@type': 'Rating',
+            'ratingValue': review.aiScore.toString(),
+            'bestRating': '100',
+            'worstRating': '0',
+            'name': 'SnarkAI score'
         },
-        "datePublished": datePublished,
-        "reviewBody": reviewBody,
-        "headline": review.title,
-        "image": imageUrl
+        'mainEntityOfPage': {
+            '@type': 'WebPage',
+            '@id': `${pageUrl}#webpage`,
+            'url': pageUrl
+        }
     };
-    
-    // Create and append script tag
+
+    if (!reviewSchema.description) delete reviewSchema.description;
+
     const script = document.createElement('script');
     script.type = 'application/ld+json';
     script.setAttribute('data-schema', 'review');
-    script.textContent = JSON.stringify(reviewSchema, null, 2);
+    script.textContent = JSON.stringify(reviewSchema);
     document.head.appendChild(script);
 }
 
@@ -2492,40 +2953,36 @@ function addBreadcrumbStructuredData(review) {
     if (existingScript) {
         existingScript.remove();
     }
-    
-    const baseUrl = window.location.origin;
-    
-    // Create BreadcrumbList structured data
+
     const breadcrumbSchema = {
-        "@context": "https://schema.org",
-        "@type": "BreadcrumbList",
-        "itemListElement": [
+        '@context': 'https://schema.org',
+        '@type': 'BreadcrumbList',
+        'itemListElement': [
             {
-                "@type": "ListItem",
-                "position": 1,
-                "name": "Home",
-                "item": baseUrl + "/"
+                '@type': 'ListItem',
+                'position': 1,
+                'name': 'Home',
+                'item': `${SNARKFLIX_SITE_ORIGIN}/`
             },
             {
-                "@type": "ListItem",
-                "position": 2,
-                "name": "Reviews",
-                "item": baseUrl + "/#reviews"
+                '@type': 'ListItem',
+                'position': 2,
+                'name': 'Reviews',
+                'item': `${SNARKFLIX_SITE_ORIGIN}/#reviews`
             },
             {
-                "@type": "ListItem",
-                "position": 3,
-                "name": review.title,
-                "item": baseUrl + `/review/${review.id}`
+                '@type': 'ListItem',
+                'position': 3,
+                'name': review.title,
+                'item': `${SNARKFLIX_SITE_ORIGIN}/review/${review.id}`
             }
         ]
     };
-    
-    // Create and append script tag
+
     const script = document.createElement('script');
     script.type = 'application/ld+json';
     script.setAttribute('data-schema', 'breadcrumb');
-    script.textContent = JSON.stringify(breadcrumbSchema, null, 2);
+    script.textContent = JSON.stringify(breadcrumbSchema);
     document.head.appendChild(script);
 }
 
@@ -2554,7 +3011,7 @@ function generateMetaDescription(review) {
     } else if (score >= 60) {
         description = `Review of ${title} (${year}): ${review.aiSummary.substring(0, 100)}`;
     } else {
-        description = `${title} (${year}) Movie Review: ${review.aiSummary.substring(0, 100)}`;
+        description = `${title} (${year}) film review: ${review.aiSummary.substring(0, 100)}`;
     }
     
     // Ensure it's under 160 characters
@@ -2595,7 +3052,20 @@ function updateMetaTagsForReview(review) {
         canonicalLink.setAttribute('rel', 'canonical');
         document.head.appendChild(canonicalLink);
     }
-    canonicalLink.setAttribute('href', `https://snarkflix.com/review/${review.id}`);
+    canonicalLink.setAttribute('href', `${SNARKFLIX_SITE_ORIGIN}/review/${review.id}`);
+
+    const datePublished = parseReviewPublishDateISO(review);
+    const publishedDateTime = `${datePublished}T12:00:00.000Z`;
+    updateMetaTag('article:published_time', publishedDateTime);
+    updateMetaTag('article:modified_time', publishedDateTime);
+    updateMetaTag('article:author', 'Snarkflix');
+    updateMetaTag('article:section', review.category.charAt(0).toUpperCase() + review.category.slice(1));
+
+    const reviewKeywords = `Snarkflix, ${review.title}, ${review.releaseYear}, ${review.category} film review, British film blog, SnarkAI ${review.aiScore}`;
+    const metaKwEl = document.querySelector('meta[name="keywords"]');
+    if (metaKwEl) {
+        metaKwEl.setAttribute('content', reviewKeywords.slice(0, 400));
+    }
     
     // Update Open Graph meta tags
     // Reuse currentYear and isRecent from above
@@ -2618,8 +3088,8 @@ function updateMetaTagsForReview(review) {
     const fallbackImageUrl = getAbsoluteUrl('images/site-assets/logo.avif');
     // Note: OG doesn't support fallback directly, but we can set a default in index.html
     updateMetaTag('og:site_name', 'Snarkflix');
-    updateMetaTag('og:locale', 'en_US');
-    updateMetaTag('og:url', `https://snarkflix.com/review/${review.id}`);
+    updateMetaTag('og:locale', 'en_GB');
+    updateMetaTag('og:url', `${SNARKFLIX_SITE_ORIGIN}/review/${review.id}`);
     updateMetaTag('og:type', 'article');
     
     // WhatsApp specific meta tags
@@ -2635,7 +3105,7 @@ function updateMetaTagsForReview(review) {
     updateMetaTag('twitter:title', twitterTitle);
     updateMetaTag('twitter:description', generateMetaDescription(review));
     updateMetaTag('twitter:image', getAbsoluteUrl(review.imageUrl));
-    updateMetaTag('twitter:url', `https://snarkflix.com/review/${review.id}`);
+    updateMetaTag('twitter:url', `${SNARKFLIX_SITE_ORIGIN}/review/${review.id}`);
     updateMetaTag('twitter:card', 'summary_large_image');
 }
 

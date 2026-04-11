@@ -6,9 +6,23 @@ const zlib = require('zlib');
 
 const PORT = process.env.PORT || 8000;
 
+const SECURITY_HEADERS = {
+  'X-Frame-Options': 'SAMEORIGIN',
+  'X-Content-Type-Options': 'nosniff',
+  'Referrer-Policy': 'strict-origin-when-cross-origin',
+  'Permissions-Policy': 'accelerometer=(), camera=(), geolocation=(), gyroscope=(), magnetometer=(), microphone=(), payment=(), usb=()',
+  'Cross-Origin-Opener-Policy': 'same-origin-allow-popups'
+};
+
+function withSecurityHeaders(headers) {
+  return { ...SECURITY_HEADERS, ...headers };
+}
+
 // MIME types
 const mimeTypes = {
   '.html': 'text/html',
+  '.txt': 'text/plain; charset=utf-8',
+  '.xml': 'application/xml; charset=utf-8',
   '.css': 'text/css',
   '.js': 'application/javascript',
   '.json': 'application/json',
@@ -27,6 +41,8 @@ const mimeTypes = {
 };
 
 function getMimeType(filePath) {
+  const base = path.basename(filePath).toLowerCase();
+  if (base === 'feed.xml') return 'application/atom+xml; charset=utf-8';
   const ext = path.extname(filePath).toLowerCase();
   return mimeTypes[ext] || 'application/octet-stream';
 }
@@ -34,7 +50,7 @@ function getMimeType(filePath) {
 function serveFile(req, res, filePath) {
   fs.readFile(filePath, (err, data) => {
     if (err) {
-      res.writeHead(404, { 'Content-Type': 'text/plain' });
+      res.writeHead(404, withSecurityHeaders({ 'Content-Type': 'text/plain; charset=utf-8' }));
       res.end('File not found');
       return;
     }
@@ -51,27 +67,25 @@ function serveFile(req, res, filePath) {
       if (acceptEncoding.includes('gzip')) {
         zlib.gzip(data, (err, compressed) => {
           if (err) {
-            // If compression fails, serve uncompressed
-            res.writeHead(200, { 'Content-Type': mimeType });
+            res.writeHead(200, withSecurityHeaders({ 'Content-Type': mimeType }));
             res.end(data);
             return;
           }
-          res.writeHead(200, {
+          res.writeHead(200, withSecurityHeaders({
             'Content-Type': mimeType,
             'Content-Encoding': 'gzip',
-            'Cache-Control': 'public, max-age=31536000' // 1 year cache for static assets
-          });
+            'Cache-Control': 'public, max-age=31536000'
+          }));
           res.end(compressed);
         });
         return;
       }
     }
     
-    // Serve uncompressed
-    res.writeHead(200, {
+    res.writeHead(200, withSecurityHeaders({
       'Content-Type': mimeType,
       'Cache-Control': shouldCompress ? 'public, max-age=31536000' : 'public, max-age=86400'
-    });
+    }));
     res.end(data);
   });
 }
@@ -109,7 +123,7 @@ const server = http.createServer((req, res) => {
     <p><a href="/">← Back to Snarkflix</a></p>
 </body>
 </html>`;
-            res.writeHead(404, { 'Content-Type': 'text/html' });
+            res.writeHead(404, withSecurityHeaders({ 'Content-Type': 'text/html; charset=utf-8' }));
             res.end(notFoundHtml);
           } else {
             serveFile(req, res, reviewFile);
@@ -123,7 +137,7 @@ const server = http.createServer((req, res) => {
 
   // Security check - prevent directory traversal
   if (!filePath.startsWith(__dirname)) {
-    res.writeHead(403, { 'Content-Type': 'text/plain' });
+    res.writeHead(403, withSecurityHeaders({ 'Content-Type': 'text/plain; charset=utf-8' }));
     res.end('Forbidden');
     return;
   }

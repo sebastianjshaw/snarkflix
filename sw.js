@@ -1,5 +1,5 @@
 // Snarkflix Service Worker - Enhanced Caching and Offline Support
-const CACHE_NAME = 'snarkflix-v3-2025-12-23';
+const CACHE_NAME = 'snarkflix-v4-2026-04-11-images-netfirst';
 const OFFLINE_PAGE = '/offline.html';
 const urlsToCache = [
     '/',
@@ -78,33 +78,27 @@ self.addEventListener('fetch', event => {
         return;
     }
     
-    // Handle image requests with cache-first strategy
+    // Images: network-first so bad/stale cache entries cannot block loading
     if (request.destination === 'image') {
         event.respondWith(
-            caches.match(request).then(response => {
-                if (response) {
-                    console.log('Snarkflix Service Worker: Serving image from cache', url.pathname);
-                    return response;
-                }
-                
-                // If not in cache, fetch and cache it
-                return fetch(request).then(fetchResponse => {
-                    // Only cache successful responses
+            fetch(request)
+                .then(fetchResponse => {
                     if (fetchResponse.status === 200) {
                         const responseToCache = fetchResponse.clone();
                         caches.open(CACHE_NAME).then(cache => {
                             cache.put(request, responseToCache);
-                            console.log('Snarkflix Service Worker: Cached new image', url.pathname);
                         });
                     }
                     return fetchResponse;
-                }).catch(error => {
-                    console.error('Snarkflix Service Worker: Image fetch failed', url.pathname, error);
-                    // Don't retry - let the browser handle the error naturally
-                    // This prevents infinite retry loops
-                    throw error;
-                });
-            })
+                })
+                .catch(() => {
+                    return caches.match(request).then(cached => {
+                        if (cached) {
+                            return cached;
+                        }
+                        return Response.error();
+                    });
+                })
         );
         return;
     }

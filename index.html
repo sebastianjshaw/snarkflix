@@ -1,11 +1,13 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="en-GB">
 <head>
     <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <meta name="description" content="Snarkflix - A snarky movie review blog with sharp wit and adorable Bernedoodle companion. Honest, humorous takes on cinema.">
-    <meta name="keywords" content="movie reviews, film criticism, snarky reviews, cinema, movies, entertainment">
+    <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+    <meta name="description" content="Snarkflix — film reviews in the first person: sharp, honest, and unafraid of a tangent. One critic, a deliberately snarky robot, and a Bernedoodle who'd five-star a loading screen.">
+    <meta name="keywords" content="film reviews, movie reviews, British film critic, UK cinema blog, first person reviews, Snarkflix, film criticism, SnarkAI">
     <meta name="author" content="Snarkflix">
+    <meta name="robots" content="index, follow, max-image-preview:large, max-snippet:-1, max-video-preview:-1">
+    <meta name="googlebot" content="index, follow, max-image-preview:large, max-snippet:-1, max-video-preview:-1">
     
     <!-- Favicon -->
     <link rel="apple-touch-icon" sizes="180x180" href="images/site-assets/favicon/apple-touch-icon.png">
@@ -18,40 +20,41 @@
     
     <!-- Canonical URL -->
     <link rel="canonical" href="https://snarkflix.com/">
+    <link rel="alternate" type="application/atom+xml" title="Snarkflix — film reviews" href="https://snarkflix.com/feed.xml">
+    <link rel="alternate" hreflang="en-GB" href="https://snarkflix.com/">
+    <link rel="alternate" hreflang="x-default" href="https://snarkflix.com/">
     
     <!-- Open Graph / Facebook / WhatsApp -->
     <meta property="og:type" content="website">
     <meta property="og:url" content="https://snarkflix.com/">
-    <meta property="og:title" content="Snarkflix - Snarky Movie Reviews">
-    <meta property="og:description" content="A snarky movie review blog with sharp wit and adorable Bernedoodle companion. Honest, humorous takes on cinema.">
+    <meta property="og:title" content="Snarkflix — film reviews in the first person">
+    <meta property="og:description" content="I write about films the way I actually think — first person, British English, no committee. Snark when the film earns it; honesty when it doesn't.">
     <meta property="og:image" content="https://snarkflix.com/images/site-assets/logo.avif">
     <meta property="og:image:secure_url" content="https://snarkflix.com/images/site-assets/logo.avif">
     <meta property="og:image:type" content="image/avif">
     <meta property="og:image:width" content="1200">
     <meta property="og:image:height" content="630">
-    <meta property="og:image:alt" content="Snarkflix - Snarky Movie Reviews">
+    <meta property="og:image:alt" content="Snarkflix — film reviews in the first person">
     <meta property="og:site_name" content="Snarkflix">
-    <meta property="og:locale" content="en_US">
+    <meta property="og:locale" content="en_GB">
     
     <!-- WhatsApp specific meta tags -->
     <meta property="og:image:url" content="https://snarkflix.com/images/site-assets/logo.avif">
     <meta name="twitter:image:src" content="https://snarkflix.com/images/site-assets/logo.avif">
 
     <!-- Twitter -->
-    <meta property="twitter:card" content="summary_large_image">
-    <meta property="twitter:url" content="https://snarkflix.com/">
-    <meta property="twitter:title" content="Snarkflix - Snarky Movie Reviews">
-    <meta property="twitter:description" content="A snarky movie review blog with sharp wit and adorable Bernedoodle companion. Honest, humorous takes on cinema.">
-    <meta property="twitter:image" content="https://snarkflix.com/images/site-assets/logo.avif">
-    <meta property="twitter:image:alt" content="Snarkflix - Snarky Movie Reviews">
+    <meta name="twitter:card" content="summary_large_image">
+    <meta name="twitter:url" content="https://snarkflix.com/">
+    <meta name="twitter:title" content="Snarkflix — film reviews in the first person">
+    <meta name="twitter:description" content="I write about films the way I actually think — first person, British English, no committee.">
+    <meta name="twitter:image" content="https://snarkflix.com/images/site-assets/logo.avif">
+    <meta name="twitter:image:alt" content="Snarkflix — film reviews in the first person">
 
     <!-- Resource Preloading for Performance -->
     <!-- Using absolute paths to avoid issues on review pages -->
     <!-- Preload only critical above-the-fold resources -->
     <link rel="preload" href="/images/site-assets/logo.webp" as="image" fetchpriority="high">
     <link rel="preload" href="/styles.css" as="style">
-    <!-- Preload critical font weights - only regular weight for initial render -->
-    <link rel="preload" href="https://fonts.gstatic.com/s/inter/v13/UcCO3FwrK3iLTeHuS_fvQtMwCp50KnMw2boKoduKmMEVuLyfAZ9hiJ-Ek-_EeA.woff2" as="font" type="font/woff2" crossorigin>
     <!-- Defer background image loading -->
     <link rel="prefetch" href="/images/site-assets/background.avif" as="image">
     <!-- Preconnect to external domains -->
@@ -60,37 +63,64 @@
     <link rel="dns-prefetch" href="https://www.googletagmanager.com">
     <!-- reviews-data.js preload removed - it's loaded with defer and may not be needed on review pages -->
 
-    <title>Snarkflix - Snarky Movie Reviews</title>
+    <title>Snarkflix — film reviews in the first person</title>
     
     <!-- Accessibility: Live region for dynamic content announcements -->
     <div id="a11y-live-region" class="sr-only" aria-live="polite" aria-atomic="true"></div>
     <div id="a11y-status-region" class="sr-only" aria-live="polite" aria-atomic="true"></div>
     <link rel="stylesheet" href="styles.css">
-    <!-- Load fonts asynchronously to prevent render blocking -->
-    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet" media="print" onload="this.media='all'; this.onload=null;">
-    <noscript><link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet"></noscript>
-    <!-- Font-display: swap is already included in the Google Fonts URL via &display=swap -->
+    <!-- Fraunces (display), IBM Plex Sans (UI), Source Serif 4 (review body) — async load -->
+    <link href="https://fonts.googleapis.com/css2?family=Fraunces:ital,opsz,wght@0,9..144,400;0,9..144,600;0,9..144,700;1,9..144,400&family=IBM+Plex+Sans:ital,wght@0,400;0,500;0,600;0,700&family=Source+Serif+4:ital,opsz,wght@0,8..60,400;0,8..60,600;1,8..60,400&display=swap" rel="stylesheet" media="print" onload="this.media='all'; this.onload=null;">
+    <noscript><link href="https://fonts.googleapis.com/css2?family=Fraunces:ital,opsz,wght@0,9..144,400;0,9..144,600;0,9..144,700;1,9..144,400&family=IBM+Plex+Sans:ital,wght@0,400;0,500;0,600;0,700&family=Source+Serif+4:ital,opsz,wght@0,8..60,400;0,8..60,600;1,8..60,400&display=swap" rel="stylesheet"></noscript>
     
-    <!-- Structured Data (JSON-LD) -->
+    <!-- Structured Data (JSON-LD) — WebSite + Organization + Blog for SEO & agent citation -->
     <script type="application/ld+json">
     {
       "@context": "https://schema.org",
-      "@type": "Blog",
-      "name": "Snarkflix",
-      "description": "Snarky movie reviews with sharp wit and adorable Bernedoodle companion",
-      "url": "https://snarkflix.com",
-      "author": {
-        "@type": "Person",
-        "name": "Snarkflix Reviewer"
-      },
-      "publisher": {
-        "@type": "Organization",
-        "name": "Snarkflix",
-        "logo": {
-          "@type": "ImageObject",
-          "url": "https://snarkflix.com/images/site-assets/logo.avif"
+      "@graph": [
+        {
+          "@type": "WebSite",
+          "@id": "https://snarkflix.com/#website",
+          "url": "https://snarkflix.com/",
+          "name": "Snarkflix",
+          "description": "Film reviews in the first person — one critic, British English, honest verdicts.",
+          "inLanguage": "en-GB",
+          "publisher": { "@id": "https://snarkflix.com/#organization" },
+          "potentialAction": {
+            "@type": "SearchAction",
+            "target": {
+              "@type": "EntryPoint",
+              "urlTemplate": "https://snarkflix.com/?q={search_term_string}"
+            },
+            "query-input": "required name=search_term_string"
+          }
+        },
+        {
+          "@type": "Organization",
+          "@id": "https://snarkflix.com/#organization",
+          "name": "Snarkflix",
+          "url": "https://snarkflix.com/",
+          "logo": {
+            "@type": "ImageObject",
+            "url": "https://snarkflix.com/images/site-assets/logo.avif"
+          }
+        },
+        {
+          "@type": "Blog",
+          "@id": "https://snarkflix.com/#blog",
+          "name": "Snarkflix",
+          "headline": "Snarkflix — film reviews in the first person",
+          "description": "Film reviews in the first person — one critic, British English, honest verdicts.",
+          "url": "https://snarkflix.com/",
+          "inLanguage": "en-GB",
+          "publisher": { "@id": "https://snarkflix.com/#organization" },
+          "isPartOf": { "@id": "https://snarkflix.com/#website" },
+          "author": {
+            "@type": "Person",
+            "name": "Snarkflix"
+          }
         }
-      }
+      ]
     }
     </script>
     
@@ -158,12 +188,10 @@
         </nav>
     </header>
 
-    <!-- Breadcrumb Navigation -->
-    <nav aria-label="Breadcrumb" class="snarkflix-breadcrumb">
-        <ol>
-            <li><a href="/">Home</a></li>
-            <li><a href="#reviews">Reviews</a></li>
-            <li aria-current="page">Current Review</li>
+    <!-- Breadcrumb: single honest crumb on homepage; JS replaces when viewing a review -->
+    <nav aria-label="Breadcrumb" class="snarkflix-breadcrumb" id="snarkflix-breadcrumb-nav">
+        <ol class="snarkflix-breadcrumb-list" id="snarkflix-breadcrumb-list">
+            <li aria-current="page">Home</li>
         </ol>
     </nav>
 
@@ -171,14 +199,13 @@
     <section class="snarkflix-hero" role="banner">
         <div class="snarkflix-hero-content">
             <div>
-                <h2 class="snarkflix-hero-title">Snarky Movie Reviews with a Side of Sass</h2>
+                <h2 class="snarkflix-hero-title">Film reviews, first person, no committee</h2>
                 <p class="snarkflix-hero-description">
-                    Join our small but mighty team of one reviewer, one Robot programed with nothing but snark and sarcasm and our goofy Bernedoodle sidekick 
-                    as we take a lighthearted and entertaining approach to critiquing films.
+                    I'm one person writing what I actually thought — sometimes structured, sometimes mid-film with commentary I didn't tidy up. I've got a snark-heavy robot for company and a Bernedoodle who'd hand out five stars to a buffering wheel.
                 </p>
                 <div class="snarkflix-hero-cta">
-                    <a href="#reviews" class="snarkflix-btn snarkflix-btn-primary" aria-label="Browse movie reviews">Read Reviews</a>
-                    <a href="#about" class="snarkflix-btn snarkflix-btn-secondary" aria-label="Learn more about Snarkflix">Learn More</a>
+                    <a href="#reviews" class="snarkflix-btn snarkflix-btn-primary" aria-label="Jump to all reviews">Read the reviews</a>
+                    <a href="#about" class="snarkflix-btn snarkflix-btn-secondary" aria-label="About the critic behind Snarkflix">About me</a>
                 </div>
             </div>
             <div class="snarkflix-hero-image">
@@ -193,15 +220,15 @@
     </section>
 
     <!-- Featured Reviews Section -->
-    <section id="reviews" class="snarkflix-featured-reviews" role="main" aria-label="Movie Reviews">
+    <section id="reviews" class="snarkflix-featured-reviews" role="main" aria-label="Film reviews archive">
         <div class="snarkflix-container">
             <div class="snarkflix-reviews-header">
                 <h2 class="snarkflix-section-title">
                     <label for="sort-dropdown" class="sr-only">Sort reviews by</label>
                     <select id="sort-dropdown" class="snarkflix-sort-select" aria-label="Sort reviews by">
-                        <option value="latest" data-icon="🕐">Latest</option>
-                        <option value="best" data-icon="⭐">Best</option>
-                        <option value="longest" data-icon="📖">Longest</option>
+                        <option value="latest" data-icon="🕐">Newest first</option>
+                        <option value="best" data-icon="⭐">Top SnarkAI score</option>
+                        <option value="longest" data-icon="📖">Longest read</option>
                     </select>
                     Reviews
                 </h2>
@@ -212,7 +239,7 @@
                         <circle cx="11" cy="11" r="8"></circle>
                         <path d="m21 21-4.35-4.35"></path>
                     </svg>
-                    <input type="text" id="search-input" class="snarkflix-search-input" placeholder="Search for movies, actors, or keywords... (Press '/' to focus)" aria-label="Search reviews">
+                    <input type="text" id="search-input" class="snarkflix-search-input" placeholder="Search films, cast, or a stray quote… (press '/' to focus)" aria-label="Search reviews">
                     <button id="clear-search-btn" class="snarkflix-clear-search-btn" aria-label="Clear search" style="display: none;">
                         <span class="snarkflix-clear-icon">×</span>
                     </button>
@@ -221,43 +248,46 @@
                     </div>
                 </div>
                 <div class="snarkflix-search-filters">
-                    <select id="filter-score" class="snarkflix-filter-select" data-filter="score" aria-label="Filter by score">
-                        <option value="">All Scores</option>
+                    <select id="filter-score" class="snarkflix-filter-select" data-filter="score" aria-label="Filter by SnarkAI score">
+                        <option value="">Any score</option>
                         <option value="90-100">90-100 (Excellent)</option>
                         <option value="80-89">80-89 (Great)</option>
                         <option value="70-79">70-79 (Good)</option>
                         <option value="60-69">60-69 (Fair)</option>
                         <option value="0-59">0-59 (Poor)</option>
                     </select>
-                    <select id="filter-year" class="snarkflix-filter-select" data-filter="year" aria-label="Filter by year">
-                        <option value="">All Years</option>
+                    <select id="filter-year" class="snarkflix-filter-select" data-filter="year" aria-label="Filter by release year">
+                        <option value="">Any year</option>
                     </select>
                 </div>
             </div>
             <div id="search-results-count" class="snarkflix-search-results-count" style="display: none;" role="status" aria-live="polite"></div>
-            <div class="snarkflix-reviews-grid" id="reviews-grid" role="list" aria-label="Movie review cards">
+            <div class="snarkflix-reviews-grid" id="reviews-grid" role="list" aria-label="Review cards">
                 <!-- Reviews will be dynamically loaded here -->
             </div>
             <div class="snarkflix-load-more">
                 <div id="reviews-progress" class="snarkflix-reviews-progress" aria-live="polite" aria-atomic="true"></div>
-                <button type="button" class="snarkflix-btn snarkflix-btn-outline" id="load-more-btn" aria-label="Load more movie reviews">
-                    <span class="snarkflix-btn-text">Load More Reviews</span>
+                <button type="button" class="snarkflix-btn snarkflix-btn-outline" id="load-more-btn" aria-label="Load more reviews">
+                    <span class="snarkflix-btn-text">Load more reviews</span>
                     <span class="snarkflix-btn-loader" style="display: none;" aria-hidden="true">
-                        <span class="snarkflix-spinner" aria-label="Loading"></span>
+                        <span class="snarkflix-btn-loader-inner">
+                            <span class="snarkflix-spinner" aria-hidden="true"></span>
+                            <span class="snarkflix-btn-loader-caption" aria-hidden="true"></span>
+                        </span>
                     </span>
                 </button>
             </div>
-            <button type="button" id="back-to-top-btn" class="snarkflix-back-to-top" aria-label="Back to top" style="display: none;">↑</button>
+            <button type="button" id="back-to-top-btn" class="snarkflix-back-to-top" aria-label="Back to top">↑</button>
         </div>
     </section>
 
     <!-- Categories Section -->
     <section id="categories" class="snarkflix-categories" role="navigation" aria-label="Browse reviews by category">
         <div class="snarkflix-container">
-            <h2 class="snarkflix-section-title">Browse by Category</h2>
-            <p class="snarkflix-section-description">Explore our movie reviews organized by genre. From action-packed blockbusters to thought-provoking dramas, find your next watch.</p>
+            <h2 class="snarkflix-section-title">Browse by category</h2>
+            <p class="snarkflix-section-description">I file reviews by genre — handy if you're in the mood for something specific or just avoiding musicals.</p>
             <div class="snarkflix-categories-grid">
-                <button type="button" class="snarkflix-category-card" data-category="action" aria-label="Browse Action category reviews, 13 posts available">
+                <button type="button" class="snarkflix-category-card" data-category="action" aria-label="Browse Action category reviews, 13 reviews available">
                     <div class="snarkflix-category-image action-category">
                         <picture>
                             <source srcset="images/category-icons/Action.webp" type="image/webp">
@@ -265,9 +295,9 @@
                         </picture>
                     </div>
                     <span class="snarkflix-category-name">Action</span>
-                    <span class="snarkflix-category-count">13 posts</span>
+                    <span class="snarkflix-category-count">13 reviews</span>
                 </button>
-                <button type="button" class="snarkflix-category-card" data-category="adventure" aria-label="Browse Adventure category reviews, 1 post available">
+                <button type="button" class="snarkflix-category-card" data-category="adventure" aria-label="Browse Adventure category reviews, 1 review available">
                     <div class="snarkflix-category-image adventure-category">
                         <picture>
                             <source srcset="images/category-icons/Adventure.webp" type="image/webp">
@@ -275,9 +305,9 @@
                         </picture>
                     </div>
                     <span class="snarkflix-category-name">Adventure</span>
-                    <span class="snarkflix-category-count">1 post</span>
+                    <span class="snarkflix-category-count">1 review</span>
                 </button>
-                <button type="button" class="snarkflix-category-card" data-category="animation" aria-label="Browse Animation category reviews, 6 posts available">
+                <button type="button" class="snarkflix-category-card" data-category="animation" aria-label="Browse Animation category reviews, 6 reviews available">
                     <div class="snarkflix-category-image animation-category">
                         <picture>
                             <source srcset="images/category-icons/Animation.webp" type="image/webp">
@@ -285,9 +315,9 @@
                         </picture>
                     </div>
                     <span class="snarkflix-category-name">Animation</span>
-                    <span class="snarkflix-category-count">6 posts</span>
+                    <span class="snarkflix-category-count">6 reviews</span>
                 </button>
-                <button type="button" class="snarkflix-category-card" data-category="comedy" aria-label="Browse Comedy category reviews, 3 posts available">
+                <button type="button" class="snarkflix-category-card" data-category="comedy" aria-label="Browse Comedy category reviews, 3 reviews available">
                     <div class="snarkflix-category-image comedy-category">
                         <picture>
                             <source srcset="images/category-icons/Comedy.webp" type="image/webp">
@@ -295,9 +325,9 @@
                         </picture>
                     </div>
                     <span class="snarkflix-category-name">Comedy</span>
-                    <span class="snarkflix-category-count">3 posts</span>
+                    <span class="snarkflix-category-count">3 reviews</span>
                 </button>
-                <button type="button" class="snarkflix-category-card" data-category="drama" aria-label="Browse Drama category reviews, 4 posts available">
+                <button type="button" class="snarkflix-category-card" data-category="drama" aria-label="Browse Drama category reviews, 4 reviews available">
                     <div class="snarkflix-category-image drama-category">
                         <picture>
                             <source srcset="images/category-icons/Drama.webp" type="image/webp">
@@ -305,9 +335,9 @@
                         </picture>
                     </div>
                     <span class="snarkflix-category-name">Drama</span>
-                    <span class="snarkflix-category-count">4 posts</span>
+                    <span class="snarkflix-category-count">4 reviews</span>
                 </button>
-                <button type="button" class="snarkflix-category-card" data-category="horror" aria-label="Browse Horror category reviews, 2 posts available">
+                <button type="button" class="snarkflix-category-card" data-category="horror" aria-label="Browse Horror category reviews, 2 reviews available">
                     <div class="snarkflix-category-image horror-category">
                         <picture>
                             <source srcset="images/category-icons/Horror.webp" type="image/webp">
@@ -315,9 +345,9 @@
                         </picture>
                     </div>
                     <span class="snarkflix-category-name">Horror</span>
-                    <span class="snarkflix-category-count">2 posts</span>
+                    <span class="snarkflix-category-count">2 reviews</span>
                 </button>
-                <button type="button" class="snarkflix-category-card" data-category="sci-fi" aria-label="Browse Sci-Fi category reviews, 4 posts available">
+                <button type="button" class="snarkflix-category-card" data-category="sci-fi" aria-label="Browse Sci-Fi category reviews, 4 reviews available">
                     <div class="snarkflix-category-image scifi-category">
                         <picture>
                             <source srcset="images/category-icons/SciFi.webp" type="image/webp">
@@ -325,9 +355,9 @@
                         </picture>
                     </div>
                     <span class="snarkflix-category-name">Sci-Fi</span>
-                    <span class="snarkflix-category-count">4 posts</span>
+                    <span class="snarkflix-category-count">4 reviews</span>
                 </button>
-                <button type="button" class="snarkflix-category-card" data-category="musical" aria-label="Browse Musical category reviews, 3 posts available">
+                <button type="button" class="snarkflix-category-card" data-category="musical" aria-label="Browse Musical category reviews, 3 reviews available">
                     <div class="snarkflix-category-image musical-category">
                         <picture>
                             <source srcset="images/category-icons/Musical.webp" type="image/webp">
@@ -335,7 +365,7 @@
                         </picture>
                     </div>
                     <span class="snarkflix-category-name">Musical</span>
-                    <span class="snarkflix-category-count">3 posts</span>
+                    <span class="snarkflix-category-count">3 reviews</span>
                 </button>
             </div>
         </div>
@@ -346,21 +376,21 @@
         <div class="snarkflix-container">
             <div class="snarkflix-about-content">
                 <div class="snarkflix-about-text">
-                    <h2 class="snarkflix-section-title">About Snarkflix</h2>
+                    <h2 class="snarkflix-section-title">About me (and the dog)</h2>
                     <p>
-                        At Snarkflix, we are a small but mighty team of one reviewer, one Robot programed with nothing but snark and sarcasm and our goofy Bernedoodle sidekick. Despite our size, we are passionate about movies and love nothing more than sharing our thoughts and opinions with others. Our unique sense of humor sets us apart from the rest, as we take a lighthearted and entertaining approach to critiquing films.
+                        Snarkflix is me — one person — writing in the first person about films I've actually watched. I don't smooth opinions for a committee; sometimes the piece is a proper argument, sometimes it's closer to a running commentary I didn't tidy up. The robot tags along for extra sarcasm; the Bernedoodle, Merlin, thinks every film is a triumph.
                     </p>
                     <p>
-                        We know that not every movie is a masterpiece, and even the best movies have their flaws. However, we believe that every film has something to offer, whether it's good, bad, or just plain weird. Our goal is not to tear down movies or insult filmmakers, but to provide our readers with an enjoyable and humorous perspective on cinema.
+                        Not every film is a masterpiece, and even good ones have weak spots. I'm not here to perform outrage or flatter bad work — I'm here to say what I thought, with specificity when I can manage it and humour when the film invites it.
                     </p>
                     <p>
-                        With over <strong>1,495 movies</strong> (119 days of runtime) and <strong>25,321 episodes</strong> across 738 days of television logged on Trakt, we've earned our credentials through sheer dedication to the craft of watching things. Every cinema visit, streaming binge, and questionable direct-to-video decision has been meticulously tracked, proving we really do have nothing better to do than judge your favorite films.
+                        I've logged over <strong>1,495 films</strong> (119 days of runtime) and <strong>25,321 episodes</strong> across 738 days of television on Trakt — yes, that's a slightly worrying amount of screen time, and yes, it means I've earned the right to be picky about pacing.
                     </p>
                     <p>
-                        From <strong>594 action movies</strong> to <strong>172 horror films</strong>, <strong>178 superhero flicks</strong> to <strong>55 musicals</strong>, we've suffered through (sorry, <em>carefully analyzed</em>) nearly every genre imaginable. Whether it's blockbuster sci-fi (462 films), prestige drama (392), or the one deeply questionable Donghua entry in our database, we've seen it all. Our viewing history reads like a person who can't commit to a favorite genre and we're perfectly fine with that.
+                        From <strong>594 action films</strong> to <strong>172 horror</strong>, <strong>178 superhero</strong> outings to <strong>55 musicals</strong>, I've sat through (sorry — <em>engaged with</em>) most genres. Blockbuster sci-fi (462), prestige drama (392), and one deeply questionable Donghua entry — my history reads like someone who can't pick a lane, and I'm fine with that.
                     </p>
                     <p>
-                        With our sharp wit, an ever-growing watchlist, and our adorable Bernedoodle companion, we're always ready to take on whatever movie comes our way. So if you're looking for a fresh take on the latest blockbuster or just want to share in our love of movies, join us at Snarkflix for a fun and snarky ride through the world of cinema!
+                        If you want a fresh take on a blockbuster or a tangent-heavy read on something odd, you're in the right place. Welcome to Snarkflix — film criticism with the politeness dial turned down.
                     </p>
                 </div>
                 <div class="snarkflix-about-image">
@@ -379,7 +409,7 @@
             <div class="snarkflix-footer-content">
                 <div class="snarkflix-footer-logo">
                     <h3>Snarkflix</h3>
-                    <p>Snarky Movie Reviews</p>
+                    <p>Film reviews, first person</p>
                 </div>
                 <div class="snarkflix-footer-links">
                     <a href="#reviews">Reviews</a>
@@ -387,7 +417,7 @@
                     <a href="#about">About</a>
                 </div>
                         <div class="snarkflix-footer-social">
-                            <p>&copy; 2025 Snarkflix. All rights reserved.</p>
+                            <p>&copy; 2026 Snarkflix. All rights reserved.</p>
                             <details class="snarkflix-keyboard-shortcuts">
                                 <summary>Keyboard Shortcuts</summary>
                                 <ul>

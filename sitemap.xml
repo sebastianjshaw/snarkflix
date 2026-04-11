@@ -1,72 +1,52 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
-  <!-- Homepage -->
   <url>
     <loc>https://snarkflix.com/</loc>
-    <lastmod>2025-12-23</lastmod>
+    <lastmod>2026-04-11</lastmod>
     <priority>1.0</priority>
     <changefreq>weekly</changefreq>
-  </url>
-  <!-- Main Sections -->
-  <url>
-    <loc>https://snarkflix.com/#reviews</loc>
-    <lastmod>2025-12-23</lastmod>
-    <priority>0.8</priority>
-    <changefreq>daily</changefreq>
-  </url>
-  <url>
-    <loc>https://snarkflix.com/#categories</loc>
-    <lastmod>2025-12-23</lastmod>
-    <priority>0.7</priority>
-    <changefreq>weekly</changefreq>
-  </url>
-  <url>
-    <loc>https://snarkflix.com/#about</loc>
-    <lastmod>2025-12-23</lastmod>
-    <priority>0.6</priority>
-    <changefreq>monthly</changefreq>
   </url>
   <!-- Review: Superman (2025) -->
   <url>
     <loc>https://snarkflix.com/review/1</loc>
     <lastmod>2025-08-01</lastmod>
     <priority>0.9</priority>
-    <changefreq>weekly</changefreq>
+    <changefreq>monthly</changefreq>
   </url>
   <!-- Review: Wicked (2024) -->
   <url>
     <loc>https://snarkflix.com/review/2</loc>
     <lastmod>2024-01-02</lastmod>
     <priority>0.8</priority>
-    <changefreq>monthly</changefreq>
+    <changefreq>yearly</changefreq>
   </url>
   <!-- Review: The Boy and the Heron (2023) -->
   <url>
     <loc>https://snarkflix.com/review/4</loc>
     <lastmod>2024-11-30</lastmod>
     <priority>0.8</priority>
-    <changefreq>monthly</changefreq>
+    <changefreq>yearly</changefreq>
   </url>
   <!-- Review: The Man from Earth (2007) -->
   <url>
     <loc>https://snarkflix.com/review/5</loc>
     <lastmod>2024-11-30</lastmod>
     <priority>0.8</priority>
-    <changefreq>monthly</changefreq>
+    <changefreq>yearly</changefreq>
   </url>
   <!-- Review: Wonka (2023) -->
   <url>
     <loc>https://snarkflix.com/review/6</loc>
     <lastmod>2024-02-09</lastmod>
     <priority>0.7</priority>
-    <changefreq>monthly</changefreq>
+    <changefreq>yearly</changefreq>
   </url>
   <!-- Review: The Marvels (2023) -->
   <url>
     <loc>https://snarkflix.com/review/7</loc>
     <lastmod>2024-02-03</lastmod>
     <priority>0.8</priority>
-    <changefreq>monthly</changefreq>
+    <changefreq>yearly</changefreq>
   </url>
   <!-- Review: To Me, the One Who Loved You (2022) -->
   <url>
@@ -156,7 +136,7 @@
   <url>
     <loc>https://snarkflix.com/review/20</loc>
     <lastmod>2023-03-18</lastmod>
-    <priority>0.9</priority>
+    <priority>0.8</priority>
     <changefreq>yearly</changefreq>
   </url>
   <!-- Review: Black Panther: Wakanda Forever (2022) -->
@@ -177,7 +157,7 @@
   <url>
     <loc>https://snarkflix.com/review/23</loc>
     <lastmod>2022-08-07</lastmod>
-    <priority>0.9</priority>
+    <priority>0.8</priority>
     <changefreq>yearly</changefreq>
   </url>
   <!-- Review: Pitch Perfect (2012) -->
@@ -227,7 +207,7 @@
     <loc>https://snarkflix.com/review/31</loc>
     <lastmod>2025-09-28</lastmod>
     <priority>0.9</priority>
-    <changefreq>weekly</changefreq>
+    <changefreq>monthly</changefreq>
   </url>
   <!-- Review: Don't Look Up (2021) -->
   <url>
@@ -282,7 +262,7 @@
   <url>
     <loc>https://snarkflix.com/review/39</loc>
     <lastmod>2020-12-22</lastmod>
-    <priority>0.9</priority>
+    <priority>0.8</priority>
     <changefreq>yearly</changefreq>
   </url>
   <!-- Review: Palm Springs (2020) -->
@@ -290,48 +270,83 @@
     <loc>https://snarkflix.com/review/42</loc>
     <lastmod>2025-10-02</lastmod>
     <priority>0.8</priority>
-    <changefreq>weekly</changefreq>
+    <changefreq>monthly</changefreq>
   </url>
   <!-- Review: The Iron Giant (1999) -->
   <url>
     <loc>https://snarkflix.com/review/43</loc>
     <lastmod>2025-10-04</lastmod>
     <priority>0.9</priority>
-    <changefreq>weekly</changefreq>
+    <changefreq>monthly</changefreq>
   </url>
   <!-- Review: Goncharov (1973) -->
   <url>
     <loc>https://snarkflix.com/review/44</loc>
     <lastmod>2024-08-15</lastmod>
     <priority>0.9</priority>
-    <changefreq>monthly</changefreq>
+    <changefreq>yearly</changefreq>
   </url>
   <!-- Review: KPop DemonHunters (2025) -->
   <url>
     <loc>https://snarkflix.com/review/45</loc>
     <lastmod>2025-10-07</lastmod>
     <priority>0.8</priority>
-    <changefreq>weekly</changefreq>
+    <changefreq>monthly</changefreq>
   </url>
   <!-- Review: Zootopia (2016) -->
   <url>
     <loc>https://snarkflix.com/review/46</loc>
     <lastmod>2025-10-09</lastmod>
     <priority>0.8</priority>
-    <changefreq>weekly</changefreq>
+    <changefreq>monthly</changefreq>
   </url>
   <!-- Review: Thunderbolts (2025) -->
   <url>
     <loc>https://snarkflix.com/review/47</loc>
     <lastmod>2025-10-18</lastmod>
     <priority>0.8</priority>
-    <changefreq>weekly</changefreq>
+    <changefreq>monthly</changefreq>
   </url>
   <!-- Review: Care (2018) -->
   <url>
     <loc>https://snarkflix.com/review/48</loc>
     <lastmod>2025-11-05</lastmod>
     <priority>0.9</priority>
+    <changefreq>monthly</changefreq>
+  </url>
+  <!-- Review: The Holdovers (2023) -->
+  <url>
+    <loc>https://snarkflix.com/review/49</loc>
+    <lastmod>2025-12-24</lastmod>
+    <priority>0.8</priority>
+    <changefreq>monthly</changefreq>
+  </url>
+  <!-- Review: The Family Stone (2005) -->
+  <url>
+    <loc>https://snarkflix.com/review/50</loc>
+    <lastmod>2025-12-25</lastmod>
+    <priority>0.7</priority>
+    <changefreq>monthly</changefreq>
+  </url>
+  <!-- Review: Good Boy (2025) -->
+  <url>
+    <loc>https://snarkflix.com/review/51</loc>
+    <lastmod>2026-01-25</lastmod>
+    <priority>0.8</priority>
+    <changefreq>weekly</changefreq>
+  </url>
+  <!-- Review: Sinners (2025) -->
+  <url>
+    <loc>https://snarkflix.com/review/52</loc>
+    <lastmod>2026-03-22</lastmod>
+    <priority>0.8</priority>
+    <changefreq>weekly</changefreq>
+  </url>
+  <!-- Review: 28 Years Later (2025) -->
+  <url>
+    <loc>https://snarkflix.com/review/53</loc>
+    <lastmod>2026-04-11</lastmod>
+    <priority>0.7</priority>
     <changefreq>weekly</changefreq>
   </url>
 </urlset>

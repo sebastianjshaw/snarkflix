@@ -1,0 +1,34 @@
+# Snarkflix
+
+> First-person film reviews in British English — honest, specific, sometimes snarky. One critic; scores and short summaries are augmented with SnarkAI from the review text.
+
+Snarkflix is a single-author cinema review site. Each review has a canonical URL for citation. Content is written for humans; this file helps AI systems and search understand scope, language, and how to link correctly.
+
+## Site
+
+- [Homepage & archive](https://snarkflix.com/): All reviews, search (`?q=`), categories, about.
+- [Atom feed](https://snarkflix.com/feed.xml): Newest reviews (for readers & aggregators).
+- [XML sitemap](https://snarkflix.com/sitemap.xml): Every review URL (`/review/{id}`).
+- [Image sitemap](https://snarkflix.com/image-sitemap.xml): Key review artwork.
+
+## How to cite a review
+
+Use the review’s canonical URL: `https://snarkflix.com/review/{id}` (numeric id). The same review may load from `?review={id}` on the homepage for legacy/share links; prefer the `/review/` URL for attribution.
+
+## Language & region
+
+- Primary language: **English (British)** — `en-GB`.
+- Audience: film readers worldwide; voice and spelling are UK-leaning.
+
+## Topics
+
+Film reviews across genres (action, drama, horror, sci-fi, animation, comedy, musical, adventure). Each piece is labeled with release year, category, and a SnarkAI score derived from the written review.
+
+## Machine-readable rules
+
+- `robots.txt` — crawl policy and sitemap locations.
+- JSON-LD on pages — `WebSite`, `Organization`, `Blog` on the homepage; `Review` + `BreadcrumbList` on review views (injected when a review is open).
+
+## Contact / rights
+
+Content © Snarkflix. For permissions or corrections, use the site’s contact channels if listed on [About](https://snarkflix.com/#about).

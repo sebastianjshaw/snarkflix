@@ -21,5 +21,33 @@ Allow: /
 Allow: /review/
 Allow: /review/*
 
+# AI / agent crawlers (training & retrieval — adjust if you want to opt out)
+User-agent: GPTBot
+Allow: /
+
+User-agent: ChatGPT-User
+Allow: /
+
+User-agent: Claude-Web
+Allow: /
+
+User-agent: ClaudeBot
+Allow: /
+
+User-agent: PerplexityBot
+Allow: /
+
+User-agent: Google-Extended
+Allow: /
+
+User-agent: Amazonbot
+Allow: /
+
+# Optional overview for LLM / agentic discovery (see https://llmstxt.org/)
+# https://snarkflix.com/llms.txt
+
 Sitemap: https://snarkflix.com/sitemap.xml
 Sitemap: https://snarkflix.com/image-sitemap.xml
+
+# Atom feed (also linked from homepage <link rel="alternate">)
+# https://snarkflix.com/feed.xml

@@ -17,34 +17,14 @@ const reviews = eval('(' + reviewsMatch[1] + ')');
 // Get current date for lastmod
 const currentDate = new Date().toISOString().split('T')[0];
 
-// Generate sitemap XML
+// Generate sitemap XML (no hash/fragment URLs — crawlers treat them poorly vs canonical /)
 let sitemap = `<?xml version="1.0" encoding="UTF-8"?>
 <urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
-  <!-- Homepage -->
   <url>
     <loc>https://snarkflix.com/</loc>
     <lastmod>${currentDate}</lastmod>
     <priority>1.0</priority>
     <changefreq>weekly</changefreq>
-  </url>
-  <!-- Main Sections -->
-  <url>
-    <loc>https://snarkflix.com/#reviews</loc>
-    <lastmod>${currentDate}</lastmod>
-    <priority>0.8</priority>
-    <changefreq>daily</changefreq>
-  </url>
-  <url>
-    <loc>https://snarkflix.com/#categories</loc>
-    <lastmod>${currentDate}</lastmod>
-    <priority>0.7</priority>
-    <changefreq>weekly</changefreq>
-  </url>
-  <url>
-    <loc>https://snarkflix.com/#about</loc>
-    <lastmod>${currentDate}</lastmod>
-    <priority>0.6</priority>
-    <changefreq>monthly</changefreq>
   </url>
 `;
 

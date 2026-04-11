@@ -1,11 +1,12 @@
-[build]
-  publish = "."
-
+# Run `npm run build` before deploy so review/*.html, feed.xml, and sitemaps exist.
+# Serve crawlable static review HTML at /review/:id → review/:id.html
 [[redirects]]
   from = "/review/:id"
   to = "/review/:id.html"
   status = 200
+  force = false
 
+# SPA fallback (static files such as /styles.css still win when present)
 [[redirects]]
   from = "/*"
   to = "/index.html"

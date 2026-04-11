@@ -1,16 +1,14 @@
 const fs = require('fs');
 const path = require('path');
+const { getMovieTheatricalReleaseISO } = require('./lib/get-movie-release.cjs');
 
-// Load the reviews array directly via the module's CommonJS export
 const reviews = require('./reviews-data.js');
 
-// Create review directory if it doesn't exist
 const reviewDir = path.join(__dirname, 'review');
 if (!fs.existsSync(reviewDir)) {
   fs.mkdirSync(reviewDir);
 }
 
-// Escape HTML special characters to prevent XSS / broken markup
 function esc(str) {
   return String(str)
     .replace(/&/g, '&amp;')
@@ -20,7 +18,6 @@ function esc(str) {
     .replace(/>/g, '&gt;');
 }
 
-// Convert paragraph-separated content to <p> tags for crawlers
 function contentToHtml(content) {
   return content
     .split('\n\n')
@@ -29,29 +26,96 @@ function contentToHtml(content) {
     .join('\n        ');
 }
 
-// Generate HTML for each review
-reviews.forEach(review => {
-  const title      = esc(review.title);
-  const score      = esc(String(review.aiScore));
-  const summary    = esc(review.aiSummary.substring(0, 200));
-  const tagline    = esc(review.tagline);
-  const category   = esc(review.category.charAt(0).toUpperCase() + review.category.slice(1));
-  const year       = esc(String(review.releaseYear));
-  const imageUrl   = `https://snarkflix.com/${review.imageUrl.replace(/^\//, '')}`;
-  const reviewUrl  = `https://snarkflix.com/review/${review.id}`;
-  const pageTitle  = `${title} Review - SnarkAI Score: ${score}/100 | Snarkflix`;
-  const metaDesc   = `${title} (${year}) ${category} review: ${summary}...`;
+function parsePublishISO(review) {
+  try {
+    const dateMatch = review.publishDate.match(/(\w+)\s+(\d+),\s+(\d+)/);
+    if (dateMatch) {
+      const months = {
+        Jan: '01', Feb: '02', Mar: '03', Apr: '04',
+        May: '05', Jun: '06', Jul: '07', Aug: '08',
+        Sep: '09', Oct: '10', Nov: '11', Dec: '12'
+      };
+      const month = months[dateMatch[1]] || '01';
+      const day = dateMatch[2].padStart(2, '0');
+      const year = dateMatch[3];
+      return `${year}-${month}-${day}`;
+    }
+  } catch (e) { /* noop */ }
+  return new Date().toISOString().split('T')[0];
+}
+
+reviews.forEach((review) => {
+  const title = esc(review.title);
+  const score = esc(String(review.aiScore));
+  const summary = esc(review.aiSummary.substring(0, 200));
+  const tagline = esc(review.tagline);
+  const category = esc(review.category.charAt(0).toUpperCase() + review.category.slice(1));
+  const year = esc(String(review.releaseYear));
+  const imageUrl = `https://snarkflix.com/${review.imageUrl.replace(/^\//, '')}`;
+  const reviewUrl = `https://snarkflix.com/review/${review.id}`;
+  const pageTitle = `${title} Review - SnarkAI Score: ${score}/100 | Snarkflix`;
+  const metaDesc = `${title} (${year}) ${category} review: ${summary}...`;
+  const filmReleaseISO = getMovieTheatricalReleaseISO(review);
+  const datePublished = parsePublishISO(review);
+
+  const ldJson = {
+    '@context': 'https://schema.org',
+    '@type': 'Review',
+    '@id': `${reviewUrl}#review`,
+    url: reviewUrl,
+    name: `${review.title} — film review`,
+    headline: `${review.title} review`,
+    inLanguage: 'en-GB',
+    datePublished,
+    reviewBody: review.content.substring(0, 500) + (review.content.length > 500 ? '...' : ''),
+    image: imageUrl,
+    author: { '@type': 'Person', name: 'Snarkflix' },
+    publisher: {
+      '@type': 'Organization',
+      '@id': 'https://snarkflix.com/#organization',
+      name: 'Snarkflix',
+      url: 'https://snarkflix.com/',
+      logo: {
+        '@type': 'ImageObject',
+        url: 'https://snarkflix.com/images/site-assets/logo.avif'
+      }
+    },
+    itemReviewed: {
+      '@type': 'Movie',
+      name: review.title,
+      url: reviewUrl,
+      image: imageUrl,
+      genre: review.category.charAt(0).toUpperCase() + review.category.slice(1),
+      datePublished: filmReleaseISO
+    },
+    reviewRating: {
+      '@type': 'Rating',
+      ratingValue: String(review.aiScore),
+      bestRating: '100',
+      worstRating: '0',
+      name: 'SnarkAI score'
+    },
+    mainEntityOfPage: {
+      '@type': 'WebPage',
+      '@id': `${reviewUrl}#webpage`,
+      url: reviewUrl
+    }
+  };
 
   const html = `<!DOCTYPE html>
-<html lang="en">
+<html lang="en-GB">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <meta name="description" content="${metaDesc}">
-    <meta name="keywords" content="movie reviews, film criticism, snarky reviews, cinema, movies, entertainment, ${title}">
+    <meta name="keywords" content="film reviews, Snarkflix, ${title}, ${year}, ${category}">
     <meta name="author" content="Snarkflix">
+    <meta name="robots" content="index, follow, max-image-preview:large">
 
-    <!-- Favicon -->
+    <link rel="canonical" href="${reviewUrl}">
+    <link rel="alternate" type="application/atom+xml" title="Snarkflix" href="https://snarkflix.com/feed.xml">
+    <link rel="stylesheet" href="../styles.css">
+
     <link rel="apple-touch-icon" sizes="180x180" href="../images/site-assets/favicon/apple-touch-icon.png">
     <link rel="icon" type="image/png" sizes="32x32" href="../images/site-assets/favicon/favicon-32x32.png">
     <link rel="icon" type="image/png" sizes="16x16" href="../images/site-assets/favicon/favicon-16x16.png">
@@ -60,10 +124,6 @@ reviews.forEach(review => {
     <meta name="msapplication-TileColor" content="#1a1a1a">
     <meta name="theme-color" content="#1a1a1a">
 
-    <!-- Canonical URL -->
-    <link rel="canonical" href="${reviewUrl}">
-
-    <!-- Open Graph / Facebook / WhatsApp -->
     <meta property="og:type" content="article">
     <meta property="og:url" content="${reviewUrl}">
     <meta property="og:title" content="${pageTitle}">
@@ -73,47 +133,21 @@ reviews.forEach(review => {
     <meta property="og:image:type" content="image/webp">
     <meta property="og:image:width" content="1200">
     <meta property="og:image:height" content="630">
-    <meta property="og:image:alt" content="${title} Review">
+    <meta property="og:image:alt" content="${title} review poster">
     <meta property="og:site_name" content="Snarkflix">
-    <meta property="og:locale" content="en_US">
-    <meta property="og:image:url" content="${imageUrl}">
-    <meta name="twitter:image:src" content="${imageUrl}">
+    <meta property="og:locale" content="en_GB">
 
-    <!-- Twitter -->
-    <meta property="twitter:card" content="summary_large_image">
-    <meta property="twitter:url" content="${reviewUrl}">
-    <meta property="twitter:title" content="${pageTitle}">
-    <meta property="twitter:description" content="${metaDesc}">
-    <meta property="twitter:image" content="${imageUrl}">
-    <meta property="twitter:image:alt" content="${title} Review">
-    <meta property="twitter:site" content="@snarkflix">
+    <meta name="twitter:card" content="summary_large_image">
+    <meta name="twitter:url" content="${reviewUrl}">
+    <meta name="twitter:title" content="${pageTitle}">
+    <meta name="twitter:description" content="${metaDesc}">
+    <meta name="twitter:image" content="${imageUrl}">
+    <meta name="twitter:image:alt" content="${title} review poster">
 
-    <!-- JSON-LD structured data for search engines -->
-    <script type="application/ld+json">
-    {
-      "@context": "https://schema.org",
-      "@type": "Review",
-      "itemReviewed": {
-        "@type": "Movie",
-        "name": "${title}",
-        "datePublished": "${year}"
-      },
-      "reviewRating": {
-        "@type": "Rating",
-        "ratingValue": "${score}",
-        "bestRating": "100",
-        "worstRating": "0"
-      },
-      "author": { "@type": "Person", "name": "Snarkflix Reviewer" },
-      "headline": "${title}",
-      "image": "${imageUrl}",
-      "url": "${reviewUrl}"
-    }
-    </script>
+    <script type="application/ld+json">${JSON.stringify(ldJson)}</script>
 
     <title>${pageTitle}</title>
 
-    <!-- Google tag (gtag.js) -->
     <script async src="https://www.googletagmanager.com/gtag/js?id=G-8SV8W7XL64"></script>
     <script>
       window.dataLayer = window.dataLayer || [];
@@ -122,44 +156,42 @@ reviews.forEach(review => {
       gtag('config', 'G-8SV8W7XL64');
     </script>
 
-    <!-- Redirect browsers to the SPA; crawlers read the real content below -->
-    <script>
-        window.location.replace('https://snarkflix.com/review/${review.id}');
-    </script>
-
     <style>
-        body { font-family: Arial, sans-serif; background: #1a1a1a; color: #f8f9fa; margin: 0; padding: 0; }
-        .container { max-width: 800px; margin: 0 auto; padding: 40px 20px; }
-        h1 { color: #ff6b35; margin-bottom: 8px; }
-        .meta { color: #aaa; font-size: 14px; margin-bottom: 24px; }
-        .score { display: inline-block; background: #ff6b35; color: #fff; padding: 4px 12px; border-radius: 4px; font-weight: bold; margin-bottom: 16px; }
-        blockquote { border-left: 4px solid #ff6b35; margin: 24px 0; padding-left: 16px; font-style: italic; color: #ccc; }
-        .review-image { width: 100%; max-height: 400px; object-fit: cover; border-radius: 8px; margin-bottom: 24px; }
-        p { line-height: 1.7; margin-bottom: 16px; }
-        a { color: #ff6b35; }
-        .redirect-notice { margin-bottom: 24px; padding: 12px 16px; background: #222; border-radius: 6px; font-size: 14px; color: #aaa; }
+        .snarkflix-static-review-wrap { max-width: 800px; margin: 0 auto; padding: 2rem 1.25rem 3rem; }
+        .snarkflix-static-banner {
+            padding: 0.75rem 1rem; margin-bottom: 1.5rem; border-radius: 8px;
+            background: var(--snarkflix-light, #f0e8de); color: var(--snarkflix-dark, #1a1a1a);
+            font-size: 0.95rem; border-left: 4px solid var(--snarkflix-primary, #ff6b35);
+        }
+        .snarkflix-static-review-wrap h1 { font-family: Georgia, serif; color: var(--snarkflix-primary, #ff6b35); }
+        .snarkflix-static-meta { color: var(--snarkflix-gray, #6c757d); font-size: 0.9rem; margin-bottom: 1rem; }
+        .snarkflix-static-score { display: inline-block; background: var(--snarkflix-primary, #ff6b35); color: #fff;
+            padding: 0.25rem 0.75rem; border-radius: 6px; font-weight: 700; margin-bottom: 1rem; }
+        .snarkflix-static-review-wrap blockquote { border-left: 4px solid var(--snarkflix-primary, #ff6b35); margin: 1.5rem 0; padding-left: 1rem; font-style: italic; }
+        .snarkflix-static-review-wrap .review-image { width: 100%; max-height: 420px; object-fit: cover; border-radius: 8px; margin-bottom: 1.25rem; }
     </style>
 </head>
 <body>
-    <div class="container">
-        <p class="redirect-notice">Redirecting to Snarkflix&hellip; <a href="https://snarkflix.com/review/${review.id}">Click here if not redirected</a>.</p>
+    <div class="snarkflix-static-review-wrap">
+        <p class="snarkflix-static-banner">
+            Crawlable archive copy. <a href="../index.html?review=${review.id}">Open interactive view</a> for search, related reviews, and sharing.
+        </p>
 
-        <article>
-            <h1>${title} Review</h1>
-            <p class="meta">${category} &middot; ${year} &middot; ${esc(review.readingDuration)} &middot; Published ${esc(review.publishDate)}</p>
-            <span class="score">SnarkAI Score: ${score}/100</span>
-            <img src="${imageUrl}" alt="${title} (${year}) movie poster" class="review-image" width="800" height="420">
+        <article itemscope itemtype="https://schema.org/Review">
+            <h1 itemprop="name">${title} Review</h1>
+            <p class="snarkflix-static-meta">${category} &middot; ${year} &middot; ${esc(review.readingDuration)} &middot; Published ${esc(review.publishDate)}</p>
+            <span class="snarkflix-static-score">SnarkAI Score: ${score}/100</span>
+            <img src="${imageUrl}" alt="${title} (${year}) film poster" class="review-image" width="800" height="420" itemprop="image">
             <blockquote>&ldquo;${tagline}&rdquo;</blockquote>
             <p><strong>TL;DR:</strong> ${esc(review.aiSummary)}</p>
-            ${contentToHtml(review.content)}
+            <div itemprop="reviewBody">${contentToHtml(review.content)}</div>
         </article>
 
-        <p><a href="https://snarkflix.com/">← Back to all reviews</a></p>
+        <p style="margin-top:2rem;"><a href="../index.html">← All reviews</a></p>
     </div>
 </body>
 </html>`;
 
-  // Write the HTML file
   const filePath = path.join(reviewDir, `${review.id}.html`);
   fs.writeFileSync(filePath, html);
   console.log(`Generated review page for: ${review.title} (ID: ${review.id})`);

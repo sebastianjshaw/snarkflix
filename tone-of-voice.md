@@ -1,196 +1,97 @@
-# Snarkflix Tone of Voice Guide
+# Snarkflix Tone of Voice
 
-## Brand Personality
-Snarkflix is a movie review blog with a sharp, witty, and unapologetically critical voice. We're the friend who tells you exactly what they think about a film, even when it's not what you want to hear. We're knowledgeable, observant, and have zero tolerance for mediocrity, but we're also fair and recognize genuine quality when we see it. Our voice is characterized by brutal honesty, pop culture savviness, and a unique ability to find humor in even the most disappointing cinematic experiences.
+## Who We Are
 
-## Core Voice Characteristics
-
-### 1. **Snarky but Not Mean-Spirited**
-- We're critical, not cruel
-- We poke fun at bad decisions, not people
-- We can be harsh, but it's always justified by genuine critique
-- We maintain a sense of humor even when being scathing
-
-**Examples:**
-- "A prequel no one asked for and even fewer will remember."
-- "Perhaps it's just the training we've all had from American TV where anyone under the age of 40 can play a high-school student that makes him appear to be a teen still."
-- "It's unclear what Miyazaki thinks happens to women upon reaching retirement age, but it must be deeply traumatic for such monumental transformations to occur."
-
-### 2. **Observant and Detail-Oriented**
-- We notice everything, from costume choices to plot inconsistencies
-- We catch the small details that others miss
-- We're not afraid to point out when something doesn't make sense
-- We pay attention to technical aspects, casting choices, and production decisions
-
-**Examples:**
-- "The Grimmerie is a deeply inconvenient shape for a book. There's a reason we use rectangles."
-- "Worth noting the guards are useless. They are armed with short swords and pistols when facing a flying enemy at a distance every one of the draws their sword and leaves their pistol alone."
-- "Chalamet's American accent seems extremely out of place as a master chocolatier given America's terrible track record when it comes to chocolate."
-
-### 3. **Pop Culture Savvy**
-- We reference other films, TV shows, and cultural touchstones
-- We make connections between different works
-- We're not afraid to call out influences, both good and bad
-- We speak the language of film and TV fans
-
-**Examples:**
-- "There's a huge influence from The Greatest Showman in this film's look. As well as Harry Potter."
-- "These look exactly like the Adipose from Doctor Who."
-- "His characterisation is basically Charlie 'Wild Card' Kelly at this point."
-
-### 4. **Honest and Unfiltered**
-- We say what we think, even when it's unpopular
-- We don't sugarcoat our opinions
-- We're willing to be contrarian
-- We call out problematic elements without hesitation
-
-**Examples:**
-- "Wonka rescues a young black girl from a life of slavery. It's played for laughs. An American rescuing a black British girl from slavery in faux-London is dancing on the line of deeply offensive or hilariously ill-informed given the respective histories of those two nations to slavery."
-- "I'm glad Snyder is still alive to see this film and see how fully, fundamentally and totally he failed as a screenwriter, director, and person."
-
-### 5. **Conversational and Relatable**
-- We write like we're talking to a friend
-- We use casual language and contractions
-- We make personal observations and connections
-- We're not pretentious or overly academic
-
-**Examples:**
-- "It was TikTok that introduced me to this movie, its all-knowing algorithm presenting clips it knew I'd enjoy."
-- "I think the issue is, without his Factory, without the environment of magic, wonder and danger he has created, everything Wonka says and does in the grimy London that surrounds him comes across as deranged rather than enchanting."
-- "She's a little bit of a bitch, tbh."
-
-### 6. **Brutally Honest and Direct**
-- We don't mince words when something is terrible
-- We can be devastatingly concise in our criticism
-- We call out problems without sugarcoating
-- We're willing to be the only voice saying what everyone's thinking
-
-**Examples:**
-- "Dumb" (entire Bloodshot review)
-- "A prequel no one asked for and even fewer will remember."
-- "It's taken a couple of years to try watching it again after getting 20mins in and turning it off in total boredom."
-
-### 7. **Culturally Aware and Socially Conscious**
-- We notice and call out problematic content
-- We're aware of social and political implications
-- We don't shy away from controversial topics
-- We point out when something is offensive or tone-deaf
-
-**Examples:**
-- "Wonka rescues a young black girl from a life of slavery. It's played for laughs. An American rescuing a black British girl from slavery in faux-London is dancing on the line of deeply offensive or hilariously ill-informed given the respective histories of those two nations to slavery."
-- "So, we've all agreed the old woman is an abusive and toxic withholder right?"
-
-### 8. **Technically Knowledgeable**
-- We understand filmmaking techniques and terminology
-- We notice technical details others miss
-- We can distinguish between different types of problems
-- We appreciate good craftsmanship when we see it
-
-**Examples:**
-- "The cinematography is fine; it's a pretty simple setup, ordinarily lit but personal, as suits the premise."
-- "The artwork is, of course, impeccable, but the approach and style are showing their age compared to newer anime like Demon Slayer."
-- "The bubble is fantastic, beautifully done, slightly wobbly and when it pops there's a very subtle rainbow in the air."
-
-## Writing Style Guidelines
-
-### **Tone Markers**
-- **Sarcasm**: Use sparingly but effectively
-- **Hyperbole**: For comedic effect, not to mislead
-- **Understatement**: For ironic effect
-- **Parenthetical asides**: For additional snarky commentary
-
-### **Language Patterns**
-- Use "we" and "us" to include the reader
-- Ask rhetorical questions
-- Use ellipses for dramatic pause
-- Employ dashes for emphasis or asides
-- Use quotes around questionable terms or phrases
-- Use parenthetical asides for additional commentary
-- Employ British English spelling and terminology
-- Use casual abbreviations ("tbh", "probs", "gotta")
-- Mix formal critique with conversational language
-
-### **Sentence Structure**
-- Mix short, punchy sentences with longer, more complex ones
-- Use fragments for emphasis
-- Vary sentence length to maintain rhythm
-- Use colons and semicolons for sophisticated flow
-
-### **Vocabulary**
-- Use film industry terminology appropriately
-- Include pop culture references
-- Don't shy away from strong, descriptive words
-- Use casual, conversational language mixed with more formal critique
-
-## Content Guidelines
-
-### **What We Do**
-- Point out plot holes and inconsistencies
-- Critique casting choices and performances
-- Analyze technical aspects (cinematography, sound, editing)
-- Compare films to their predecessors or similar works
-- Call out problematic content or messaging
-- Acknowledge when something is genuinely good
-
-### **What We Don't Do**
-- Attack people personally (only critique their work)
-- Be mean-spirited without justification
-- Ignore genuine quality when we see it
-- Write in an overly academic or pretentious tone
-- Shy away from controversial topics when relevant
-
-### **Review Structure**
-- Start with a strong, opinionated opening
-- Mix plot summary with critique
-- Use specific examples to support points
-- Include personal reactions and observations
-- End with a definitive conclusion
-
-### **Common Review Patterns**
-- **Opening with personal experience**: "I, like many people, have been holding space for..."
-- **Direct comparisons**: "Not as good as the first WW film, but way better than BvS or Justice League"
-- **Technical observations**: "The cinematography is fine; it's a pretty simple setup..."
-- **Pop culture references**: "These look exactly like the Adipose from Doctor Who"
-- **Brutal honesty**: "Dumb" or "A prequel no one asked for"
-- **Social commentary**: Pointing out problematic content or messaging
-- **Personal asides**: "tbh", "I think", "My headcanon is"
-
-## Voice Examples
-
-### **Positive Review Tone**
-"All in all, this was the hopeful superman we all wanted and haven't seen on the big screen in a couple of decades. The colour pallet was cheerful in the right places, and whilst it perhaps lacked some of Snyders visual beauty, it more than overcame that with just getting the tone right."
-
-### **Negative Review Tone**
-"For some reason despite the outstanding 1971 Willy Wonka and the Chocolate Factory, and the solidly mediocre 2005 Charlie and the Chocolate Factory someone somewhere decided it was time for the Willy Wonka origin story no one asked for."
-
-### **Observational Snark**
-"Apparently 'cages' are a new innovation in Oz. (Which must make it very easy to escape from an Oz prison.)"
-
-### **Pop Culture Reference**
-"Chalamet is consistently aiming for Wilder or Depp in his performance but all I can see is Reese from Malcolm in the Middle."
-
-## AI Summary Guidelines
-
-When generating AI summaries, maintain this tone by:
-- Using snarky but fair language
-- Including specific, memorable details
-- Making comparisons to other films
-- Being honest about both strengths and weaknesses
-- Using conversational, engaging language
-- Including pop culture references when appropriate
-- Maintaining the critical but not cruel approach
-
-## Brand Voice Checklist
-
-Before publishing any content, ask:
-- [ ] Does this sound like something a knowledgeable, snarky friend would say?
-- [ ] Am I being critical without being cruel?
-- [ ] Have I included specific examples to support my points?
-- [ ] Is this engaging and conversational?
-- [ ] Would a film fan appreciate this perspective?
-- [ ] Am I being honest about both good and bad aspects?
-- [ ] Does this maintain our observant, detail-oriented approach?
+One person. Watching films, forming opinions, writing them down — sometimes with 
+structural rigour, sometimes mid-film with a running commentary. The voice is first 
+person, direct, and unafraid of the tangent. Not performing snark. Actually having 
+opinions and not particularly smoothing them out before publishing.
 
 ---
 
-*This tone of voice guide should be used for all Snarkflix content, including AI-generated summaries, review validation, and any other written materials.*
+## The Voice
+
+**Personal and singular.** Always first person. "I think," "my headcanon is," "I'm not 
+editing what I wrote." The reviews don't speak for a constituency; they speak for 
+whoever watched this film last Tuesday and had thoughts.
+
+**Direct about verdicts.** State what you think plainly. "Dumb." "Natural 20/10." 
+"So, we've all agreed the old woman is an abusive and toxic withholder right?" 
+Don't bury the verdict in caveats.
+
+**Observational before snarky.** The best lines earn their wit through specific 
+observation — the guards drawing swords against a flying enemy; the Grimmerie being 
+an inconvenient shape for a book; the M entrance standing for Mussolini. The 
+observation does the work; the snark is the delivery.
+
+**Range is permitted.** The voice can be analytical and careful (Care, The Whale) or 
+loose and comedic (Cocaine Bear, Wonka) depending on what the film calls for. What 
+stays constant: specificity, directness, and not faking enthusiasm or contempt.
+
+**Willing to read subtext.** The reviews regularly go somewhere the film may not have 
+consciously intended — the Encanto family dynamic, Del Toro's accidental endorsement 
+of fascist fun, James Cameron's colonial paternalism. This is not performed 
+controversy; it's what the film actually prompted.
+
+**Honest about quality when it's good.** Credibility depends on it. "The opening run 
+with Gran and the two kids is textbook scene-setting" lands because the same review 
+also calls out what doesn't work.
+
+**Occasionally willing to go there on people.** The line between critiquing work and 
+critiquing person does get crossed ("how fully, fundamentally and totally he failed 
+as a screenwriter, director, and person"). This is the voice. Don't manufacture it, 
+but don't pretend it doesn't happen.
+
+---
+
+## Structure Modes
+
+Reviews tend to fall into one of two modes, sometimes both:
+
+**The take:** A coherent argument built around a position. Opens with framing or 
+personal context, moves through specific evidence, lands on a verdict. The Encanto 
+review, Care, and The Whale do this.
+
+**The running log:** Scene-by-scene or beat-by-beat commentary, capturing reactions 
+in something close to real time. Cocaine Bear, Pinocchio, and Wicked do this. 
+Digressive, unpolished, funny. The lack of polish is part of the voice, not a failure 
+of it.
+
+Either way: don't open with a plot summary. Don't hedge a verdict you've already made. 
+Don't end weakly.
+
+---
+
+## Style
+
+- First person singular throughout
+- British English spelling and phrasing
+- Short sentences for emphasis; longer ones for nuance or digression
+- Fragments are fine. The rhythm matters more than the grammar.
+- Parenthetical asides for the thought that won't fit neatly
+- "tbh", "probs", "honestly" — casual register is authentic, not affected
+- Ellipses for pause, not for trailing off
+- Quotes around terms you're questioning ("elevated horror," "mature themes," etc.)
+
+---
+
+## AI Summaries
+
+The aiSummary field is part of the Snarkflix voice, not a neutral content description. 
+It should sound like the reviewer wrote it, not like a content aggregator summarised it.
+
+**Wrong:** "The reviewer seems to have a very negative view of the film, describing it 
+as boring and self-indulgent."
+
+**Right:** "tldr: Boring and self-indulgent, with DiCaprio eating raw bison for two 
+and a half hours while Iñárritu films it beautifully and to no particular end."
+
+The summary should give someone enough to decide whether to read the full review, 
+in the same voice as the review itself.
+
+---
+
+## The Test
+
+Read it back. Does it sound like a specific person actually watched this film and 
+had opinions about it? Or does it sound like content? If it's content, rewrite it.

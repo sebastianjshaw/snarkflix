@@ -595,4 +595,55 @@
       <image:license>https://snarkflix.com</image:license>
     </image:image>
   </url>
+  <url>
+    <loc>https://snarkflix.com/review/49</loc>
+    <image:image>
+      <image:loc>https://snarkflix.com/images/reviews/the-holdovers-2023/header-the-holdovers-2023.webp</image:loc>
+      <image:title>The Holdovers (2023) Movie Review Poster</image:title>
+      <image:caption>Official movie poster for The Holdovers (2023) - Drama film review on Snarkflix</image:caption>
+      <image:license>https://snarkflix.com</image:license>
+    </image:image>
+  </url>
+  <url>
+    <loc>https://snarkflix.com/review/50</loc>
+    <image:image>
+      <image:loc>https://snarkflix.com/images/reviews/the-family-stone-2005/header-the-family-stone-2005.webp</image:loc>
+      <image:title>The Family Stone (2005) Movie Review Poster</image:title>
+      <image:caption>Official movie poster for The Family Stone (2005) - Drama film review on Snarkflix</image:caption>
+      <image:license>https://snarkflix.com</image:license>
+    </image:image>
+  </url>
+  <url>
+    <loc>https://snarkflix.com/review/51</loc>
+    <image:image>
+      <image:loc>https://snarkflix.com/images/reviews/good-boy-2025/header-good-boy-2025.webp</image:loc>
+      <image:title>Good Boy (2025) Movie Review Poster</image:title>
+      <image:caption>Official movie poster for Good Boy (2025) - Horror film review on Snarkflix</image:caption>
+      <image:license>https://snarkflix.com</image:license>
+    </image:image>
+  </url>
+  <url>
+    <loc>https://snarkflix.com/review/52</loc>
+    <image:image>
+      <image:loc>https://snarkflix.com/images/reviews/sinners-2025/header-sinners-2025.avif</image:loc>
+      <image:title>Sinners (2025) Movie Review Poster</image:title>
+      <image:caption>Official movie poster for Sinners (2025) - Horror film review on Snarkflix</image:caption>
+      <image:license>https://snarkflix.com</image:license>
+    </image:image>
+    <image:image>
+      <image:loc>https://snarkflix.com/images/reviews/sinners-2025/image-sinners-2025.avif</image:loc>
+      <image:title>Sinners (2025) - Additional Scene</image:title>
+      <image:caption>Scene from Sinners (2025)</image:caption>
+      <image:license>https://snarkflix.com</image:license>
+    </image:image>
+  </url>
+  <url>
+    <loc>https://snarkflix.com/review/53</loc>
+    <image:image>
+      <image:loc>https://snarkflix.com/images/reviews/28-years-later-2025/header-28-years-later-2025.png</image:loc>
+      <image:title>28 Years Later (2025) Movie Review Poster</image:title>
+      <image:caption>Official movie poster for 28 Years Later (2025) - Horror film review on Snarkflix</image:caption>
+      <image:license>https://snarkflix.com</image:license>
+    </image:image>
+  </url>
 </urlset>

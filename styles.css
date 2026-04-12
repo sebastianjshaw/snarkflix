@@ -1371,16 +1371,42 @@ body.snarkflix-keyboard-user .snarkflix-skip-link:focus {
     background: var(--snarkflix-primary);
 }
 
+/* Fills slack space in equal-height grid rows without forcing the summary <p> to a broken height */
+.snarkflix-reviews-grid .snarkflix-review-summary-wrap {
+    flex-grow: 1;
+    flex-shrink: 1;
+    min-height: 0;
+    display: flex;
+    flex-direction: column;
+}
+
 .snarkflix-reviews-grid .snarkflix-review-summary {
+    position: relative;
     color: var(--snarkflix-gray);
     line-height: 1.4;
     margin: 0;
     font-size: var(--snarkflix-font-size-sm);
-    flex-grow: 1;
-    display: -webkit-box;
-    -webkit-line-clamp: 6;
-    -webkit-box-orient: vertical;
     overflow: hidden;
+    overflow-wrap: anywhere;
+    word-break: break-word;
+    display: -webkit-box;
+    -webkit-box-orient: vertical;
+    -webkit-line-clamp: 6;
+    line-clamp: 6;
+    /* Ellipsis on supporting engines; fade covers cases where clamp clips without … */
+    text-overflow: ellipsis;
+}
+
+/* Bottom fade matches review card background (light + dark use --snarkflix-white on the card) */
+.snarkflix-reviews-grid .snarkflix-review-summary::after {
+    content: '';
+    position: absolute;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    height: 1.65em;
+    pointer-events: none;
+    background: linear-gradient(to bottom, transparent, var(--snarkflix-white));
 }
 
 .snarkflix-reviews-grid .snarkflix-review-tagline {
@@ -1390,10 +1416,15 @@ body.snarkflix-keyboard-user .snarkflix-skip-link:focus {
     font-size: var(--snarkflix-font-size-sm);
     line-height: 1.3;
     margin: 0;
+    margin-top: auto;
     display: -webkit-box;
     -webkit-line-clamp: 3;
+    line-clamp: 3;
     -webkit-box-orient: vertical;
     overflow: hidden;
+    overflow-wrap: anywhere;
+    word-break: break-word;
+    text-overflow: ellipsis;
 }
 
 .snarkflix-load-more {
@@ -2036,6 +2067,30 @@ body.snarkflix-keyboard-user .snarkflix-skip-link:focus {
         /* Print-specific overrides only */
         display: block !important;
         height: auto !important;
+    }
+
+    .snarkflix-reviews-grid .snarkflix-review-summary-wrap {
+        flex-grow: 0;
+    }
+
+    .snarkflix-reviews-grid .snarkflix-review-summary {
+        display: block !important;
+        -webkit-line-clamp: unset !important;
+        line-clamp: unset !important;
+        overflow: visible !important;
+        text-overflow: unset !important;
+    }
+
+    .snarkflix-reviews-grid .snarkflix-review-summary::after {
+        display: none !important;
+    }
+
+    .snarkflix-reviews-grid .snarkflix-review-tagline {
+        margin-top: var(--snarkflix-spacing-sm) !important;
+        display: block !important;
+        -webkit-line-clamp: unset !important;
+        line-clamp: unset !important;
+        overflow: visible !important;
     }
 }
 

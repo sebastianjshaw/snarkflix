@@ -22,6 +22,7 @@ function resolveAssetUrl(path) {
 // Responsive image config — add an entry here whenever a new image has responsive variants.
 // 'standard' = -400w / -800w / -1200w naming; 'legacy' = -sm / -md / -lg / -xl naming.
 const RESPONSIVE_IMAGE_CONFIG = {
+    '28-years-later-2025': 'standard',
     'fantastic-four':      'standard',
     'palm-springs':        'standard',
     'superman':            'standard',
@@ -796,7 +797,9 @@ function createReviewElement(review) {
                     <span class="snarkflix-review-score ${scoreClass}">SnarkAI: ${review.aiScore}/100</span>
                 </div>
             </div>
-            <p class="snarkflix-review-summary">${review.aiSummary}</p>
+            <div class="snarkflix-review-summary-wrap">
+                <p class="snarkflix-review-summary">${review.aiSummary}</p>
+            </div>
             <p class="snarkflix-review-tagline">"${review.tagline}"</p>
             <div class="snarkflix-review-share">
                 ${shareButtonsHTML(review.id)}
@@ -1425,7 +1428,9 @@ function createRelatedReviewCard(review) {
                     <span class="snarkflix-review-score ${getScoreClass(review.aiScore)}">SnarkAI: ${review.aiScore}/100</span>
                 </div>
             </div>
-            <p class="snarkflix-review-summary">${review.aiSummary}</p>
+            <div class="snarkflix-review-summary-wrap">
+                <p class="snarkflix-review-summary">${review.aiSummary}</p>
+            </div>
             <p class="snarkflix-review-tagline">"${review.tagline}"</p>
         </div>
     `;

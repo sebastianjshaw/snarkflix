@@ -1631,6 +1631,64 @@ body.snarkflix-keyboard-user .snarkflix-skip-link:focus {
     animation: float 3s ease-in-out infinite;
 }
 
+/* Crawlable review URLs on homepage (injected at build + title links on cards) */
+.snarkflix-seo-indexed-review-archive-wrap {
+    background: var(--snarkflix-light, #f0e8de);
+    padding: var(--snarkflix-spacing-2xl) 0;
+    border-top: 1px solid rgba(26, 26, 26, 0.08);
+}
+
+.snarkflix-seo-indexed-review-archive-heading {
+    font-family: var(--snarkflix-font-display);
+    font-size: var(--snarkflix-font-size-xl);
+    font-weight: 700;
+    color: var(--snarkflix-dark);
+    margin: 0 0 var(--snarkflix-spacing-sm);
+    letter-spacing: -0.02em;
+}
+
+.snarkflix-seo-indexed-review-archive-lede {
+    margin: 0 0 var(--snarkflix-spacing-lg);
+    color: var(--snarkflix-gray);
+    font-size: var(--snarkflix-font-size-sm);
+    max-width: 42rem;
+}
+
+.snarkflix-seo-indexed-review-archive-list {
+    list-style: none;
+    margin: 0;
+    padding: 0;
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(16rem, 1fr));
+    gap: var(--snarkflix-spacing-xs) var(--snarkflix-spacing-lg);
+}
+
+.snarkflix-seo-indexed-review-archive-item a {
+    color: var(--snarkflix-dark);
+    text-decoration: underline;
+    text-decoration-color: rgba(255, 107, 53, 0.45);
+    text-underline-offset: 3px;
+    font-size: var(--snarkflix-font-size-sm);
+    line-height: 1.45;
+}
+
+.snarkflix-seo-indexed-review-archive-item a:hover {
+    color: var(--snarkflix-primary);
+    text-decoration-color: var(--snarkflix-primary);
+}
+
+.snarkflix-reviews-grid .snarkflix-review-title-link,
+.snarkflix-related-reviews .snarkflix-review-title-link {
+    color: inherit;
+    text-decoration: none;
+}
+
+.snarkflix-reviews-grid .snarkflix-review-title-link:hover,
+.snarkflix-related-reviews .snarkflix-review-title-link:hover {
+    text-decoration: underline;
+    text-decoration-color: var(--snarkflix-primary);
+}
+
 /* Footer */
 .snarkflix-footer {
     background: #1a1a1a;

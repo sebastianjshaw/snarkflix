@@ -19,6 +19,15 @@ function resolveAssetUrl(path) {
     return '/' + trimmed;
 }
 
+/** Escape HTML in review titles used inside innerHTML (cards / links). */
+function escapeHtmlText(s) {
+    return String(s)
+        .replace(/&/g, '&amp;')
+        .replace(/</g, '&lt;')
+        .replace(/>/g, '&gt;')
+        .replace(/"/g, '&quot;');
+}
+
 // Responsive image config — add an entry here whenever a new image has responsive variants.
 // 'standard' = -400w / -800w / -1200w naming; 'legacy' = -sm / -md / -lg / -xl naming.
 const RESPONSIVE_IMAGE_CONFIG = {
@@ -784,12 +793,13 @@ function createReviewElement(review) {
     // Generate descriptive alt text for review poster
     const posterAltText = `${review.title} (${review.releaseYear}) movie poster - ${review.category.charAt(0).toUpperCase() + review.category.slice(1)} film review on Snarkflix`;
     
+    const reviewPermalink = getReviewHistoryURL(review.id);
     reviewCard.innerHTML = `
         <div class="snarkflix-review-image">
             ${createResponsiveImage(review.imageUrl, posterAltText, 'lazy')}
         </div>
         <div class="snarkflix-review-content">
-            <h3 class="snarkflix-review-title">${review.title}</h3>
+            <h3 class="snarkflix-review-title"><a class="snarkflix-review-title-link" href="${reviewPermalink}">${escapeHtmlText(review.title)}</a></h3>
             <div class="snarkflix-review-meta">
                 <span class="snarkflix-review-date">${review.publishDate}</span>
                 <div class="snarkflix-review-meta-badges">
@@ -807,12 +817,22 @@ function createReviewElement(review) {
         </div>
     `;
     
-    // Add click handler for navigation (but not for share buttons)
-    reviewCard.addEventListener('click', (e) => {
-        // Don't navigate if clicking on share buttons
-        if (!e.target.closest('.snarkflix-share-btn')) {
+    const titleLink = reviewCard.querySelector('.snarkflix-review-title-link');
+    if (titleLink) {
+        titleLink.addEventListener('click', (e) => {
+            if (e.metaKey || e.ctrlKey || e.shiftKey || e.altKey || e.button !== 0) return;
+            e.preventDefault();
+            e.stopPropagation();
             navigateToReview(review.id);
+        });
+    }
+
+    // Add click handler for navigation (but not for share buttons or title link)
+    reviewCard.addEventListener('click', (e) => {
+        if (e.target.closest('.snarkflix-share-btn') || e.target.closest('.snarkflix-review-title-link')) {
+            return;
         }
+        navigateToReview(review.id);
     });
     
     // Add share button event listeners
@@ -1415,12 +1435,13 @@ function createRelatedReviewCard(review) {
     card.setAttribute('role', 'article');
     card.setAttribute('aria-label', `Review of ${review.title}`);
 
+    const relatedPermalink = getReviewHistoryURL(review.id);
     card.innerHTML = `
         <div class="snarkflix-review-image">
             ${createResponsiveImage(review.imageUrl, `${review.title} movie poster`, 'lazy')}
         </div>
         <div class="snarkflix-review-content">
-            <h3 class="snarkflix-review-title">${review.title}</h3>
+            <h3 class="snarkflix-review-title"><a class="snarkflix-review-title-link" href="${relatedPermalink}">${escapeHtmlText(review.title)}</a></h3>
             <div class="snarkflix-review-meta">
                 <span class="snarkflix-review-date">${review.publishDate}</span>
                 <div class="snarkflix-review-meta-badges">
@@ -1435,7 +1456,20 @@ function createRelatedReviewCard(review) {
         </div>
     `;
 
-    card.addEventListener('click', () => navigateToReview(review.id));
+    const relatedTitleLink = card.querySelector('.snarkflix-review-title-link');
+    if (relatedTitleLink) {
+        relatedTitleLink.addEventListener('click', (e) => {
+            if (e.metaKey || e.ctrlKey || e.shiftKey || e.altKey || e.button !== 0) return;
+            e.preventDefault();
+            e.stopPropagation();
+            navigateToReview(review.id);
+        });
+    }
+
+    card.addEventListener('click', (e) => {
+        if (e.target.closest('.snarkflix-review-title-link')) return;
+        navigateToReview(review.id);
+    });
     card.addEventListener('keydown', (e) => {
         if (e.key === 'Enter' || e.key === ' ') {
             e.preventDefault();

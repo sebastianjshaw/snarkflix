@@ -98,5 +98,5 @@ const sitemapPath = path.join(__dirname, 'sitemap.xml');
 fs.writeFileSync(sitemapPath, sitemap, 'utf8');
 
 console.log(`✅ Generated sitemap.xml with ${reviews.length} review pages`);
-console.log(`   Total URLs: ${4 + reviews.length}`);
+console.log(`   Total URLs: ${1 + reviews.length}`);
 

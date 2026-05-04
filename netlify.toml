@@ -1,8 +1,16 @@
 # Run `npm run build` before deploy so review/*.html, feed.xml, and sitemaps exist.
 #
-# Path-specific Content-Type belongs here — not in _headers next to `/*`.
-# Netlify was merging those Content-Type lines onto every response (including /),
-# which broke HTML rendering (browser treated homepage as text/plain).
+# All headers live in this file (no /_headers). Netlify’s _headers parser can mis-merge
+# path rules; we previously saw wrong Content-Type on / and “invalid header rule” errors.
+
+[[headers]]
+  for = "/*"
+  [headers.values]
+    X-Frame-Options = "SAMEORIGIN"
+    X-Content-Type-Options = "nosniff"
+    Referrer-Policy = "strict-origin-when-cross-origin"
+    Permissions-Policy = "accelerometer=(), camera=(), geolocation=(), gyroscope=(), magnetometer=(), microphone=(), payment=(), usb=()"
+    Cross-Origin-Opener-Policy = "same-origin-allow-popups"
 
 [[headers]]
   for = "/feed.xml"

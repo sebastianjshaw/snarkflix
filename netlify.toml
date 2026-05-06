@@ -37,6 +37,46 @@
   [headers.values]
     Content-Type = "text/plain; charset=utf-8"
 
+# Removed catalog entries (must be before /review/:id rewrite). Old HTML sent Googlebot to netlify.app.
+[[redirects]]
+  from = "/review/26"
+  to = "/"
+  status = 301
+[[redirects]]
+  from = "/review/26.html"
+  to = "/"
+  status = 301
+[[redirects]]
+  from = "/review/40"
+  to = "/"
+  status = 301
+[[redirects]]
+  from = "/review/40.html"
+  to = "/"
+  status = 301
+[[redirects]]
+  from = "/review/41"
+  to = "/"
+  status = 301
+[[redirects]]
+  from = "/review/41.html"
+  to = "/"
+  status = 301
+
+# Legacy ?review= (and /index.html?review=) — consolidate on /review/:id for one canonical URL per review.
+[[redirects]]
+  from = "/"
+  to = "/review/:review"
+  status = 301
+  force = true
+  query = {review = ":review"}
+[[redirects]]
+  from = "/index.html"
+  to = "/review/:review"
+  status = 301
+  force = true
+  query = {review = ":review"}
+
 # Serve crawlable static review HTML at /review/:id → review/:id.html
 [[redirects]]
   from = "/review/:id"

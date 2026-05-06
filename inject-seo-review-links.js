@@ -25,10 +25,18 @@ if (!reviewsMatch) {
 const reviews = eval('(' + reviewsMatch[1] + ')');
 const sorted = reviews.slice().sort((a, b) => a.id - b.id);
 
+/** Anchor text: title plus year when the stored title omits (YYYY). */
+function reviewArchiveLinkLabel(r) {
+  const t = String(r.title || '');
+  const title = escHtml(t);
+  if (/\(\d{4}\)/.test(t)) return title;
+  return `${title} (${escHtml(String(r.releaseYear))})`;
+}
+
 const items = sorted
   .map((r) => {
-    const title = escHtml(r.title);
-    return `        <li class="snarkflix-seo-indexed-review-archive-item"><a href="${SITE_ORIGIN}/review/${r.id}">${title}</a></li>`;
+    const label = reviewArchiveLinkLabel(r);
+    return `        <li class="snarkflix-seo-indexed-review-archive-item"><a href="${SITE_ORIGIN}/review/${r.id}">${label}</a></li>`;
   })
   .join('\n');
 

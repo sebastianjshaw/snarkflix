@@ -20,6 +20,18 @@ function resolveAssetUrl(path) {
 }
 
 /** Escape HTML in review titles used inside innerHTML (cards / links). */
+function stripTrailingTitleYear(title) {
+    return String(title || '').replace(/\s*\(\d{4}\)\s*$/, '').trim();
+}
+
+/** Film line for H1 / JSON-LD headline — year in parens when title omits release year. */
+function formatReviewHeadingPlain(review) {
+    const t = String(review.title || '');
+    if (/\(\d{4}\)/.test(t)) return t;
+    const base = stripTrailingTitleYear(t) || 'Film';
+    return `${base} (${review.releaseYear})`;
+}
+
 function escapeHtmlText(s) {
     return String(s)
         .replace(/&/g, '&amp;')
@@ -224,7 +236,7 @@ function renderReviewBreadcrumb(review) {
 
     const liTitle = document.createElement('li');
     liTitle.setAttribute('aria-current', 'page');
-    liTitle.textContent = review.title;
+    liTitle.textContent = formatReviewHeadingPlain(review);
     list.appendChild(liTitle);
 }
 
@@ -1339,7 +1351,7 @@ function createReviewContentHTML(review) {
                             <span class="snarkflix-review-duration">${review.readingDuration}</span>
                             <span class="snarkflix-review-category">${review.category}</span>
                         </div>
-                        <h1 class="snarkflix-review-title">${review.title}</h1>
+                        <h1 class="snarkflix-review-title">${escapeHtmlText(formatReviewHeadingPlain(review))}</h1>
                         
                         <div class="snarkflix-review-score-section">
                             <div class="snarkflix-ai-score">
@@ -2930,8 +2942,8 @@ function addReviewStructuredData(review) {
         '@type': 'Review',
         '@id': `${pageUrl}#review`,
         'url': pageUrl,
-        'name': `${review.title} — film review`,
-        'headline': `${review.title} review`,
+        'name': `${formatReviewHeadingPlain(review)} — film review`,
+        'headline': `${formatReviewHeadingPlain(review)} review`,
         'description': description || undefined,
         'inLanguage': 'en-GB',
         'datePublished': datePublished,
@@ -3012,7 +3024,7 @@ function addBreadcrumbStructuredData(review) {
             {
                 '@type': 'ListItem',
                 'position': 3,
-                'name': review.title,
+                'name': formatReviewHeadingPlain(review),
                 'item': `${SNARKFLIX_SITE_ORIGIN}/review/${review.id}`
             }
         ]
@@ -3036,21 +3048,17 @@ function removeStructuredData() {
 
 // Generate optimized meta description (under 160 chars with keywords)
 function generateMetaDescription(review) {
-    const title = review.title.replace(/\s*\(\d{4}\)\s*/, ''); // Remove year from title for description
-    const year = review.releaseYear;
+    const headingTitle = formatReviewHeadingPlain(review);
     const category = review.category.charAt(0).toUpperCase() + review.category.slice(1);
     const score = review.aiScore;
-    
-    // Create keyword-rich description
+
     let description = '';
-    
-    // For high-scoring reviews, emphasize quality
     if (score >= 80) {
-        description = `${title} (${year}) ${category} Review: ${review.aiSummary.substring(0, 100)}`;
+        description = `${headingTitle} — ${category} review: ${review.aiSummary.substring(0, 100)}`;
     } else if (score >= 60) {
-        description = `Review of ${title} (${year}): ${review.aiSummary.substring(0, 100)}`;
+        description = `Review of ${headingTitle}: ${review.aiSummary.substring(0, 100)}`;
     } else {
-        description = `${title} (${year}) film review: ${review.aiSummary.substring(0, 100)}`;
+        description = `${headingTitle} — film review: ${review.aiSummary.substring(0, 100)}`;
     }
     
     // Ensure it's under 160 characters
@@ -3069,10 +3077,8 @@ function updateMetaTagsForReview(review) {
     
     let title;
     if (isRecent) {
-        // For recent movies, put year first: "2025 Movie Review..."
-        title = `${review.releaseYear} ${review.title.replace(/\s*\(\d{4}\)\s*/, '')} Review - SnarkAI Score: ${review.aiScore}/100 | Snarkflix`;
+        title = `${review.releaseYear} ${stripTrailingTitleYear(review.title)} Review - SnarkAI Score: ${review.aiScore}/100 | Snarkflix`;
     } else {
-        // For older movies, keep current format
         title = `${review.title} Review - SnarkAI Score: ${review.aiScore}/100 | Snarkflix`;
     }
     
@@ -3108,8 +3114,8 @@ function updateMetaTagsForReview(review) {
     
     // Update Open Graph meta tags
     // Reuse currentYear and isRecent from above
-    const ogTitle = isRecent 
-        ? `${review.releaseYear} ${review.title.replace(/\s*\(\d{4}\)\s*/, '')} Review - SnarkAI Score: ${review.aiScore}/100 | Snarkflix`
+    const ogTitle = isRecent
+        ? `${review.releaseYear} ${stripTrailingTitleYear(review.title)} Review - SnarkAI Score: ${review.aiScore}/100 | Snarkflix`
         : `${review.title} Review - SnarkAI Score: ${review.aiScore}/100 | Snarkflix`;
     
     updateMetaTag('og:title', ogTitle);
@@ -3137,8 +3143,8 @@ function updateMetaTagsForReview(review) {
     
     // Update Twitter Card meta tags
     // Reuse currentYear and isRecent from above
-    const twitterTitle = isRecent 
-        ? `${review.releaseYear} ${review.title.replace(/\s*\(\d{4}\)\s*/, '')} Review - SnarkAI Score: ${review.aiScore}/100 | Snarkflix`
+    const twitterTitle = isRecent
+        ? `${review.releaseYear} ${stripTrailingTitleYear(review.title)} Review - SnarkAI Score: ${review.aiScore}/100 | Snarkflix`
         : `${review.title} Review - SnarkAI Score: ${review.aiScore}/100 | Snarkflix`;
     
     updateMetaTag('twitter:title', twitterTitle);

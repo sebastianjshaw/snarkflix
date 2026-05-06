@@ -44,8 +44,49 @@ function parsePublishISO(review) {
   return new Date().toISOString().split('T')[0];
 }
 
+function stripTitleYear(str) {
+  return String(str || '').replace(/\s*\(\d{4}\)\s*$/, '').trim();
+}
+
+/** Primary film line for H1 / meta — year appended when title omits (YYYY). Matches SPA. */
+function reviewHeadingTitle(review) {
+  const t = String(review.title || '');
+  if (/\(\d{4}\)/.test(t)) return t;
+  const base = stripTitleYear(t) || 'Film';
+  return `${base} (${review.releaseYear})`;
+}
+
+function buildStaticPageTitle(review) {
+  const currentYear = new Date().getFullYear();
+  const isRecent = review.releaseYear >= currentYear - 1;
+  const stripped = stripTitleYear(review.title);
+  if (isRecent) {
+    return `${review.releaseYear} ${stripped} Review - SnarkAI Score: ${review.aiScore}/100 | Snarkflix`;
+  }
+  return `${review.title} Review - SnarkAI Score: ${review.aiScore}/100 | Snarkflix`;
+}
+
+function buildStaticMetaDescription(review) {
+  const headingTitle = reviewHeadingTitle(review);
+  const category = review.category.charAt(0).toUpperCase() + review.category.slice(1);
+  const score = review.aiScore;
+  const snippet = review.aiSummary.substring(0, 100);
+  let description = '';
+  if (score >= 80) {
+    description = `${headingTitle} — ${category} review: ${snippet}`;
+  } else if (score >= 60) {
+    description = `Review of ${headingTitle}: ${snippet}`;
+  } else {
+    description = `${headingTitle} — film review: ${snippet}`;
+  }
+  if (description.length > 160) description = `${description.substring(0, 157)}...`;
+  return description;
+}
+
 reviews.forEach((review) => {
   const title = esc(review.title);
+  const headingPlain = reviewHeadingTitle(review);
+  const headingEsc = esc(headingPlain);
   const score = esc(String(review.aiScore));
   const summary = esc(review.aiSummary.substring(0, 200));
   const tagline = esc(review.tagline);
@@ -53,8 +94,8 @@ reviews.forEach((review) => {
   const year = esc(String(review.releaseYear));
   const imageUrl = `https://snarkflix.com/${review.imageUrl.replace(/^\//, '')}`;
   const reviewUrl = `https://snarkflix.com/review/${review.id}`;
-  const pageTitle = `${title} Review - SnarkAI Score: ${score}/100 | Snarkflix`;
-  const metaDesc = `${title} (${year}) ${category} review: ${summary}...`;
+  const pageTitle = esc(buildStaticPageTitle(review));
+  const metaDesc = esc(buildStaticMetaDescription(review));
   const filmReleaseISO = getMovieTheatricalReleaseISO(review);
   const datePublished = parsePublishISO(review);
 
@@ -63,8 +104,8 @@ reviews.forEach((review) => {
     '@type': 'Review',
     '@id': `${reviewUrl}#review`,
     url: reviewUrl,
-    name: `${review.title} — film review`,
-    headline: `${review.title} review`,
+    name: `${headingPlain} — film review`,
+    headline: `${headingPlain} review`,
     inLanguage: 'en-GB',
     datePublished,
     reviewBody: review.content.substring(0, 500) + (review.content.length > 500 ? '...' : ''),
@@ -108,7 +149,7 @@ reviews.forEach((review) => {
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <meta name="description" content="${metaDesc}">
-    <meta name="keywords" content="film reviews, Snarkflix, ${title}, ${year}, ${category}">
+    <meta name="keywords" content="film reviews, Snarkflix, ${headingEsc}, ${category}">
     <meta name="author" content="Snarkflix">
     <meta name="robots" content="index, follow, max-image-preview:large">
 
@@ -133,7 +174,7 @@ reviews.forEach((review) => {
     <meta property="og:image:type" content="image/webp">
     <meta property="og:image:width" content="1200">
     <meta property="og:image:height" content="630">
-    <meta property="og:image:alt" content="${title} review poster">
+    <meta property="og:image:alt" content="${headingEsc} review poster">
     <meta property="og:site_name" content="Snarkflix">
     <meta property="og:locale" content="en_GB">
 
@@ -142,7 +183,7 @@ reviews.forEach((review) => {
     <meta name="twitter:title" content="${pageTitle}">
     <meta name="twitter:description" content="${metaDesc}">
     <meta name="twitter:image" content="${imageUrl}">
-    <meta name="twitter:image:alt" content="${title} review poster">
+    <meta name="twitter:image:alt" content="${headingEsc} review poster">
 
     <script type="application/ld+json">${JSON.stringify(ldJson)}</script>
 
@@ -174,20 +215,20 @@ reviews.forEach((review) => {
 <body>
     <div class="snarkflix-static-review-wrap">
         <p class="snarkflix-static-banner">
-            Crawlable archive copy. <a href="../index.html?review=${review.id}">Open interactive view</a> for search, related reviews, and sharing.
+            Crawlable archive copy. <a href="https://snarkflix.com/">Open the full Snarkflix site</a> for search, filters, related reviews, and sharing (canonical review URL stays here).
         </p>
 
         <article itemscope itemtype="https://schema.org/Review">
-            <h1 itemprop="name">${title} Review</h1>
+            <h1 itemprop="name">${headingEsc} Review</h1>
             <p class="snarkflix-static-meta">${category} &middot; ${year} &middot; ${esc(review.readingDuration)} &middot; Published ${esc(review.publishDate)}</p>
             <span class="snarkflix-static-score">SnarkAI Score: ${score}/100</span>
-            <img src="${imageUrl}" alt="${title} (${year}) film poster" class="review-image" width="800" height="420" itemprop="image">
+            <img src="${imageUrl}" alt="${headingEsc} — film poster" class="review-image" width="800" height="420" itemprop="image">
             <blockquote>&ldquo;${tagline}&rdquo;</blockquote>
             <p><strong>TL;DR:</strong> ${esc(review.aiSummary)}</p>
             <div itemprop="reviewBody">${contentToHtml(review.content)}</div>
         </article>
 
-        <p style="margin-top:2rem;"><a href="../index.html">← All reviews</a></p>
+        <p style="margin-top:2rem;"><a href="https://snarkflix.com/">← All reviews</a></p>
     </div>
 </body>
 </html>`;

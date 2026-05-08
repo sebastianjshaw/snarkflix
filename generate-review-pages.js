@@ -56,14 +56,23 @@ function reviewHeadingTitle(review) {
   return `${base} (${review.releaseYear})`;
 }
 
+function clampTitleForSERP(title, maxLen = 60) {
+  const t = String(title || '').replace(/\s+/g, ' ').trim();
+  if (t.length <= maxLen) return t;
+  // Prefer trimming at a word boundary; keep an ellipsis for clarity.
+  const clipped = t.slice(0, Math.max(0, maxLen - 1));
+  const lastSpace = clipped.lastIndexOf(' ');
+  const safe = (lastSpace > 20 ? clipped.slice(0, lastSpace) : clipped).trim();
+  return `${safe}…`;
+}
+
 function buildStaticPageTitle(review) {
-  const currentYear = new Date().getFullYear();
-  const isRecent = review.releaseYear >= currentYear - 1;
-  const stripped = stripTitleYear(review.title);
-  if (isRecent) {
-    return `${review.releaseYear} ${stripped} Review - SnarkAI Score: ${review.aiScore}/100 | Snarkflix`;
-  }
-  return `${review.title} Review - SnarkAI Score: ${review.aiScore}/100 | Snarkflix`;
+  const headingTitle = reviewHeadingTitle(review);
+  // Bing flags "title too long" fairly aggressively; keep it concise and stable.
+  // The score stays in-page and in meta description; titles prioritize scannability.
+  const base = `${headingTitle} Review | Snarkflix`;
+  // We clamp pre-escape; HTML entity expansion can add a few chars in-source.
+  return clampTitleForSERP(base, 55);
 }
 
 function buildStaticMetaDescription(review) {
@@ -219,6 +228,16 @@ reviews.forEach((review) => {
         </p>
 
         <article itemscope itemtype="https://schema.org/Review">
+            <span itemprop="author" itemscope itemtype="https://schema.org/Person">
+                <meta itemprop="name" content="Snarkflix">
+            </span>
+            <span itemprop="itemReviewed" itemscope itemtype="https://schema.org/Movie">
+                <meta itemprop="name" content="${headingEsc}">
+                <meta itemprop="genre" content="${category}">
+                <meta itemprop="datePublished" content="${esc(filmReleaseISO)}">
+                <meta itemprop="image" content="${imageUrl}">
+                <meta itemprop="url" content="${reviewUrl}">
+            </span>
             <h1 itemprop="name">${headingEsc} Review</h1>
             <p class="snarkflix-static-meta">${category} &middot; ${year} &middot; ${esc(review.readingDuration)} &middot; Published ${esc(review.publishDate)}</p>
             <span class="snarkflix-static-score">SnarkAI Score: ${score}/100</span>

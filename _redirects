@@ -1,3 +1,8 @@
+# Canonical host: apex (https://snarkflix.com). www is a domain alias only — 301 to apex so
+# Google/Bing consolidate on one URL (GSC may still list www under “Page with redirect”; that is expected).
+https://www.snarkflix.com/* https://snarkflix.com/:splat 301!
+http://www.snarkflix.com/* https://snarkflix.com/:splat 301!
+
 # Netlify redirects for social media sharing
 # This file tells Netlify how to handle review URLs for social media crawlers
 

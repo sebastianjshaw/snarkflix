@@ -4,10 +4,19 @@
   <link href="https://snarkflix.com/feed.xml" rel="self" type="application/atom+xml"/>
   <link href="https://snarkflix.com/" rel="alternate" type="text/html"/>
   <id>https://snarkflix.com/feed.xml</id>
-  <updated>2026-04-11T12:00:00.000Z</updated>
+  <updated>2026-07-16T12:00:00.000Z</updated>
   <subtitle>First-person film reviews — British English.</subtitle>
   <rights>© Snarkflix</rights>
   <generator uri="https://snarkflix.com/">Snarkflix static generator</generator>
+  <entry>
+    <title>Project Hail Mary (2026)</title>
+    <link href="https://snarkflix.com/review/54" rel="alternate" type="text/html"/>
+    <id>https://snarkflix.com/review/54</id>
+    <updated>2026-07-16T12:00:00.000Z</updated>
+    <published>2026-07-16T12:00:00.000Z</published>
+    <author><name>Snarkflix</name></author>
+    <summary type="html">&lt;p&gt;tldr: The sun is dying and the only man who can save us is a charming scientist who opens unknown alien devices and leans in for a big old sniff. The buddy-movie heart genuinely works, and Rocky the eyeless rock spider is the best character by a distance, but the science in this science fiction is dire: ships that &apos;stop&apos; at engine cutoff, a universal translator knocked together in an afternoon, and a government that can&apos;t lock a door. Not terrible, frequently charming, occasionally dumber than t&lt;/p&gt; &lt;p&gt;&lt;small&gt;Theatrical release (approx.): 2026-03-20&lt;/small&gt;&lt;/p&gt;</summary>
+  </entry>
   <entry>
     <title>28 Years Later (2025)</title>
     <link href="https://snarkflix.com/review/53" rel="alternate" type="text/html"/>

@@ -2,7 +2,7 @@
 <urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
   <url>
     <loc>https://snarkflix.com/</loc>
-    <lastmod>2026-05-07</lastmod>
+    <lastmod>2026-07-17</lastmod>
     <priority>1.0</priority>
     <changefreq>weekly</changefreq>
   </url>
@@ -346,6 +346,13 @@
   <url>
     <loc>https://snarkflix.com/review/53</loc>
     <lastmod>2026-04-11</lastmod>
+    <priority>0.7</priority>
+    <changefreq>weekly</changefreq>
+  </url>
+  <!-- Review: Project Hail Mary (2026) -->
+  <url>
+    <loc>https://snarkflix.com/review/54</loc>
+    <lastmod>2026-07-16</lastmod>
     <priority>0.7</priority>
     <changefreq>weekly</changefreq>
   </url>

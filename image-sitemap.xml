@@ -655,4 +655,13 @@
       <image:license>https://snarkflix.com</image:license>
     </image:image>
   </url>
+  <url>
+    <loc>https://snarkflix.com/review/55</loc>
+    <image:image>
+      <image:loc>https://snarkflix.com/images/reviews/spiderman-brand-new-day-2026/header-spiderman-brand-new-day-2026.webp</image:loc>
+      <image:title>Spiderman: Brand New Day (2026) Movie Review Poster</image:title>
+      <image:caption>Official movie poster for Spiderman: Brand New Day (2026) - Action film review on Snarkflix</image:caption>
+      <image:license>https://snarkflix.com</image:license>
+    </image:image>
+  </url>
 </urlset>

@@ -805,6 +805,20 @@ const snarkflixReviews = [
         category: "adventure",
         imageUrl: "images/reviews/the-odyssey-2026/header-the-odyssey-2026.webp",
         youtubeTrailer: "https://www.youtube.com/watch?v=Mzw2ttJD2qQ"
+    },
+    {
+        id: 57,
+        title: "Street Fighter (1994)",
+        releaseYear: 1994,
+        publishDate: "Oct 12, 2026",
+        readingDuration: "2 min read",
+        aiScore: 38,
+        aiSummary: "tldr: Raul Julia's Bison is a gloriously unhinged Dr Evil prototype who prices his own currency against a kidnapped Queen, and the cast genuinely looks the part. Everything around him plays like a Saved by the Bell special with a tank budget. Kylie's accent wanders, Guile fakes his death and then just hangs about under a sheet, and nobody thinks to check anyone's arms for the villain tattoo. 'It was Tuesday' is an all-timer. The other 100 minutes are not, and I bailed with 45 to go.",
+        tagline: "This film is a lot worse than I remember it.",
+        content: "For its time, the cast is stellar. Not so much in acting talent as in sheer star power: Van Damme at peak Van Damme, Kylie at peak Kylie, and Raul Julia, who is the one genuinely great actor in the building and knows exactly what film he's in.\n\nThe plot is loose, but the casting is pretty solid. Bison, Cammy, Guile (minus the hair), Ryu and Ken all look like who they should.\n\nBison is hilariously overblown in his evil. He kills a man with one move. He's definitely a bit Dr Evil.\n\nRyu and Ken try to con an arms dealer with fake guns. It goes badly, and he punishes them by making them fight Vega in a cage match. Like a street fight, you might say.\n\nThey're interrupted by a tank. This film loves an escalation.\n\nKylie does her best with the accent. Her best is not great.\n\nThere's a tattoo that marks Bison's assassins. No one suggests taking a quick look at everyone. But then, no one bothered checking the Death Eaters either...\n\nGuile fakes his own death. Then, for no reason at all, he stays in the movie with a sheet over his face. He captures Chun-Li, who's following a lead.\n\nBison is great precisely because of how insane he is. \"On the contrary, every Bison dollar will be worth five British pounds. That is the exchange rate the Bank of England will set once I kidnap the Queen!\" Monetary policy by hostage situation. Bold.\n\nChun-Li, Honda and Balrog are dressed like they're going to an I Dream of Jeannie party.\n\n\"This film is a lot worse than I remember it.\" My mate's verdict, 45 minutes in.\n\nGuile leads a mutiny of A.N. soldiers when the organisation decides to pay Bison's ransom.\n\nIt does have one of the best lines in cinema, though. Chun-Li confronts Bison over the day he destroyed her village and killed her father. He can't remember it. For her it was the most important day of her life; for him, \"it was Tuesday.\"\n\nIts biggest flaw is having far too much 90s camp. It's paced, written and shot like an episode of Saved by the Bell or Full House.\n\nI did not watch to the end. I had an early morning, and the final forty-five minutes were just not worth losing sleep over.",
+        category: "action",
+        imageUrl: "images/reviews/street-fighter-1994/header-street-fighter-1994.webp",
+        youtubeTrailer: "https://www.youtube.com/watch?v=WtUdEpBLWJ4"
     }
 ];
 

@@ -673,4 +673,13 @@
       <image:license>https://snarkflix.com</image:license>
     </image:image>
   </url>
+  <url>
+    <loc>https://snarkflix.com/review/57</loc>
+    <image:image>
+      <image:loc>https://snarkflix.com/images/reviews/street-fighter-1994/header-street-fighter-1994.webp</image:loc>
+      <image:title>Street Fighter (1994) Movie Review Poster</image:title>
+      <image:caption>Official movie poster for Street Fighter (1994) - Action film review on Snarkflix</image:caption>
+      <image:license>https://snarkflix.com</image:license>
+    </image:image>
+  </url>
 </urlset>

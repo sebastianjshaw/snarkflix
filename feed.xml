@@ -4,10 +4,19 @@
   <link href="https://snarkflix.com/feed.xml" rel="self" type="application/atom+xml"/>
   <link href="https://snarkflix.com/" rel="alternate" type="text/html"/>
   <id>https://snarkflix.com/feed.xml</id>
-  <updated>2026-10-09T12:00:00.000Z</updated>
+  <updated>2026-10-12T12:00:00.000Z</updated>
   <subtitle>First-person film reviews — British English.</subtitle>
   <rights>© Snarkflix</rights>
   <generator uri="https://snarkflix.com/">Snarkflix static generator</generator>
+  <entry>
+    <title>Street Fighter (1994)</title>
+    <link href="https://snarkflix.com/review/57" rel="alternate" type="text/html"/>
+    <id>https://snarkflix.com/review/57</id>
+    <updated>2026-10-12T12:00:00.000Z</updated>
+    <published>2026-10-12T12:00:00.000Z</published>
+    <author><name>Snarkflix</name></author>
+    <summary type="html">&lt;p&gt;tldr: Raul Julia&apos;s Bison is a gloriously unhinged Dr Evil prototype who prices his own currency against a kidnapped Queen, and the cast genuinely looks the part. Everything around him plays like a Saved by the Bell special with a tank budget. Kylie&apos;s accent wanders, Guile fakes his death and then just hangs about under a sheet, and nobody thinks to check anyone&apos;s arms for the villain tattoo. &apos;It was Tuesday&apos; is an all-timer. The other 100 minutes are not, and I bailed with 45 to go.&lt;/p&gt; &lt;p&gt;&lt;small&gt;Theatrical release (approx.): 1994-07-01&lt;/small&gt;&lt;/p&gt;</summary>
+  </entry>
   <entry>
     <title>The Odyssey (2026)</title>
     <link href="https://snarkflix.com/review/56" rel="alternate" type="text/html"/>

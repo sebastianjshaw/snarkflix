@@ -370,4 +370,11 @@
     <priority>0.8</priority>
     <changefreq>weekly</changefreq>
   </url>
+  <!-- Review: Street Fighter (1994) -->
+  <url>
+    <loc>https://snarkflix.com/review/57</loc>
+    <lastmod>2026-10-12</lastmod>
+    <priority>0.7</priority>
+    <changefreq>weekly</changefreq>
+  </url>
 </urlset>

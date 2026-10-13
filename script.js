@@ -1,6 +1,15 @@
 // Snarkflix JavaScript - Movie Review Blog
 
 /**
+ * aiSummary values are authored as "tldr: …". Callers add their own "TL;DR:" label
+ * (or use the text as a bare description), so drop the leading marker.
+ * Keep in sync with lib/strip-tldr.cjs (used by the build scripts).
+ */
+function stripTldrPrefix(summary) {
+    return String(summary || '').replace(/^\s*tl;?dr\s*:\s*/i, '');
+}
+
+/**
  * Root-absolute path for http(s) (e.g. /images/...), or file URL relative to the current HTML
  * document when using file:// — so images work from disk and from /review/* routes.
  */
@@ -124,7 +133,7 @@ const SNARKFLIX_SITE_ORIGIN = 'https://snarkflix.com';
 
 const HOMEPAGE_META = {
     title:           'Snarkflix — film reviews in the first person',
-    description:     'Film reviews in the first person — sharp, honest, British English. One critic, a snarky robot, and a Bernedoodle who would rate a blank screen five stars.',
+    description:     'First-person film reviews in British English: sharp, honest, tangent-prone. Each gets a tl;dr and a SnarkAI score out of 100.',
     canonicalHref:   `${SNARKFLIX_SITE_ORIGIN}/`,
     keywords:        'film reviews, movie reviews, British film critic, UK cinema blog, first person reviews, Snarkflix, film criticism, SnarkAI',
     robots:          'index, follow, max-image-preview:large, max-snippet:-1, max-video-preview:-1',
@@ -820,7 +829,7 @@ function createReviewElement(review) {
                 </div>
             </div>
             <div class="snarkflix-review-summary-wrap">
-                <p class="snarkflix-review-summary">${review.aiSummary}</p>
+                <p class="snarkflix-review-summary">${stripTldrPrefix(review.aiSummary)}</p>
             </div>
             <p class="snarkflix-review-tagline">"${review.tagline}"</p>
             <div class="snarkflix-review-share">
@@ -1362,7 +1371,7 @@ function createReviewContentHTML(review) {
                         
                         <div class="snarkflix-review-summary">
                             <h2>Key Takeaways</h2>
-                            <p class="snarkflix-review-tldr"><strong>TL;DR:</strong> ${review.aiSummary}</p>
+                            <p class="snarkflix-review-tldr"><strong>TL;DR:</strong> ${stripTldrPrefix(review.aiSummary)}</p>
                         </div>
                         
                         <div class="snarkflix-review-meta-info">
@@ -1462,7 +1471,7 @@ function createRelatedReviewCard(review) {
                 </div>
             </div>
             <div class="snarkflix-review-summary-wrap">
-                <p class="snarkflix-review-summary">${review.aiSummary}</p>
+                <p class="snarkflix-review-summary">${stripTldrPrefix(review.aiSummary)}</p>
             </div>
             <p class="snarkflix-review-tagline">"${review.tagline}"</p>
         </div>
@@ -1944,11 +1953,11 @@ function showEmptyState(container, searchTerm, category, scoreFilter, yearFilter
         icon = '🔎';
     } else if (category && category !== 'all') {
         title = `Nothing filed under ${category.charAt(0).toUpperCase() + category.slice(1)}`;
-        message = 'Either I haven\'t written that one yet or the category filter\'s too tight. Try another genre.';
+        message = 'Nothing in this genre yet, or it\'s hiding behind your score and year filters. Try another genre or clear the filters.';
         icon = '📂';
     } else if (scoreFilter || yearFilter) {
         title = 'Nothing matches those filters';
-        message = 'Widen the score band or the year — I promise I\'ve written something that fits.';
+        message = 'Try a wider score band or year. The archive\'s bigger than this filter lets on.';
         icon = '🎯';
     }
     
@@ -2932,7 +2941,7 @@ function addReviewStructuredData(review) {
     const imageUrl = getAbsoluteUrl(review.imageUrl);
     const pageUrl = `${SNARKFLIX_SITE_ORIGIN}/review/${review.id}`;
     const reviewBody = review.content.substring(0, 500) + (review.content.length > 500 ? '...' : '');
-    const descPlain = (review.aiSummary || '').replace(/\s+/g, ' ').trim();
+    const descPlain = stripTldrPrefix(review.aiSummary).replace(/\s+/g, ' ').trim();
     const description = descPlain.length > 360 ? `${descPlain.slice(0, 357)}...` : descPlain;
     const genreLabel = review.category.charAt(0).toUpperCase() + review.category.slice(1);
     const filmReleaseISO = getMovieTheatricalReleaseISO(review);
@@ -3052,13 +3061,14 @@ function generateMetaDescription(review) {
     const category = review.category.charAt(0).toUpperCase() + review.category.slice(1);
     const score = review.aiScore;
 
+    const snippet = stripTldrPrefix(review.aiSummary).substring(0, 100);
     let description = '';
     if (score >= 80) {
-        description = `${headingTitle} — ${category} review: ${review.aiSummary.substring(0, 100)}`;
+        description = `${headingTitle} — ${category} review: ${snippet}`;
     } else if (score >= 60) {
-        description = `Review of ${headingTitle}: ${review.aiSummary.substring(0, 100)}`;
+        description = `Review of ${headingTitle}: ${snippet}`;
     } else {
-        description = `${headingTitle} — film review: ${review.aiSummary.substring(0, 100)}`;
+        description = `${headingTitle} — film review: ${snippet}`;
     }
     
     // Ensure it's under 160 characters

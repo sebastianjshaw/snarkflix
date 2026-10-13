@@ -1,6 +1,7 @@
 const fs = require('fs');
 const path = require('path');
 const { getMovieTheatricalReleaseISO } = require('./lib/get-movie-release.cjs');
+const { stripTldrPrefix } = require('./lib/strip-tldr.cjs');
 
 const reviews = require('./reviews-data.js');
 
@@ -79,7 +80,7 @@ function buildStaticMetaDescription(review) {
   const headingTitle = reviewHeadingTitle(review);
   const category = review.category.charAt(0).toUpperCase() + review.category.slice(1);
   const score = review.aiScore;
-  const snippet = review.aiSummary.substring(0, 100);
+  const snippet = stripTldrPrefix(review.aiSummary).substring(0, 100);
   let description = '';
   if (score >= 80) {
     description = `${headingTitle} — ${category} review: ${snippet}`;
@@ -97,7 +98,8 @@ reviews.forEach((review) => {
   const headingPlain = reviewHeadingTitle(review);
   const headingEsc = esc(headingPlain);
   const score = esc(String(review.aiScore));
-  const summary = esc(review.aiSummary.substring(0, 200));
+  const summaryText = stripTldrPrefix(review.aiSummary);
+  const summary = esc(summaryText.substring(0, 200));
   const tagline = esc(review.tagline);
   const category = esc(review.category.charAt(0).toUpperCase() + review.category.slice(1));
   const year = esc(String(review.releaseYear));
@@ -243,7 +245,7 @@ reviews.forEach((review) => {
             <span class="snarkflix-static-score">SnarkAI Score: ${score}/100</span>
             <img src="${imageUrl}" alt="${headingEsc} — film poster" class="review-image" width="800" height="420" itemprop="image">
             <blockquote>&ldquo;${tagline}&rdquo;</blockquote>
-            <p><strong>TL;DR:</strong> ${esc(review.aiSummary)}</p>
+            <p><strong>TL;DR:</strong> ${esc(summaryText)}</p>
             <div itemprop="reviewBody">${contentToHtml(review.content)}</div>
         </article>
 

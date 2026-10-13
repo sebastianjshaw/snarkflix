@@ -44,7 +44,7 @@ const block = `<!-- SNARKFLIX_SEO_REVIEW_LINKS_START -->
 <section class="snarkflix-seo-indexed-review-archive-wrap">
   <div class="snarkflix-container">
     <h2 class="snarkflix-seo-indexed-review-archive-heading">Review archive</h2>
-    <p class="snarkflix-seo-indexed-review-archive-lede">Dedicated page for each review (same URLs as in the sitemap).</p>
+    <p class="snarkflix-seo-indexed-review-archive-lede">Every review, one plain link each, for anyone who'd rather skim than scroll.</p>
     <nav class="snarkflix-seo-indexed-review-archive" aria-label="All reviews by title">
       <ul class="snarkflix-seo-indexed-review-archive-list">
 ${items}

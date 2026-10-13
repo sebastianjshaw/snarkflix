@@ -2,6 +2,7 @@ const fs = require('fs');
 const path = require('path');
 const reviews = require('./reviews-data.js');
 const { getMovieTheatricalReleaseISO } = require('./lib/get-movie-release.cjs');
+const { stripTldrPrefix } = require('./lib/strip-tldr.cjs');
 
 const SITE = 'https://snarkflix.com';
 const FEED_TITLE = 'Snarkflix — film reviews';
@@ -45,7 +46,7 @@ const lastUpdated = sorted.length ? parsePublishToISO(sorted[0].publishDate) : n
 const entries = sorted.map((review) => {
     const link = `${SITE}/review/${review.id}`;
     const updated = parsePublishToISO(review.publishDate);
-    const summary = escXml((review.aiSummary || '').replace(/\s+/g, ' ').trim().slice(0, 500));
+    const summary = escXml(stripTldrPrefix(review.aiSummary).replace(/\s+/g, ' ').trim().slice(0, 500));
     const title = escXml(review.title);
     const filmDate = getMovieTheatricalReleaseISO(review);
     const extra = filmDate ? ` &lt;p&gt;&lt;small&gt;Theatrical release (approx.): ${escXml(filmDate)}&lt;/small&gt;&lt;/p&gt;` : '';

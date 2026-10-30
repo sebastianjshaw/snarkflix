@@ -1,24 +1,26 @@
 // Snarkflix Service Worker - Enhanced Caching and Offline Support
-const CACHE_NAME = 'snarkflix-v4-2026-04-11-images-netfirst';
+const CACHE_NAME = 'snarkflix-v4-2026-10-30-1200';
 const OFFLINE_PAGE = '/offline.html';
 const urlsToCache = [
     '/',
     '/offline.html',
     '/styles.css',
     '/script.js',
+    '/sf-templates.js',
     '/reviews-data.js',
     '/images/site-assets/logo.avif',
-    '/images/site-assets/background.avif',
-    '/images/site-assets/merlin.png',
-    // Add category icons to cache
-    '/images/category-icons/Action.png',
-    '/images/category-icons/Adventure.png',
-    '/images/category-icons/Animation.png',
-    '/images/category-icons/Comedy.png',
-    '/images/category-icons/Drama.png',
-    '/images/category-icons/Horror.png',
-    '/images/category-icons/SciFi.png',
-    '/images/category-icons/Musical.png',
+    '/images/site-assets/brand-mark.webp',
+    '/images/site-assets/avatar-merlin.webp',
+    // Genre chip icons (320px versions)
+    '/images/category-icons/Action-sm.webp',
+    '/images/category-icons/Adventure-sm.webp',
+    '/images/category-icons/Animation-sm.webp',
+    '/images/category-icons/Comedy-sm.webp',
+    '/images/category-icons/Drama-sm.webp',
+    '/images/category-icons/Horror-sm.webp',
+    '/images/category-icons/Musical-sm.webp',
+    '/images/category-icons/SciFi-sm.webp',
+    '/images/category-icons/Thriller-sm.webp',
     // Add favicon files to cache
     '/images/site-assets/favicon/favicon.ico',
     '/images/site-assets/favicon/favicon-16x16.png',

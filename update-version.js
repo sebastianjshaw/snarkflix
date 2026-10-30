@@ -21,9 +21,11 @@ let indexContent = fs.readFileSync(indexPath, 'utf8');
 // Replace version in script tags
 const scriptRegex = /(reviews-data\.js\?v=)[^"]+/g;
 const scriptRegex2 = /(script\.js\?v=)[^"]+/g;
+const scriptRegex3 = /(sf-templates\.js\?v=)[^"]+/g;
 
 indexContent = indexContent.replace(scriptRegex, `$1${version}`);
 indexContent = indexContent.replace(scriptRegex2, `$1${version}`);
+indexContent = indexContent.replace(scriptRegex3, `$1${version}`);
 
 fs.writeFileSync(indexPath, indexContent);
 console.log('✅ Updated index.html script versions');

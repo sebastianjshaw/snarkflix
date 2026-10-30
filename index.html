@@ -53,10 +53,7 @@
     <!-- Resource Preloading for Performance -->
     <!-- Using absolute paths to avoid issues on review pages -->
     <!-- Preload only critical above-the-fold resources -->
-    <link rel="preload" href="/images/site-assets/logo.webp" as="image" fetchpriority="high">
     <link rel="preload" href="/styles.css" as="style">
-    <!-- Defer background image loading -->
-    <link rel="prefetch" href="/images/site-assets/background.avif" as="image">
     <!-- Preconnect to external domains -->
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
@@ -65,9 +62,6 @@
 
     <title>Snarkflix — film reviews in the first person</title>
     
-    <!-- Accessibility: Live region for dynamic content announcements -->
-    <div id="a11y-live-region" class="sr-only" aria-live="polite" aria-atomic="true"></div>
-    <div id="a11y-status-region" class="sr-only" aria-live="polite" aria-atomic="true"></div>
     <link rel="stylesheet" href="styles.css">
     <!-- Fraunces (display), IBM Plex Sans (UI), Source Serif 4 (review body) — async load -->
     <link href="https://fonts.googleapis.com/css2?family=Fraunces:ital,opsz,wght@0,9..144,400;0,9..144,600;0,9..144,700;1,9..144,400&family=IBM+Plex+Sans:ital,wght@0,400;0,500;0,600;0,700&family=Source+Serif+4:ital,opsz,wght@0,8..60,400;0,8..60,600;1,8..60,400&display=swap" rel="stylesheet" media="print" onload="this.media='all'; this.onload=null;">
@@ -141,363 +135,191 @@
     </script>
 </head>
 <body>
-    <!-- Skip to main content link -->
-    <a href="#reviews" class="snarkflix-skip-link" aria-label="Skip to main content">Skip to main content</a>
-    
-    <!-- Header -->
-    <header class="snarkflix-header">
-        <nav class="snarkflix-nav" role="navigation" aria-label="Main navigation" id="main-navigation">
-            <div class="snarkflix-nav-container">
-                <div class="snarkflix-logo">
-                    <h1><a href="/" aria-label="Snarkflix home">Snarkflix</a></h1>
-                </div>
-                <div class="snarkflix-nav-links">
-                    <button type="button" class="snarkflix-mobile-menu-close" aria-label="Close menu">×</button>
-                    <a href="#reviews" class="snarkflix-nav-link">
-                        <svg class="snarkflix-nav-icon" aria-hidden="true" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
-                            <path d="M4 19.5A2.5 2.5 0 0 1 6.5 17H20"></path>
-                            <path d="M6.5 2H20v20H6.5A2.5 2.5 0 0 1 4 19.5v-15A2.5 2.5 0 0 1 6.5 2z"></path>
-                        </svg>
-                        <span>Reviews</span>
-                    </a>
-                    <a href="#categories" class="snarkflix-nav-link">
-                        <svg class="snarkflix-nav-icon" aria-hidden="true" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
-                            <rect x="3" y="3" width="7" height="7"></rect>
-                            <rect x="14" y="3" width="7" height="7"></rect>
-                            <rect x="14" y="14" width="7" height="7"></rect>
-                            <rect x="3" y="14" width="7" height="7"></rect>
-                        </svg>
-                        <span>Categories</span>
-                    </a>
-                    <a href="#about" class="snarkflix-nav-link">
-                        <svg class="snarkflix-nav-icon" aria-hidden="true" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
-                            <circle cx="12" cy="12" r="10"></circle>
-                            <path d="M12 16v-4"></path>
-                            <path d="M12 8h.01"></path>
-                        </svg>
-                        <span>About</span>
-                    </a>
-                </div>
-                <div class="snarkflix-mobile-menu-backdrop"></div>
-                <button type="button" class="snarkflix-mobile-menu-toggle snarkflix-mobile-menu-btn" aria-label="Toggle mobile menu" aria-expanded="false" aria-controls="main-navigation">
-                    <span aria-hidden="true"></span>
-                    <span aria-hidden="true"></span>
-                    <span aria-hidden="true"></span>
-                </button>
-            </div>
-        </nav>
-    </header>
+    <a href="#main" class="snarkflix-skip-link">Skip to main content</a>
 
-    <!-- Breadcrumb: single honest crumb on homepage; JS replaces when viewing a review -->
-    <nav aria-label="Breadcrumb" class="snarkflix-breadcrumb" id="snarkflix-breadcrumb-nav">
-        <ol class="snarkflix-breadcrumb-list" id="snarkflix-breadcrumb-list">
-            <li aria-current="page">Home</li>
-        </ol>
-    </nav>
+    <!-- Accessibility: live regions for dynamic content announcements -->
+    <div id="a11y-live-region" class="sr-only" aria-live="polite" aria-atomic="true"></div>
+    <div id="a11y-status-region" class="sr-only" aria-live="polite" aria-atomic="true"></div>
 
-    <!-- Hero Section -->
-    <section class="snarkflix-hero" role="banner">
-        <div class="snarkflix-hero-content">
-            <div>
-                <h2 class="snarkflix-hero-title">Film reviews, first person, no committee</h2>
-                <p class="snarkflix-hero-description">
-                    British English, first-person, and no one to sign it off. Some reviews are proper arguments; some are mid-film commentary I never tidied up. Every one gets a tl;dr and a score out of 100 from SnarkAI, my deliberately snarky robot. Merlin the Bernedoodle would give a buffering wheel full marks.
-                </p>
-                <div class="snarkflix-hero-cta">
-                    <a href="#reviews" class="snarkflix-btn snarkflix-btn-primary" aria-label="Jump to all reviews">Read the reviews</a>
-                    <a href="#about" class="snarkflix-btn snarkflix-btn-secondary" aria-label="About the critic behind Snarkflix">About me</a>
-                </div>
-            </div>
-            <div class="snarkflix-hero-image">
-                <picture>
-                    <source srcset="images/site-assets/logo-400w.webp 400w, images/site-assets/logo-800w.webp 800w, images/site-assets/logo-1200w.webp 1200w" 
-                            sizes="(max-width: 300px) 300px, (max-width: 400px) 300px, 300px" 
-                            type="image/webp">
-                    <img src="images/site-assets/logo.avif" alt="Snarkflix Logo" class="snarkflix-hero-logo" fetchpriority="high" loading="eager" width="300" height="300">
-                </picture>
-            </div>
-        </div>
-    </section>
+    <!-- SF_HEADER_START -->
+<header class="sf-header"><div class="sf-container sf-header__inner"><a class="sf-brand" href="/" data-home aria-label="Snarkflix home"><img class="sf-brand__mark" src="/images/site-assets/brand-mark.webp" alt="" width="40" height="40"><span class="sf-brand__word">Snarkflix</span></a><nav class="sf-nav" aria-label="Main navigation"><a class="sf-nav__link" href="/#reviews" data-home-anchor="reviews">Reviews</a><a class="sf-nav__link" href="/#about" data-home-anchor="about">About</a></nav></div></header>
+<!-- SF_HEADER_END -->
 
-    <!-- Featured Reviews Section -->
-    <section id="reviews" class="snarkflix-featured-reviews" role="main" aria-label="Film reviews archive">
-        <div class="snarkflix-container">
-            <div class="snarkflix-reviews-header">
-                <h2 class="snarkflix-section-title">
-                    <label for="sort-dropdown" class="sr-only">Sort reviews by</label>
-                    <select id="sort-dropdown" class="snarkflix-sort-select" aria-label="Sort reviews by">
-                        <option value="latest" data-icon="🕐">Newest first</option>
-                        <option value="best" data-icon="⭐">Top SnarkAI score</option>
-                        <option value="longest" data-icon="📖">Longest read</option>
-                    </select>
-                    Reviews
-                </h2>
-            </div>
-            <div class="snarkflix-search-container">
-                <div class="snarkflix-search-wrapper">
-                    <svg class="snarkflix-search-icon" aria-hidden="true" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
-                        <circle cx="11" cy="11" r="8"></circle>
-                        <path d="m21 21-4.35-4.35"></path>
-                    </svg>
-                    <input type="text" id="search-input" class="snarkflix-search-input" placeholder="Search films, cast, or a stray quote… (press '/' to focus)" aria-label="Search reviews">
-                    <button id="clear-search-btn" class="snarkflix-clear-search-btn" aria-label="Clear search" style="display: none;">
-                        <span class="snarkflix-clear-icon">×</span>
-                    </button>
-                    <div id="search-suggestions" class="snarkflix-search-suggestions" style="display: none;" role="listbox" aria-label="Search suggestions">
-                        <div id="recent-searches" class="snarkflix-recent-searches" style="display: none;"></div>
+    <main id="main" class="sf-home">
+        <section class="sf-hero" aria-labelledby="sf-hero-title">
+            <div class="sf-container sf-hero__inner">
+                <div class="sf-hero__copy">
+                    <h1 class="sf-hero__title" id="sf-hero-title">Film reviews, first person, no committee</h1>
+                    <p class="sf-hero__deck">British English, first-person, and scored out of 100 by SnarkAI, my deliberately snarky robot.</p>
+                    <div class="sf-hero__cta">
+                        <a href="#reviews" class="sf-btn sf-btn--cta">Read the reviews</a>
+                        <a href="#about" class="sf-btn sf-btn--ghost">About me</a>
                     </div>
                 </div>
-                <div class="snarkflix-search-filters">
-                    <select id="filter-score" class="snarkflix-filter-select" data-filter="score" aria-label="Filter by SnarkAI score">
-                        <option value="">Any score</option>
-                        <option value="90-100">90-100 (Excellent)</option>
-                        <option value="80-89">80-89 (Great)</option>
-                        <option value="70-79">70-79 (Good)</option>
-                        <option value="60-69">60-69 (Fair)</option>
-                        <option value="0-59">0-59 (Poor)</option>
-                    </select>
-                    <select id="filter-year" class="snarkflix-filter-select" data-filter="year" aria-label="Filter by release year">
-                        <option value="">Any year</option>
-                    </select>
+                <div class="sf-hero__feature">
+                    <!-- SF_FEATURED_START -->
+<article class="sf-card sf-card--feature" data-review-id="57"><div class="sf-card__media"><picture><source type="image/webp" srcset="/images/reviews/street-fighter-1994/header-street-fighter-1994-400w.webp 400w, /images/reviews/street-fighter-1994/header-street-fighter-1994-800w.webp 800w, /images/reviews/street-fighter-1994/header-street-fighter-1994-1200w.webp 1200w" sizes="(max-width: 899px) 92vw, 540px"><img src="/images/reviews/street-fighter-1994/header-street-fighter-1994.webp" alt="" loading="eager" decoding="async" width="1200" height="800" fetchpriority="high" class="sf-card__img"></picture><span class="sf-score sf-score--md" data-band="poor" style="--score:38" role="img" aria-label="SnarkAI score: 38 out of 100, Poor"><span class="sf-score__num" aria-hidden="true">38</span></span></div><div class="sf-card__body"><p class="sf-card__kicker">Latest review</p><p class="sf-card__meta">1994 <span aria-hidden="true">·</span> Action <span aria-hidden="true">·</span> 2 min read</p><h2 class="sf-card__title"><a class="sf-card__link" href="/review/57" data-review-id="57">Street Fighter</a></h2><p class="sf-card__hook">“This film is a lot worse than I remember it.”</p><span class="sf-card__cta" aria-hidden="true">Read the review →</span></div></article>
+<!-- SF_FEATURED_END -->
                 </div>
             </div>
-            <div id="search-results-count" class="snarkflix-search-results-count" style="display: none;" role="status" aria-live="polite"></div>
-            <div class="snarkflix-reviews-grid" id="reviews-grid" role="list" aria-label="Review cards">
-                <!-- Reviews will be dynamically loaded here -->
-            </div>
-            <div class="snarkflix-load-more">
-                <div id="reviews-progress" class="snarkflix-reviews-progress" aria-live="polite" aria-atomic="true"></div>
-                <button type="button" class="snarkflix-btn snarkflix-btn-outline" id="load-more-btn" aria-label="Load more reviews">
-                    <span class="snarkflix-btn-text">Load more reviews</span>
-                    <span class="snarkflix-btn-loader" style="display: none;" aria-hidden="true">
-                        <span class="snarkflix-btn-loader-inner">
-                            <span class="snarkflix-spinner" aria-hidden="true"></span>
-                            <span class="snarkflix-btn-loader-caption" aria-hidden="true"></span>
+        </section>
+        <div class="sf-filmstrip" aria-hidden="true"></div>
+
+        <section id="reviews" class="sf-section sf-reviews" aria-labelledby="reviews-title">
+            <div class="sf-container">
+                <div class="sf-section-head">
+                    <h2 class="sf-section-title" id="reviews-title">Reviews</h2>
+                    <!-- SF_LEGEND_START -->
+<details class="sf-legend"><summary>Score guide</summary><div class="sf-legend__panel"><p class="sf-legend__intro">Every review gets a score out of 100 from SnarkAI.</p><ul class="sf-legend__list"><li><span class="sf-score sf-score--xs" data-band="excellent" style="--score:95" role="img" aria-label="SnarkAI score: 95 out of 100, Excellent"><span class="sf-score__num" aria-hidden="true">95</span></span><span><strong>Excellent</strong> <span class="sf-legend__range">90–100</span></span></li><li><span class="sf-score sf-score--xs" data-band="great" style="--score:85" role="img" aria-label="SnarkAI score: 85 out of 100, Great"><span class="sf-score__num" aria-hidden="true">85</span></span><span><strong>Great</strong> <span class="sf-legend__range">80–89</span></span></li><li><span class="sf-score sf-score--xs" data-band="good" style="--score:75" role="img" aria-label="SnarkAI score: 75 out of 100, Good"><span class="sf-score__num" aria-hidden="true">75</span></span><span><strong>Good</strong> <span class="sf-legend__range">70–79</span></span></li><li><span class="sf-score sf-score--xs" data-band="fair" style="--score:65" role="img" aria-label="SnarkAI score: 65 out of 100, Fair"><span class="sf-score__num" aria-hidden="true">65</span></span><span><strong>Fair</strong> <span class="sf-legend__range">60–69</span></span></li><li><span class="sf-score sf-score--xs" data-band="poor" style="--score:35" role="img" aria-label="SnarkAI score: 35 out of 100, Poor"><span class="sf-score__num" aria-hidden="true">35</span></span><span><strong>Poor</strong> <span class="sf-legend__range">0–59</span></span></li></ul></div></details>
+<!-- SF_LEGEND_END -->
+                </div>
+
+                <div class="sf-toolbar" role="search" aria-label="Find a review">
+                    <div class="sf-chips" id="category-chips" role="group" aria-label="Filter by genre"></div>
+                    <div class="sf-controls snarkflix-search-container">
+                        <div class="snarkflix-search-wrapper">
+                            <svg class="snarkflix-search-icon" aria-hidden="true" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                                <circle cx="11" cy="11" r="8"></circle>
+                                <path d="m21 21-4.35-4.35"></path>
+                            </svg>
+                            <input type="text" id="search-input" class="snarkflix-search-input" placeholder="Search films, cast, or a stray quote… (press '/' to focus)" aria-label="Search reviews" autocomplete="off">
+                            <button type="button" id="clear-search-btn" class="snarkflix-clear-search-btn" aria-label="Clear search" style="display: none;">
+                                <span aria-hidden="true">×</span>
+                            </button>
+                            <div id="search-suggestions" class="snarkflix-search-suggestions" style="display: none;" role="listbox" aria-label="Search suggestions">
+                                <div id="recent-searches" class="snarkflix-recent-searches" style="display: none;"></div>
+                            </div>
+                        </div>
+                        <div class="sf-selects">
+                            <select id="sort-dropdown" class="sf-select" aria-label="Sort reviews by">
+                                <option value="latest">Newest first</option>
+                                <option value="best">Top SnarkAI score</option>
+                                <option value="longest">Longest read</option>
+                            </select>
+                            <select id="filter-score" class="sf-select" data-filter="score" aria-label="Filter by SnarkAI score">
+                                <option value="">Any score</option>
+                                <option value="90-100">Excellent · 90–100</option>
+                                <option value="80-89">Great · 80–89</option>
+                                <option value="70-79">Good · 70–79</option>
+                                <option value="60-69">Fair · 60–69</option>
+                                <option value="0-59">Poor · 0–59</option>
+                            </select>
+                            <select id="filter-year" class="sf-select" data-filter="year" aria-label="Filter by release year">
+                                <option value="">Any year</option>
+                            </select>
+                        </div>
+                    </div>
+                </div>
+
+                <div id="search-results-count" class="snarkflix-search-results-count" style="display: none;" role="status" aria-live="polite"></div>
+                <div class="sf-grid" id="reviews-grid" aria-label="Review cards">
+                    <!-- Reviews are rendered here by script.js -->
+                </div>
+                <noscript><p class="snarkflix-search-results-count">The review grid needs JavaScript. The A–Z list further down links to every review.</p></noscript>
+                <div class="snarkflix-load-more">
+                    <div id="reviews-progress" class="snarkflix-reviews-progress" aria-live="polite" aria-atomic="true"></div>
+                    <button type="button" class="sf-btn sf-btn--ghost" id="load-more-btn" aria-label="Load more reviews">
+                        <span class="snarkflix-btn-text">Load more reviews</span>
+                        <span class="snarkflix-btn-loader" style="display: none;" aria-hidden="true">
+                            <span class="snarkflix-btn-loader-inner">
+                                <span class="snarkflix-spinner" aria-hidden="true"></span>
+                                <span class="snarkflix-btn-loader-caption" aria-hidden="true"></span>
+                            </span>
                         </span>
-                    </span>
-                </button>
-            </div>
-            <button type="button" id="back-to-top-btn" class="snarkflix-back-to-top" aria-label="Back to top">↑</button>
-        </div>
-    </section>
-
-    <!-- Categories Section -->
-    <section id="categories" class="snarkflix-categories" role="navigation" aria-label="Browse reviews by category">
-        <div class="snarkflix-container">
-            <h2 class="snarkflix-section-title">Browse by category</h2>
-            <p class="snarkflix-section-description">I file reviews by genre — handy if you're in the mood for something specific or just avoiding musicals.</p>
-            <div class="snarkflix-categories-grid">
-                <button type="button" class="snarkflix-category-card" data-category="action" aria-label="Browse Action category reviews, 13 reviews available">
-                    <div class="snarkflix-category-image action-category">
-                        <picture>
-                            <source srcset="images/category-icons/Action.webp" type="image/webp">
-                            <img src="images/category-icons/Action.png" alt="" class="snarkflix-category-icon" loading="lazy" width="100" height="100" aria-hidden="true">
-                        </picture>
-                    </div>
-                    <span class="snarkflix-category-name">Action</span>
-                    <span class="snarkflix-category-count">13 reviews</span>
-                </button>
-                <button type="button" class="snarkflix-category-card" data-category="adventure" aria-label="Browse Adventure category reviews, 1 review available">
-                    <div class="snarkflix-category-image adventure-category">
-                        <picture>
-                            <source srcset="images/category-icons/Adventure.webp" type="image/webp">
-                            <img src="images/category-icons/Adventure.png" alt="" class="snarkflix-category-icon" loading="lazy" width="100" height="100" aria-hidden="true">
-                        </picture>
-                    </div>
-                    <span class="snarkflix-category-name">Adventure</span>
-                    <span class="snarkflix-category-count">1 review</span>
-                </button>
-                <button type="button" class="snarkflix-category-card" data-category="animation" aria-label="Browse Animation category reviews, 6 reviews available">
-                    <div class="snarkflix-category-image animation-category">
-                        <picture>
-                            <source srcset="images/category-icons/Animation.webp" type="image/webp">
-                            <img src="images/category-icons/Animation.png" alt="" class="snarkflix-category-icon" loading="lazy" width="100" height="100" aria-hidden="true">
-                        </picture>
-                    </div>
-                    <span class="snarkflix-category-name">Animation</span>
-                    <span class="snarkflix-category-count">6 reviews</span>
-                </button>
-                <button type="button" class="snarkflix-category-card" data-category="comedy" aria-label="Browse Comedy category reviews, 3 reviews available">
-                    <div class="snarkflix-category-image comedy-category">
-                        <picture>
-                            <source srcset="images/category-icons/Comedy.webp" type="image/webp">
-                            <img src="images/category-icons/Comedy.png" alt="" class="snarkflix-category-icon" loading="lazy" width="100" height="100" aria-hidden="true">
-                        </picture>
-                    </div>
-                    <span class="snarkflix-category-name">Comedy</span>
-                    <span class="snarkflix-category-count">3 reviews</span>
-                </button>
-                <button type="button" class="snarkflix-category-card" data-category="drama" aria-label="Browse Drama category reviews, 4 reviews available">
-                    <div class="snarkflix-category-image drama-category">
-                        <picture>
-                            <source srcset="images/category-icons/Drama.webp" type="image/webp">
-                            <img src="images/category-icons/Drama.png" alt="" class="snarkflix-category-icon" loading="lazy" width="100" height="100" aria-hidden="true">
-                        </picture>
-                    </div>
-                    <span class="snarkflix-category-name">Drama</span>
-                    <span class="snarkflix-category-count">4 reviews</span>
-                </button>
-                <button type="button" class="snarkflix-category-card" data-category="horror" aria-label="Browse Horror category reviews, 2 reviews available">
-                    <div class="snarkflix-category-image horror-category">
-                        <picture>
-                            <source srcset="images/category-icons/Horror.webp" type="image/webp">
-                            <img src="images/category-icons/Horror.png" alt="" class="snarkflix-category-icon" loading="lazy" width="100" height="100" aria-hidden="true">
-                        </picture>
-                    </div>
-                    <span class="snarkflix-category-name">Horror</span>
-                    <span class="snarkflix-category-count">2 reviews</span>
-                </button>
-                <button type="button" class="snarkflix-category-card" data-category="sci-fi" aria-label="Browse Sci-Fi category reviews, 4 reviews available">
-                    <div class="snarkflix-category-image scifi-category">
-                        <picture>
-                            <source srcset="images/category-icons/SciFi.webp" type="image/webp">
-                            <img src="images/category-icons/SciFi.png" alt="" class="snarkflix-category-icon" loading="lazy" width="100" height="100" aria-hidden="true">
-                        </picture>
-                    </div>
-                    <span class="snarkflix-category-name">Sci-Fi</span>
-                    <span class="snarkflix-category-count">4 reviews</span>
-                </button>
-                <button type="button" class="snarkflix-category-card" data-category="musical" aria-label="Browse Musical category reviews, 3 reviews available">
-                    <div class="snarkflix-category-image musical-category">
-                        <picture>
-                            <source srcset="images/category-icons/Musical.webp" type="image/webp">
-                            <img src="images/category-icons/Musical.png" alt="" class="snarkflix-category-icon" loading="lazy" width="100" height="100" aria-hidden="true">
-                        </picture>
-                    </div>
-                    <span class="snarkflix-category-name">Musical</span>
-                    <span class="snarkflix-category-count">3 reviews</span>
-                </button>
-            </div>
-        </div>
-    </section>
-
-    <!-- About Section -->
-    <section id="about" class="snarkflix-about">
-        <div class="snarkflix-container">
-            <div class="snarkflix-about-content">
-                <div class="snarkflix-about-text">
-                    <h2 class="snarkflix-section-title">About me (and the dog)</h2>
-                    <p>
-                        Snarkflix is just me, writing about films I've actually watched. No house style, no outrage on a schedule: some reviews are proper arguments, some are closer to running commentary I didn't tidy up.
-                    </p>
-                    <p>
-                        Every review comes with a tl;dr and a score out of 100. Both come from SnarkAI, a deliberately snarky robot that reads my review and marks it; the header images are AI-generated from my scene descriptions. Merlin, the Bernedoodle, thinks every film is a triumph.
-                    </p>
-                    <p>
-                        For the record: <strong>1,495 films</strong> (119 days of runtime) and <strong>25,321 episodes</strong> logged on Trakt. Slightly worrying, but it does earn me the right to be picky about pacing. <strong>594 action</strong>, <strong>172 horror</strong>, <strong>178 superhero</strong>, <strong>55 musicals</strong> and one deeply questionable Donghua; my history reads like someone who can't pick a lane, and I'm fine with that.
-                    </p>
-                    <p>
-                        Come for a fresh take on a blockbuster or a tangent-heavy read on something odd.
-                    </p>
-                </div>
-                <div class="snarkflix-about-image">
-                    <picture>
-                    <source srcset="images/site-assets/merlin.webp" type="image/webp">
-                    <img src="images/site-assets/merlin.png" alt="Merlin the Bernedoodle" class="snarkflix-about-logo" loading="lazy" width="200" height="200" style="background: linear-gradient(90deg, #f0f0f0 25%, #e0e0e0 50%, #f0f0f0 75%); background-size: 200% 100%; animation: shimmer 1.5s infinite;">
-                </picture>
+                    </button>
                 </div>
             </div>
-        </div>
-    </section>
+        </section>
 
-    <!-- SNARKFLIX_SEO_REVIEW_LINKS_START -->
-<section class="snarkflix-seo-indexed-review-archive-wrap">
-  <div class="snarkflix-container">
-    <h2 class="snarkflix-seo-indexed-review-archive-heading">Review archive</h2>
-    <p class="snarkflix-seo-indexed-review-archive-lede">Every review, one plain link each, for anyone who'd rather skim than scroll.</p>
-    <nav class="snarkflix-seo-indexed-review-archive" aria-label="All reviews by title">
-      <ul class="snarkflix-seo-indexed-review-archive-list">
-        <li class="snarkflix-seo-indexed-review-archive-item"><a href="https://snarkflix.com/review/1">Superman (2025)</a></li>
-        <li class="snarkflix-seo-indexed-review-archive-item"><a href="https://snarkflix.com/review/2">Wicked (2024)</a></li>
-        <li class="snarkflix-seo-indexed-review-archive-item"><a href="https://snarkflix.com/review/4">The Boy and the Heron (2023)</a></li>
-        <li class="snarkflix-seo-indexed-review-archive-item"><a href="https://snarkflix.com/review/5">The Man from Earth (2007)</a></li>
-        <li class="snarkflix-seo-indexed-review-archive-item"><a href="https://snarkflix.com/review/6">Wonka (2023)</a></li>
-        <li class="snarkflix-seo-indexed-review-archive-item"><a href="https://snarkflix.com/review/7">The Marvels (2023)</a></li>
-        <li class="snarkflix-seo-indexed-review-archive-item"><a href="https://snarkflix.com/review/8">To Me, the One Who Loved You (2022)</a></li>
-        <li class="snarkflix-seo-indexed-review-archive-item"><a href="https://snarkflix.com/review/9">To Every You I've Loved Before (2022)</a></li>
-        <li class="snarkflix-seo-indexed-review-archive-item"><a href="https://snarkflix.com/review/10">The Super Mario Bros. Movie (2023)</a></li>
-        <li class="snarkflix-seo-indexed-review-archive-item"><a href="https://snarkflix.com/review/11">Prey (2022)</a></li>
-        <li class="snarkflix-seo-indexed-review-archive-item"><a href="https://snarkflix.com/review/12">The Royal Tenenbaums (2001)</a></li>
-        <li class="snarkflix-seo-indexed-review-archive-item"><a href="https://snarkflix.com/review/13">Cocaine Bear (2023)</a></li>
-        <li class="snarkflix-seo-indexed-review-archive-item"><a href="https://snarkflix.com/review/14">The Whale (2022)</a></li>
-        <li class="snarkflix-seo-indexed-review-archive-item"><a href="https://snarkflix.com/review/15">Dungeons &amp; Dragons: Honour Amongst Thieves (2023)</a></li>
-        <li class="snarkflix-seo-indexed-review-archive-item"><a href="https://snarkflix.com/review/16">Winnie the Pooh: Blood and Honey (2023)</a></li>
-        <li class="snarkflix-seo-indexed-review-archive-item"><a href="https://snarkflix.com/review/17">Pinocchio (2022)</a></li>
-        <li class="snarkflix-seo-indexed-review-archive-item"><a href="https://snarkflix.com/review/18">Avatar: The Way of Water (2022)</a></li>
-        <li class="snarkflix-seo-indexed-review-archive-item"><a href="https://snarkflix.com/review/19">M3GAN (2023)</a></li>
-        <li class="snarkflix-seo-indexed-review-archive-item"><a href="https://snarkflix.com/review/20">Shazam! Fury of the Gods (2023)</a></li>
-        <li class="snarkflix-seo-indexed-review-archive-item"><a href="https://snarkflix.com/review/21">Black Panther: Wakanda Forever (2022)</a></li>
-        <li class="snarkflix-seo-indexed-review-archive-item"><a href="https://snarkflix.com/review/22">Black Adam (2022)</a></li>
-        <li class="snarkflix-seo-indexed-review-archive-item"><a href="https://snarkflix.com/review/23">The Suicide Squad (2021)</a></li>
-        <li class="snarkflix-seo-indexed-review-archive-item"><a href="https://snarkflix.com/review/24">Pitch Perfect (2012)</a></li>
-        <li class="snarkflix-seo-indexed-review-archive-item"><a href="https://snarkflix.com/review/25">The Batman (2022)</a></li>
-        <li class="snarkflix-seo-indexed-review-archive-item"><a href="https://snarkflix.com/review/27">Finch (2021)</a></li>
-        <li class="snarkflix-seo-indexed-review-archive-item"><a href="https://snarkflix.com/review/28">The Man Who Killed Hitler and Then the Bigfoot (2018)</a></li>
-        <li class="snarkflix-seo-indexed-review-archive-item"><a href="https://snarkflix.com/review/29">Wolfwalkers (2020)</a></li>
-        <li class="snarkflix-seo-indexed-review-archive-item"><a href="https://snarkflix.com/review/30">No Time to Die (2021)</a></li>
-        <li class="snarkflix-seo-indexed-review-archive-item"><a href="https://snarkflix.com/review/31">Fantastic Four: First Steps (2025)</a></li>
-        <li class="snarkflix-seo-indexed-review-archive-item"><a href="https://snarkflix.com/review/32">Don't Look Up (2021)</a></li>
-        <li class="snarkflix-seo-indexed-review-archive-item"><a href="https://snarkflix.com/review/33">Encanto (2021)</a></li>
-        <li class="snarkflix-seo-indexed-review-archive-item"><a href="https://snarkflix.com/review/34">Free Guy (2021)</a></li>
-        <li class="snarkflix-seo-indexed-review-archive-item"><a href="https://snarkflix.com/review/35">Eternals (2021)</a></li>
-        <li class="snarkflix-seo-indexed-review-archive-item"><a href="https://snarkflix.com/review/36">Ghostbusters: Afterlife (2021)</a></li>
-        <li class="snarkflix-seo-indexed-review-archive-item"><a href="https://snarkflix.com/review/37">Black Widow (2021)</a></li>
-        <li class="snarkflix-seo-indexed-review-archive-item"><a href="https://snarkflix.com/review/38">Zack Snyder's Justice League (2021)</a></li>
-        <li class="snarkflix-seo-indexed-review-archive-item"><a href="https://snarkflix.com/review/39">Wonder Woman 1984 (2020)</a></li>
-        <li class="snarkflix-seo-indexed-review-archive-item"><a href="https://snarkflix.com/review/42">Palm Springs (2020)</a></li>
-        <li class="snarkflix-seo-indexed-review-archive-item"><a href="https://snarkflix.com/review/43">The Iron Giant (1999)</a></li>
-        <li class="snarkflix-seo-indexed-review-archive-item"><a href="https://snarkflix.com/review/44">Goncharov (1973)</a></li>
-        <li class="snarkflix-seo-indexed-review-archive-item"><a href="https://snarkflix.com/review/45">KPop DemonHunters (2025)</a></li>
-        <li class="snarkflix-seo-indexed-review-archive-item"><a href="https://snarkflix.com/review/46">Zootopia (2016)</a></li>
-        <li class="snarkflix-seo-indexed-review-archive-item"><a href="https://snarkflix.com/review/47">Thunderbolts (2025)</a></li>
-        <li class="snarkflix-seo-indexed-review-archive-item"><a href="https://snarkflix.com/review/48">Care (2018)</a></li>
-        <li class="snarkflix-seo-indexed-review-archive-item"><a href="https://snarkflix.com/review/49">The Holdovers (2023)</a></li>
-        <li class="snarkflix-seo-indexed-review-archive-item"><a href="https://snarkflix.com/review/50">The Family Stone (2005)</a></li>
-        <li class="snarkflix-seo-indexed-review-archive-item"><a href="https://snarkflix.com/review/51">Good Boy (2025)</a></li>
-        <li class="snarkflix-seo-indexed-review-archive-item"><a href="https://snarkflix.com/review/52">Sinners (2025)</a></li>
-        <li class="snarkflix-seo-indexed-review-archive-item"><a href="https://snarkflix.com/review/53">28 Years Later (2025)</a></li>
-        <li class="snarkflix-seo-indexed-review-archive-item"><a href="https://snarkflix.com/review/54">Project Hail Mary (2026)</a></li>
-        <li class="snarkflix-seo-indexed-review-archive-item"><a href="https://snarkflix.com/review/55">Spiderman: Brand New Day (2026)</a></li>
-        <li class="snarkflix-seo-indexed-review-archive-item"><a href="https://snarkflix.com/review/56">The Odyssey (2026)</a></li>
-        <li class="snarkflix-seo-indexed-review-archive-item"><a href="https://snarkflix.com/review/57">Street Fighter (1994)</a></li>
+        <section id="about" class="sf-about" aria-labelledby="about-title">
+            <div class="sf-container sf-about__inner">
+                <div class="sf-about__text">
+                    <h2 class="sf-section-title" id="about-title">About me (and the dog)</h2>
+                    <p>Snarkflix is just me, writing about films I've actually watched. No house style, no outrage on a schedule: some reviews are proper arguments, some are closer to running commentary I didn't tidy up.</p>
+                    <p>Every review comes with a tl;dr and a score out of 100. Both come from SnarkAI, a deliberately snarky robot that reads my review and marks it; the header images are AI-generated from my scene descriptions. Merlin, the Bernedoodle, thinks every film is a triumph.</p>
+                    <p>For the record: <strong>1,495 films</strong> (119 days of runtime) and <strong>25,321 episodes</strong> logged on Trakt. Slightly worrying, but it does earn me the right to be picky about pacing. <strong>594 action</strong>, <strong>172 horror</strong>, <strong>178 superhero</strong>, <strong>55 musicals</strong> and one deeply questionable Donghua; my history reads like someone who can't pick a lane, and I'm fine with that.</p>
+                    <p>Come for a fresh take on a blockbuster or a tangent-heavy read on something odd.</p>
+                </div>
+                <img class="sf-about__portrait" src="images/site-assets/merlin-md.webp" srcset="images/site-assets/merlin-sm.webp 320w, images/site-assets/merlin-md.webp 640w" sizes="220px" alt="Merlin the Bernedoodle" width="220" height="220" loading="lazy">
+            </div>
+        </section>
+
+        <!-- SNARKFLIX_SEO_REVIEW_LINKS_START -->
+<section class="sf-archive" aria-label="Review archive"><div class="sf-container">
+  <details class="sf-archive__details">
+    <summary>All reviews A–Z <span class="sf-archive__count">53</span></summary>
+    <nav aria-label="All reviews by title">
+      <ul class="sf-archive__list">
+        <li><a href="/review/53">28 Years Later (2025)</a></li>
+        <li><a href="/review/18">Avatar: The Way of Water (2022)</a></li>
+        <li><a href="/review/25">The Batman (2022)</a></li>
+        <li><a href="/review/22">Black Adam (2022)</a></li>
+        <li><a href="/review/21">Black Panther: Wakanda Forever (2022)</a></li>
+        <li><a href="/review/37">Black Widow (2021)</a></li>
+        <li><a href="/review/4">The Boy and the Heron (2023)</a></li>
+        <li><a href="/review/48">Care (2018)</a></li>
+        <li><a href="/review/13">Cocaine Bear (2023)</a></li>
+        <li><a href="/review/32">Don&#39;t Look Up (2021)</a></li>
+        <li><a href="/review/15">Dungeons &amp; Dragons: Honour Amongst Thieves (2023)</a></li>
+        <li><a href="/review/33">Encanto (2021)</a></li>
+        <li><a href="/review/35">Eternals (2021)</a></li>
+        <li><a href="/review/50">The Family Stone (2005)</a></li>
+        <li><a href="/review/31">Fantastic Four: First Steps (2025)</a></li>
+        <li><a href="/review/27">Finch (2021)</a></li>
+        <li><a href="/review/34">Free Guy (2021)</a></li>
+        <li><a href="/review/36">Ghostbusters: Afterlife (2021)</a></li>
+        <li><a href="/review/44">Goncharov (1973)</a></li>
+        <li><a href="/review/51">Good Boy (2025)</a></li>
+        <li><a href="/review/49">The Holdovers (2023)</a></li>
+        <li><a href="/review/43">The Iron Giant (1999)</a></li>
+        <li><a href="/review/45">KPop DemonHunters (2025)</a></li>
+        <li><a href="/review/19">M3GAN (2023)</a></li>
+        <li><a href="/review/5">The Man from Earth (2007)</a></li>
+        <li><a href="/review/28">The Man Who Killed Hitler and Then the Bigfoot (2018)</a></li>
+        <li><a href="/review/7">The Marvels (2023)</a></li>
+        <li><a href="/review/30">No Time to Die (2021)</a></li>
+        <li><a href="/review/56">The Odyssey (2026)</a></li>
+        <li><a href="/review/42">Palm Springs (2020)</a></li>
+        <li><a href="/review/17">Pinocchio (2022)</a></li>
+        <li><a href="/review/24">Pitch Perfect (2012)</a></li>
+        <li><a href="/review/11">Prey (2022)</a></li>
+        <li><a href="/review/54">Project Hail Mary (2026)</a></li>
+        <li><a href="/review/12">The Royal Tenenbaums (2001)</a></li>
+        <li><a href="/review/20">Shazam! Fury of the Gods (2023)</a></li>
+        <li><a href="/review/52">Sinners (2025)</a></li>
+        <li><a href="/review/55">Spiderman: Brand New Day (2026)</a></li>
+        <li><a href="/review/57">Street Fighter (1994)</a></li>
+        <li><a href="/review/23">The Suicide Squad (2021)</a></li>
+        <li><a href="/review/10">The Super Mario Bros. Movie (2023)</a></li>
+        <li><a href="/review/1">Superman (2025)</a></li>
+        <li><a href="/review/47">Thunderbolts (2025)</a></li>
+        <li><a href="/review/9">To Every You I&#39;ve Loved Before (2022)</a></li>
+        <li><a href="/review/8">To Me, the One Who Loved You (2022)</a></li>
+        <li><a href="/review/14">The Whale (2022)</a></li>
+        <li><a href="/review/2">Wicked (2024)</a></li>
+        <li><a href="/review/16">Winnie the Pooh: Blood and Honey (2023)</a></li>
+        <li><a href="/review/29">Wolfwalkers (2020)</a></li>
+        <li><a href="/review/39">Wonder Woman 1984 (2020)</a></li>
+        <li><a href="/review/6">Wonka (2023)</a></li>
+        <li><a href="/review/38">Zack Snyder&#39;s Justice League (2021)</a></li>
+        <li><a href="/review/46">Zootopia (2016)</a></li>
       </ul>
     </nav>
-  </div>
-</section>
+  </details>
+</div></section>
 <!-- SNARKFLIX_SEO_REVIEW_LINKS_END -->
+    </main>
 
-    <!-- Footer -->
-    <footer class="snarkflix-footer" role="contentinfo">
-        <div class="snarkflix-container">
-            <div class="snarkflix-footer-content">
-                <div class="snarkflix-footer-logo">
-                    <h3>Snarkflix</h3>
-                    <p>Film reviews, first person</p>
-                </div>
-                <div class="snarkflix-footer-links">
-                    <a href="#reviews">Reviews</a>
-                    <a href="#categories">Categories</a>
-                    <a href="#about">About</a>
-                </div>
-                        <div class="snarkflix-footer-social">
-                            <p>&copy; 2026 Snarkflix. All rights reserved.</p>
-                            <details class="snarkflix-keyboard-shortcuts">
-                                <summary>Keyboard Shortcuts</summary>
-                                <ul>
-                                    <li><kbd>/</kbd> - Focus search input</li>
-                                    <li><kbd>↑</kbd> <kbd>↓</kbd> <kbd>←</kbd> <kbd>→</kbd> - Navigate review cards</li>
-                                    <li><kbd>Enter</kbd> - Open selected review</li>
-                                    <li><kbd>Esc</kbd> - Close search suggestions</li>
-                                </ul>
-                            </details>
-                        </div>
-            </div>
-        </div>
-    </footer>
+    <button type="button" id="back-to-top-btn" class="snarkflix-back-to-top" aria-label="Back to top">↑</button>
+
+    <!-- SF_FOOTER_START -->
+<footer class="sf-footer"><div class="sf-filmstrip" aria-hidden="true"></div><div class="sf-container sf-footer__inner"><div class="sf-footer__brand"><img class="sf-footer__mark" src="/images/site-assets/brand-mark.webp" alt="" width="56" height="56" loading="lazy"><div><p class="sf-footer__name">Snarkflix</p><p class="sf-footer__tag">Film reviews, first person</p></div></div><nav class="sf-footer__nav" aria-label="Footer"><a href="/#reviews" data-home-anchor="reviews">Reviews</a><a href="/#about" data-home-anchor="about">About</a></nav><div class="sf-footer__meta"><p>&copy; 2026 Snarkflix. All rights reserved.</p><details class="sf-shortcuts"><summary>Keyboard shortcuts</summary><ul><li><kbd>/</kbd> Focus the search box</li><li><kbd>Esc</kbd> Clear the search while it’s focused</li></ul></details></div></div></footer>
+<!-- SF_FOOTER_END -->
 
     <!-- Load reviews data first, then script -->
-    <script src="reviews-data.js?v=2025-10-07-2202" defer></script>
-    <script src="script.js?v=2025-10-07-2202" defer></script>
+    <script src="sf-templates.js?v=2026-10-30-1200" defer></script>
+    <script src="reviews-data.js?v=2026-10-30-1200" defer></script>
+    <script src="script.js?v=2026-10-30-1200" defer></script>
     
     <!-- Service Worker Registration -->
     <script>

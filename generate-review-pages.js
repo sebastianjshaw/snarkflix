@@ -2,8 +2,11 @@ const fs = require('fs');
 const path = require('path');
 const { getMovieTheatricalReleaseISO } = require('./lib/get-movie-release.cjs');
 const { stripTldrPrefix } = require('./lib/strip-tldr.cjs');
+const T = require('./sf-templates.js');
 
 const reviews = require('./reviews-data.js');
+
+const FONTS_URL = 'https://fonts.googleapis.com/css2?family=Fraunces:ital,opsz,wght@0,9..144,400;0,9..144,600;0,9..144,700;1,9..144,400&family=IBM+Plex+Sans:ital,wght@0,400;0,500;0,600;0,700&family=Source+Serif+4:ital,opsz,wght@0,8..60,400;0,8..60,600;1,8..60,400&display=swap';
 
 const reviewDir = path.join(__dirname, 'review');
 if (!fs.existsSync(reviewDir)) {
@@ -17,14 +20,6 @@ function esc(str) {
     .replace(/'/g, '&#39;')
     .replace(/</g, '&lt;')
     .replace(/>/g, '&gt;');
-}
-
-function contentToHtml(content) {
-  return content
-    .split('\n\n')
-    .filter(p => p.trim())
-    .map(p => `<p>${esc(p.trim())}</p>`)
-    .join('\n        ');
 }
 
 function parsePublishISO(review) {
@@ -94,15 +89,9 @@ function buildStaticMetaDescription(review) {
 }
 
 reviews.forEach((review) => {
-  const title = esc(review.title);
   const headingPlain = reviewHeadingTitle(review);
   const headingEsc = esc(headingPlain);
-  const score = esc(String(review.aiScore));
-  const summaryText = stripTldrPrefix(review.aiSummary);
-  const summary = esc(summaryText.substring(0, 200));
-  const tagline = esc(review.tagline);
   const category = esc(review.category.charAt(0).toUpperCase() + review.category.slice(1));
-  const year = esc(String(review.releaseYear));
   const imageUrl = `https://snarkflix.com/${review.imageUrl.replace(/^\//, '')}`;
   const reviewUrl = `https://snarkflix.com/review/${review.id}`;
   const pageTitle = esc(buildStaticPageTitle(review));
@@ -166,13 +155,17 @@ reviews.forEach((review) => {
 
     <link rel="canonical" href="${reviewUrl}">
     <link rel="alternate" type="application/atom+xml" title="Snarkflix" href="https://snarkflix.com/feed.xml">
-    <link rel="stylesheet" href="../styles.css">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link rel="stylesheet" href="/styles.css">
+    <link href="${FONTS_URL}" rel="stylesheet" media="print" onload="this.media='all'; this.onload=null;">
+    <noscript><link href="${FONTS_URL}" rel="stylesheet"></noscript>
 
-    <link rel="apple-touch-icon" sizes="180x180" href="../images/site-assets/favicon/apple-touch-icon.png">
-    <link rel="icon" type="image/png" sizes="32x32" href="../images/site-assets/favicon/favicon-32x32.png">
-    <link rel="icon" type="image/png" sizes="16x16" href="../images/site-assets/favicon/favicon-16x16.png">
-    <link rel="manifest" href="../images/site-assets/favicon/site.webmanifest">
-    <link rel="shortcut icon" href="../images/site-assets/favicon/favicon.ico">
+    <link rel="apple-touch-icon" sizes="180x180" href="/images/site-assets/favicon/apple-touch-icon.png">
+    <link rel="icon" type="image/png" sizes="32x32" href="/images/site-assets/favicon/favicon-32x32.png">
+    <link rel="icon" type="image/png" sizes="16x16" href="/images/site-assets/favicon/favicon-16x16.png">
+    <link rel="manifest" href="/images/site-assets/favicon/site.webmanifest">
+    <link rel="shortcut icon" href="/images/site-assets/favicon/favicon.ico">
     <meta name="msapplication-TileColor" content="#1a1a1a">
     <meta name="theme-color" content="#1a1a1a">
 
@@ -208,49 +201,27 @@ reviews.forEach((review) => {
       gtag('config', 'G-8SV8W7XL64');
     </script>
 
-    <style>
-        .snarkflix-static-review-wrap { max-width: 800px; margin: 0 auto; padding: 2rem 1.25rem 3rem; }
-        .snarkflix-static-banner {
-            padding: 0.75rem 1rem; margin-bottom: 1.5rem; border-radius: 8px;
-            background: var(--snarkflix-light, #f0e8de); color: var(--snarkflix-dark, #1a1a1a);
-            font-size: 0.95rem; border-left: 4px solid var(--snarkflix-primary, #ff6b35);
-        }
-        .snarkflix-static-review-wrap h1 { font-family: Georgia, serif; color: var(--snarkflix-primary, #ff6b35); }
-        .snarkflix-static-meta { color: var(--snarkflix-gray, #6c757d); font-size: 0.9rem; margin-bottom: 1rem; }
-        .snarkflix-static-score { display: inline-block; background: var(--snarkflix-primary, #ff6b35); color: #fff;
-            padding: 0.25rem 0.75rem; border-radius: 6px; font-weight: 700; margin-bottom: 1rem; }
-        .snarkflix-static-review-wrap blockquote { border-left: 4px solid var(--snarkflix-primary, #ff6b35); margin: 1.5rem 0; padding-left: 1rem; font-style: italic; }
-        .snarkflix-static-review-wrap .review-image { width: 100%; max-height: 420px; object-fit: cover; border-radius: 8px; margin-bottom: 1.25rem; }
-    </style>
 </head>
-<body>
-    <div class="snarkflix-static-review-wrap">
-        <p class="snarkflix-static-banner">
-            Crawlable archive copy. <a href="https://snarkflix.com/">Open the full Snarkflix site</a> for search, filters, related reviews, and sharing (canonical review URL stays here).
-        </p>
-
-        <article itemscope itemtype="https://schema.org/Review">
-            <span itemprop="author" itemscope itemtype="https://schema.org/Person">
-                <meta itemprop="name" content="Snarkflix">
-            </span>
-            <span itemprop="itemReviewed" itemscope itemtype="https://schema.org/Movie">
-                <meta itemprop="name" content="${headingEsc}">
-                <meta itemprop="genre" content="${category}">
-                <meta itemprop="datePublished" content="${esc(filmReleaseISO)}">
-                <meta itemprop="image" content="${imageUrl}">
-                <meta itemprop="url" content="${reviewUrl}">
-            </span>
-            <h1 itemprop="name">${headingEsc} Review</h1>
-            <p class="snarkflix-static-meta">${category} &middot; ${year} &middot; ${esc(review.readingDuration)} &middot; Published ${esc(review.publishDate)}</p>
-            <span class="snarkflix-static-score">SnarkAI Score: ${score}/100</span>
-            <img src="${imageUrl}" alt="${headingEsc} — film poster" class="review-image" width="800" height="420" itemprop="image">
-            <blockquote>&ldquo;${tagline}&rdquo;</blockquote>
-            <p><strong>TL;DR:</strong> ${esc(summaryText)}</p>
-            <div itemprop="reviewBody">${contentToHtml(review.content)}</div>
-        </article>
-
-        <p style="margin-top:2rem;"><a href="https://snarkflix.com/">← All reviews</a></p>
-    </div>
+<body class="sf-static">
+    <a href="#review-main" class="snarkflix-skip-link">Skip to main content</a>
+    ${T.headerHTML()}
+    ${T.articleHTML(review)}
+    ${T.relatedHTML(review, reviews)}
+    ${T.footerHTML()}
+    <script>
+        // Copy-link button (the only interactive bit on a static page)
+        document.addEventListener('click', function (e) {
+            var btn = e.target.closest && e.target.closest('[data-share="copy"]');
+            if (!btn || !navigator.clipboard) return;
+            var label = btn.querySelector('span');
+            navigator.clipboard.writeText(btn.getAttribute('data-url')).then(function () {
+                if (!label) return;
+                var original = label.textContent;
+                label.textContent = 'Link copied';
+                setTimeout(function () { label.textContent = original; }, 2000);
+            }, function () {});
+        });
+    </script>
 </body>
 </html>`;
 

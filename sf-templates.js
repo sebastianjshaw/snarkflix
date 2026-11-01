@@ -37,6 +37,7 @@
             "images/reviews/good-boy-2025/header-good-boy-2025.webp": "standard",
             "images/reviews/iron-giant-1999/header-iron-giant.webp": "standard",
             "images/reviews/kpop-demonhunters-2025/header-kpop-demonhunters-2025.webp": "legacy",
+            "images/reviews/obsession-2025/header-obsession-2025.webp": "standard",
             "images/reviews/palm-springs-2020/header-palm-springs-2020.webp": "standard",
             "images/reviews/pitch-perfect/header-pitch-perfect.webp": "legacy",
             "images/reviews/project-hail-mary-2026/header-project-hail-mary-2026.webp": "standard",

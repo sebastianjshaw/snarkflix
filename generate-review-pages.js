@@ -6,6 +6,8 @@ const T = require('./sf-templates.js');
 
 const reviews = require('./reviews-data.js');
 
+T.validateNotes(reviews);
+
 const FONTS_URL = 'https://fonts.googleapis.com/css2?family=Fraunces:ital,opsz,wght@0,9..144,400;0,9..144,600;0,9..144,700;1,9..144,400&family=IBM+Plex+Sans:ital,wght@0,400;0,500;0,600;0,700&family=Source+Serif+4:ital,opsz,wght@0,8..60,400;0,8..60,600;1,8..60,400&display=swap';
 
 const reviewDir = path.join(__dirname, 'review');

@@ -121,6 +121,66 @@ describe('article', () => {
     });
 });
 
+describe('content warnings', () => {
+    const tagged = (over = {}) => review({ contentNotes: ['sexual-violence', 'animal-death'], ...over });
+
+    test('a tagged card gets a CW marker that names every tag, and an untagged card does not', () => {
+        const html = T.cardHTML(tagged());
+        expect(html).toContain('class="sf-cw"');
+        expect(html).toContain('aria-label="Content warning: Sexual violence, Animal death"');
+        expect(html).toContain('Sexual violence · Animal death');
+        expect(T.cardHTML(review())).not.toContain('sf-cw');
+    });
+
+    test('the marker is keyboard-focusable, so the tag names are not hover-only', () => {
+        expect(T.cardHTML(tagged())).toContain('tabindex="0"');
+    });
+
+    test('the hero feature card carries the marker too', () => {
+        expect(T.featuredHTML(tagged())).toContain('class="sf-cw"');
+    });
+
+    test('the warning sits after the tl;dr and before the review text', () => {
+        const html = T.articleHTML(tagged());
+        expect(html.indexOf('sf-tldr')).toBeLessThan(html.indexOf('sf-notice'));
+        expect(html.indexOf('sf-notice')).toBeLessThan(html.indexOf('sf-prose'));
+        expect(html).not.toContain('<details class="sf-gate">');
+    });
+
+    test('contentGate collapses the review text inside a <details>, closed by default', () => {
+        const html = T.articleHTML(tagged({ contentGate: true }));
+        expect(html).toContain('<details class="sf-gate">');
+        expect(html).not.toMatch(/<details class="sf-gate"[^>]*open/);
+        expect(html.indexOf('sf-tldr')).toBeLessThan(html.indexOf('sf-gate'));
+        expect(html.indexOf('sf-gate__summary')).toBeLessThan(html.indexOf('sf-prose'));
+        // still in the DOM, so it stays crawlable
+        expect(html).toContain('First paragraph.');
+    });
+
+    test('reviews without notes render exactly as before', () => {
+        const html = T.articleHTML(review());
+        expect(html).not.toContain('sf-notice');
+        expect(html).not.toContain('sf-gate');
+        expect(html).toContain('<div class="sf-prose">');
+    });
+
+    test('unknown tags and an empty gate are rejected by the build check', () => {
+        expect(() => T.validateNotes([review({ contentNotes: ['spooky'] })])).toThrow(/unknown contentNotes tag "spooky"/);
+        expect(() => T.validateNotes([review({ contentGate: true })])).toThrow(/no contentNotes/);
+        expect(() => T.validateNotes([tagged({ contentGate: true })])).not.toThrow();
+    });
+
+    test('every real review passes validation', () => {
+        expect(() => T.validateNotes(reviews)).not.toThrow();
+    });
+
+    test('Obsession is tagged and gated', () => {
+        const obsession = reviews.find((r) => r.id === 58);
+        expect(obsession.contentGate).toBe(true);
+        expect(T.noteLabels(obsession)).toEqual(expect.arrayContaining(['Sexual violence', 'Suicide and self-harm']));
+    });
+});
+
 describe('every real review renders', () => {
     test.each(reviews.map((r) => [r.id, r.title, r]))('#%i %s', (_id, _title, r) => {
         const card = T.cardHTML(r);

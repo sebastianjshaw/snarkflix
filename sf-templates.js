@@ -254,6 +254,52 @@
     var SIZES_FEATURE = '(max-width: 899px) 92vw, 540px';
     var SIZES_HERO = '(max-width: 1148px) 100vw, 1100px';
 
+    // ------------------------------------------------------------ content warnings
+
+    // Fixed vocabulary: reviews list slugs in `contentNotes`; the build fails on anything not listed here.
+    var CONTENT_NOTES = {
+        'sexual-violence': 'Sexual violence',
+        'suicide-self-harm': 'Suicide and self-harm',
+        'abuse': 'Abuse',
+        'animal-death': 'Animal death',
+        'graphic-violence': 'Graphic violence',
+        'child-harm': 'Harm to children',
+        'eating-disorders': 'Eating disorders'
+    };
+
+    function noteLabels(review) {
+        return (review.contentNotes || [])
+            .filter(function (slug) { return Object.prototype.hasOwnProperty.call(CONTENT_NOTES, slug); })
+            .map(function (slug) { return CONTENT_NOTES[slug]; });
+    }
+
+    /** Throws on an unknown tag, or a gate with nothing to warn about. Called by the build. */
+    function validateNotes(reviews) {
+        reviews.forEach(function (r) {
+            (r.contentNotes || []).forEach(function (slug) {
+                if (!Object.prototype.hasOwnProperty.call(CONTENT_NOTES, slug)) {
+                    throw new Error('Review ' + r.id + ' (' + r.title + ') has unknown contentNotes tag "' + slug +
+                        '". Allowed: ' + Object.keys(CONTENT_NOTES).join(', '));
+                }
+            });
+            if (r.contentGate && !(r.contentNotes && r.contentNotes.length)) {
+                throw new Error('Review ' + r.id + ' (' + r.title + ') sets contentGate but has no contentNotes.');
+            }
+        });
+    }
+
+    /**
+     * Small "CW" marker on a card's image. It expands to the tag names on hover or focus
+     * (focusable, so keyboard and touch work too, and there is no script involved).
+     */
+    function cwHTML(review) {
+        var labels = noteLabels(review);
+        if (!labels.length) return '';
+        return '<span class="sf-cw" tabindex="0" role="note" aria-label="Content warning: ' + esc(labels.join(', ')) + '">' +
+            '<span class="sf-cw__badge" aria-hidden="true">CW</span>' +
+            '<span class="sf-cw__tags" aria-hidden="true">' + esc(labels.join(' · ')) + '</span></span>';
+    }
+
     // ------------------------------------------------------------------ cards
 
     function metaLine(review) {
@@ -270,6 +316,7 @@
             '<div class="sf-card__media">' +
             pictureHTML(review.imageUrl, '', ctx, { sizes: SIZES_CARD, imgClass: 'sf-card__img' }) +
             scoreHTML(review.aiScore, { size: 'sm' }) +
+            cwHTML(review) +
             '</div>' +
             '<div class="sf-card__body">' +
             '<p class="sf-card__meta">' + metaLine(review) + '</p>' +
@@ -287,6 +334,7 @@
             '<div class="sf-card__media">' +
             pictureHTML(review.imageUrl, '', ctx, { eager: true, sizes: SIZES_FEATURE, imgClass: 'sf-card__img' }) +
             scoreHTML(review.aiScore, { size: 'md' }) +
+            cwHTML(review) +
             '</div>' +
             '<div class="sf-card__body">' +
             '<p class="sf-card__kicker">Latest review</p>' +
@@ -412,6 +460,28 @@
             '</aside>';
     }
 
+    /**
+     * Content warning between the AI summary and the human review. Reviews with contentGate also
+     * get their text collapsed behind it (native <details>: no script, and the text stays in the page).
+     */
+    function warningHTML(review, proseInner) {
+        var labels = noteLabels(review);
+        if (!labels.length) return '<div class="sf-prose">' + proseInner + '</div>';
+        var list = esc(labels.join(' · '));
+        if (!review.contentGate) {
+            return '<aside class="sf-notice" aria-label="Content warning"><p><strong class="sf-notice__label">Content warning</strong> ' + list + '</p></aside>' +
+                '<div class="sf-prose">' + proseInner + '</div>';
+        }
+        return '<details class="sf-gate">' +
+            '<summary class="sf-gate__summary">' +
+            '<span class="sf-gate__label">Content warning</span>' +
+            '<span class="sf-gate__tags">' + list + '</span>' +
+            '<span class="sf-gate__hint">This review describes these in detail. ' +
+            '<span class="sf-gate__open">Show the review</span><span class="sf-gate__close">Hide the review</span></span>' +
+            '</summary>' +
+            '<div class="sf-prose">' + proseInner + '</div></details>';
+    }
+
     /** The whole review: image first, then title + score, tl;dr pull-out, text, share, small print. */
     function articleHTML(review, ctx) {
         ctx = defaults(ctx);
@@ -436,7 +506,7 @@
             '</div></header>' +
             '<div class="sf-container sf-article__body">' +
             '<aside class="sf-tldr" aria-label="Summary"><p class="sf-tldr__label">TL;DR</p><p class="sf-tldr__text">' + esc(stripTldr(review.aiSummary)) + '</p></aside>' +
-            '<div class="sf-prose">' + proseHTML(review, ctx) + '</div>' +
+            warningHTML(review, proseHTML(review, ctx)) +
             trailerHTML(review) +
             shareHTML(review) +
             finePrintHTML(review) +
@@ -533,6 +603,10 @@
         headingTitle: headingTitle,
         categoryLabel: categoryLabel,
         categoryIcon: categoryIcon,
+        CONTENT_NOTES: CONTENT_NOTES,
+        noteLabels: noteLabels,
+        validateNotes: validateNotes,
+        cwHTML: cwHTML,
         clampScore: clampScore,
         bandFor: bandFor,
         scoreLabel: scoreLabel,

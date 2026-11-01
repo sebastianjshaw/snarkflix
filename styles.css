@@ -1140,6 +1140,153 @@ ol {
     }
 }
 
+/* Content warnings --------------------------------------------------------- */
+
+/* "CW" marker on a card image; expands to the tag names on hover or focus */
+.sf-cw {
+    position: absolute;
+    top: 0.6rem;
+    left: 0.6rem;
+    z-index: 2;
+    max-width: calc(100% - 1.2rem);
+    padding: 0.2rem 0.55rem;
+    background: rgba(20, 18, 16, 0.9);
+    border-radius: 999px;
+    box-shadow: 0 1px 6px rgba(0, 0, 0, 0.4);
+    color: #fff;
+    cursor: help;
+}
+
+/* Invisible padding around the pill so it is an easy tap target (44px-ish) without looking big */
+.sf-cw::before {
+    content: '';
+    position: absolute;
+    inset: -0.65rem;
+}
+
+.sf-cw__badge {
+    display: block;
+    font-size: 0.6875rem;
+    font-weight: 700;
+    letter-spacing: 0.12em;
+    line-height: 1.4;
+}
+
+.sf-cw__tags {
+    display: none;
+    margin-top: 0.15rem;
+    font-size: 0.75rem;
+    font-weight: 500;
+    line-height: 1.35;
+}
+
+.sf-cw:hover,
+.sf-cw:focus {
+    padding: 0.35rem 0.65rem 0.45rem;
+    border-radius: 10px;
+}
+
+.sf-cw:hover .sf-cw__tags,
+.sf-cw:focus .sf-cw__tags {
+    display: block;
+}
+
+@media (max-width: 639px) {
+    .sf-cw {
+        top: 0.4rem;
+        left: 0.4rem;
+        max-width: calc(100% - 0.8rem);
+    }
+
+    .sf-cw__badge {
+        font-size: 0.625rem;
+    }
+
+    .sf-cw__tags {
+        font-size: 0.6875rem;
+    }
+}
+
+/* Review page: the warning sits between the AI summary and the human review */
+.sf-notice {
+    margin: -1rem 0 2rem;
+    padding: 0.75rem 1rem;
+    border: 1px solid var(--sf-line-strong);
+    border-radius: var(--sf-radius-sm);
+    color: var(--sf-ink-2);
+    font-size: 0.9375rem;
+}
+
+.sf-notice p {
+    margin: 0;
+}
+
+.sf-notice__label,
+.sf-gate__label {
+    margin-right: 0.35rem;
+    color: var(--sf-ink);
+    font-size: 0.75rem;
+    font-weight: 700;
+    letter-spacing: 0.12em;
+    text-transform: uppercase;
+}
+
+.sf-gate {
+    margin: -1rem 0 2rem;
+}
+
+.sf-gate__summary {
+    display: grid;
+    gap: 0.35rem;
+    padding: 1rem 1.25rem;
+    background: var(--sf-surface);
+    border: 1.5px solid var(--sf-line-strong);
+    border-radius: var(--sf-radius);
+    cursor: pointer;
+    list-style: none;
+}
+
+.sf-gate__summary::-webkit-details-marker {
+    display: none;
+}
+
+.sf-gate__summary:hover {
+    border-color: var(--sf-ink);
+}
+
+.sf-gate__tags {
+    font-family: var(--sf-font-display);
+    font-size: 1.15rem;
+    font-weight: 600;
+    line-height: 1.3;
+}
+
+.sf-gate__hint {
+    color: var(--sf-ink-2);
+    font-size: 0.9375rem;
+}
+
+.sf-gate__open,
+.sf-gate__close {
+    color: var(--sf-orange-text);
+    font-weight: 600;
+    text-decoration: underline;
+    text-underline-offset: 3px;
+}
+
+.sf-gate__close,
+.sf-gate[open] .sf-gate__open {
+    display: none;
+}
+
+.sf-gate[open] .sf-gate__close {
+    display: inline;
+}
+
+.sf-gate[open] > .sf-prose {
+    margin-top: 2rem;
+}
+
 /* 7. Review article ------------------------------------------------------- */
 
 .sf-article__hero {

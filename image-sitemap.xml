@@ -682,4 +682,13 @@
       <image:license>https://snarkflix.com</image:license>
     </image:image>
   </url>
+  <url>
+    <loc>https://snarkflix.com/review/58</loc>
+    <image:image>
+      <image:loc>https://snarkflix.com/images/reviews/obsession-2025/header-obsession-2025.webp</image:loc>
+      <image:title>Obsession (2025) Movie Review Poster</image:title>
+      <image:caption>Official movie poster for Obsession (2025) - Horror film review on Snarkflix</image:caption>
+      <image:license>https://snarkflix.com</image:license>
+    </image:image>
+  </url>
 </urlset>

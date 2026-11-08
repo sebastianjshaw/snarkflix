@@ -28,6 +28,7 @@
         "variants": {
             "images/reviews/28-years-later-2025/header-28-years-later-2025.webp": "standard",
             "images/reviews/avatar-the-way-of-water-2022/header-avatar-the-way-of-water-2022.png": "legacy",
+            "images/reviews/backrooms-2026/header-backrooms-2026.webp": "standard",
             "images/reviews/black-widow-2021/header-black-widow.webp": "legacy",
             "images/reviews/care-2018/header-care-2018.webp": "standard",
             "images/reviews/cocaine-bear/header-cocaine-bear.webp": "legacy",

@@ -2,7 +2,7 @@
 <urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
   <url>
     <loc>https://snarkflix.com/</loc>
-    <lastmod>2026-11-02</lastmod>
+    <lastmod>2026-11-08</lastmod>
     <priority>1.0</priority>
     <changefreq>weekly</changefreq>
   </url>
@@ -382,6 +382,13 @@
     <loc>https://snarkflix.com/review/58</loc>
     <lastmod>2026-11-01</lastmod>
     <priority>0.9</priority>
+    <changefreq>weekly</changefreq>
+  </url>
+  <!-- Review: Backrooms (2026) -->
+  <url>
+    <loc>https://snarkflix.com/review/59</loc>
+    <lastmod>2026-11-08</lastmod>
+    <priority>0.7</priority>
     <changefreq>weekly</changefreq>
   </url>
 </urlset>

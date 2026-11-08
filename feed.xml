@@ -4,10 +4,19 @@
   <link href="https://snarkflix.com/feed.xml" rel="self" type="application/atom+xml"/>
   <link href="https://snarkflix.com/" rel="alternate" type="text/html"/>
   <id>https://snarkflix.com/feed.xml</id>
-  <updated>2026-11-01T12:00:00.000Z</updated>
+  <updated>2026-11-08T12:00:00.000Z</updated>
   <subtitle>First-person film reviews — British English.</subtitle>
   <rights>© Snarkflix</rights>
   <generator uri="https://snarkflix.com/">Snarkflix static generator</generator>
+  <entry>
+    <title>Backrooms (2026)</title>
+    <link href="https://snarkflix.com/review/59" rel="alternate" type="text/html"/>
+    <id>https://snarkflix.com/review/59</id>
+    <updated>2026-11-08T12:00:00.000Z</updated>
+    <published>2026-11-08T12:00:00.000Z</published>
+    <author><name>Snarkflix</name></author>
+    <summary type="html">&lt;p&gt;A Reddit creepypasta turned feature film: 4:3 VHS, very yellow, strong 1980s vibes. Chiwetel Ejiofor&apos;s Clarke noclips into the Backrooms (think Severance, or a measurably inferior Stanley Parable), then explores them with no spraypaint trail and a lot of poor planning, in a place that is optional and so hard to be scared of. The makeup on the broken faces is immaculate and the final 30 seconds are the best thing in it, but the rest is predictable, leans on creepypasta tropes and feels like a poo&lt;/p&gt; &lt;p&gt;&lt;small&gt;Theatrical release (approx.): 2026-07-01&lt;/small&gt;&lt;/p&gt;</summary>
+  </entry>
   <entry>
     <title>Obsession (2025)</title>
     <link href="https://snarkflix.com/review/58" rel="alternate" type="text/html"/>

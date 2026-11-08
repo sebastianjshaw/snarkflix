@@ -691,4 +691,13 @@
       <image:license>https://snarkflix.com</image:license>
     </image:image>
   </url>
+  <url>
+    <loc>https://snarkflix.com/review/59</loc>
+    <image:image>
+      <image:loc>https://snarkflix.com/images/reviews/backrooms-2026/header-backrooms-2026.webp</image:loc>
+      <image:title>Backrooms (2026) Movie Review Poster</image:title>
+      <image:caption>Official movie poster for Backrooms (2026) - Horror film review on Snarkflix</image:caption>
+      <image:license>https://snarkflix.com</image:license>
+    </image:image>
+  </url>
 </urlset>

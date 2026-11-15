@@ -32,6 +32,7 @@
             "images/reviews/black-widow-2021/header-black-widow.webp": "legacy",
             "images/reviews/care-2018/header-care-2018.webp": "standard",
             "images/reviews/cocaine-bear/header-cocaine-bear.webp": "legacy",
+            "images/reviews/coyote-vs-acme-2026/header-coyote-vs-acme-2026.webp": "standard",
             "images/reviews/encanto-2021/header-encanto.png": "legacy",
             "images/reviews/fantastic-four-first-steps/header-fantastic-four-first-steps.webp": "standard",
             "images/reviews/goncharov-1973/header-goncharov-1973.png": "legacy",
